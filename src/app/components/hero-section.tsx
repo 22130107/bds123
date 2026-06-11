@@ -52,7 +52,7 @@ export function HeroSection({ onNavigate }: HeroSectionProps) {
                 fontSize: "11px",
                 letterSpacing: "0.12em",
                 fontWeight: 700,
-                backgroundColor: activeTab === key ? "#D4AF37" : "#C85A17",
+                backgroundColor: activeTab === key ? "#C85A17" : "rgba(255, 255, 255, 0.15)",
                 color: "#ffffff",
                 backdropFilter: "blur(8px)",
               }}
