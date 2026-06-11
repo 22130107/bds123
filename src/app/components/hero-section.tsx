@@ -66,12 +66,12 @@ export function HeroSection({ onNavigate }: HeroSectionProps) {
         <div className="bg-white/10 backdrop-blur-2xl border border-white/20 p-1.5 shadow-2xl">
           <div className="bg-white">
             {/* Main row */}
-            <div className="flex flex-col md:flex-row items-stretch border-b border-outline-variant/20">
+            <div className="flex items-stretch border-b border-outline-variant/20">
               {/* Loại nhà đất */}
-              <div className="flex items-center w-full md:w-auto border-b md:border-b-0 md:border-r border-outline-variant/20 px-5 shrink-0">
+              <div className="flex items-center border-r border-outline-variant/20 px-2 md:px-5 shrink-0">
                 <select
-                  className="w-full md:w-auto bg-transparent border-none focus:ring-0 font-body-md text-on-surface appearance-none outline-none pr-5 py-4 cursor-pointer"
-                  style={{ fontSize: "15px" }}
+                  className="w-full md:w-auto bg-transparent border-none focus:ring-0 font-body-md text-on-surface appearance-none outline-none pr-4 md:pr-5 py-4 cursor-pointer text-[12px] md:text-[15px]"
+                  style={{ fontWeight: 500 }}
                 >
                   <option>Loại nhà đất</option>
                   <option>Nhà ở</option>
@@ -80,46 +80,45 @@ export function HeroSection({ onNavigate }: HeroSectionProps) {
                   <option>Đất nền</option>
                   <option>Văn phòng, mặt bằng</option>
                 </select>
-                <span className="material-symbols-outlined text-outline-variant pointer-events-none -ml-4" style={{ fontSize: "18px" }}>expand_more</span>
+                <span className="material-symbols-outlined text-outline-variant pointer-events-none -ml-4 text-xs md:text-sm">expand_more</span>
               </div>
 
               {/* Địa điểm */}
-              <div className="flex-1 flex items-center px-5 py-3 md:py-0 border-b md:border-b-0 border-outline-variant/20">
-                <span className="material-symbols-outlined text-antique-gold mr-3 shrink-0" style={{ fontSize: "20px" }}>location_on</span>
+              <div className="flex-1 min-w-0 flex items-center px-2 md:px-5">
+                <span className="material-symbols-outlined text-antique-gold mr-1.5 md:mr-3 shrink-0 text-sm md:text-xl">location_on</span>
                 <input
                   type="text"
                   placeholder="Nhập địa điểm hoặc dự án..."
-                  className="w-full bg-transparent border-none focus:ring-0 font-body-md text-on-surface placeholder:text-on-surface-variant/50 outline-none py-4"
-                  style={{ fontSize: "15px" }}
+                  className="w-full bg-transparent border-none focus:ring-0 font-body-md text-on-surface placeholder:text-on-surface-variant/50 outline-none py-4 text-[12px] md:text-[15px]"
                 />
               </div>
 
               {/* Nút tìm kiếm */}
               <button
                 onClick={() => onNavigate?.("listing")}
-                className="w-full md:w-auto px-10 py-4 font-label-caps text-white bg-earth-brown hover:bg-antique-gold transition-all duration-500 shrink-0 active:scale-95"
-                style={{ fontSize: "12px", letterSpacing: "0.15em", fontWeight: 700 }}
+                className="px-3 md:px-10 py-4 font-label-caps text-white bg-earth-brown hover:bg-antique-gold transition-all duration-500 shrink-0 active:scale-95 text-[10px] md:text-[12px]"
+                style={{ letterSpacing: "0.15em", fontWeight: 700 }}
               >
                 TÌM KIẾM
               </button>
             </div>
 
             {/* Filter row */}
-            <div className="grid grid-cols-2 md:grid-cols-4 divide-x divide-y md:divide-y-0 divide-outline-variant/20">
+            <div className="flex divide-x divide-outline-variant/20">
               {[
                 { label: "Toàn quốc", options: ["Toàn quốc", "Hà Nội", "TP. Hồ Chí Minh", "Đà Nẵng", "Nha Trang"] },
                 { label: "Mức giá", options: ["Mức giá", "Dưới 1 tỷ", "1 – 3 tỷ", "3 – 5 tỷ", "5 – 10 tỷ", "Trên 10 tỷ"] },
                 { label: "Diện tích", options: ["Diện tích", "Dưới 50 m²", "50 – 100 m²", "100 – 200 m²", "Trên 200 m²"] },
                 { label: "Dự án", options: ["Dự án", "The Heritage Riverside", "Masteri West Heights", "Vinhomes Ocean Park"] },
               ].map(({ label, options }) => (
-                <div key={label} className="flex-1 flex items-center px-4 py-2.5">
+                <div key={label} className="flex-1 min-w-0 flex items-center px-1 md:px-4 py-2 md:py-2.5">
                   <select
-                    className="w-full bg-transparent border-none focus:ring-0 text-on-surface-variant appearance-none outline-none cursor-pointer"
-                    style={{ fontSize: "13px", fontWeight: 500 }}
+                    className="w-full bg-transparent border-none focus:ring-0 text-on-surface-variant appearance-none outline-none cursor-pointer text-[10px] md:text-[13px]"
+                    style={{ fontWeight: 500 }}
                   >
                     {options.map((o) => <option key={o}>{o}</option>)}
                   </select>
-                  <span className="material-symbols-outlined text-outline-variant pointer-events-none shrink-0 -ml-5" style={{ fontSize: "16px" }}>expand_more</span>
+                  <span className="material-symbols-outlined text-outline-variant pointer-events-none shrink-0 -ml-4 text-xs md:text-[16px]">expand_more</span>
                 </div>
               ))}
             </div>
