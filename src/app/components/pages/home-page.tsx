@@ -17,10 +17,10 @@ export function HomePage({ onNavigate }: HomePageProps) {
       <TopNavBar activePage="home" onNavigate={onNavigate} />
       <main className="pt-0">
         <HeroSection onNavigate={onNavigate} />
-        <FeaturedNews />
         <TailoredSection onViewDetail={() => onNavigate("detail")} />
         <FeaturedProjects />
         <LocationSection />
+        <FeaturedNews />
         <CTASection onSchedule={() => onNavigate("listing")} onViewCatalog={() => onNavigate("listing")} />
       </main>
       <Footer variant="default" />
