@@ -39,7 +39,12 @@ export function LocationSection() {
   const smallLocations = locations.filter((l) => !l.large);
 
   return (
-    <section className="py-20 bg-earth-brown text-sand-beige relative overflow-hidden">
+    <section 
+      className="py-20 text-sand-beige relative overflow-hidden"
+      style={{
+        background: `linear-gradient(to bottom, rgba(0, 0, 0, 0.45) 0%, rgba(0, 0, 0, 0.65) 100%), linear-gradient(to right, #721616 0%, #721616 16.6%, #8f2e11 16.6%, #8f2e11 33.3%, #b04914 33.3%, #b04914 50%, #c3611b 50%, #c3611b 66.6%, #db8026 66.6%, #db8026 83.3%, #e7992d 83.3%, #e7992d 100%)`
+      }}
+    >
       <div className="absolute top-0 right-0 w-1/3 h-full bg-antique-gold/5 pointer-events-none" />
       <div className="max-w-[1440px] mx-auto px-6 md:px-[100px] relative z-10">
         {/* Header */}
@@ -57,8 +62,8 @@ export function LocationSection() {
             <div className="absolute top-0 right-0 w-6 h-6 border-t border-r border-antique-gold" />
             <div className="absolute bottom-0 left-0 w-6 h-6 border-b border-l border-antique-gold" />
             <div className="absolute bottom-0 right-0 w-6 h-6 border-b border-r border-antique-gold" />
-            <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-earth-brown px-4">
-              <span className="material-symbols-outlined text-antique-gold text-xl">explore</span>
+            <div className="absolute -top-5 left-1/2 -translate-x-1/2 bg-[#C85A17] w-10 h-10 rounded-full border border-white/20 shadow-md flex items-center justify-center">
+              <span className="material-symbols-outlined text-white text-md">explore</span>
             </div>
             <h2
               className="font-headline-lg text-white relative z-10"
