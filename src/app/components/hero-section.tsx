@@ -52,7 +52,7 @@ export function HeroSection({ onNavigate }: HeroSectionProps) {
                 fontSize: "11px",
                 letterSpacing: "0.12em",
                 fontWeight: 700,
-                backgroundColor: activeTab === key ? "#D4AF37" : "rgba(200,90,23,0.55)",
+                backgroundColor: activeTab === key ? "#D4AF37" : "#C85A17",
                 color: "#ffffff",
                 backdropFilter: "blur(8px)",
               }}
@@ -68,7 +68,7 @@ export function HeroSection({ onNavigate }: HeroSectionProps) {
             {/* Main row */}
             <div className="flex items-stretch border-b border-outline-variant/20">
               {/* Loại nhà đất */}
-              <div className="flex items-center border-r border-outline-variant/20 px-2 md:px-5 shrink-0">
+              <div className="flex items-center border-r border-outline-variant/20 px-2 md:px-5 shrink-0 w-[95px] md:w-auto">
                 <select
                   className="w-full md:w-auto bg-transparent border-none focus:ring-0 font-body-md text-on-surface appearance-none outline-none pr-4 md:pr-5 py-4 cursor-pointer text-[12px] md:text-[15px]"
                   style={{ fontWeight: 500 }}
