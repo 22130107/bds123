@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+
+<html class="scroll-smooth" lang="vi"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Biệt thự Riverfront Serenity | Di sản Kiến trúc Hiện đại</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&amp;family=Hanken+Grotesk:wght@400;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "tertiary-fixed": "#d1e9cb",
+                    "on-surface": "#1b1c19",
+                    "on-secondary-fixed-variant": "#574500",
+                    "on-tertiary": "#ffffff",
+                    "antique-gold": "#D4AF37",
+                    "on-tertiary-fixed-variant": "#374c36",
+                    "surface-tint": "#725a42",
+                    "on-error": "#ffffff",
+                    "on-background": "#1b1c19",
+                    "inverse-surface": "#30312e",
+                    "surface-container-highest": "#e4e2dd",
+                    "secondary": "#735c00",
+                    "forest-deep": "#1E321E",
+                    "earth-brown": "#4B3621",
+                    "surface-container-low": "#f5f3ee",
+                    "error-container": "#ffdad6",
+                    "surface": "#fbf9f4",
+                    "moss-green": "#4CAF50",
+                    "tertiary": "#152916",
+                    "secondary-fixed": "#ffe088",
+                    "sand-beige": "#E5D3B3",
+                    "on-tertiary-container": "#93aa8f",
+                    "charcoal-ink": "#1A1A1A",
+                    "surface-container": "#f0eee9",
+                    "on-tertiary-fixed": "#0c200d",
+                    "surface-variant": "#e4e2dd",
+                    "inverse-primary": "#e1c1a4",
+                    "on-primary-fixed": "#291806",
+                    "on-primary": "#ffffff",
+                    "secondary-container": "#fed65b",
+                    "on-surface-variant": "#4e453d",
+                    "outline-variant": "#d2c4ba",
+                    "on-primary-fixed-variant": "#59422c",
+                    "tertiary-fixed-dim": "#b5cdb0",
+                    "primary-fixed-dim": "#e1c1a4",
+                    "on-error-container": "#93000a",
+                    "on-secondary": "#ffffff",
+                    "outline": "#80756c",
+                    "primary-fixed": "#fedcbe",
+                    "background": "#fbf9f4",
+                    "surface-bright": "#fbf9f4",
+                    "surface-dim": "#dbdad5",
+                    "on-secondary-fixed": "#241a00",
+                    "error": "#ba1a1a",
+                    "surface-container-lowest": "#ffffff",
+                    "primary": "#33210d",
+                    "on-secondary-container": "#745c00",
+                    "primary-container": "#4b3621",
+                    "secondary-fixed-dim": "#e9c349",
+                    "on-primary-container": "#bd9f83",
+                    "tertiary-container": "#2b3f2a",
+                    "inverse-on-surface": "#f2f1ec",
+                    "surface-container-high": "#eae8e3"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "spacing": {
+                    "max-width": "1280px",
+                    "margin-mobile": "20px",
+                    "base": "8px",
+                    "margin-desktop": "80px",
+                    "gutter": "24px",
+                    "margin-tablet": "40px"
+            },
+            "fontFamily": {
+                    "label-caps": ["Hanken Grotesk"],
+                    "headline-lg": ["Playfair Display"],
+                    "body-md": ["Hanken Grotesk"],
+                    "body-lg": ["Hanken Grotesk"],
+                    "headline-md": ["Playfair Display"],
+                    "display-lg": ["Playfair Display"],
+                    "price-display": ["Hanken Grotesk"],
+                    "display-lg-mobile": ["Playfair Display"]
+            },
+            "fontSize": {
+                    "label-caps": ["12px", {"lineHeight": "16px", "letterSpacing": "0.1em", "fontWeight": "700"}],
+                    "headline-lg": ["32px", {"lineHeight": "40px", "fontWeight": "600"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                    "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                    "display-lg": ["56px", {"lineHeight": "64px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "price-display": ["22px", {"lineHeight": "24px", "fontWeight": "600"}],
+                    "display-lg-mobile": ["40px", {"lineHeight": "48px", "fontWeight": "700"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+            vertical-align: middle;
+        }
+        .hero-zoom:hover img {
+            transform: scale(1.05);
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: #fbf9f4;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #D4AF37;
+        }
+    </style>
+</head>
+<body class="bg-surface text-on-surface font-body-md selection:bg-antique-gold selection:text-white">
+<!-- TopNavBar -->
+<header class="fixed top-0 w-full z-50 bg-surface/90 dark:bg-on-surface/90 backdrop-blur-md border-b border-outline-variant dark:border-on-surface-variant h-20">
+<nav class="max-w-max-width mx-auto px-margin-desktop flex justify-between items-center h-full">
+<a class="block h-10 md:h-12 overflow-hidden" href="#">
+<img alt="TimNhaHot.vn Logo" class="h-full w-auto object-contain" src="https://lh3.googleusercontent.com/aida/AP1WRLtKGfpk6FtrJPFP3B9t4nNMJJGgw8Wa1-N61oSxoGXqIQx3QFnWJSXWxfG7sdurlABfZiJZTaf4Ro9_VsKKlF2Bdu-ngh74_SpEUs5nWfYwOfGxNHm8RO_PSC1aoW8eBdRhHHyVJULvi2FnoAoFA1SOx5YtSVh6UKxENHSbJq_gzp91w14Ui3q401EBKWmnyLvdXlAsmUP_f2-mV6c1fj_G_m59swm7RzPvXZrHrzXyNFmcVy5lyOsiIuM"/>
+</a>
+<div class="hidden md:flex items-center gap-8">
+<a class="font-label-caps text-label-caps text-on-surface-variant hover:text-antique-gold transition-colors duration-300" href="#">Bộ sưu tập</a>
+<a class="font-label-caps text-label-caps text-primary dark:text-primary-fixed border-b-2 border-antique-gold pb-1 transition-colors duration-300" href="#">Bất động sản</a>
+<a class="font-label-caps text-label-caps text-on-surface-variant hover:text-antique-gold transition-colors duration-300" href="#">Di sản Việt</a>
+<a class="font-label-caps text-label-caps text-on-surface-variant hover:text-antique-gold transition-colors duration-300" href="#">Dịch vụ Đặc quyền</a>
+<a class="font-label-caps text-label-caps text-on-surface-variant hover:text-antique-gold transition-colors duration-300" href="#">Liên hệ</a>
+</div>
+<div class="flex items-center gap-6">
+<button class="material-symbols-outlined text-primary hover:text-antique-gold transition-colors">search</button>
+<button class="hidden lg:block bg-primary text-white px-6 py-2.5 font-label-caps text-label-caps hover:bg-earth-brown transition-all active:scale-95">
+                Tham quan riêng
+            </button>
+</div>
+</nav>
+</header>
+<main class="pt-20"><!-- Main Content Container -->
+<div class="max-w-max-width mx-auto px-margin-desktop py-12 grid grid-cols-1 lg:grid-cols-12 gap-8">
+<!-- Left Column: Gallery & Specs -->
+<div class="lg:col-span-8 space-y-8">
+<!-- Gallery Section -->
+<div class="bg-white rounded-xl p-6 shadow-sm border border-outline-variant/30">
+<div class="aspect-video w-full overflow-hidden rounded-lg mb-4">
+<img alt="Biệt thự Riverfront Serenity" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida/AP1WRLsoyCcoRDyb4qCggdI8uJ-GoX5IrkzVSDkuyuWPzrb9W9-4PdhLYMy9QJL3wAOuCSHorSMfSSI9LdSwS0PBI5zlngGWT8tC0hmbooHOTnVTsFmOslDwLvClbtyqvhWgT1I6q7A1p9yUBBvlTduYtWnlZWHSCQcAr5osZ9GkL076T1p5IL2OrmNbg_g5Xr3H9KP3x10DVcqBcjFr08xkmmL64GpQEnIdkaRTf02cqH-WygVEftv9GVTdPNI"/>
+</div>
+<div class="grid grid-cols-4 gap-4">
+<div class="aspect-square rounded-lg overflow-hidden border-2 border-antique-gold">
+<img class="w-full h-full object-cover cursor-pointer" src="https://lh3.googleusercontent.com/aida/AP1WRLsoyCcoRDyb4qCggdI8uJ-GoX5IrkzVSDkuyuWPzrb9W9-4PdhLYMy9QJL3wAOuCSHorSMfSSI9LdSwS0PBI5zlngGWT8tC0hmbooHOTnVTsFmOslDwLvClbtyqvhWgT1I6q7A1p9yUBBvlTduYtWnlZWHSCQcAr5osZ9GkL076T1p5IL2OrmNbg_g5Xr3H9KP3x10DVcqBcjFr08xkmmL64GpQEnIdkaRTf02cqH-WygVEftv9GVTdPNI"/>
+</div>
+<div class="aspect-square rounded-lg overflow-hidden border border-outline-variant/30">
+<img class="w-full h-full object-cover cursor-pointer hover:opacity-80 transition-opacity" src="https://lh3.googleusercontent.com/aida/AP1WRLu5WJAXe2DK574g7_n0GT0vsNWSNfaYpiS3TdMkReqeWEEHK-a3CfnBVfmQIYcwycxtQI_u2_NzIPXhRq_yLqXcPuRCBSAEthLcNEz23mvTWgKwwc9Txff0V-IgAoufnIeXYXdfmhgmSLl0s67Jkamr5A4TNUK7nx4vVKLVTKsm04kwLPCdmeqxP6Pta16Nd7U-oujhWVGtHdIt3fCfO4H4E2A_Dhr5Zink1xybP2b7hgB3JEfCYIILnA"/>
+</div>
+<div class="aspect-square rounded-lg overflow-hidden border border-outline-variant/30">
+<img class="w-full h-full object-cover cursor-pointer hover:opacity-80 transition-opacity" src="https://lh3.googleusercontent.com/aida/AP1WRLuxGSZNImk81KewFdb_DxFciYp8gDpIbocvbwltcmJcLXdMxdVFwRAtwpa9xwTQN_6w_71ep9F0OqXJALtzzkWKykQk78fu9a3bPyKD9kB4r2vx-rrvx9_Oo_qVkc6AW8yLYYVAee_7TVdM7ZkMryyAKuX2URdvbYNF2GD2FotWyX0-e7MyHIY1lJO9rIeFp9cfmjKbR9jdbO9GsBOdva8PNCkeUqJgGMldlzBozbLoJQ-GZhqPI8xPOIE"/>
+</div>
+<div class="aspect-square rounded-lg overflow-hidden border border-outline-variant/30 relative cursor-pointer group">
+<img class="w-full h-full object-cover group-hover:scale-110 transition-transform" src="https://lh3.googleusercontent.com/aida-public/AB6AXuArfTxcb8sfwUM7Fg_fQ3bm3wNm-ePQqpewaTzOfedvPliLJi2RKTFr8CZSK3IZuvwGaRlVIFlHYbY6z-GIhcxU-MMw4xiOrnIsbrFEpE9BMei0uPBTAQyZDThTnD3AJ7XMiuusUECsyL49yy6AhOVD6FSLS-N-vEDYZ1w126_CYsHuYeJJV1RjM01QQLg3lTtrLfU2ndqFc0ZspxYQQWinWEMLJg1kqxKnVh3Nn7nJzl8TEFq4JmOZ1nGgbo9iXy7rkMlaWg6IdOg"/>
+<div class="absolute inset-0 bg-black/40 flex items-center justify-center text-white font-label-caps text-[10px]">Xem thêm</div>
+</div>
+</div>
+<div class="mt-6 flex justify-between items-center">
+<button class="flex items-center gap-2 text-on-surface-variant hover:text-antique-gold transition-colors">
+<span class="material-symbols-outlined text-antique-gold">favorite</span>
+<span class="font-label-caps text-[12px]">Yêu thích (12)</span>
+</button>
+<button class="flex items-center gap-2 text-on-surface-variant hover:text-antique-gold transition-colors">
+<span class="material-symbols-outlined text-antique-gold">share</span>
+<span class="font-label-caps text-[12px]">Chia sẻ</span>
+</button>
+</div>
+</div>
+<!-- Technical Specifications Section -->
+<div class="bg-white rounded-xl p-8 shadow-sm border border-outline-variant/30">
+<div class="flex items-center gap-3 mb-8">
+<span class="material-symbols-outlined text-antique-gold">fact_check</span>
+<h3 class="font-headline-md text-headline-md text-primary">Thông số kỹ thuật chi tiết</h3>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-y-4 border-t border-outline-variant/20 pt-6">
+<div class="flex justify-between items-center py-2 border-b border-outline-variant/10 pr-4">
+<div class="flex items-center gap-2 text-on-surface-variant">
+<span class="material-symbols-outlined text-sm">explore</span>
+<span class="font-body-md">Hướng nhà</span>
+</div>
+<span class="font-label-caps text-primary">Đông Nam</span>
+</div>
+<div class="flex justify-between items-center py-2 border-b border-outline-variant/10 pl-4">
+<div class="flex items-center gap-2 text-on-surface-variant">
+<span class="material-symbols-outlined text-sm">layers</span>
+<span class="font-body-md">Số tầng</span>
+</div>
+<span class="font-label-caps text-primary">4 tầng</span>
+</div>
+<div class="flex justify-between items-center py-2 border-b border-outline-variant/10 pr-4">
+<div class="flex items-center gap-2 text-on-surface-variant">
+<span class="material-symbols-outlined text-sm">bed</span>
+<span class="font-body-md">Số phòng ngủ</span>
+</div>
+<span class="font-label-caps text-primary">6 PN</span>
+</div>
+<div class="flex justify-between items-center py-2 border-b border-outline-variant/10 pl-4">
+<div class="flex items-center gap-2 text-on-surface-variant">
+<span class="material-symbols-outlined text-sm">bathtub</span>
+<span class="font-body-md">Số phòng tắm/WC</span>
+</div>
+<span class="font-label-caps text-primary">7 WC</span>
+</div>
+<div class="flex justify-between items-center py-2 pr-4">
+<div class="flex items-center gap-2 text-on-surface-variant">
+<span class="material-symbols-outlined text-sm">description</span>
+<span class="font-body-md">Giấy tờ pháp lý</span>
+</div>
+<span class="font-label-caps text-primary">Sổ đỏ</span>
+</div>
+</div>
+</div>
+<!-- Description Section -->
+<div class="bg-white rounded-xl p-8 shadow-sm border border-outline-variant/30">
+<h3 class="font-headline-md text-headline-md text-primary mb-6">Kiệt tác kiến trúc bên sông</h3>
+<div class="prose max-w-none text-on-surface-variant font-body-lg leading-relaxed text-justify space-y-4">
+<p class="">Biệt thự Riverfront Serenity kiêu hãnh như một biểu tượng của di sản kiến trúc hiện đại ngay tại trái tim Thảo Điền. Được thiết kế bởi những nghệ nhân danh tiếng thế giới, dinh thự này là sự kết hợp hoàn mỹ giữa vẻ đẹp trường tồn của chất liệu gạch đá truyền thống Việt Nam với sự phóng khoáng của kính và thép đương đại.</p>
+<p class="">Với diện tích hơn 650 mét vuông được chăm chút tỉ mỉ, biệt thự mang đến một không gian sống đẳng cấp không đối thủ. Mọi căn phòng đều được định hướng để đón trọn ánh sáng luân chuyển trên dòng sông Sài Gòn, tạo nên một bức tranh sống động thay đổi từ lúc bình minh đến khi hoàng hôn buông xuống.</p>
+</div>
+</div>
+</div>
+<!-- Right Column: Sidebar -->
+<div class="lg:col-span-4 space-y-8">
+<!-- Agent Card -->
+<div class="bg-white rounded-xl p-8 shadow-sm border border-outline-variant/30 text-center">
+<div class="relative w-24 h-24 mx-auto mb-4">
+<img class="w-full h-full object-cover rounded-full border-2 border-antique-gold/20 p-1" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB2rsfS1zgIJns5lv7NacWbwu_zuAYC7ZmKEoWUCSPtXtPsO9rSE5ZNQxX7tQMwrjS89ktI-mwmCbi9xNXuBJtXtPm9ivnnq4FiF5ZKnTGy3_n4o5iIigmoExPiKRiA7GlDLAZmWtm9OOvyV_8PDbcxS_z8wYyIJoQPZLLGDk1UCFUVvpfKNx7IYZ2_kl6I9qJpQzRPhjfSJ1-SRzVSNUbcY64z3rFaNSEy9aFzXoc2eHhkMvdEY1A6iSTPhfpJ6tmBRGhIg1DS_X4"/>
+<div class="absolute bottom-0 right-0 w-6 h-6 bg-moss-green border-2 border-white rounded-full"></div>
+</div>
+<h4 class="font-headline-md text-headline-md text-primary mb-1">Anh Tuấn Nguyễn</h4>
+<p class="font-label-caps text-[10px] text-outline uppercase tracking-widest mb-6">Đại diện phân phối dự án</p>
+<div class="space-y-3">
+<a class="flex items-center justify-center gap-2 w-full bg-secondary-container text-on-secondary-container py-3 rounded-lg font-label-caps text-label-caps hover:bg-secondary-fixed transition-colors" href="tel:0982831582">
+<span class="material-symbols-outlined text-sm">call</span>
+                    Gọi ngay: 0982 831 582
+                </a>
+<button class="flex items-center justify-center gap-2 w-full border border-moss-green text-moss-green py-3 rounded-lg font-label-caps text-label-caps hover:bg-moss-green/5 transition-colors">
+<span class="material-symbols-outlined text-sm">chat</span>
+                    Nhắn tin qua Zalo
+                </button>
+</div>
+</div>
+<!-- Consultation Form -->
+<div class="bg-white rounded-xl p-8 shadow-sm border border-outline-variant/30">
+<h4 class="font-label-caps text-label-caps text-antique-gold mb-6 uppercase tracking-widest">Gửi yêu cầu tư vấn</h4>
+<form class="space-y-4">
+<div>
+<label class="font-label-caps text-[10px] text-outline uppercase block mb-1">Họ và tên *</label>
+<input class="w-full bg-surface-container-low border border-outline-variant/30 rounded-lg px-4 py-3 focus:border-antique-gold focus:ring-0 transition-colors placeholder:text-outline-variant/60" placeholder="Nhập họ tên của bạn" type="text"/>
+</div>
+<div>
+<label class="font-label-caps text-[10px] text-outline uppercase block mb-1">Số điện thoại *</label>
+<input class="w-full bg-surface-container-low border border-outline-variant/30 rounded-lg px-4 py-3 focus:border-antique-gold focus:ring-0 transition-colors placeholder:text-outline-variant/60" placeholder="Nhập số điện thoại liên lạc" type="tel"/>
+</div>
+<div>
+<label class="font-label-caps text-[10px] text-outline uppercase block mb-1">Địa chỉ Email</label>
+<input class="w-full bg-surface-container-low border border-outline-variant/30 rounded-lg px-4 py-3 focus:border-antique-gold focus:ring-0 transition-colors placeholder:text-outline-variant/60" placeholder="vidu@email.com" type="email"/>
+</div>
+<div>
+<label class="font-label-caps text-[10px] text-outline uppercase block mb-1">Lời nhắn tư vấn</label>
+<textarea class="w-full bg-surface-container-low border border-outline-variant/30 rounded-lg px-4 py-3 focus:border-antique-gold focus:ring-0 transition-colors placeholder:text-outline-variant/60 text-body-md" rows="4">Xin chào, tôi quan tâm đến tin đăng "Biệt thự Riverfront Serenity". Vui lòng liên hệ tư vấn lại cho tôi. Xin cảm ơn!</textarea>
+</div>
+<button class="w-full bg-moss-green text-white py-4 rounded-lg font-label-caps text-label-caps uppercase tracking-widest hover:bg-forest-deep transition-all active:scale-95 flex items-center justify-center gap-2" type="submit">
+<span class="material-symbols-outlined text-sm">send</span>
+                    Gửi thông tin liên hệ
+                </button>
+</form>
+</div>
+</div>
+</div></main>
+<!-- Footer -->
+<footer class="bg-primary-container dark:bg-on-tertiary-fixed w-full py-20 border-t border-earth-brown">
+<div class="max-w-max-width mx-auto px-margin-desktop grid grid-cols-1 md:grid-cols-4 gap-gutter">
+<div class="col-span-1 md:col-span-1">
+<img alt="TimNhaHot.vn Logo" class="h-16 w-auto object-contain mb-6" src="https://lh3.googleusercontent.com/aida/AP1WRLtKGfpk6FtrJPFP3B9t4nNMJJGgw8Wa1-N61oSxoGXqIQx3QFnWJSXWxfG7sdurlABfZiJZTaf4Ro9_VsKKlF2Bdu-ngh74_SpEUs5nWfYwOfGxNHm8RO_PSC1aoW8eBdRhHHyVJULvi2FnoAoFA1SOx5YtSVh6UKxENHSbJq_gzp91w14Ui3q401EBKWmnyLvdXlAsmUP_f2-mV6c1fj_G_m59swm7RzPvXZrHrzXyNFmcVy5lyOsiIuM"/>
+<p class="font-body-md text-body-md text-on-primary-container/80 mb-6">Tái định nghĩa chuẩn mực sống thượng lưu thông qua việc bảo tồn kiến trúc và sự xuất sắc trong thiết kế đương đại.</p>
+</div>
+<div class="col-span-1">
+<h6 class="font-label-caps text-label-caps text-antique-gold mb-6 uppercase">Văn phòng khu vực</h6>
+<ul class="space-y-4">
+<li class=""><a class="font-body-md text-body-md text-on-primary-container/80 hover:text-antique-gold underline underline-offset-4 transition-all" href="#">Văn phòng TP. Hồ Chí Minh</a></li>
+<li class=""><a class="font-body-md text-body-md text-on-primary-container/80 hover:text-antique-gold underline underline-offset-4 transition-all" href="#">Trụ sở chính Hà Nội</a></li>
+<li class=""><a class="font-body-md text-body-md text-on-primary-container/80 hover:text-antique-gold underline underline-offset-4 transition-all" href="#">Chi nhánh Đà Nẵng</a></li>
+</ul>
+</div>
+<div class="col-span-1">
+<h6 class="font-label-caps text-label-caps text-antique-gold mb-6 uppercase">Di sản</h6>
+<ul class="space-y-4">
+<li class=""><a class="font-body-md text-body-md text-on-primary-container/80 hover:text-antique-gold underline underline-offset-4 transition-all" href="#">Bảo tồn di sản</a></li>
+<li class=""><a class="font-body-md text-body-md text-on-primary-container/80 hover:text-antique-gold underline underline-offset-4 transition-all" href="#">Chính sách bảo mật</a></li>
+<li class=""><a class="font-body-md text-body-md text-on-primary-container/80 hover:text-antique-gold underline underline-offset-4 transition-all" href="#">Điều khoản dịch vụ</a></li>
+</ul>
+</div>
+<div class="col-span-1">
+<h6 class="font-label-caps text-label-caps text-antique-gold mb-6 uppercase">Đăng ký nhận tin</h6>
+<div class="flex border-b border-on-primary-container/30 pb-2">
+<input class="bg-transparent border-none focus:ring-0 text-white placeholder:text-on-primary-container/40 w-full font-body-md" placeholder="Địa chỉ Email" type="email"/>
+<button class="material-symbols-outlined text-antique-gold">arrow_forward</button>
+</div>
+</div>
+</div>
+<div class="max-w-max-width mx-auto px-margin-desktop mt-20 pt-8 border-t border-on-primary-container/10">
+<p class="font-body-md text-body-md text-on-primary-container/60 text-center md:text-left">© 2024 Modern Estate Heritage. Bản quyền đã được bảo hộ.</p>
+</div>
+</footer>
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const header = document.querySelector('header');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 100) {
+                header.classList.add('shadow-lg');
+            } else {
+                header.classList.remove('shadow-lg');
+            }
+        });
+
+        // Interactive Form Submission Placeholder
+        const form = document.querySelector('form');
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const btn = form.querySelector('button');
+            const originalText = btn.innerHTML;
+            btn.innerHTML = '<span class="material-symbols-outlined animate-spin">progress_activity</span> Đang xử lý...';
+            btn.classList.add('opacity-80', 'cursor-not-allowed');
+            
+            setTimeout(() => {
+                btn.innerHTML = '<span class="material-symbols-outlined">check_circle</span> Đã nhận yêu cầu';
+                btn.classList.remove('bg-primary');
+                btn.classList.add('bg-moss-green');
+                form.reset();
+                setTimeout(() => {
+                    btn.innerHTML = originalText;
+                    btn.classList.add('bg-primary');
+                    btn.classList.remove('bg-moss-green', 'opacity-80', 'cursor-not-allowed');
+                }, 5000);
+            }, 2000);
+        });
+    });
+</script>
+</body></html>
