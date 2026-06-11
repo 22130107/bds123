@@ -171,7 +171,7 @@ export function TailoredSection({ onViewDetail }: TailoredSectionProps) {
               >
                 {property.title}
               </h3>
-              <div className="flex flex-col gap-10 border-l-2 pl-10 border-antique-gold mb-12 bg-white p-6">
+              <div className="flex flex-col gap-6 border-l-2 pl-10 border-antique-gold mb-12 bg-white p-6">
                 <div className="space-y-2">
                   <span
                     className="font-label-caps text-earth-brown font-bold uppercase tracking-widest block w-fit border-b-2 border-earth-brown pb-1"
@@ -186,6 +186,7 @@ export function TailoredSection({ onViewDetail }: TailoredSectionProps) {
                     {property.price}
                   </span>
                 </div>
+                <div className="border-t border-outline-variant/30" />
                 <div className="grid grid-cols-3 gap-8">
                   {[
                     { value: property.specs[0], label: "PHÒNG NGỦ" },

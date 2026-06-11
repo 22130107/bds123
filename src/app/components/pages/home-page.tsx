@@ -4,6 +4,7 @@ import { FeaturedNews } from "../featured-news";
 import { TailoredSection } from "../tailored-section";
 import { FeaturedProjects } from "../featured-projects";
 import { LocationSection } from "../location-section";
+import { SpaceShowcase } from "../space-showcase";
 import { CTASection } from "../cta-section";
 import { Footer } from "../footer";
 
@@ -17,6 +18,7 @@ export function HomePage({ onNavigate }: HomePageProps) {
       <TopNavBar activePage="home" onNavigate={onNavigate} />
       <main className="pt-0">
         <HeroSection onNavigate={onNavigate} />
+        <SpaceShowcase />
         <TailoredSection onViewDetail={() => onNavigate("detail")} />
         <FeaturedProjects />
         <LocationSection />
