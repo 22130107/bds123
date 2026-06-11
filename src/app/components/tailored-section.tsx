@@ -44,6 +44,8 @@ export function TailoredSection({ onViewDetail }: TailoredSectionProps) {
   const [current, setCurrent] = useState(0);
   const property = tailoredData[current];
 
+
+
   return (
     <section className="bg-surface py-32 md:py-48 overflow-hidden border-y border-outline-variant/20">
       <div className="max-w-[1440px] mx-auto px-6 md:px-[100px]">
@@ -68,7 +70,7 @@ export function TailoredSection({ onViewDetail }: TailoredSectionProps) {
             </div>
             <h2
               className="font-display-lg text-earth-brown italic relative z-10"
-              style={{ fontSize: "clamp(32px, 4vw, 48px)", fontWeight: 700 }}
+              style={{ fontSize: "clamp(24px, 3.5vw, 40px)", fontWeight: 700 }}
             >
               Đề Xuất Cá Nhân Hóa
             </h2>

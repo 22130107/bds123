@@ -54,7 +54,7 @@ export function TopNavBar({ activePage, onNavigate }: TopNavBarProps) {
                     ? "text-white border-b border-antique-gold pb-0.5"
                     : "text-white/70 hover:text-white"
                 }`}
-                style={{ fontSize: "11px", letterSpacing: "0.12em", fontWeight: 700 }}
+                style={{ fontSize: "14px", letterSpacing: "0.12em", fontWeight: 700 }}
               >
                 {label}
               </a>
@@ -67,7 +67,7 @@ export function TopNavBar({ activePage, onNavigate }: TopNavBarProps) {
           <button
             onClick={() => onNavigate?.("listing")}
             className="hidden sm:block border border-white text-white px-5 py-2 font-label-caps hover:bg-white hover:text-earth-brown transition-all duration-300 active:scale-95"
-            style={{ fontSize: "11px", letterSpacing: "0.12em", fontWeight: 700 }}
+            style={{ fontSize: "14px", letterSpacing: "0.12em", fontWeight: 700 }}
           >
             ĐĂNG TIN
           </button>

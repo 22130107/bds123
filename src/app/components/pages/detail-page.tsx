@@ -46,6 +46,7 @@ const agentInfo = {
 };
 
 export function DetailPage({ onNavigate }: DetailPageProps) {
+
   return (
     <div className="bg-surface text-on-surface font-body-md" style={{ overflowX: "hidden" }}>
       <TopNavBar activePage="detail" onNavigate={onNavigate} />

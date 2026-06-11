@@ -79,10 +79,9 @@ export function FeaturedNews() {
               </div>
               <h2
                 className="font-display-lg text-earth-brown leading-tight relative z-10 text-center"
-                style={{ fontSize: "clamp(32px, 4vw, 60px)", fontWeight: 700 }}
+                style={{ fontSize: "clamp(24px, 3.5vw, 40px)", fontWeight: 700 }}
               >
-                Tin Tức <br />
-                <span className="italic font-normal">Nổi Bật</span>
+                Tin Tức
               </h2>
               <div className="absolute -bottom-4 left-1/2 -translate-x-1/2 px-4">
                 <span className="material-symbols-outlined text-antique-gold text-2xl rotate-180">filter_vintage</span>
@@ -105,7 +104,7 @@ export function FeaturedNews() {
         <div className="grid grid-cols-1 md:grid-cols-12 gap-x-12 gap-y-20 lg:gap-x-16">
           {/* Featured Article */}
           {featured && (
-            <article className="md:col-span-7 group cursor-pointer bg-white p-6 border border-outline-variant/10 shadow-sm transition-all hover:shadow-xl">
+            <article className="md:col-span-7 group cursor-pointer bg-white p-6 border border-earth-brown/30 shadow-sm transition-all hover:shadow-xl">
               <div className="relative overflow-hidden aspect-[16/10] bg-surface-container-low mb-10">
                 <img
                   src={featured.image}
@@ -128,7 +127,7 @@ export function FeaturedNews() {
                 </span>
               </div>
               <h3
-                className="font-display-lg text-earth-brown group-hover:text-antique-gold transition-colors mb-8 leading-tight"
+                className="font-body-lg text-earth-brown group-hover:text-antique-gold transition-colors mb-8 leading-tight"
                 style={{ fontSize: "clamp(28px, 3vw, 44px)", fontWeight: 700 }}
               >
                 {featured.title}
@@ -148,7 +147,7 @@ export function FeaturedNews() {
             {secondary.map((article) => (
               <article
                 key={article.id}
-                className="group cursor-pointer flex gap-6 items-start bg-white p-5 border border-outline-variant/10 shadow-sm transition-all hover:shadow-lg"
+                className="group cursor-pointer flex gap-6 items-start bg-white p-5 border border-earth-brown/30 shadow-sm transition-all hover:shadow-lg"
               >
                 <div className="w-1/3 aspect-square overflow-hidden bg-surface-container-low">
                   <img
@@ -165,7 +164,7 @@ export function FeaturedNews() {
                     {article.category}
                   </span>
                   <h4
-                    className="font-display-lg text-earth-brown group-hover:text-antique-gold transition-colors leading-snug"
+                    className="font-body-lg text-earth-brown group-hover:text-antique-gold transition-colors leading-snug"
                     style={{ fontSize: "20px", fontWeight: 700 }}
                   >
                     {article.title}

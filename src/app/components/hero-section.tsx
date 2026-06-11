@@ -8,7 +8,7 @@ export function HeroSection({ onNavigate }: HeroSectionProps) {
   const [activeTab, setActiveTab] = useState<"buy" | "rent">("buy");
 
   return (
-    <section className="relative h-screen min-h-[700px] flex items-end justify-center overflow-hidden bg-earth-brown pb-20">
+    <section className="relative h-[70vh] min-h-[500px] flex items-end justify-center overflow-hidden bg-earth-brown pb-16">
       {/* Background image */}
       <div
         className="absolute inset-0 bg-cover bg-center"
@@ -23,9 +23,9 @@ export function HeroSection({ onNavigate }: HeroSectionProps) {
       {/* Headline */}
       <div className="absolute top-1/3 -translate-y-1/2 left-0 right-0 text-center px-6 z-10">
         <h1
-          className="font-display-lg text-white leading-tight"
+          className="font-body-lg text-white leading-tight"
           style={{
-            fontSize: "clamp(40px, 6vw, 64px)",
+            fontSize: "clamp(48px, 7vw, 80px)",
             lineHeight: "1.1",
             fontWeight: 700,
             textShadow: "rgba(0,0,0,0.4) 0px 4px 20px",

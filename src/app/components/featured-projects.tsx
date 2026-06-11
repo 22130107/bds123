@@ -33,6 +33,8 @@ export function FeaturedProjects() {
   const [current, setCurrent] = useState(0);
   const project = projectData[current];
 
+
+
   return (
     <section className="py-40 overflow-hidden relative bg-surface-container-low border-b border-outline-variant/30">
       <div className="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-antique-gold/30 to-transparent" />
@@ -58,10 +60,9 @@ export function FeaturedProjects() {
               </div>
               <h2
                 className="font-display-lg text-earth-brown leading-[1.1] relative z-10"
-                style={{ fontSize: "clamp(36px, 5vw, 64px)", fontWeight: 700 }}
+                style={{ fontSize: "clamp(24px, 3.5vw, 40px)", fontWeight: 700 }}
               >
-                Kinh Đô Của Những <br />
-                <span className="italic font-normal">Công Trình Di Sản</span>
+                DỰ ÁN NỔI BẬT
               </h2>
             </div>
           </div>
