@@ -11,28 +11,68 @@ interface Property {
 
 const tailoredData: Property[] = [
   {
-    title: "Riverfront Serenity Villa",
-    location: "THẢO ĐIỀN, QUẬN 2",
-    price: "68.5 Tỷ VNĐ",
-    specs: [5, 6, 450],
-    img: "https://lh3.googleusercontent.com/aida-public/AB6AXuDV8bqOklZVh3A4h71h-90n_L6TeQtOg_WfT9iIp5ITHGjS0cg31f5dBgLClfT1iHsigU97mLsFHH4SuBT8LJFlHVHjzW7dAEGc59jbqJs7NOdPHaCr1MstQgjtGi7nwgV29T6VQpUmLOjTNYLhfgLwzpPDMVhOsN3iOn-vrjtDhP2sJYYfOOLYcb1qSGUFMyaDVgZuhIomF6HrOJ5Vwl5am_w0vS_nZZwt33jetyu98pCscWyqls99lmHOLEQPsNGCQ234zKTuG20",
-    badge: "ĐỘC QUYỀN",
+    title: "CHÍNH CHỦ BÁN CĂN NHÀ VƯỜN 120m2 KĐT GELEXIMCO LÊ TRỌNG TẤN GIÁ SIÊU RẺ",
+    location: "Dương Nội, Hà Đông, Hà Nội",
+    price: "20.5 Tỷ VNĐ",
+    specs: [4, 4, 120],
+    img: "https://xemnha.vn/uploads/84973/z3257661140093_88cacecf99f416335cd04f3f7642d5a1.jpg",
+    badge: "CHÍNH CHỦ",
   },
   {
-    title: "The Grand Penthouse Sky",
-    location: "TÂY HỒ, HÀ NỘI",
-    price: "120 Tỷ VNĐ",
-    specs: [4, 5, 380],
-    img: "https://lh3.googleusercontent.com/aida/AP1WRLtqpm4t670frH1qKKddz_GBjIlmBs8SDTkpHaEU9sD7b6NWtxuiiB0_9jPr24FnAVjeKkjBzE37C7KIPE6tZ5V433ydOGEXjiv2oJiVoOb_7PPPmlsjbqhSP4PQTzl0bHuV1KOpXPb_zaA8iFQ7XeleUurbz3QG3coqt1NfODsrY_b2lWJNPZ30HY4J9lJrj9AraQgg4vH5h9XiTfrupAXDijr2okIeCY_unTwT9Ed_bA_SHwgv9W9XNQ",
-    badge: "DỰ KIẾN GIAO",
+    title: "Bán Nhà Vườn 160m2 Mặt Tiền 8m Khu D Geleximco Giá Rẻ Chỉ 21 Tỷ",
+    location: "Dương Nội, Hà Đông, Hà Nội",
+    price: "21 Tỷ VNĐ",
+    specs: [5, 5, 169],
+    img: "https://xemnha.vn/uploads/80534/IMG_7143.jpg",
+    badge: "GIÁ RẺ",
   },
   {
-    title: "Imperial Coastal Estate",
-    location: "SƠN TRÀ, ĐÀ NẴNG",
-    price: "95 Tỷ VNĐ",
-    specs: [6, 7, 620],
-    img: "https://lh3.googleusercontent.com/aida/AP1WRLtTb0a2ujl4C9BnqodXfnYn7zRbKbaG-Bq6gvCgFoW-lMU-w5rorl0CwDPv9TqANOu9XIu7sES7Q3t-6V0fVnYE1mJuzXJh3upDLRO7dKrwbISaJZdymCr4U-Bu--wVGhU6j3A_PYgMDVr_IXYEhpFj7tO_wpBD6KknkYsUpY36IrtZH9b1ibFD4nuAgZ970fPBdxrMrGozrr5v3VsuKB3InVNd_UdS2g8VTmhiPKhqJIs-NEcUJvE00pY",
-    badge: "SẮP RA MẮT",
+    title: "Cơ Hội Cuối Cùng - Sở Hữu Nhà Khu A Giáp VIN, Mặt Tiền 6m, Chỉ 18,5 Tỷ",
+    location: "Dương Nội, Hà Đông, Hà Nội",
+    price: "18.5 Tỷ VNĐ",
+    specs: [4, 4, 104],
+    img: "https://xemnha.vn/uploads/80507/z5773852568206_1c9b21a047a7996bfdd3911bbdfe1c78.jpg",
+    badge: "GIÁ TỐT",
+  },
+  {
+    title: "Cần Bán Nhanh Căn 60m2 Khu B Geleximco – Nhỏ Gọn Đầy Đủ Tiện Ích",
+    location: "Dương Nội, Hà Đông, Hà Nội",
+    price: "12.5 Tỷ VNĐ",
+    specs: [3, 3, 60],
+    img: "https://xemnha.vn/uploads/80506/z5773873315887_6d05c81b0e0c1ce305f8ed9bdb78dc54.jpg",
+    badge: "BÁN GẤP",
+  },
+  {
+    title: "Bán Nhà Đặng Tiến Đông Q Đống Đa 90m X Mt 6m Gần Phố Giá Nhỉnh 14 Tỷ",
+    location: "Ô Chợ Dừa, Đống Đa, Hà Nội",
+    price: "14.9 Tỷ VNĐ",
+    specs: [4, 4, 90],
+    img: "https://xemnha.vn/uploads/80502/441544656_7577382482339661_5736771931293366545_n.jpg",
+    badge: "GẦN PHỐ",
+  },
+  {
+    title: "Cần Bán Nhanh Lô Biệt Thự View Hồ B2.1 BT4 Giá Đầu Tư Tại KDT Thanh Hà Cienco 5",
+    location: "Kiến Hưng, Hà Đông, Hà Nội",
+    price: "Thỏa thuận",
+    specs: [5, 5, 300],
+    img: "https://xemnha.vn/uploads/80488/Ban-do-tong-the-Thanh-Ha-1-822x1024.jpg",
+    badge: "VIEW HỒ",
+  },
+  {
+    title: "BÁN LIỀN KỀ 75M2 KHU B GELEXIMCO - MẶT TRƯỜNG HỌC, GIÁP VINHOMES, GIÁ HẤP DẪN ĐẦU TƯ",
+    location: "Dương Nội, Hà Đông, Hà Nội",
+    price: "9.69 Tỷ VNĐ",
+    specs: [4, 4, 75],
+    img: "https://xemnha.vn/uploads/80195/ban-lien-ke-mat-truong-hoc-khu-b-geleximco.jpg",
+    badge: "ĐẦU TƯ",
+  },
+  {
+    title: "BÁN CĂN LIỀN KỀ HƠN 480M2 SÀN KHU A GELEXIMCO GIÁP VINHOMES SMART CITY GIÁ NHỈNH 15 TỶ",
+    location: "Dương Nội, Hà Đông, Hà Nội",
+    price: "15 Tỷ VNĐ",
+    specs: [5, 5, 120],
+    img: "https://xemnha.vn/uploads/80188/DJI_0901.JPG",
+    badge: "GIÁ TỐT",
   },
 ];
 
@@ -125,8 +165,9 @@ export function TailoredSection({ onViewDetail }: TailoredSectionProps) {
                 </span>
               </div>
               <h3
-                className="font-display-lg text-earth-brown mb-10 leading-tight"
-                style={{ fontSize: "clamp(32px, 3.5vw, 48px)", fontWeight: 700 }}
+                className="font-display-lg text-earth-brown mb-10 leading-tight line-clamp-2"
+                style={{ fontSize: "clamp(24px, 2.5vw, 36px)", fontWeight: 700 }}
+                title={property.title}
               >
                 {property.title}
               </h3>

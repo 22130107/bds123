@@ -7,27 +7,37 @@ interface Location {
 
 const locations: Location[] = [
   {
-    city: "Hồ Chí Minh",
-    count: "142 Bất Động Sản",
-    image:
-      "https://lh3.googleusercontent.com/aida/AP1WRLsAx1PCZaOOd7QT3ez9S4MCXmQcaoOZYzmxeh7ozHy0RfKZzfE9fb4fC4sK-DFiUQ6X4l4EYYK93hHbWk7vZtwVy7a8DkOgqieoxwk-Z_t_5pY4HFU5dqjUm8jkkBwo8wzStevI7k7Y7kmrc6S-uADYzxK5u8q423BmsFIfPaAAI-j4XnHB4bDYT0zkfgZQ5e5wrH523vuwB5GVFl6hLffuRrZgB68RvmcyDy7yMfXI0XhXEXrrFWuHlxM",
+    city: "Hà Nội",
+    count: "166 tin đăng",
+    image: "https://xemnha.vn/uploads/images/bat-dong-san-hn.jpeg",
     large: true,
   },
   {
-    city: "Hà Nội",
-    count: "89 Bất Động Sản",
-    image:
-      "https://lh3.googleusercontent.com/aida/AP1WRLvY_9K4CppAwiVkNd2usdgo0yZD37ctgzdDvxUC1T6dxWs-t3qt-y2UoEO9fiqF46_CEMdBvG2_35ttaLBfM3eYD1jYhezySEzfw5ju4FZpR_-hd6jwIOSO21XGS4EfweZk3_cDucTmoBlupfC-CTlTR748WtnxLVJk5WyOapQvgVlq1bYWtquUFLoFB2XRMwldilf1yr0OKnO7mbkX7FREC4JDFxDFXHC0Fj74tZw_GNXUn0Q6xjoOHg",
+    city: "Hồ Chí Minh",
+    count: "20 tin đăng",
+    image: "https://xemnha.vn/uploads/images/du-an-hcm.jpeg",
   },
   {
-    city: "Đà Nẵng",
-    count: "56 Bất Động Sản",
-    image:
-      "https://lh3.googleusercontent.com/aida-public/AB6AXuDr1hUHnRPfdpZGKT2dPw85RlWq_F5Y1GwdKwpCTPkuy86D2tzd8x8FY3E731vDG9-craIBkTOGX5-3iF2t7tymMidVOD97ZWr2gEqD_utXiqzkQDhTaejd0HjP2Dk-aYath5AiWJAxHedp76Vto2GR50-yQgfDTtsLoOd-BGb8rNbvxMM5RIwdZf-7-No6W2YbEDSYuX-z0Pr5wP5Nv-GMZS0Emew_inj824OXpRZRc-5ZrO6bG0qnSurYXxA0vB8CMfWbBqRbCIY",
+    city: "Hải Phòng",
+    count: "4 tin đăng",
+    image: "https://xemnha.vn/uploads/images/da-nang.jpeg",
+  },
+  {
+    city: "Đồng Nai",
+    count: "1 tin đăng",
+    image: "https://xemnha.vn/uploads/images/DNA-web-2.webp",
+  },
+  {
+    city: "Bình Dương",
+    count: "6 tin đăng",
+    image: "https://xemnha.vn/uploads/images/binh-duong.webp",
   },
 ];
 
 export function LocationSection() {
+  const largeLocation = locations.find((l) => l.large);
+  const smallLocations = locations.filter((l) => !l.large);
+
   return (
     <section className="py-20 bg-earth-brown text-sand-beige relative overflow-hidden">
       <div className="absolute top-0 right-0 w-1/3 h-full bg-antique-gold/5 pointer-events-none" />
@@ -61,71 +71,66 @@ export function LocationSection() {
 
         {/* Location Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-          {/* Large location card */}
-          {locations
-            .filter((l) => l.large)
-            .map((loc) => (
+          {/* Large location card (col-span-2) */}
+          {largeLocation && (
+            <div
+              className="relative overflow-hidden group cursor-pointer lg:col-span-2 h-[300px] lg:h-[400px] border border-white/10"
+            >
+              <img
+                src={largeLocation.image}
+                alt={largeLocation.city}
+                className="w-full h-full object-cover transition-transform duration-[2000ms] group-hover:scale-105"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent" />
+              <div className="absolute bottom-8 left-8">
+                <h3
+                  className="font-headline-lg text-white mb-3"
+                  style={{ fontSize: "28px", lineHeight: "36px", fontWeight: 600 }}
+                >
+                  {largeLocation.city}
+                </h3>
+                <div className="flex items-center gap-4">
+                  <div className="h-[2px] w-12 bg-antique-gold" />
+                  <p
+                    className="font-label-caps text-sand-beige uppercase tracking-[0.3em] font-bold"
+                    style={{ fontSize: "11px" }}
+                  >
+                    {largeLocation.count}
+                  </p>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* Small location cards in a 2x2 grid (col-span-1) */}
+          <div className="lg:col-span-1 grid grid-cols-2 gap-6">
+            {smallLocations.map((loc) => (
               <div
                 key={loc.city}
-                className="relative overflow-hidden group cursor-pointer lg:col-span-2 h-[300px] lg:h-[400px] border border-white/10"
+                className="relative overflow-hidden group cursor-pointer h-[138px] lg:h-[188px] border border-white/10"
               >
                 <img
                   src={loc.image}
                   alt={loc.city}
                   className="w-full h-full object-cover transition-transform duration-[2000ms] group-hover:scale-105"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent" />
-                <div className="absolute bottom-8 left-8">
+                <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-transparent to-transparent" />
+                <div className="absolute bottom-6 left-6">
                   <h3
-                    className="font-headline-lg text-white mb-3"
-                    style={{ fontSize: "28px", lineHeight: "36px", fontWeight: 600 }}
+                    className="font-headline-md text-white mb-2"
+                    style={{ fontSize: "18px", lineHeight: "24px", fontWeight: 600 }}
                   >
                     {loc.city}
                   </h3>
-                  <div className="flex items-center gap-4">
-                    <div className="h-[2px] w-12 bg-antique-gold" />
-                    <p
-                      className="font-label-caps text-sand-beige uppercase tracking-[0.3em] font-bold"
-                      style={{ fontSize: "11px" }}
-                    >
-                      {loc.count}
-                    </p>
-                  </div>
+                  <p
+                    className="font-label-caps text-antique-gold uppercase tracking-widest font-bold"
+                    style={{ fontSize: "9px" }}
+                  >
+                    {loc.count}
+                  </p>
                 </div>
               </div>
             ))}
-
-          {/* Small location cards */}
-                <div className="flex flex-col gap-6">
-            {locations
-              .filter((l) => !l.large)
-              .map((loc) => (
-                <div
-                  key={loc.city}
-                  className="relative overflow-hidden group cursor-pointer h-[200px] lg:h-[188px] border border-white/10"
-                >
-                  <img
-                    src={loc.image}
-                    alt={loc.city}
-                    className="w-full h-full object-cover transition-transform duration-[2000ms] group-hover:scale-105"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-transparent to-transparent" />
-                  <div className="absolute bottom-6 left-6">
-                    <h3
-                      className="font-headline-md text-white mb-2"
-                      style={{ fontSize: "22px", lineHeight: "28px", fontWeight: 600 }}
-                    >
-                      {loc.city}
-                    </h3>
-                    <p
-                      className="font-label-caps text-antique-gold uppercase tracking-widest font-bold"
-                      style={{ fontSize: "10px" }}
-                    >
-                      {loc.count}
-                    </p>
-                  </div>
-                </div>
-              ))}
           </div>
         </div>
       </div>
