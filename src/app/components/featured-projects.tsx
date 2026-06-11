@@ -165,7 +165,7 @@ export function FeaturedProjects() {
                 ))}
               </div>
             </div>
-            <div className="relative overflow-hidden aspect-[4/3] border border-outline-variant/20 p-2 bg-surface-container-lowest shadow-lg">
+            <div className="relative overflow-hidden aspect-square border border-outline-variant/20 p-2 bg-surface-container-lowest shadow-lg">
               <img
                 src={project.sideImg}
                 alt=""
