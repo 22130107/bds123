@@ -1,9 +1,8 @@
+import { HappyMLogo } from "./happy-m-logo";
+
 interface FooterProps {
   variant?: "heritage" | "dark" | "default";
 }
-
-const logoUrl =
-  "https://lh3.googleusercontent.com/aida/AP1WRLtKGfpk6FtrJPFP3B9t4nNMJJGgw8Wa1-N61oSxoGXqIQx3QFnWJSXWxfG7sdurlABfZiJZTaf4Ro9_VsKKlF2Bdu-ngh74_SpEUs5nWfYwOfGxNHm8RO_PSC1aoW8eBdRhHHyVJULvi2FnoAoFA1SOx5YtSVh6UKxENHSbJq_gzp91w14Ui3q401EBKWmnyLvdXlAsmUP_f2-mV6c1fj_G_m59swm7RzPvXZrHrzXyNFmcVy5lyOsiIuM";
 
 export function Footer({ variant = "default" }: FooterProps) {
   if (variant === "heritage") {
@@ -14,7 +13,7 @@ export function Footer({ variant = "default" }: FooterProps) {
           style={{ maxWidth: "1280px" }}
         >
           <div className="col-span-1">
-            <img src={logoUrl} alt="TimNhaHot.vn Logo" className="h-16 w-auto object-contain mb-6" />
+            <HappyMLogo className="h-28 w-auto mb-6" light={true} size="xl" />
             <p className="font-body-md text-on-primary-container/80 mb-6"
                style={{ fontSize: "16px", lineHeight: "24px", opacity: 0.8 }}>
               Tái định nghĩa chuẩn mực sống thượng lưu thông qua việc bảo tồn kiến trúc và sự xuất sắc trong thiết kế đương đại.
@@ -92,7 +91,7 @@ export function Footer({ variant = "default" }: FooterProps) {
         >
           <div className="md:col-span-1">
             <div className="mb-6">
-              <img src={logoUrl} alt="TIMNHAHOT.vn" className="h-14 w-auto" style={{ filter: "brightness(0) invert(1)", opacity: 0.9 }} />
+              <HappyMLogo className="h-24 w-auto" light={true} size="lg" />
             </div>
             <p className="font-body-md text-on-primary-container/80 max-w-xs" style={{ fontSize: "16px" }}>
               Kiến tạo những giá trị vĩnh cửu thông qua những không gian sống đẳng cấp nhất Việt Nam.
@@ -178,8 +177,8 @@ export function Footer({ variant = "default" }: FooterProps) {
       >
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-16 mb-20">
           <div className="lg:col-span-2 lg:border-r lg:border-outline-variant/30 lg:pr-12">
-            <div className="h-16 flex items-center mb-8">
-              <img src={logoUrl} alt="TimNhaHot.vn Logo" className="h-16 w-auto object-contain" />
+            <div className="h-28 flex items-center mb-8">
+              <HappyMLogo className="h-28 w-auto" light={false} size="xl" />
             </div>
             <p className="font-body-md text-on-surface leading-relaxed max-w-sm mb-8" style={{ fontSize: "16px" }}>
               Đơn vị phân phối bất động sản cao cấp hàng đầu tại Việt Nam, cam kết mang lại giá trị thực và sự sang trọng bền vững cho cộng đồng tinh hoa.

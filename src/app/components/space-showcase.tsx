@@ -20,8 +20,8 @@ interface Collection {
 
 const collectionsData: Collection[] = [
   {
-    id: "heritage",
-    name: "HERITAGE COLLECTION",
+    id: "saigon",
+    name: "SÀI GÒN",
     tagline: "Đẳng cấp kiến trúc cổ điển & Thượng lưu",
     items: [
       {
@@ -75,8 +75,8 @@ const collectionsData: Collection[] = [
     ],
   },
   {
-    id: "minimalist",
-    name: "MINIMALIST CONTEMPORARY",
+    id: "hanoi",
+    name: "HÀ NỘI",
     tagline: "Sự tinh giản mang hơi thở thời đại mới",
     items: [
       {
@@ -122,7 +122,7 @@ const collectionsData: Collection[] = [
       {
         id: "m-bed",
         category: "06 / PHÒNG NGỦ",
-        title: "Phòng ngủ Thiền (Zen)",
+        title: "Phòng ngủ Tối giản",
         subtitle: "Thiết kế giường trệt tối giản mang lại sự thanh tịnh tuyệt đối.",
         img: "https://images.unsplash.com/photo-1598928506311-c55ded91a20c?auto=format&fit=crop&w=800&q=80",
         gridClass: "md:col-span-2 md:row-span-2",
@@ -132,19 +132,24 @@ const collectionsData: Collection[] = [
 ];
 
 export function SpaceShowcase() {
-  const [activeTab, setActiveTab] = useState("heritage");
+  const [activeTab, setActiveTab] = useState("saigon");
 
   const currentCollection =
     collectionsData.find((c) => c.id === activeTab) || collectionsData[0];
 
   return (
-    <section className="bg-surface py-24 md:py-36 border-b border-outline-variant/20">
+    <section 
+      className="py-24 md:py-36 border-b border-outline-variant/20 relative overflow-hidden"
+      style={{
+        background: `linear-gradient(135deg, #F7F4EB 0%, #F7F4EB 25%, #F2EBDC 25%, #F2EBDC 50%, #EADFCA 50%, #EADFCA 75%, #F5EDD9 75%, #F5EDD9 100%)`
+      }}
+    >
       <div className="max-w-[1440px] mx-auto px-6 md:px-[100px]">
         {/* Header Section */}
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 mb-16">
           <div className="max-w-2xl">
             <span
-              className="font-label-caps text-antique-gold block mb-2 uppercase tracking-widest font-bold"
+              className="font-label-caps text-white bg-earth-brown inline-block px-4 py-2 mb-4 uppercase tracking-widest font-bold border border-antique-gold/20"
               style={{ fontSize: "11px", letterSpacing: "0.4em" }}
             >
               TRƯNG BÀY KHÔNG GIAN
@@ -163,12 +168,12 @@ export function SpaceShowcase() {
           </div>
 
           {/* Luxury Tab Switcher */}
-          <div className="flex bg-white p-1.5 border border-outline-variant/30 rounded-full shadow-sm">
+          <div className="flex w-full sm:w-fit bg-white p-1.5 border border-outline-variant/30 rounded-full shadow-sm">
             {collectionsData.map((col) => (
               <button
                 key={col.id}
                 onClick={() => setActiveTab(col.id)}
-                className={`px-6 py-2.5 rounded-full font-label-caps text-[10px] tracking-widest font-bold transition-all ${
+                className={`flex-1 sm:flex-initial text-center px-6 py-2.5 rounded-full font-label-caps text-[10px] tracking-widest font-bold transition-all ${
                   activeTab === col.id
                     ? "bg-earth-brown text-white shadow-md"
                     : "text-on-surface-variant hover:text-antique-gold"

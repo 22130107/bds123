@@ -1,4 +1,5 @@
 import { useState } from "react";
+import logoIcon from "../../assets/logo_icon.png";
 
 interface NavItem {
   label: string;
@@ -20,8 +21,6 @@ interface TopNavBarProps {
 
 export function TopNavBar({ activePage, onNavigate }: TopNavBarProps) {
   const [isOpen, setIsOpen] = useState(false);
-  const logoUrl =
-    "https://lh3.googleusercontent.com/aida/AP1WRLtKGfpk6FtrJPFP3B9t4nNMJJGgw8Wa1-N61oSxoGXqIQx3QFnWJSXWxfG7sdurlABfZiJZTaf4Ro9_VsKKlF2Bdu-ngh74_SpEUs5nWfYwOfGxNHm8RO_PSC1aoW8eBdRhHHyVJULvi2FnoAoFA1SOx5YtSVh6UKxENHSbJq_gzp91w14Ui3q401EBKWmnyLvdXlAsmUP_f2-mV6c1fj_G_m59swm7RzPvXZrHrzXyNFmcVy5lyOsiIuM";
 
   return (
     <header
@@ -35,10 +34,14 @@ export function TopNavBar({ activePage, onNavigate }: TopNavBarProps) {
         {/* Logo */}
         <a
           href="#"
-          className="block h-10 shrink-0"
+          className="flex items-end gap-0 shrink-0 z-50 lg:-translate-x-[120px] -translate-y-1 pb-2"
           onClick={(e) => { e.preventDefault(); onNavigate?.("home"); setIsOpen(false); }}
         >
-          <img src={logoUrl} alt="TimNhaHot.vn" className="h-full w-auto object-contain brightness-0 invert-[0.85]" />
+          <img src={logoIcon} alt="Happy M" className="h-12 lg:h-20 w-auto object-contain" />
+            <div className="flex flex-col -translate-y-[1px]">
+            <span className="text-white font-bold tracking-[0.15em] uppercase" style={{ fontFamily: "'Playfair Display', serif", fontSize: "clamp(12px, 3vw, 18px)", lineHeight: "1.1" }}>HAPPY M</span>
+            <span className="text-white/70 tracking-[0.08em] uppercase font-bold" style={{ fontFamily: "'Hanken Grotesk', sans-serif", fontSize: "clamp(7px, 1.5vw, 9px)", lineHeight: "1.2" }}>MÃI HẠNH PHÚC, MÃI GIÀU SANG</span>
+          </div>
         </a>
 
         {/* Nav links */}
@@ -67,13 +70,6 @@ export function TopNavBar({ activePage, onNavigate }: TopNavBarProps) {
 
         {/* Actions */}
         <div className="flex items-center gap-4">
-          <button
-            onClick={() => onNavigate?.("listing")}
-            className="hidden sm:block border border-white text-white px-5 py-2 font-label-caps hover:bg-white hover:text-earth-brown transition-all duration-300 active:scale-95"
-            style={{ fontSize: "14px", letterSpacing: "0.12em", fontWeight: 700 }}
-          >
-            ĐĂNG TIN
-          </button>
           <button
             onClick={() => setIsOpen(!isOpen)}
             className="text-white hover:text-antique-gold transition-colors lg:hidden"
@@ -110,16 +106,6 @@ export function TopNavBar({ activePage, onNavigate }: TopNavBarProps) {
                 </a>
               );
             })}
-            <button
-              onClick={() => {
-                onNavigate?.("listing");
-                setIsOpen(false);
-              }}
-              className="sm:hidden w-full border border-white text-white py-3 text-center font-label-caps hover:bg-white hover:text-earth-brown transition-all duration-300 mt-2"
-              style={{ fontSize: "14px", letterSpacing: "0.12em", fontWeight: 700 }}
-            >
-              ĐĂNG TIN
-            </button>
           </div>
         )}
       </nav>

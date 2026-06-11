@@ -4,6 +4,7 @@ import { SearchBar } from "../search-bar";
 import { PropertyCard } from "../property-card";
 import { Pagination } from "../pagination";
 import { LocationWidget, FeaturedProjectsWidget } from "../sidebar-widgets";
+import { DeveloperShowcase } from "../developer-showcase";
 import { Footer } from "../footer";
 
 interface ListingPageProps {
@@ -128,6 +129,8 @@ export function ListingPage({ onNavigate }: ListingPageProps) {
           </aside>
         </div>
       </main>
+
+      <DeveloperShowcase />
 
       <Footer variant="dark" />
     </div>

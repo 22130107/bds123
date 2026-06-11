@@ -42,10 +42,10 @@ export function LocationSection() {
     <section 
       className="py-20 text-sand-beige relative overflow-hidden"
       style={{
-        background: `linear-gradient(to bottom, rgba(0, 0, 0, 0.45) 0%, rgba(0, 0, 0, 0.65) 100%), linear-gradient(to right, #721616 0%, #721616 16.6%, #8f2e11 16.6%, #8f2e11 33.3%, #b04914 33.3%, #b04914 50%, #c3611b 50%, #c3611b 66.6%, #db8026 66.6%, #db8026 83.3%, #e7992d 83.3%, #e7992d 100%)`
+        background: `linear-gradient(to bottom, rgba(0, 0, 0, 0.2) 0%, rgba(0, 0, 0, 0.35) 100%), linear-gradient(135deg, #C04416 0%, #C04416 25%, #C7561B 25%, #C7561B 50%, #CF7C1F 50%, #CF7C1F 75%, #D99E2D 75%, #D99E2D 100%)`
       }}
     >
-      <div className="absolute top-0 right-0 w-1/3 h-full bg-antique-gold/5 pointer-events-none" />
+      <div className="absolute top-0 right-0 w-1/3 h-full bg-white/10 pointer-events-none" />
       <div className="max-w-[1440px] mx-auto px-6 md:px-[100px] relative z-10">
         {/* Header */}
         <div className="mb-10">
