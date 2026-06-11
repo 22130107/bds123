@@ -66,11 +66,11 @@ export function HeroSection({ onNavigate }: HeroSectionProps) {
         <div className="bg-white/10 backdrop-blur-2xl border border-white/20 p-1.5 shadow-2xl">
           <div className="bg-white">
             {/* Main row */}
-            <div className="flex items-stretch border-b border-outline-variant/20">
+            <div className="flex flex-col md:flex-row items-stretch border-b border-outline-variant/20">
               {/* Loại nhà đất */}
-              <div className="flex items-center border-r border-outline-variant/20 px-5 shrink-0">
+              <div className="flex items-center w-full md:w-auto border-b md:border-b-0 md:border-r border-outline-variant/20 px-5 shrink-0">
                 <select
-                  className="bg-transparent border-none focus:ring-0 font-body-md text-on-surface appearance-none outline-none pr-5 py-4 cursor-pointer"
+                  className="w-full md:w-auto bg-transparent border-none focus:ring-0 font-body-md text-on-surface appearance-none outline-none pr-5 py-4 cursor-pointer"
                   style={{ fontSize: "15px" }}
                 >
                   <option>Loại nhà đất</option>
@@ -84,7 +84,7 @@ export function HeroSection({ onNavigate }: HeroSectionProps) {
               </div>
 
               {/* Địa điểm */}
-              <div className="flex-1 flex items-center px-5">
+              <div className="flex-1 flex items-center px-5 py-3 md:py-0 border-b md:border-b-0 border-outline-variant/20">
                 <span className="material-symbols-outlined text-antique-gold mr-3 shrink-0" style={{ fontSize: "20px" }}>location_on</span>
                 <input
                   type="text"
@@ -97,7 +97,7 @@ export function HeroSection({ onNavigate }: HeroSectionProps) {
               {/* Nút tìm kiếm */}
               <button
                 onClick={() => onNavigate?.("listing")}
-                className="px-10 py-4 font-label-caps text-white bg-earth-brown hover:bg-antique-gold transition-all duration-500 shrink-0 active:scale-95"
+                className="w-full md:w-auto px-10 py-4 font-label-caps text-white bg-earth-brown hover:bg-antique-gold transition-all duration-500 shrink-0 active:scale-95"
                 style={{ fontSize: "12px", letterSpacing: "0.15em", fontWeight: 700 }}
               >
                 TÌM KIẾM
@@ -105,7 +105,7 @@ export function HeroSection({ onNavigate }: HeroSectionProps) {
             </div>
 
             {/* Filter row */}
-            <div className="flex divide-x divide-outline-variant/20">
+            <div className="grid grid-cols-2 md:grid-cols-4 divide-x divide-y md:divide-y-0 divide-outline-variant/20">
               {[
                 { label: "Toàn quốc", options: ["Toàn quốc", "Hà Nội", "TP. Hồ Chí Minh", "Đà Nẵng", "Nha Trang"] },
                 { label: "Mức giá", options: ["Mức giá", "Dưới 1 tỷ", "1 – 3 tỷ", "3 – 5 tỷ", "5 – 10 tỷ", "Trên 10 tỷ"] },
