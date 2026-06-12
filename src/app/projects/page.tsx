@@ -1,9 +1,9 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { ListingPage } from "../../components/pages/listing-page";
+import { ProjectsPage } from "../../components/pages/projects-page";
 
-export default function Page() {
+export default function ProjectsRoute() {
   const router = useRouter();
 
   const handleNavigate = (page: string) => {
@@ -11,5 +11,5 @@ export default function Page() {
     else router.push(`/${page}`);
   };
 
-  return <ListingPage onNavigate={handleNavigate} />;
+  return <ProjectsPage onNavigate={handleNavigate} />;
 }

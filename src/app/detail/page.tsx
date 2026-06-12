@@ -8,8 +8,7 @@ export default function Page() {
 
   const handleNavigate = (page: string) => {
     if (page === "home") router.push("/");
-    else if (page === "listing") router.push("/listing");
-    else if (page === "detail") router.push("/detail");
+    else router.push(`/${page}`);
   };
 
   return <DetailPage onNavigate={handleNavigate} />;

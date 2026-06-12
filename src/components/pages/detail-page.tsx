@@ -11,19 +11,19 @@ interface DetailPageProps {
 
 const villaImages = [
   {
-    src: "https://lh3.googleusercontent.com/aida/AP1WRLsoyCcoRDyb4qCggdI8uJ-GoX5IrkzVSDkuyuWPzrb9W9-4PdhLYMy9QJL3wAOuCSHorSMfSSI9LdSwS0PBI5zlngGWT8tC0hmbooHOTnVTsFmOslDwLvClbtyqvhWgT1I6q7A1p9yUBBvlTduYtWnlZWHSCQcAr5osZ9GkL076T1p5IL2OrmNbg_g5Xr3H9KP3x10DVcqBcjFr08xkmmL64GpQEnIdkaRTf02cqH-WygVEftv9GVTdPNI",
+    src: "https://images.unsplash.com/photo-1613490908578-8120c16b5a32?w=800",
     alt: "Biệt thự Riverfront Serenity - Mặt tiền",
   },
   {
-    src: "https://lh3.googleusercontent.com/aida/AP1WRLu5WJAXe2DK574g7_n0GT0vsNWSNfaYpiS3TdMkReqeWEEHK-a3CfnBVfmQIYcwycxtQI_u2_NzIPXhRq_yLqXcPuRCBSAEthLcNEz23mvTWgKwwc9Txff0V-IgAoufnIeXYXdfmhgmSLl0s67Jkamr5A4TNUK7nx4vVKLVTKsm04kwLPCdmeqxP6Pta16Nd7U-oujhWVGtHdIt3fCfO4H4E2A_Dhr5Zink1xybP2b7hgB3JEfCYIILnA",
+    src: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=800",
     alt: "Nội thất phòng khách",
   },
   {
-    src: "https://lh3.googleusercontent.com/aida/AP1WRLuxGSZNImk81KewFdb_DxFciYp8gDpIbocvbwltcmJcLXdMxdVFwRAtwpa9xwTQN_6w_71ep9F0OqXJALtzzkWKykQk78fu9a3bPyKD9kB4r2vx-rrvx9_Oo_qVkc6AW8yLYYVAee_7TVdM7ZkMryyAKuX2URdvbYNF2GD2FotWyX0-e7MyHIY1lJO9rIeFp9cfmjKbR9jdbO9GsBOdva8PNCkeUqJgGMldlzBozbLoJQ-GZhqPI8xPOIE",
+    src: "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=800",
     alt: "Hồ bơi vô cực",
   },
   {
-    src: "https://lh3.googleusercontent.com/aida-public/AB6AXuArfTxcb8sfwUM7Fg_fQ3bm3wNm-ePQqpewaTzOfedvPliLJi2RKTFr8CZSK3IZuvwGaRlVIFlHYbY6z-GIhcxU-MMw4xiOrnIsbrFEpE9BMei0uPBTAQyZDThTnD3AJ7XMiuusUECsyL49yy6AhOVD6FSLS-N-vEDYZ1w126_CYsHuYeJJV1RjM01QQLg3lTtrLfU2ndqFc0ZspxYQQWinWEMLJg1kqxKnVh3Nn7nJzl8TEFq4JmOZ1nGgbo9iXy7rkMlaWg6IdOg",
+    src: "https://images.unsplash.com/photo-1580587771525-78b9dba3b914?w=800",
     alt: "Khu vực ngoài trời",
   },
 ];
@@ -41,7 +41,7 @@ const agentInfo = {
   title: "Đại diện phân phối dự án",
   phone: "0982 831 582",
   avatar:
-    "https://lh3.googleusercontent.com/aida-public/AB6AXuB2rsfS1zgIJns5lv7NacWbwu_zuAYC7ZmKEoWUCSPtXtPsO9rSE5ZNQxX7tQMwrjS89ktI-mwmCbi9xNXuBJtXtPm9ivnnq4FiF5ZKnTGy3_n4o5iIigmoExPiKRiA7GlDLAZmWtm9OOvyV_8PDbcxS_z8wYyIJoQPZLLGDk1UCFUVvpfKNx7IYZ2_kl6I9qJpQzRPhjfSJ1-SRzVSNUbcY64z3rFaNSEy9aFzXoc2eHhkMvdEY1A6iSTPhfpJ6tmBRGhIg1DS_X4",
+    "https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=800",
   isOnline: true,
 };
 

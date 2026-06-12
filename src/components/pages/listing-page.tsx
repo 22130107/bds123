@@ -4,7 +4,6 @@ import { SearchBar } from "../search-bar";
 import { PropertyCard } from "../property-card";
 import { Pagination } from "../pagination";
 import { LocationWidget, FeaturedProjectsWidget } from "../sidebar-widgets";
-import { DeveloperShowcase } from "../developer-showcase";
 import { Footer } from "../footer";
 
 interface ListingPageProps {
@@ -22,7 +21,7 @@ const properties = [
     updated: "Cập nhật: 12/06/2024",
     price: "85.000.000.000 ₫",
     image:
-      "https://lh3.googleusercontent.com/aida/AP1WRLszCYP06KJQ2cWAiBZGit9KmYSU_JRMoQ2TPB686Hpw1ADOk5LCIkefRv5nxTyc62ii5h2sDD2Zt_v5I0sfVV17N7Y6SoJ3bbF6cqxSDgHoWDtMVZZf17psmxPzhUG9-3rRB5GbZ7_ITK55qzfpVYqNobEmEqsSSH6JRLWMwjisQOH89LNm801lELWQcARm3rTqgxb52KE7j-HDGIfZCp4PXb7tBoxGa3Iwoj_NUiha93CSGQCOF8pUvGA",
+      "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=800",
     badge: "EXCLUSIVE",
     badgeColor: "gold" as const,
   },
@@ -36,7 +35,7 @@ const properties = [
     updated: "Cập nhật: 10/06/2024",
     price: "120.000.000.000 ₫",
     image:
-      "https://lh3.googleusercontent.com/aida/AP1WRLs_kCjmCjvUEvEUlXO2XVitCo872PLfrDe_CzRHC17iV3fzOZpIzjtnh8Q5PfOqAKw01SAxRYBiQgGt_2FA5cq8Z3WlP_0aGM2Q8aec40fYSNp5U09z2ciQDg1Pim5BYNCYGxeIdhXTJqF3WfFc4iCyBB1Vv-xEIK-1X2i_F8axMGO5V2WVpGQwrQ4gzOS8uEa-okBerHPPi5DXaqtQY8hZ2JFNSIU9yb4tjKNKRVL3HDPgfZpt-zAT7Q",
+      "https://images.unsplash.com/photo-1613490908578-8120c16b5a32?w=800",
     badge: "NEW LISTING",
     badgeColor: "dark" as const,
   },
@@ -50,7 +49,7 @@ const properties = [
     updated: "Cập nhật: 08/06/2024",
     price: "45.000.000.000 ₫",
     image:
-      "https://lh3.googleusercontent.com/aida/AP1WRLuzTMpy2M03kBVjvCJzlz-lDAeIHpv8pmLH87WKn_A26OJuDxNmafWkJ4kNWsM5qw6HxDIiWJdnaQ6Ksdr-9k13ft2ihPILJxUeUyGEhQr5ZMi_u_9ovgeSCvsG9DlbaMd2OeDaYKAq_TPiyBg7oGMsLY3cs9qpIlrrr1-w8sV4bcjVAb-WhVVjzpUxajzeOifNFrBkVYlaQNAnIj6ZGAgqBf34oyX8G57u0nUFJcwHIC3xzmMWvQsX14Y",
+      "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=800",
   },
 ];
 
@@ -64,7 +63,7 @@ export function ListingPage({ onNavigate }: ListingPageProps) {
       {/* Hero Banner */}
       <section className="relative w-full h-[400px] overflow-hidden pt-20">
         <img
-          src="https://lh3.googleusercontent.com/aida/AP1WRLszCYP06KJQ2cWAiBZGit9KmYSU_JRMoQ2TPB686Hpw1ADOk5LCIkefRv5nxTyc62ii5h2sDD2Zt_v5I0sfVV17N7Y6SoJ3bbF6cqxSDgHoWDtMVZZf17psmxPzhUG9-3rRB5GbZ7_ITK55qzfpVYqNobEmEqsSSH6JRLWMwjisQOH89LNm801lELWQcARm3rTqgxb52KE7j-HDGIfZCp4PXb7tBoxGa3Iwoj_NUiha93CSGQCOF8pUvGA"
+          src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=1600"
           alt="Hero Banner"
           className="w-full h-full object-cover"
           style={{ filter: "brightness(0.5)" }}
@@ -129,8 +128,6 @@ export function ListingPage({ onNavigate }: ListingPageProps) {
           </aside>
         </div>
       </main>
-
-      <DeveloperShowcase />
 
       <Footer variant="dark" />
     </div>

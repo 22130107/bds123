@@ -1,13 +1,11 @@
-import { useState } from "react";
-import { SectionHeading } from "./section-heading";
+import { useState, useEffect } from "react";
 
 interface ShowcaseItem {
   id: string;
   category: string;
   title: string;
   subtitle: string;
-  img: string;
-  // Specific grid placement classes for medium screens and above
+  images: string[];
   gridClass: string;
 }
 
@@ -29,7 +27,11 @@ const collectionsData: Collection[] = [
         category: "01 / NGOẠI THẤT",
         title: "Kiến trúc Ngoại thất",
         subtitle: "Đường nét hiện đại hòa quyện với ánh sáng hoàng hôn ấm áp.",
-        img: "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=1200&q=80",
+        images: [
+          "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=800&q=80",
+          "https://images.unsplash.com/photo-1613490908578-8120c16b5a32?auto=format&fit=crop&w=800&q=80",
+          "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=800&q=80",
+        ],
         gridClass: "md:col-span-2 md:row-span-2",
       },
       {
@@ -37,7 +39,11 @@ const collectionsData: Collection[] = [
         category: "02 / PHÒNG BẾP",
         title: "Không gian Bếp",
         subtitle: "Hệ tủ đen mờ lịch lãm cùng mặt đá bếp vân mây cao cấp.",
-        img: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80",
+        images: [
+          "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80",
+          "https://images.unsplash.com/photo-1556910103-1c02745aae4d?auto=format&fit=crop&w=800&q=80",
+          "https://images.unsplash.com/photo-1556911220-bff31c812dba?auto=format&fit=crop&w=800&q=80",
+        ],
         gridClass: "md:col-span-1 md:row-span-2",
       },
       {
@@ -45,7 +51,11 @@ const collectionsData: Collection[] = [
         category: "03 / PHÒNG KHÁCH",
         title: "Phòng khách Thượng lưu",
         subtitle: "Tông màu vàng cát vương giả cùng nội thất da cao cấp.",
-        img: "https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=800&q=80",
+        images: [
+          "https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=800&q=80",
+          "https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&w=800&q=80",
+          "https://images.unsplash.com/photo-1583847268964-b28ce8f30f6c?auto=format&fit=crop&w=800&q=80",
+        ],
         gridClass: "md:col-span-1 md:row-span-1",
       },
       {
@@ -53,7 +63,11 @@ const collectionsData: Collection[] = [
         category: "04 / PHÒNG TẮM",
         title: "Phòng tắm Thư giãn",
         subtitle: "Bồn tắm đặt sàn sang trọng trên nền sỏi cuội tự nhiên.",
-        img: "https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=800&q=80",
+        images: [
+          "https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=800&q=80",
+          "https://images.unsplash.com/photo-1620626011761-996317b8d101?auto=format&fit=crop&w=800&q=80",
+          "https://images.unsplash.com/photo-1507652313519-d4e9174296fb?auto=format&fit=crop&w=800&q=80",
+        ],
         gridClass: "md:col-span-1 md:row-span-1",
       },
       {
@@ -61,7 +75,11 @@ const collectionsData: Collection[] = [
         category: "05 / NGOÀI TRỜI",
         title: "Hồ bơi & Sân vườn",
         subtitle: "Làn nước xanh mát ôm trọn không gian thư thái tách biệt.",
-        img: "https://images.unsplash.com/photo-1576013551627-0cc20b96c2a7?auto=format&fit=crop&w=1200&q=80",
+        images: [
+          "https://images.unsplash.com/photo-1576013551627-0cc20b96c2a7?auto=format&fit=crop&w=800&q=80",
+          "https://images.unsplash.com/photo-1572120360610-d971b9d7767c?auto=format&fit=crop&w=800&q=80",
+          "https://images.unsplash.com/photo-1519046904884-53103b34b206?auto=format&fit=crop&w=800&q=80",
+        ],
         gridClass: "md:col-span-2 md:row-span-2",
       },
       {
@@ -69,7 +87,11 @@ const collectionsData: Collection[] = [
         category: "06 / PHÒNG NGỦ",
         title: "Phòng ngủ Master",
         subtitle: "Vách ốp gỗ cao cấp cùng hệ thống ánh sáng dịu nhẹ ấm cúng.",
-        img: "https://images.unsplash.com/photo-1616594039964-ae9021a400a0?auto=format&fit=crop&w=800&q=80",
+        images: [
+          "https://images.unsplash.com/photo-1616594039964-ae9021a400a0?auto=format&fit=crop&w=800&q=80",
+          "https://images.unsplash.com/photo-1595526114035-0d45ed16cfbf?auto=format&fit=crop&w=800&q=80",
+          "https://images.unsplash.com/photo-1598928506311-c55ded91a20c?auto=format&fit=crop&w=800&q=80",
+        ],
         gridClass: "md:col-span-2 md:row-span-2",
       },
     ],
@@ -84,7 +106,11 @@ const collectionsData: Collection[] = [
         category: "01 / NGOẠI THẤT",
         title: "Mặt tiền Đương đại",
         subtitle: "Các khối kính lớn tối giản kết nối trọn vẹn cảnh quan xanh.",
-        img: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=1200&q=80",
+        images: [
+          "https://images.unsplash.com/photo-1583608205776-bfd35f0d9f83?auto=format&fit=crop&w=800&q=80",
+          "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=800&q=80",
+          "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=800&q=80",
+        ],
         gridClass: "md:col-span-2 md:row-span-2",
       },
       {
@@ -92,7 +118,11 @@ const collectionsData: Collection[] = [
         category: "02 / PHÒNG BẾP",
         title: "Nhà bếp Tối giản",
         subtitle: "Bếp phẳng không tay nắm, đề cao sự liền mạch của vật liệu.",
-        img: "https://images.unsplash.com/photo-1556912173-3bb406ef7e77?auto=format&fit=crop&w=800&q=80",
+        images: [
+          "https://images.unsplash.com/photo-1556912173-3bb406ef7e77?auto=format&fit=crop&w=800&q=80",
+          "https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?auto=format&fit=crop&w=800&q=80",
+          "https://images.unsplash.com/photo-1556910103-1c02745aae4d?auto=format&fit=crop&w=800&q=80",
+        ],
         gridClass: "md:col-span-1 md:row-span-2",
       },
       {
@@ -100,7 +130,11 @@ const collectionsData: Collection[] = [
         category: "03 / PHÒNG KHÁCH",
         title: "Không gian Nghệ thuật",
         subtitle: "Tường bê tông thô kết hợp tranh đương đại khổ lớn đầy cuốn hút.",
-        img: "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=800&q=80",
+        images: [
+          "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=800&q=80",
+          "https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?auto=format&fit=crop&w=800&q=80",
+          "https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=800&q=80",
+        ],
         gridClass: "md:col-span-1 md:row-span-1",
       },
       {
@@ -108,7 +142,11 @@ const collectionsData: Collection[] = [
         category: "04 / PHÒNG TẮM",
         title: "Phòng tắm Slate",
         subtitle: "Đá đen tự nhiên kết hợp với phụ kiện kim loại mờ tinh tế.",
-        img: "https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?auto=format&fit=crop&w=800&q=80",
+        images: [
+          "https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?auto=format&fit=crop&w=800&q=80",
+          "https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=800&q=80",
+          "https://images.unsplash.com/photo-1620626011761-996317b8d101?auto=format&fit=crop&w=800&q=80",
+        ],
         gridClass: "md:col-span-1 md:row-span-1",
       },
       {
@@ -116,7 +154,11 @@ const collectionsData: Collection[] = [
         category: "05 / NGOÀI TRỜI",
         title: "Bể bơi Chân mây",
         subtitle: "Mặt nước phẳng lặng hòa vào đường chân trời biển cả mênh mông.",
-        img: "https://images.unsplash.com/photo-1519046904884-53103b34b206?auto=format&fit=crop&w=1200&q=80",
+        images: [
+          "https://images.unsplash.com/photo-1519046904884-53103b34b206?auto=format&fit=crop&w=800&q=80",
+          "https://images.unsplash.com/photo-1571896349842-33c89424de2d?auto=format&fit=crop&w=800&q=80",
+          "https://images.unsplash.com/photo-1576013551627-0cc20b96c2a7?auto=format&fit=crop&w=800&q=80",
+        ],
         gridClass: "md:col-span-2 md:row-span-2",
       },
       {
@@ -124,12 +166,102 @@ const collectionsData: Collection[] = [
         category: "06 / PHÒNG NGỦ",
         title: "Phòng ngủ Tối giản",
         subtitle: "Thiết kế giường trệt tối giản mang lại sự thanh tịnh tuyệt đối.",
-        img: "https://images.unsplash.com/photo-1598928506311-c55ded91a20c?auto=format&fit=crop&w=800&q=80",
+        images: [
+          "https://images.unsplash.com/photo-1505693314120-0d443867891c?auto=format&fit=crop&w=800&q=80",
+          "https://images.unsplash.com/photo-1598928506311-c55ded91a20c?auto=format&fit=crop&w=800&q=80",
+          "https://images.unsplash.com/photo-1616594039964-ae9021a400a0?auto=format&fit=crop&w=800&q=80",
+        ],
         gridClass: "md:col-span-2 md:row-span-2",
       },
     ],
   },
 ];
+
+function ShowcaseCard({ item, delay }: { item: ShowcaseItem; delay: string }) {
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [isHovered, setIsHovered] = useState(false);
+
+  useEffect(() => {
+    let interval: NodeJS.Timeout;
+    if (isHovered) {
+      interval = setInterval(() => {
+        setCurrentIndex((prev) => (prev + 1) % item.images.length);
+      }, 1500); // Lướt ảnh mỗi 1.5 giây
+    } else {
+      setCurrentIndex(0); // Trở về ảnh đầu khi hết hover
+    }
+    return () => clearInterval(interval);
+  }, [isHovered, item.images.length]);
+
+  return (
+    <div
+      className={`relative overflow-hidden group cursor-pointer border border-outline-variant/20 shadow-sm ${item.gridClass} animate-slide-up`}
+      style={{ animationDelay: delay, opacity: 0 }}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+    >
+      {/* Slideshow Container */}
+      <div className="absolute inset-0 w-full h-full bg-surface-container-lowest">
+        {item.images.map((imgSrc, idx) => (
+          <img
+            key={idx}
+            src={imgSrc}
+            alt={`${item.title} view ${idx + 1}`}
+            className={`absolute inset-0 w-full h-full object-cover transition-all duration-1000 ease-in-out ${
+              idx === currentIndex ? "opacity-100 z-10" : "opacity-0 z-0"
+            } ${isHovered ? "brightness-[0.85] scale-105" : "brightness-100 scale-100"}`}
+          />
+        ))}
+      </div>
+
+      {/* Classic Border Deco overlay */}
+      <div className="absolute inset-0 border border-transparent group-hover:border-white/20 transition-colors duration-500 pointer-events-none z-10 m-3" />
+
+      {/* Base Gradient overlay for readability */}
+      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent opacity-80 group-hover:opacity-90 transition-opacity duration-500" />
+
+      {/* Hover highlight overlay */}
+      <div className="absolute inset-0 bg-gradient-to-tr from-earth-brown/40 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
+
+      {/* Category tag on top right */}
+      <div className="absolute top-4 right-4 z-20 overflow-hidden">
+        <span
+          className="bg-earth-brown/85 backdrop-blur-md text-white px-3 py-1.5 font-label-caps tracking-widest font-bold inline-block transform translate-y-0 group-hover:-translate-y-1 transition-transform duration-300 border border-antique-gold/25"
+          style={{ fontSize: "8px" }}
+        >
+          {item.category}
+        </span>
+      </div>
+
+      {/* Text Information Content Card */}
+      <div className="absolute inset-x-0 bottom-0 p-6 z-20 flex flex-col justify-end text-white">
+        <div className="transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500 ease-out">
+          <h3
+            className="font-display-lg text-white font-bold leading-snug mb-1 group-hover:text-antique-gold transition-colors duration-300"
+            style={{ fontSize: "clamp(18px, 1.8vw, 24px)" }}
+          >
+            {item.title}
+          </h3>
+          
+          {/* Divider line that expands on hover */}
+          <div className="w-8 h-[2px] bg-antique-gold mb-3 group-hover:w-20 transition-all duration-500" />
+
+          {/* Subtitle description (fades in on hover) */}
+          <p className="text-white/70 text-xs font-body-md line-clamp-2 md:opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-75">
+            {item.subtitle}
+          </p>
+        </div>
+
+        {/* Micro interactive button indicator (bottom right) */}
+        <div className="absolute bottom-6 right-6 opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-150 transform translate-x-2 group-hover:translate-x-0">
+          <span className="material-symbols-outlined text-antique-gold text-2xl">
+            arrow_outward
+          </span>
+        </div>
+      </div>
+    </div>
+  );
+}
 
 export function SpaceShowcase() {
   const [activeTab, setActiveTab] = useState("saigon");
@@ -186,65 +318,9 @@ export function SpaceShowcase() {
         </div>
 
         {/* Dynamic Showcase Grid */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 auto-rows-[220px] md:auto-rows-[250px] lg:auto-rows-[280px]">
+        <div key={activeTab} className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 auto-rows-[220px] md:auto-rows-[250px] lg:auto-rows-[280px]">
           {currentCollection.items.map((item, idx) => (
-            <div
-              key={item.id}
-              className={`relative overflow-hidden group cursor-pointer border border-outline-variant/20 shadow-sm ${item.gridClass}`}
-            >
-              {/* Image with smooth scale and brightness hover effect */}
-              <img
-                src={item.img}
-                alt={item.title}
-                className="w-full h-full object-cover transition-transform duration-[6000ms] ease-out group-hover:scale-110 group-hover:brightness-[0.95]"
-              />
-
-              {/* Classic Border Deco overlay */}
-              <div className="absolute inset-0 border border-transparent group-hover:border-white/20 transition-colors duration-500 pointer-events-none z-10 m-3" />
-
-              {/* Base Gradient overlay for readability */}
-              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent opacity-80 group-hover:opacity-90 transition-opacity duration-500" />
-
-              {/* Hover highlight overlay */}
-              <div className="absolute inset-0 bg-gradient-to-tr from-earth-brown/40 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
-
-              {/* Category tag on top right */}
-              <div className="absolute top-4 right-4 z-20 overflow-hidden">
-                <span
-                  className="bg-earth-brown/85 backdrop-blur-md text-white px-3 py-1.5 font-label-caps tracking-widest font-bold inline-block transform translate-y-0 group-hover:-translate-y-1 transition-transform duration-300 border border-antique-gold/25"
-                  style={{ fontSize: "8px" }}
-                >
-                  {item.category}
-                </span>
-              </div>
-
-              {/* Text Information Content Card */}
-              <div className="absolute inset-x-0 bottom-0 p-6 z-20 flex flex-col justify-end text-white">
-                <div className="transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500 ease-out">
-                  <h3
-                    className="font-display-lg text-white font-bold leading-snug mb-1 group-hover:text-antique-gold transition-colors duration-300"
-                    style={{ fontSize: "clamp(18px, 1.8vw, 24px)" }}
-                  >
-                    {item.title}
-                  </h3>
-                  
-                  {/* Divider line that expands on hover */}
-                  <div className="w-8 h-[2px] bg-antique-gold mb-3 group-hover:w-20 transition-all duration-500" />
-
-                  {/* Subtitle description (fades in on hover) */}
-                  <p className="text-white/70 text-xs font-body-md line-clamp-2 md:opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-75">
-                    {item.subtitle}
-                  </p>
-                </div>
-
-                {/* Micro interactive button indicator (bottom right) */}
-                <div className="absolute bottom-6 right-6 opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-150 transform translate-x-2 group-hover:translate-x-0">
-                  <span className="material-symbols-outlined text-antique-gold text-2xl">
-                    arrow_outward
-                  </span>
-                </div>
-              </div>
-            </div>
+            <ShowcaseCard key={item.id} item={item} delay={`${idx * 0.08}s`} />
           ))}
         </div>
       </div>

@@ -10,8 +10,8 @@ const navItems: NavItem[] = [
   { label: "TRANG CHỦ", page: "home" },
   { label: "MUA BÁN NHÀ ĐẤT", page: "listing" },
   { label: "CHO THUÊ NHÀ ĐẤT", page: "listing" },
-  { label: "DỰ ÁN", page: "home" },
-  { label: "TIN TỨC", page: "home" },
+  { label: "DỰ ÁN", page: "projects" },
+  { label: "TIN TỨC", page: "news" },
 ];
 
 interface TopNavBarProps {
@@ -49,7 +49,9 @@ export function TopNavBar({ activePage, onNavigate }: TopNavBarProps) {
           {navItems.map(({ label, page }) => {
             const isActive =
               (activePage === "home" && page === "home" && label === "TRANG CHỦ") ||
-              ((activePage === "listing" || activePage === "detail") && label === "MUA BÁN NHÀ ĐẤT");
+              ((activePage === "listing" || activePage === "detail") && label === "MUA BÁN NHÀ ĐẤT") ||
+              (activePage === "projects" && label === "DỰ ÁN") ||
+              (activePage === "news" && label === "TIN TỨC");
             return (
               <a
                 key={label}
@@ -83,11 +85,13 @@ export function TopNavBar({ activePage, onNavigate }: TopNavBarProps) {
 
         {/* Mobile menu dropdown */}
         {isOpen && (
-          <div className="absolute top-[80px] left-0 w-full bg-earth-brown border-b border-white/20 shadow-lg flex flex-col py-6 px-8 gap-5 lg:hidden z-40">
+          <div className="absolute top-[80px] left-0 w-full bg-white border-b-2 border-earth-brown shadow-lg flex flex-col py-6 px-8 gap-5 lg:hidden z-40">
             {navItems.map(({ label, page }) => {
               const isActive =
                 (activePage === "home" && page === "home" && label === "TRANG CHỦ") ||
-                ((activePage === "listing" || activePage === "detail") && label === "MUA BÁN NHÀ ĐẤT");
+                ((activePage === "listing" || activePage === "detail") && label === "MUA BÁN NHÀ ĐẤT") ||
+                (activePage === "projects" && label === "DỰ ÁN") ||
+                (activePage === "news" && label === "TIN TỨC");
               return (
                 <a
                   key={label}
@@ -97,8 +101,8 @@ export function TopNavBar({ activePage, onNavigate }: TopNavBarProps) {
                     onNavigate?.(page);
                     setIsOpen(false);
                   }}
-                  className={`font-label-caps py-2 transition-colors duration-200 border-b border-white/5 last:border-b-0 ${
-                    isActive ? "text-antique-gold font-bold" : "text-white/80 hover:text-white"
+                  className={`font-label-caps py-2 transition-colors duration-200 border-b border-outline-variant/20 last:border-b-0 ${
+                    isActive ? "text-antique-gold font-bold" : "text-on-surface hover:text-primary"
                   }`}
                   style={{ fontSize: "15px", letterSpacing: "0.12em" }}
                 >

@@ -14,7 +14,7 @@ export function HeroSection({ onNavigate }: HeroSectionProps) {
         className="absolute inset-0 bg-cover bg-center"
         style={{
           backgroundImage:
-            "url('https://lh3.googleusercontent.com/aida-public/AB6AXuDfx8AHiMmjG4NAn4OQI4EMWSVlZai3mjVHfSHG-7UmjuWz9fMRH1w8Nr9Z0vxhB3m5g2WVsiFYiMo6sO7gwBDknJ4dlcfGl9Wf8B67WTOJCXTle0hFIVpP0ADH0MqZsqGyfxOf42HGp7kjUmSwxN_hVcfzw9i0MSGS7vt7gROgFt4CYVa3EDljL-sgx_qT56qQLGIPz6jOffuVy1YerEg4J-eMMY2Uo7cqSigLGuTUDmXixuKOJF5miI_tL5B9sj7nx47o4QF_hTI')",
+            "url('https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=1600')",
         }}
       >
         <div className="absolute inset-0 hero-gradient" />

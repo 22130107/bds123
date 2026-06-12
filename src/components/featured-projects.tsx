@@ -101,12 +101,24 @@ export function FeaturedProjects() {
             <span className="material-symbols-outlined">arrow_forward</span>
           </button>
           <div className="col-span-12 lg:col-span-7 group relative pb-28">
-            <div className="overflow-hidden aspect-[16/9] md:aspect-[2/1] border border-outline-variant/20 p-2 bg-surface-container-lowest shadow-2xl">
-              <img
-                src={project.mainImg}
-                alt={project.title}
-                className="w-full h-full object-cover grayscale-[30%] group-hover:grayscale-0 transition-all duration-[3000ms] group-hover:scale-105"
-              />
+            <div className="aspect-[16/9] md:aspect-[2/1] border border-outline-variant/20 p-2 bg-surface-container-lowest shadow-2xl">
+              <div className="relative w-full h-full overflow-hidden">
+                {projectData.map((p, idx) => (
+                  <img
+                    key={idx}
+                    src={p.mainImg}
+                    alt={p.title}
+                    className={`absolute top-0 left-0 w-full h-full object-cover grayscale-[30%] group-hover:grayscale-0 group-hover:scale-105 transition-all duration-[1200ms] ${
+                      idx === current
+                        ? "translate-x-0 opacity-100 z-10"
+                        : idx < current
+                        ? "-translate-x-full opacity-0 z-0"
+                        : "translate-x-full opacity-0 z-0"
+                    }`}
+                    style={{ transitionTimingFunction: "cubic-bezier(0.16, 1, 0.3, 1)" }}
+                  />
+                ))}
+              </div>
             </div>
             <div className="absolute bottom-0 right-0 md:-right-12 bg-white p-6 md:p-8 shadow-[0_25px_60px_-15px_rgba(0,0,0,0.15)] max-w-lg border-t-4 border-earth-brown">
               <span
@@ -165,14 +177,29 @@ export function FeaturedProjects() {
                 ))}
               </div>
             </div>
-            <div className="relative overflow-hidden aspect-square border border-outline-variant/20 p-2 bg-surface-container-lowest shadow-lg">
-              <img
-                src={project.sideImg}
-                alt=""
-                className="w-full h-full object-cover hover:sepia-0 transition-all duration-1000"
-                style={{ filter: "sepia(0.2)" }}
-              />
-              <div className="absolute inset-0 border-[20px] border-white/10 pointer-events-none" />
+            <div className="relative aspect-square border border-outline-variant/20 p-2 bg-surface-container-lowest shadow-lg">
+              <div className="relative w-full h-full overflow-hidden">
+                {projectData.map((p, idx) => (
+                  <img
+                    key={idx}
+                    src={p.sideImg}
+                    alt=""
+                    className={`absolute top-0 left-0 w-full h-full object-cover hover:sepia-0 transition-all duration-[1200ms] ${
+                      idx === current
+                        ? "translate-x-0 opacity-100 z-10"
+                        : idx < current
+                        ? "-translate-x-full opacity-0 z-0"
+                        : "translate-x-full opacity-0 z-0"
+                    }`}
+                    style={{ 
+                      filter: "sepia(0.2)", 
+                      transitionTimingFunction: "cubic-bezier(0.16, 1, 0.3, 1)",
+                      transitionDelay: "0.1s"
+                    }}
+                  />
+                ))}
+              </div>
+              <div className="absolute inset-0 border-[20px] border-white/10 pointer-events-none z-20" />
             </div>
           </div>
         </div>
