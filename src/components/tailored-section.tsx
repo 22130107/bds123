@@ -138,12 +138,23 @@ export function TailoredSection({ onViewDetail }: TailoredSectionProps) {
           <div className="flex flex-col lg:flex-row items-center gap-16 lg:gap-24 group p-8 lg:p-12 border border-outline-variant/10 shadow-sm" style={{ backgroundColor: "#F5EDD9" }}>
             {/* Image */}
             <div className="w-full lg:w-3/5 relative overflow-hidden aspect-[16/10] shadow-xl">
-              <img
-                src={property.img}
-                alt={property.title}
-                className="w-full h-full object-cover transition-transform duration-[5000ms] group-hover:scale-110"
-              />
-              <div className="absolute top-10 left-10">
+              <div className="relative w-full h-full overflow-hidden">
+                {tailoredData.map((p, idx) => (
+                  <img
+                    key={idx}
+                    src={p.img}
+                    alt={p.title}
+                    className={`absolute inset-0 w-full h-full object-cover transition-all duration-[1200ms] ease-in-out group-hover:scale-110 ${
+                      idx === current
+                        ? "translate-x-0 opacity-100 z-10"
+                        : idx < current
+                        ? "-translate-x-full opacity-0 z-0"
+                        : "translate-x-full opacity-0 z-0"
+                    }`}
+                  />
+                ))}
+              </div>
+              <div className="absolute top-10 left-10 z-20">
                 <span
                   className="bg-earth-brown text-white px-8 py-3 font-label-caps uppercase tracking-[0.3em] font-bold"
                   style={{ fontSize: "10px" }}
