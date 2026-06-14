@@ -78,11 +78,22 @@ const tailoredData: Property[] = [
 
 interface TailoredSectionProps {
   onViewDetail?: () => void;
+  projects?: any[];
 }
 
-export function TailoredSection({ onViewDetail }: TailoredSectionProps) {
+export function TailoredSection({ onViewDetail, projects = [] }: TailoredSectionProps) {
+  const data = projects.length > 0 ? projects.map(p => ({
+    id: p.id,
+    title: p.title,
+    location: p.location,
+    price: p.price,
+    specs: [p.bedrooms || 0, p.bathrooms || 0, p.area || 0] as [number, number, number],
+    img: p.mainImg || "",
+    badge: p.badge || ""
+  })) : tailoredData;
+
   const [current, setCurrent] = useState(0);
-  const property = tailoredData[current];
+  const property = data[current] || tailoredData[0];
 
 
 
@@ -123,13 +134,13 @@ export function TailoredSection({ onViewDetail }: TailoredSectionProps) {
         {/* Slider */}
         <div className="relative group/nav">
           <button
-            onClick={() => setCurrent((c) => (c - 1 + tailoredData.length) % tailoredData.length)}
+            onClick={() => setCurrent((c) => (c - 1 + data.length) % data.length)}
             className="absolute left-0 top-1/2 -translate-y-1/2 z-20 w-12 h-12 rounded-full bg-white shadow-xl border border-outline-variant/30 flex items-center justify-center text-earth-brown hover:bg-earth-brown hover:text-white transition-all opacity-0 group-hover/nav:opacity-100 -translate-x-6 group-hover/nav:-translate-x-1/2"
           >
             <span className="material-symbols-outlined">chevron_left</span>
           </button>
           <button
-            onClick={() => setCurrent((c) => (c + 1) % tailoredData.length)}
+            onClick={() => setCurrent((c) => (c + 1) % data.length)}
             className="absolute right-0 top-1/2 -translate-y-1/2 z-20 w-12 h-12 rounded-full bg-white shadow-xl border border-outline-variant/30 flex items-center justify-center text-earth-brown hover:bg-earth-brown hover:text-white transition-all opacity-0 group-hover/nav:opacity-100 translate-x-6 group-hover/nav:translate-x-1/2"
           >
             <span className="material-symbols-outlined">chevron_right</span>
@@ -139,7 +150,7 @@ export function TailoredSection({ onViewDetail }: TailoredSectionProps) {
             {/* Image */}
             <div className="w-full lg:w-3/5 relative overflow-hidden aspect-[16/10] shadow-xl">
               <div className="relative w-full h-full overflow-hidden">
-                {tailoredData.map((p, idx) => (
+                {data.map((p, idx) => (
                   <img
                     key={idx}
                     src={p.img}
@@ -241,7 +252,7 @@ export function TailoredSection({ onViewDetail }: TailoredSectionProps) {
 
         {/* Dots */}
         <div className="flex justify-center gap-3 mt-8">
-          {tailoredData.map((_, i) => (
+          {data.map((_, i) => (
             <button
               key={i}
               onClick={() => setCurrent(i)}

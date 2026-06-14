@@ -263,11 +263,36 @@ function ShowcaseCard({ item, delay }: { item: ShowcaseItem; delay: string }) {
   );
 }
 
-export function SpaceShowcase() {
+export function SpaceShowcase({ spaces = [] }: { spaces?: any[] }) {
+  const dynamicCollections = collectionsData.map(col => {
+    const dbSpaces = spaces.filter(s => s.collection === col.id.toUpperCase());
+    
+    return {
+      ...col,
+      items: col.items.map((defaultItem, idx) => {
+        const dbItem = dbSpaces[idx];
+        if (dbItem) {
+          return {
+            id: dbItem.id.toString(),
+            category: dbItem.category || defaultItem.category,
+            title: dbItem.title || defaultItem.title,
+            subtitle: dbItem.subtitle || defaultItem.subtitle,
+            images: Array.isArray(dbItem.images) && dbItem.images.length > 0 
+              ? dbItem.images 
+              : (dbItem.images ? [dbItem.images] : defaultItem.images),
+            // GIỮ NGUYÊN GRID CLASS ĐỂ BẢO TOÀN LAYOUT CHUẨN:
+            gridClass: defaultItem.gridClass,
+          };
+        }
+        return defaultItem;
+      })
+    };
+  });
+
   const [activeTab, setActiveTab] = useState("saigon");
 
   const currentCollection =
-    collectionsData.find((c) => c.id === activeTab) || collectionsData[0];
+    dynamicCollections.find((c) => c.id === activeTab) || dynamicCollections[0];
 
   return (
     <section 
@@ -301,7 +326,7 @@ export function SpaceShowcase() {
 
           {/* Luxury Tab Switcher */}
           <div className="flex w-full sm:w-fit bg-white p-1.5 border border-outline-variant/30 rounded-full shadow-sm">
-            {collectionsData.map((col) => (
+            {dynamicCollections.map((col) => (
               <button
                 key={col.id}
                 onClick={() => setActiveTab(col.id)}

@@ -8,47 +8,23 @@ interface NewsArticle {
   featured?: boolean;
 }
 
-const newsData: NewsArticle[] = [
-  {
-    id: "1",
-    category: "THỊ TRƯỜNG",
-    date: "21.01.2025",
-    title: "Hạn chế đầu cơ sẽ góp phần bình ổn giá bất động sản",
-    excerpt:
-      "Hạn chế đầu cơ có thể giúp ổn định giá bất động sản, đảm bảo phát triển bền vững và tạo sự đồng thuận trong xã hội.",
-    image:
-      "https://cdn.xemnha.vn/uploads/han-che-dau-co-se-gop-phan-binh-on-gia-bat-dong-san.jpg",
-    featured: true,
-  },
-  {
-    id: "2",
-    category: "QUY HOẠCH",
-    date: "25.02.2025",
-    title: "Hà Nội chính thức duyệt chủ trương xây cầu Tứ Liên, Trần Hưng Đạo, Ngọc Hồi",
-    image:
-      "https://xemnha.vn/uploads/images/hanoi-duyet-chu-truong-xay-cau.jpg",
-  },
-  {
-    id: "3",
-    category: "THỊ TRƯỜNG",
-    date: "10.12.2024",
-    title: "Bất động sản khu đô thị “sát vách” Tp.HCM đón sóng đầu tư cuối năm với loạt động thái “lạ”",
-    image:
-      "https://cdn.xemnha.vn/uploads/bat-dong-san-khu-do-thi-sat-vach-tphcm-don-song-dau-tu-cuoi-nam-voi-loat-dong-thai-la.jpg",
-  },
-  {
-    id: "4",
-    category: "NHẬN ĐỊNH",
-    date: "27.11.2024",
-    title: "Kiến nghị giảm thuế và lãi suất để phát triển nhà ở xã hội",
-    image:
-      "https://cdn.xemnha.vn/uploads/kien-nghi-giam-thue-va-lai-suat-de-phat-trien-nha-o-xa-hoi.jpg",
-  },
-];
+// Removed hardcoded news data
 
-export function FeaturedNews() {
-  const featured = newsData.find((a) => a.featured);
-  const secondary = newsData.filter((a) => !a.featured);
+export function FeaturedNews({ news = [] }: { news?: any[] }) {
+  if (!news || news.length === 0) return null;
+
+  const data = news.map((n, idx) => ({
+    id: n.id.toString(),
+    category: n.category || "TIN TỨC",
+    date: n.date || "",
+    title: n.title,
+    excerpt: n.excerpt,
+    image: n.img,
+    featured: idx === 0
+  }));
+
+  const featured = data.find((a) => a.featured) || data[0];
+  const secondary = data.filter((a) => a.id !== featured?.id).slice(0, 3);
 
   return (
     <section className="py-16 md:py-20 relative bg-surface-dim/40">

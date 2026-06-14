@@ -39,9 +39,24 @@ const projectData: Project[] = [
   },
 ];
 
-export function FeaturedProjects() {
+interface FeaturedProjectsProps {
+  projects?: any[];
+}
+
+export function FeaturedProjects({ projects = [] }: FeaturedProjectsProps) {
+  const data = projects.length > 0 ? projects.map(p => ({
+    id: p.id,
+    title: p.title,
+    location: p.location,
+    desc: p.description || "Đang cập nhật mô tả dự án...",
+    mainImg: p.mainImg || "",
+    sideImg: p.sideImg || "",
+    year: "2026",
+    size: p.area ? `${p.area} m²` : "N/A"
+  })) : projectData;
+
   const [current, setCurrent] = useState(0);
-  const project = projectData[current];
+  const project = data[current] || projectData[0];
 
 
 
@@ -89,21 +104,21 @@ export function FeaturedProjects() {
         {/* Project Content */}
         <div className="grid grid-cols-12 gap-y-12 md:gap-y-20 relative">
           <button
-            onClick={() => setCurrent((c) => (c - 1 + projectData.length) % projectData.length)}
-            className="absolute -left-[120px] top-1/2 -translate-y-1/2 w-10 h-10 bg-white/80 border border-earth-brown flex items-center justify-center text-earth-brown hover:bg-earth-brown hover:text-white transition-all z-10"
+            onClick={() => setCurrent((c) => (c - 1 + data.length) % data.length)}
+            className="absolute -left-[40px] xl:-left-[120px] top-1/2 -translate-y-1/2 w-12 h-12 rounded-full border border-outline-variant/30 flex items-center justify-center text-earth-brown hover:bg-earth-brown hover:text-white transition-all z-20 bg-surface"
           >
             <span className="material-symbols-outlined">arrow_back</span>
           </button>
           <button
-            onClick={() => setCurrent((c) => (c + 1) % projectData.length)}
-            className="absolute -right-[120px] top-1/2 -translate-y-1/2 w-10 h-10 bg-white/80 border border-earth-brown flex items-center justify-center text-earth-brown hover:bg-earth-brown hover:text-white transition-all z-10"
+            onClick={() => setCurrent((c) => (c + 1) % data.length)}
+            className="absolute -right-[40px] xl:-right-[120px] top-1/2 -translate-y-1/2 w-12 h-12 rounded-full border border-outline-variant/30 flex items-center justify-center text-earth-brown hover:bg-earth-brown hover:text-white transition-all z-20 bg-surface"
           >
             <span className="material-symbols-outlined">arrow_forward</span>
           </button>
           <div className="col-span-12 lg:col-span-7 group relative pb-28">
             <div className="aspect-[16/9] md:aspect-[2/1] border border-outline-variant/20 p-2 bg-surface-container-lowest shadow-2xl">
               <div className="relative w-full h-full overflow-hidden">
-                {projectData.map((p, idx) => (
+                {data.map((p, idx) => (
                   <img
                     key={idx}
                     src={p.mainImg}
@@ -179,7 +194,7 @@ export function FeaturedProjects() {
             </div>
             <div className="relative aspect-square border border-outline-variant/20 p-2 bg-surface-container-lowest shadow-lg">
               <div className="relative w-full h-full overflow-hidden">
-                {projectData.map((p, idx) => (
+                {data.map((p, idx) => (
                   <img
                     key={idx}
                     src={p.sideImg}

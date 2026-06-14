@@ -1,3 +1,7 @@
+"use client";
+
+import { useMemo } from "react";
+import { useCopilotReadable } from "@copilotkit/react-core";
 import { TopNavBar } from "../top-nav-bar";
 import { PropertyGallery } from "../property-gallery";
 import { TechnicalSpecs } from "../technical-specs";
@@ -5,8 +9,10 @@ import { AgentCard } from "../agent-card";
 import { ConsultationForm } from "../consultation-form";
 import { Footer } from "../footer";
 
+import { useRouter } from "next/navigation";
+
 interface DetailPageProps {
-  onNavigate: (page: string) => void;
+  project: any;
 }
 
 const villaImages = [
@@ -45,21 +51,55 @@ const agentInfo = {
   isOnline: true,
 };
 
-export function DetailPage({ onNavigate }: DetailPageProps) {
+export function DetailPage({ project }: DetailPageProps) {
+  const router = useRouter();
+
+  useCopilotReadable({
+    description: "Bất động sản người dùng ĐANG XEM chi tiết — đây là căn người dùng hỏi",
+    value: {
+      id: project.id,
+      title: project.title,
+      price: project.price,
+      location: project.location,
+      area: project.area,
+      description: project.description?.substring(0, 500),
+      type: project.type,
+      category: project.category,
+      isFeatured: project.isFeatured,
+      mainImg: project.mainImg,
+    },
+  });
+  
+  const handleNavigate = (page: string) => {
+    if (page === "home") router.push("/");
+    else if (page === "listing") router.push("/listing");
+    else router.push(`/${page}`);
+  };
+
+  const dynamicImages = [
+    { src: project.mainImg || "https://images.unsplash.com/photo-1613490908578-8120c16b5a32?w=800", alt: "Ảnh chính" },
+    ...(project.images || []).map((img: string) => ({ src: img, alt: "Ảnh phụ" }))
+  ];
+
+  const dynamicSpecs = [
+    { icon: "layers", label: "Diện tích", value: project.area ? `${project.area} m²` : "Đang cập nhật" },
+    { icon: "bed", label: "Số phòng ngủ", value: project.bedrooms ? `${project.bedrooms} PN` : "N/A" },
+    { icon: "bathtub", label: "Số phòng tắm/WC", value: project.bathrooms ? `${project.bathrooms} WC` : "N/A" },
+  ];
 
   return (
     <div className="bg-surface text-on-surface font-body-md" style={{ overflowX: "hidden" }}>
-      <TopNavBar activePage="detail" onNavigate={onNavigate} />
+      <TopNavBar activePage="detail" onNavigate={handleNavigate} />
 
       <main className="pt-20">
         {/* Breadcrumb */}
         <div className="max-w-[1280px] mx-auto px-5 md:px-[80px] py-4 flex items-center gap-2 text-on-surface-variant"
              style={{ fontSize: "14px" }}>
-          <button onClick={() => onNavigate("home")} className="hover:text-antique-gold transition-colors">Trang chủ</button>
+          <button onClick={() => handleNavigate("home")} className="hover:text-antique-gold transition-colors">Trang chủ</button>
           <span className="material-symbols-outlined" style={{ fontSize: "16px" }}>chevron_right</span>
-          <button onClick={() => onNavigate("listing")} className="hover:text-antique-gold transition-colors">Bất động sản</button>
+          <button onClick={() => handleNavigate("listing")} className="hover:text-antique-gold transition-colors">Bất động sản</button>
           <span className="material-symbols-outlined" style={{ fontSize: "16px" }}>chevron_right</span>
-          <span className="text-primary font-semibold">Riverfront Serenity Villa</span>
+          <span className="text-primary font-semibold">{project.title}</span>
         </div>
 
         {/* Property Header */}
@@ -67,20 +107,26 @@ export function DetailPage({ onNavigate }: DetailPageProps) {
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
             <div>
               <div className="flex items-center gap-3 mb-2">
-                <span className="bg-antique-gold text-white font-label-caps px-3 py-1"
-                      style={{ fontSize: "10px", letterSpacing: "0.1em", fontWeight: 700 }}>
-                  ĐỘC QUYỀN
-                </span>
+                {project.badge && (
+                  <span className="bg-antique-gold text-white font-label-caps px-3 py-1"
+                        style={{ fontSize: "10px", letterSpacing: "0.1em", fontWeight: 700 }}>
+                    {project.badge}
+                  </span>
+                )}
                 <span className="flex items-center gap-1 text-on-surface-variant" style={{ fontSize: "14px" }}>
                   <span className="material-symbols-outlined" style={{ fontSize: "16px" }}>location_on</span>
-                  Thảo Điền, Quận 2, TP. Hồ Chí Minh
+                  {project.location}
+                </span>
+                <span className="flex items-center gap-1 text-on-surface-variant ml-4" style={{ fontSize: "14px" }}>
+                  <span className="material-symbols-outlined" style={{ fontSize: "16px" }}>visibility</span>
+                  {project.views} lượt xem
                 </span>
               </div>
               <h1
                 className="font-headline-lg text-primary"
                 style={{ fontSize: "32px", lineHeight: "40px", fontWeight: 600 }}
               >
-                Biệt thự Riverfront Serenity
+                {project.title}
               </h1>
             </div>
             <div className="text-right">
@@ -91,7 +137,7 @@ export function DetailPage({ onNavigate }: DetailPageProps) {
                 className="font-price-display text-earth-brown"
                 style={{ fontSize: "28px", lineHeight: "32px", fontWeight: 600 }}
               >
-                68.500.000.000 ₫
+                {project.price}
               </p>
             </div>
           </div>
@@ -101,8 +147,8 @@ export function DetailPage({ onNavigate }: DetailPageProps) {
         <div className="max-w-[1280px] mx-auto px-5 md:px-[80px] py-6 grid grid-cols-1 lg:grid-cols-12 gap-8">
           {/* Left Column */}
           <div className="lg:col-span-8 space-y-8">
-            <PropertyGallery images={villaImages} title="Biệt thự Riverfront Serenity" />
-            <TechnicalSpecs specs={villaSpecs} />
+            <PropertyGallery images={dynamicImages} title={project.title} />
+            <TechnicalSpecs specs={dynamicSpecs} />
 
             {/* Description */}
             <div className="bg-white p-8 shadow-sm border border-outline-variant/30">
@@ -114,11 +160,8 @@ export function DetailPage({ onNavigate }: DetailPageProps) {
               </h3>
               <div className="text-on-surface-variant font-body-lg space-y-4 text-justify"
                    style={{ fontSize: "18px", lineHeight: "28px" }}>
-                <p>
-                  Biệt thự Riverfront Serenity kiêu hãnh như một biểu tượng của di sản kiến trúc hiện đại ngay tại trái tim Thảo Điền. Được thiết kế bởi những nghệ nhân danh tiếng thế giới, dinh thự này là sự kết hợp hoàn mỹ giữa vẻ đẹp trường tồn của chất liệu gạch đá truyền thống Việt Nam với sự phóng khoáng của kính và thép đương đại.
-                </p>
-                <p>
-                  Với diện tích hơn 650 mét vuông được chăm chút tỉ mỉ, biệt thự mang đến một không gian sống đẳng cấp không đối thủ. Mọi căn phòng đều được định hướng để đón trọn ánh sáng luân chuyển trên dòng sông Sài Gòn, tạo nên một bức tranh sống động thay đổi từ lúc bình minh đến khi hoàng hôn buông xuống.
+                <p className="whitespace-pre-wrap">
+                  {project.description || "Chưa có thông tin mô tả cho dự án này."}
                 </p>
               </div>
             </div>

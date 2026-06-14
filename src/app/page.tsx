@@ -1,15 +1,11 @@
-"use client";
+import { getProjects } from "../actions/project-actions";
+import { getSpaces } from "../actions/space-actions";
+import { getNews } from "../actions/news-actions";
+import HomeClient from "./home-client";
 
-import { useRouter } from "next/navigation";
-import { HomePage } from "../components/pages/home-page";
-
-export default function Page() {
-  const router = useRouter();
-
-  const handleNavigate = (page: string) => {
-    if (page === "home") router.push("/");
-    else router.push(`/${page}`);
-  };
-
-  return <HomePage onNavigate={handleNavigate} />;
+export default async function Page() {
+  const dbProjects = await getProjects();
+  const dbSpaces = await getSpaces();
+  const dbNews = await getNews();
+  return <HomeClient dbProjects={dbProjects} dbSpaces={dbSpaces} dbNews={dbNews} />;
 }

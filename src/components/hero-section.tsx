@@ -1,11 +1,62 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
+import { getTopLocations } from "../actions/project-actions";
 
 interface HeroSectionProps {
   onNavigate?: (page: string) => void;
 }
 
 export function HeroSection({ onNavigate }: HeroSectionProps) {
+  const router = useRouter();
   const [activeTab, setActiveTab] = useState<"buy" | "rent">("buy");
+  const [keyword, setKeyword] = useState("");
+  const [location, setLocation] = useState("Toàn quốc");
+  const [price, setPrice] = useState("Mức giá");
+  const [area, setArea] = useState("Diện tích");
+  const [project, setProject] = useState("Dự án");
+  const [category, setCategory] = useState("Loại nhà đất");
+
+  const [dbLocations, setDbLocations] = useState<string[]>(["Hà Nội", "TP. Hồ Chí Minh", "Đà Nẵng"]);
+  const [dbCategories, setDbCategories] = useState<string[]>([]);
+  const [dbProjects, setDbProjects] = useState<string[]>([]);
+
+  useEffect(() => {
+    // Fetch locations
+    getTopLocations(20).then((data) => {
+      const locNames = data.map((d: any) => d.name);
+      const combined = Array.from(new Set(["Hà Nội", "TP. Hồ Chí Minh", "Đà Nẵng", "Đồng Nai", "Bình Dương", "Khánh Hòa", "Quảng Ninh", "Hải Phòng", ...locNames]));
+      setDbLocations(combined);
+    });
+
+    // Fetch categories for "Loại nhà đất"
+    fetch('/api/categories').then(res => res.json()).catch(() => []).then(data => {
+      if(Array.isArray(data)) {
+        setDbCategories(Array.from(new Set(data.map(c => c.name))));
+      }
+    });
+
+    // Fetch projects
+    fetch('/api/projects?limit=50').then(res => res.json()).catch(() => []).then(data => {
+      if(data && Array.isArray(data.projects)) {
+        setDbProjects(data.projects.map((p:any) => p.title));
+      }
+    });
+  }, []);
+
+  const handleSearch = () => {
+    const params = new URLSearchParams();
+    
+    if (activeTab === "buy") params.set("type", "MUA BÁN NHÀ ĐẤT");
+    else if (activeTab === "rent") params.set("type", "CHO THUÊ NHÀ ĐẤT");
+
+    if (keyword) params.set("keyword", keyword);
+    if (location && location !== "Toàn quốc") params.set("location", location);
+    if (price && price !== "Mức giá") params.set("price", price);
+    if (area && area !== "Diện tích") params.set("area", area);
+    if (project && project !== "Dự án") params.set("keyword", project);
+
+    router.push(`/listing?${params.toString()}`);
+  };
 
   return (
     <section className="relative h-[70vh] min-h-[500px] flex items-end justify-center overflow-hidden bg-earth-brown pb-16">
@@ -70,15 +121,13 @@ export function HeroSection({ onNavigate }: HeroSectionProps) {
               {/* Loại nhà đất */}
               <div className="flex items-center border-r border-outline-variant/20 px-2 md:px-5 shrink-0 w-[95px] md:w-auto">
                 <select
+                  value={category}
+                  onChange={(e) => setCategory(e.target.value)}
                   className="w-full md:w-auto bg-transparent border-none focus:ring-0 font-body-md text-on-surface appearance-none outline-none pr-4 md:pr-5 py-4 cursor-pointer text-[12px] md:text-[15px]"
                   style={{ fontWeight: 500 }}
                 >
                   <option>Loại nhà đất</option>
-                  <option>Nhà ở</option>
-                  <option>Căn hộ chung cư</option>
-                  <option>Biệt thự, liền kề</option>
-                  <option>Đất nền</option>
-                  <option>Văn phòng, mặt bằng</option>
+                  {dbCategories.map(c => <option key={c} value={c}>{c}</option>)}
                 </select>
                 <span className="material-symbols-outlined text-outline-variant pointer-events-none -ml-4 text-xs md:text-sm">expand_more</span>
               </div>
@@ -88,6 +137,9 @@ export function HeroSection({ onNavigate }: HeroSectionProps) {
                 <span className="material-symbols-outlined text-antique-gold mr-1.5 md:mr-3 shrink-0 text-sm md:text-xl">location_on</span>
                 <input
                   type="text"
+                  value={keyword}
+                  onChange={(e) => setKeyword(e.target.value)}
+                  onKeyDown={(e) => e.key === "Enter" && handleSearch()}
                   placeholder="Nhập địa điểm hoặc dự án..."
                   className="w-full bg-transparent border-none focus:ring-0 font-body-md text-on-surface placeholder:text-on-surface-variant/50 outline-none py-4 text-[12px] md:text-[15px]"
                 />
@@ -95,7 +147,7 @@ export function HeroSection({ onNavigate }: HeroSectionProps) {
 
               {/* Nút tìm kiếm */}
               <button
-                onClick={() => onNavigate?.("listing")}
+                onClick={handleSearch}
                 className="px-3 md:px-10 py-4 font-label-caps text-white bg-earth-brown hover:bg-antique-gold transition-all duration-500 shrink-0 active:scale-95 text-[10px] md:text-[12px]"
                 style={{ letterSpacing: "0.15em", fontWeight: 700 }}
               >
@@ -105,22 +157,55 @@ export function HeroSection({ onNavigate }: HeroSectionProps) {
 
             {/* Filter row */}
             <div className="flex divide-x divide-outline-variant/20">
-              {[
-                { label: "Toàn quốc", options: ["Toàn quốc", "Hà Nội", "TP. Hồ Chí Minh", "Đà Nẵng", "Nha Trang"] },
-                { label: "Mức giá", options: ["Mức giá", "Dưới 1 tỷ", "1 – 3 tỷ", "3 – 5 tỷ", "5 – 10 tỷ", "Trên 10 tỷ"] },
-                { label: "Diện tích", options: ["Diện tích", "Dưới 50 m²", "50 – 100 m²", "100 – 200 m²", "Trên 200 m²"] },
-                { label: "Dự án", options: ["Dự án", "The Heritage Riverside", "Masteri West Heights", "Vinhomes Ocean Park"] },
-              ].map(({ label, options }) => (
-                <div key={label} className="flex-1 min-w-0 flex items-center px-1 md:px-4 py-2 md:py-2.5">
-                  <select
-                    className="w-full bg-transparent border-none focus:ring-0 text-on-surface-variant appearance-none outline-none cursor-pointer text-[10px] md:text-[13px]"
-                    style={{ fontWeight: 500 }}
-                  >
-                    {options.map((o) => <option key={o}>{o}</option>)}
-                  </select>
-                  <span className="material-symbols-outlined text-outline-variant pointer-events-none shrink-0 -ml-4 text-xs md:text-[16px]">expand_more</span>
-                </div>
-              ))}
+              {/* Toàn quốc */}
+              <div className="flex-1 min-w-0 flex items-center px-1 md:px-4 py-2 md:py-2.5">
+                <select
+                  value={location}
+                  onChange={(e) => setLocation(e.target.value)}
+                  className="w-full bg-transparent border-none focus:ring-0 text-on-surface-variant appearance-none outline-none cursor-pointer text-[10px] md:text-[13px]"
+                  style={{ fontWeight: 500 }}
+                >
+                  <option value="Toàn quốc">Toàn quốc</option>
+                  {dbLocations.map((o) => <option key={o} value={o}>{o}</option>)}
+                </select>
+                <span className="material-symbols-outlined text-outline-variant pointer-events-none shrink-0 -ml-4 text-xs md:text-[16px]">expand_more</span>
+              </div>
+              {/* Mức giá */}
+              <div className="flex-1 min-w-0 flex items-center px-1 md:px-4 py-2 md:py-2.5">
+                <select
+                  value={price}
+                  onChange={(e) => setPrice(e.target.value)}
+                  className="w-full bg-transparent border-none focus:ring-0 text-on-surface-variant appearance-none outline-none cursor-pointer text-[10px] md:text-[13px]"
+                  style={{ fontWeight: 500 }}
+                >
+                  {["Mức giá", "Trên 20 Tỷ VNĐ", "50 - 100 Tỷ VNĐ", "Trên 100 Tỷ VNĐ"].map((o) => <option key={o} value={o}>{o}</option>)}
+                </select>
+                <span className="material-symbols-outlined text-outline-variant pointer-events-none shrink-0 -ml-4 text-xs md:text-[16px]">expand_more</span>
+              </div>
+              {/* Diện tích */}
+              <div className="flex-1 min-w-0 flex items-center px-1 md:px-4 py-2 md:py-2.5">
+                <select
+                  value={area}
+                  onChange={(e) => setArea(e.target.value)}
+                  className="w-full bg-transparent border-none focus:ring-0 text-on-surface-variant appearance-none outline-none cursor-pointer text-[10px] md:text-[13px]"
+                  style={{ fontWeight: 500 }}
+                >
+                  {["Diện tích", "Dưới 200 m²", "200 - 500 m²", "Trên 500 m²"].map((o) => <option key={o} value={o}>{o}</option>)}
+                </select>
+                <span className="material-symbols-outlined text-outline-variant pointer-events-none shrink-0 -ml-4 text-xs md:text-[16px]">expand_more</span>
+              </div>
+              {/* Dự án */}
+              <div className="flex-1 min-w-0 flex items-center px-1 md:px-4 py-2 md:py-2.5">
+                <select
+                  value={project}
+                  onChange={(e) => setProject(e.target.value)}
+                  className="w-full bg-transparent border-none focus:ring-0 text-on-surface-variant appearance-none outline-none cursor-pointer text-[10px] md:text-[13px]"
+                  style={{ fontWeight: 500 }}
+                >
+                  {["Dự án", ...dbProjects].map((o) => <option key={o} value={o}>{o}</option>)}
+                </select>
+                <span className="material-symbols-outlined text-outline-variant pointer-events-none shrink-0 -ml-4 text-xs md:text-[16px]">expand_more</span>
+              </div>
             </div>
           </div>
         </div>

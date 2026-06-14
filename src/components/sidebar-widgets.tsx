@@ -1,17 +1,27 @@
+"use client";
+
 /* ─── Location Widget ─── */
+import { useState, useEffect } from "react";
+import { getTopLocations } from "../actions/project-actions";
+
 interface LocationItem {
   name: string;
   count: number;
 }
 
-const locationItems: LocationItem[] = [
-  { name: "Bất động sản Hà Nội", count: 921 },
-  { name: "Bất động sản TP. Hồ Chí Minh", count: 845 },
-  { name: "Bất động sản Đà Nẵng", count: 112 },
-  { name: "Bất động sản Nha Trang", count: 84 },
-];
-
 export function LocationWidget() {
+  const [locationItems, setLocationItems] = useState<LocationItem[]>([]);
+
+  useEffect(() => {
+    getTopLocations().then(data => {
+      const formatted = data.map(item => ({
+        name: item.name.toLowerCase().includes("bất động sản") ? item.name : `Bất động sản ${item.name}`,
+        count: item.count
+      }));
+      setLocationItems(formatted);
+    });
+  }, []);
+
   return (
     <div className="bg-white border border-outline-variant/20 p-6 border-t-4 border-t-antique-gold">
       <div className="flex items-center gap-3 mb-6">
@@ -44,38 +54,19 @@ export function LocationWidget() {
 }
 
 /* ─── Featured Projects Widget ─── */
-interface FeaturedProject {
-  name: string;
-  location: string;
-  startingPrice: string;
-  image: string;
-}
-
-const featuredProjects: FeaturedProject[] = [
-  {
-    name: "Masteri West Heights",
-    location: "Nam Từ Liêm, Hà Nội",
-    startingPrice: "TỪ 4 TỶ ₫",
-    image:
-      "https://images.unsplash.com/photo-1613490908578-8120c16b5a32?w=400",
-  },
-  {
-    name: "The Metropole Thủ Thiêm",
-    location: "Quận 2, TP.HCM",
-    startingPrice: "TỪ 12 TỶ ₫",
-    image:
-      "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=400",
-  },
-  {
-    name: "Vinhomes Ocean Park 2",
-    location: "Văn Giang, Hưng Yên",
-    startingPrice: "TỪ 6 TỶ ₫",
-    image:
-      "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=400",
-  },
-];
+import { getTopViewedProjects } from "../actions/project-actions";
+import { useRouter } from "next/navigation";
 
 export function FeaturedProjectsWidget() {
+  const [featuredProjects, setFeaturedProjects] = useState<any[]>([]);
+  const router = useRouter();
+
+  useEffect(() => {
+    getTopViewedProjects(3).then(data => {
+      setFeaturedProjects(data);
+    });
+  }, []);
+
   return (
     <div className="bg-white border border-outline-variant/20 p-6 border-t-4 border-t-antique-gold">
       <div className="flex items-center gap-3 mb-6">
@@ -89,26 +80,29 @@ export function FeaturedProjectsWidget() {
       </div>
       <div className="space-y-6">
         {featuredProjects.map((project) => (
-          <div key={project.name} className="flex gap-4 group cursor-pointer">
+          <div key={project.id} className="flex gap-4 group cursor-pointer" onClick={() => router.push(`/detail/${project.id}`)}>
             <div className="w-16 h-16 shrink-0 overflow-hidden">
               <img
-                src={project.image}
-                alt={project.name}
+                src={project.mainImg || "https://images.unsplash.com/photo-1613490908578-8120c16b5a32?w=400"}
+                alt={project.title}
                 className="w-full h-full object-cover group-hover:scale-110 transition-transform"
               />
             </div>
             <div>
               <h5
-                className="font-label-caps text-primary group-hover:text-antique-gold transition-colors"
+                className="font-label-caps text-primary group-hover:text-antique-gold transition-colors line-clamp-1"
                 style={{ fontSize: "12px", letterSpacing: "0.1em", fontWeight: 700 }}
               >
-                {project.name}
+                {project.title}
               </h5>
-              <p className="text-on-surface-variant uppercase" style={{ fontSize: "11px" }}>
+              <p className="text-on-surface-variant uppercase line-clamp-1" style={{ fontSize: "11px" }}>
                 {project.location}
               </p>
               <p className="font-semibold text-antique-gold" style={{ fontSize: "12px" }}>
-                {project.startingPrice}
+                {project.price}
+              </p>
+              <p className="text-gray-400 mt-1" style={{ fontSize: "10px" }}>
+                {project.views} lượt xem
               </p>
             </div>
           </div>

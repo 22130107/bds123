@@ -5,60 +5,19 @@ import { Footer } from "../footer";
 
 interface NewsPageProps {
   onNavigate: (page: string) => void;
+  dbNews?: any[];
 }
 
-const newsArticles = [
-  {
-    id: 1,
-    title: "Thị trường Bất động sản hạng sang đón nhận luồng gió mới trong năm 2024",
-    date: "12 Tháng 6, 2024",
-    category: "THỊ TRƯỜNG",
-    excerpt: "Nhu cầu sở hữu không gian sống tinh hoa tiếp tục tăng trưởng mạnh mẽ, các dự án ven sông và sở hữu tầm nhìn panorama đang trở thành tâm điểm chú ý của giới siêu giàu.",
-    image: "https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=800",
-  },
-  {
-    id: 2,
-    title: "Xu hướng kiến trúc Biophilic: Mang thiên nhiên vào không gian sống đẳng cấp",
-    date: "10 Tháng 6, 2024",
-    category: "KIẾN TRÚC",
-    excerpt: "Thiết kế Biophilic không chỉ là một trào lưu, mà đã trở thành tiêu chuẩn mới cho các dinh thự cao cấp, giúp dung hòa giữa tiện nghi hiện đại và thiên nhiên nguyên bản.",
-    image: "https://images.unsplash.com/photo-1416331108676-a22ccb276e35?w=800",
-  },
-  {
-    id: 3,
-    title: "Giải mã sức hút của các đại đô thị tỷ đô tại khu vực phía Đông Thủ đô",
-    date: "05 Tháng 6, 2024",
-    category: "PHÂN TÍCH",
-    excerpt: "Sự dịch chuyển cơ sở hạ tầng đã biến khu Đông thành 'thỏi nam châm' thu hút dòng vốn đầu tư, với hàng loạt siêu dự án được triển khai bởi các Chủ đầu tư uy tín.",
-    image: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=800",
-  },
-  {
-    id: 4,
-    title: "Lãi suất vay mua nhà chạm đáy: Cơ hội vàng cho nhà đầu tư",
-    date: "28 Tháng 5, 2024",
-    category: "TÀI CHÍNH",
-    excerpt: "Các ngân hàng đồng loạt tung ra các gói vay ưu đãi nhất trong thập kỷ qua. Đây có phải là thời điểm vàng để quyết định 'xuống tiền' cho các tài sản giá trị lớn?",
-    image: "https://images.unsplash.com/photo-1497366216548-37526070297c?w=800",
-  },
-  {
-    id: 5,
-    title: "Bộ sưu tập Penthouse đắt giá nhất Việt Nam chính thức ra mắt",
-    date: "20 Tháng 5, 2024",
-    category: "DỰ ÁN MỚI",
-    excerpt: "Số lượng cực kỳ giới hạn, tầm nhìn vô cực và những đặc quyền thượng lưu... Những căn Penthouse này không dành cho số đông mà là tuyên ngôn của đẳng cấp.",
-    image: "https://images.unsplash.com/photo-1503387762-592deb58ef4e?w=800",
-  },
-  {
-    id: 6,
-    title: "Cẩm nang pháp lý: Những điều cần lưu ý khi giao dịch BĐS giá trị cao",
-    date: "15 Tháng 5, 2024",
-    category: "CẨM NANG",
-    excerpt: "Tổng hợp các bước thẩm định pháp lý quan trọng nhất, giúp đảm bảo an toàn tuyệt đối cho các giao dịch bất động sản có quy mô vốn lớn.",
-    image: "https://images.unsplash.com/photo-1515263487990-61b07816b324?w=800",
-  },
-];
+export function NewsPage({ onNavigate, dbNews = [] }: NewsPageProps) {
+  const articles = dbNews.map(n => ({
+    id: n.id,
+    title: n.title,
+    date: n.date || "",
+    category: n.category || "TIN TỨC",
+    excerpt: n.excerpt,
+    image: n.img,
+  }));
 
-export function NewsPage({ onNavigate }: NewsPageProps) {
   return (
     <div className="bg-surface text-on-surface font-body-md min-h-screen flex flex-col" style={{ overflowX: "hidden" }}>
       <TopNavBar activePage="news" onNavigate={onNavigate} />
@@ -88,7 +47,12 @@ export function NewsPage({ onNavigate }: NewsPageProps) {
       {/* Main Content */}
       <main className="flex-1 max-w-[1280px] w-full mx-auto px-5 md:px-[80px] py-16">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {newsArticles.map((article) => (
+          {articles.length === 0 && (
+            <div className="col-span-1 md:col-span-2 lg:col-span-3 text-center py-20 text-on-surface-variant font-medium text-lg border-2 border-dashed border-outline-variant/30 rounded-xl">
+              Chưa có bài viết nào được đăng tải.
+            </div>
+          )}
+          {articles.map((article) => (
             <article 
               key={article.id} 
               className="bg-white border border-outline-variant/20 overflow-hidden group cursor-pointer hover:shadow-xl transition-all duration-300 flex flex-col"
