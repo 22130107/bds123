@@ -30,7 +30,7 @@ export function HomePage({ onNavigate, dbProjects = [], dbSpaces = [], dbNews = 
         <FeaturedNews news={dbNews} />
         <CTASection onSchedule={() => onNavigate("listing")} onViewCatalog={() => onNavigate("listing")} />
       </main>
-      <Footer variant="default" />
+      <Footer />
     </div>
   );
 }

@@ -108,7 +108,7 @@ export function NewsDetailPage({ onNavigate, article, latestNews = [] }: NewsDet
 
       </main>
 
-      <Footer variant="dark" />
+      <Footer />
     </div>
   );
 }

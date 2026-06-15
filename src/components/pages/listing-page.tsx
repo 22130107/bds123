@@ -117,7 +117,7 @@ export function ListingPage({ projects = [], currentCategory }: { projects?: any
         </div>
       </main>
 
-      <Footer variant="dark" />
+      <Footer />
     </div>
     </>
   );

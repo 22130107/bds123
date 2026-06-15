@@ -151,7 +151,7 @@ export function DetailPage({ project, agentInfo }: DetailPageProps) {
         </div>
       </main>
 
-      <Footer variant="heritage" />
+      <Footer />
     </div>
   );
 }

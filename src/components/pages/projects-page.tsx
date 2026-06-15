@@ -21,7 +21,7 @@ export function ProjectsPage({ onNavigate }: ProjectsPageProps) {
         <DeveloperShowcase />
       </main>
 
-      <Footer variant="dark" />
+      <Footer />
     </div>
   );
 }

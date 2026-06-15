@@ -122,7 +122,7 @@ export function NewsPage({ onNavigate, dbNews = [] }: NewsPageProps) {
         )}
       </main>
 
-      <Footer variant="dark" />
+      <Footer />
     </div>
   );
 }
