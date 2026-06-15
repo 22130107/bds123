@@ -38,7 +38,7 @@ export async function getTopViewedProjects(limit: number = 3) {
 }
 
 async function handleUploads(formData: FormData): Promise<string[]> {
-  const uploadDir = join(process.cwd(), "public", "uploads");
+  const uploadDir = join(process.cwd(), ".uploads");
   if (!existsSync(uploadDir)) {
     await mkdir(uploadDir, { recursive: true });
   }
@@ -55,7 +55,7 @@ async function handleUploads(formData: FormData): Promise<string[]> {
       const filename = `${Date.now()}-${safeName}`;
       const filepath = join(uploadDir, filename);
       await writeFile(filepath, buffer);
-      uploadedPaths.push(`/uploads/${filename}`);
+      uploadedPaths.push(`/api/uploads/${filename}`);
     }
   }
   return uploadedPaths;

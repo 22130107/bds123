@@ -25,7 +25,7 @@ export async function getAgentInfo() {
 async function handleUpload(file: File | null): Promise<string | null> {
   if (!file || file.size === 0 || !file.name) return null;
 
-  const uploadDir = join(process.cwd(), "public", "uploads");
+  const uploadDir = join(process.cwd(), ".uploads");
   if (!existsSync(uploadDir)) {
     await mkdir(uploadDir, { recursive: true });
   }
@@ -37,7 +37,7 @@ async function handleUpload(file: File | null): Promise<string | null> {
   const filepath = join(uploadDir, filename);
   await writeFile(filepath, buffer);
   
-  return `/uploads/${filename}`;
+  return `/api/uploads/${filename}`;
 }
 
 export async function updateAgentInfo(formData: FormData) {
