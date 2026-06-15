@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 interface NewsArticle {
   id: string;
   category: string;
@@ -64,8 +66,8 @@ export function FeaturedNews({ news = [] }: { news?: any[] }) {
               </div>
             </div>
           </div>
-          <a
-            href="#"
+          <Link
+            href="/news"
             className="hidden md:flex font-label-caps font-bold hover:bg-antique-gold hover:text-white transition-all duration-300 items-center gap-3 group px-5 py-2.5 border border-earth-brown text-earth-brown"
             style={{ fontSize: "11px", letterSpacing: "0.15em" }}
           >
@@ -73,89 +75,109 @@ export function FeaturedNews({ news = [] }: { news?: any[] }) {
             <span className="material-symbols-outlined text-sm group-hover:translate-x-1 transition-transform">
               arrow_right_alt
             </span>
-          </a>
+          </Link>
         </div>
 
         {/* Grid */}
         <div className="grid grid-cols-1 md:grid-cols-12 gap-x-12 gap-y-20 lg:gap-x-16">
           {/* Featured Article */}
           {featured && (
-            <article className="md:col-span-7 group cursor-pointer bg-white p-5 border border-earth-brown/30 shadow-sm transition-all hover:shadow-xl">
-              <div className="relative overflow-hidden aspect-[16/9] bg-surface-container-low mb-6">
-                <img
-                  src={featured.image}
-                  alt={featured.title}
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-[3000ms]"
-                />
-              </div>
-              <div className="flex items-center gap-3 mb-4">
-                <span
-                  className="font-label-caps uppercase tracking-widest font-bold px-3 py-1"
-                  style={{ fontSize: "10px", backgroundColor: "#D4AF37", color: "#ffffff" }}
+            <Link href={`/news/${featured.id}`} className="md:col-span-7 group cursor-pointer bg-white p-5 border border-earth-brown/30 shadow-sm transition-all hover:shadow-xl block">
+              <article>
+                <div className="relative overflow-hidden aspect-[16/9] bg-surface-container-low mb-6">
+                  <img
+                    src={featured.image}
+                    alt={featured.title}
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-[3000ms]"
+                  />
+                </div>
+                <div className="flex items-center gap-3 mb-4">
+                  <span
+                    className="font-label-caps uppercase tracking-widest font-bold px-3 py-1"
+                    style={{ fontSize: "10px", backgroundColor: "#D4AF37", color: "#ffffff" }}
+                  >
+                    {featured.category}
+                  </span>
+                  <span
+                    className="font-label-caps font-bold uppercase px-3 py-1"
+                    style={{ fontSize: "9px", backgroundColor: "#f5f3ee", color: "#4e453d" }}
+                  >
+                    {featured.date}
+                  </span>
+                </div>
+                <h3
+                  className="font-body-lg text-earth-brown group-hover:text-antique-gold transition-colors mb-4 leading-tight"
+                  style={{ fontSize: "clamp(28px, 3vw, 44px)", fontWeight: 700 }}
                 >
-                  {featured.category}
-                </span>
-                <span
-                  className="font-label-caps font-bold uppercase px-3 py-1"
-                  style={{ fontSize: "9px", backgroundColor: "#f5f3ee", color: "#4e453d" }}
+                  {featured.title}
+                </h3>
+                <p
+                  className="font-body-lg text-on-surface mb-6 leading-relaxed max-w-2xl"
+                  style={{ fontSize: "18px", lineHeight: "30px" }}
                 >
-                  {featured.date}
-                </span>
-              </div>
-              <h3
-                className="font-body-lg text-earth-brown group-hover:text-antique-gold transition-colors mb-4 leading-tight"
-                style={{ fontSize: "clamp(28px, 3vw, 44px)", fontWeight: 700 }}
-              >
-                {featured.title}
-              </h3>
-              <p
-                className="font-body-lg text-on-surface mb-6 leading-relaxed max-w-2xl"
-                style={{ fontSize: "18px", lineHeight: "30px" }}
-              >
-                {featured.excerpt}
-              </p>
-              <div className="hairline-divider" />
-            </article>
+                  {featured.excerpt}
+                </p>
+                <div className="hairline-divider" />
+              </article>
+            </Link>
           )}
 
           {/* Secondary Articles */}
           <div className="md:col-span-5 grid grid-cols-1 gap-y-6">
             {secondary.map((article) => (
-              <article
+              <Link
                 key={article.id}
+                href={`/news/${article.id}`}
                 className="group cursor-pointer flex gap-6 items-start bg-white p-4 border border-earth-brown/30 shadow-sm transition-all hover:shadow-lg"
               >
-                <div className="w-1/3 aspect-square overflow-hidden bg-surface-container-low">
-                  <img
-                    src={article.image}
-                    alt={article.title}
-                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-1000"
-                  />
-                </div>
-                <div className="flex-1">
-                  <span
-                    className="font-label-caps uppercase tracking-[0.2em] mb-2 inline-block font-bold px-2.5 py-1"
-                    style={{ fontSize: "9px", backgroundColor: "#D4AF37", color: "#ffffff" }}
-                  >
-                    {article.category}
-                  </span>
-                  <h4
-                    className="font-body-lg text-earth-brown group-hover:text-antique-gold transition-colors leading-snug"
-                    style={{ fontSize: "20px", fontWeight: 700 }}
-                  >
-                    {article.title}
-                  </h4>
-                  <div className="hairline-divider mt-4" />
-                </div>
-              </article>
+                <article className="flex gap-6 w-full items-start">
+                  <div className="w-1/3 aspect-square overflow-hidden bg-surface-container-low flex-shrink-0">
+                    <img
+                      src={article.image}
+                      alt={article.title}
+                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-1000"
+                    />
+                  </div>
+                  <div className="flex-1">
+                    <div className="flex flex-wrap items-center gap-2 mb-2">
+                      <span
+                        className="font-label-caps uppercase tracking-[0.2em] font-bold px-2.5 py-1"
+                        style={{ fontSize: "9px", backgroundColor: "#D4AF37", color: "#ffffff" }}
+                      >
+                        {article.category}
+                      </span>
+                      {article.date && (
+                        <span
+                          className="font-label-caps font-bold uppercase px-2.5 py-1"
+                          style={{ fontSize: "8px", backgroundColor: "#f5f3ee", color: "#4e453d" }}
+                        >
+                          {article.date}
+                        </span>
+                      )}
+                    </div>
+                    <h4
+                      className="font-body-lg text-earth-brown group-hover:text-antique-gold transition-colors leading-snug mb-2"
+                      style={{ fontSize: "20px", fontWeight: 700 }}
+                    >
+                      {article.title}
+                    </h4>
+                    {article.excerpt && (
+                      <p className="text-on-surface-variant line-clamp-2 md:line-clamp-3 text-sm leading-relaxed">
+                        {article.excerpt}
+                      </p>
+                    )}
+                    <div className="hairline-divider mt-4" />
+                  </div>
+                </article>
+              </Link>
             ))}
           </div>
         </div>
         
         {/* Mobile-only "XEM TẤT CẢ" Button */}
         <div className="flex md:hidden justify-center mt-16">
-          <a
-            href="#"
+          <Link
+            href="/news"
             className="font-label-caps font-bold hover:bg-antique-gold hover:text-white transition-all duration-300 flex items-center gap-3 group px-8 py-3 border border-earth-brown text-earth-brown"
             style={{ fontSize: "11px", letterSpacing: "0.15em" }}
           >
@@ -163,7 +185,7 @@ export function FeaturedNews({ news = [] }: { news?: any[] }) {
             <span className="material-symbols-outlined text-sm group-hover:translate-x-1 transition-transform">
               arrow_right_alt
             </span>
-          </a>
+          </Link>
         </div>
       </div>
     </section>

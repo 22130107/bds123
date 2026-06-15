@@ -10,6 +10,15 @@ export default async function EditSpacePage({ params }: { params: Promise<{ id: 
     return <div>Không tìm thấy không gian</div>;
   }
 
+  // Parse images từ JSON string sang array
+  let parsedImages: string[] = [];
+  try {
+    parsedImages = typeof space.images === 'string' ? JSON.parse(space.images) : (space.images || []);
+  } catch(e) {
+    parsedImages = [];
+  }
+  const parsedSpace = { ...space, images: parsedImages };
+
   return (
     <div>
       <div className="mb-6">
@@ -20,7 +29,7 @@ export default async function EditSpacePage({ params }: { params: Promise<{ id: 
         <h1 className="text-2xl font-bold text-gray-800 mt-2">Sửa Không gian #{space.id}</h1>
       </div>
 
-      <SpaceForm initialData={space} />
+      <SpaceForm initialData={parsedSpace} />
     </div>
   );
 }

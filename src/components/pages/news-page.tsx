@@ -1,7 +1,9 @@
 "use client";
 
+import { useState } from "react";
 import { TopNavBar } from "../top-nav-bar";
 import { Footer } from "../footer";
+import { Pagination } from "../pagination";
 
 interface NewsPageProps {
   onNavigate: (page: string) => void;
@@ -17,6 +19,11 @@ export function NewsPage({ onNavigate, dbNews = [] }: NewsPageProps) {
     excerpt: n.excerpt,
     image: n.img,
   }));
+
+  const ITEMS_PER_PAGE = 6;
+  const [currentPage, setCurrentPage] = useState(1);
+  const totalPages = Math.max(1, Math.ceil(articles.length / ITEMS_PER_PAGE));
+  const paginatedArticles = articles.slice((currentPage - 1) * ITEMS_PER_PAGE, currentPage * ITEMS_PER_PAGE);
 
   return (
     <div className="bg-surface text-on-surface font-body-md min-h-screen flex flex-col" style={{ overflowX: "hidden" }}>
@@ -52,9 +59,10 @@ export function NewsPage({ onNavigate, dbNews = [] }: NewsPageProps) {
               Chưa có bài viết nào được đăng tải.
             </div>
           )}
-          {articles.map((article) => (
+          {paginatedArticles.map((article) => (
             <article 
               key={article.id} 
+              onClick={() => onNavigate(`news/${article.id}`)}
               className="bg-white border border-outline-variant/20 overflow-hidden group cursor-pointer hover:shadow-xl transition-all duration-300 flex flex-col"
             >
               {/* Image Container */}
@@ -104,13 +112,14 @@ export function NewsPage({ onNavigate, dbNews = [] }: NewsPageProps) {
           ))}
         </div>
         
-        {/* Pagination Dummy */}
-        <div className="mt-16 flex justify-center gap-2">
-          <button className="w-10 h-10 flex items-center justify-center border border-outline-variant text-on-surface hover:bg-earth-brown hover:text-white transition-colors">1</button>
-          <button className="w-10 h-10 flex items-center justify-center bg-earth-brown text-white">2</button>
-          <button className="w-10 h-10 flex items-center justify-center border border-outline-variant text-on-surface hover:bg-earth-brown hover:text-white transition-colors">3</button>
-          <span className="w-10 h-10 flex items-center justify-center">...</span>
-        </div>
+        {/* Pagination */}
+        {totalPages > 1 && (
+          <Pagination
+            currentPage={currentPage}
+            totalPages={totalPages}
+            onPageChange={(page) => setCurrentPage(page)}
+          />
+        )}
       </main>
 
       <Footer variant="dark" />

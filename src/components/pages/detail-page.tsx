@@ -1,7 +1,5 @@
 "use client";
 
-import { useMemo } from "react";
-import { useCopilotReadable } from "@copilotkit/react-core";
 import { TopNavBar } from "../top-nav-bar";
 import { PropertyGallery } from "../property-gallery";
 import { TechnicalSpecs } from "../technical-specs";
@@ -13,6 +11,7 @@ import { useRouter } from "next/navigation";
 
 interface DetailPageProps {
   project: any;
+  agentInfo: any;
 }
 
 const villaImages = [
@@ -42,34 +41,9 @@ const villaSpecs = [
   { icon: "description", label: "Giấy tờ pháp lý", value: "Sổ đỏ" },
 ];
 
-const agentInfo = {
-  name: "Anh Tuấn Nguyễn",
-  title: "Đại diện phân phối dự án",
-  phone: "0982 831 582",
-  avatar:
-    "https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=800",
-  isOnline: true,
-};
-
-export function DetailPage({ project }: DetailPageProps) {
+export function DetailPage({ project, agentInfo }: DetailPageProps) {
   const router = useRouter();
 
-  useCopilotReadable({
-    description: "Bất động sản người dùng ĐANG XEM chi tiết — đây là căn người dùng hỏi",
-    value: {
-      id: project.id,
-      title: project.title,
-      price: project.price,
-      location: project.location,
-      area: project.area,
-      description: project.description?.substring(0, 500),
-      type: project.type,
-      category: project.category,
-      isFeatured: project.isFeatured,
-      mainImg: project.mainImg,
-    },
-  });
-  
   const handleNavigate = (page: string) => {
     if (page === "home") router.push("/");
     else if (page === "listing") router.push("/listing");

@@ -2,7 +2,6 @@
 
 import { useRouter } from "next/navigation";
 import { NewsPage } from "../../components/pages/news-page";
-import { CopilotPageData } from "../../components/copilot-page-data";
 
 export default function NewsClient({ dbNews }: { dbNews: any[] }) {
   const router = useRouter();
@@ -14,7 +13,6 @@ export default function NewsClient({ dbNews }: { dbNews: any[] }) {
 
   return (
     <>
-      <CopilotPageData news={dbNews} />
       <NewsPage onNavigate={handleNavigate} dbNews={dbNews} />
     </>
   );

@@ -4,9 +4,10 @@ interface AgentCardProps {
   phone: string;
   avatar: string;
   isOnline?: boolean;
+  zalo?: string;
 }
 
-export function AgentCard({ name, title, phone, avatar, isOnline = true }: AgentCardProps) {
+export function AgentCard({ name, title, phone, avatar, isOnline = true, zalo = "https://zalo.me" }: AgentCardProps) {
   return (
     <div className="bg-white p-8 shadow-sm border border-outline-variant/30 text-center">
       {/* Avatar */}
@@ -45,13 +46,16 @@ export function AgentCard({ name, title, phone, avatar, isOnline = true }: Agent
           <span className="material-symbols-outlined" style={{ fontSize: "18px" }}>call</span>
           Gọi ngay: {phone}
         </a>
-        <button
+        <a
+          href={zalo.startsWith("http") ? zalo : `https://zalo.me/${zalo.replace(/\s/g, "")}`}
+          target="_blank"
+          rel="noopener noreferrer"
           className="flex items-center justify-center gap-2 w-full border border-moss-green text-moss-green py-3 font-label-caps hover:bg-moss-green/5 transition-colors"
           style={{ fontSize: "12px", letterSpacing: "0.1em", fontWeight: 700 }}
         >
           <span className="material-symbols-outlined" style={{ fontSize: "18px" }}>chat</span>
           Nhắn tin qua Zalo
-        </button>
+        </a>
       </div>
     </div>
   );

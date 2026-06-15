@@ -1,11 +1,17 @@
 "use client";
-import { useState } from "react";
+import { useState, useMemo } from "react";
+import dynamic from "next/dynamic";
 import { createNews, updateNews } from "../../../actions/news-actions";
 import { useRouter } from "next/navigation";
+
+const ReactQuill = dynamic(() => import("react-quill-new"), { ssr: false });
+import "react-quill-new/dist/quill.snow.css";
 
 export default function NewsForm({ initialData }: { initialData?: any }) {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
+  const [coverPreview, setCoverPreview] = useState<string>(initialData?.img || "");
+  const [fileError, setFileError] = useState("");
   const [formData, setFormData] = useState({
     title: initialData?.title || "",
     excerpt: initialData?.excerpt || "",
@@ -15,19 +21,48 @@ export default function NewsForm({ initialData }: { initialData?: any }) {
     date: initialData?.date || new Date().toLocaleDateString("vi-VN"),
   });
 
+  const quillModules = useMemo(() => ({
+    toolbar: {
+      container: [
+        [{ header: [1, 2, 3, false] }],
+        ["bold", "italic", "underline", "strike"],
+        [{ list: "ordered" }, { list: "bullet" }],
+        ["link", "image"],
+        ["clean"],
+      ],
+    },
+  }), []);
+
   const handleChange = (e: any) => {
     const { name, value } = e.target;
     setFormData(prev => ({ ...prev, [name]: value }));
+  };
+
+  const handleContentChange = (value: string) => {
+    setFormData(prev => ({ ...prev, content: value }));
+  };
+
+  const handleFileChange = (e: any) => {
+    const file = e.target.files?.[0];
+    setFileError("");
+    if (!file) return;
+    if (file.size > 5 * 1024 * 1024) {
+      setFileError("Ảnh quá lớn! Vui lòng chọn ảnh dưới 5MB.");
+      e.target.value = "";
+      return;
+    }
+    setCoverPreview(URL.createObjectURL(file));
   };
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
     setLoading(true);
     try {
+      const data = new FormData(e.target);
       if (initialData?.id) {
-        await updateNews(initialData.id, formData);
+        await updateNews(initialData.id, data);
       } else {
-        await createNews(formData);
+        await createNews(data);
       }
       router.push("/admin/news");
     } catch (error) {
@@ -38,36 +73,61 @@ export default function NewsForm({ initialData }: { initialData?: any }) {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="bg-white p-8 rounded-xl shadow-sm border border-gray-100 max-w-4xl space-y-6">
+    <form onSubmit={handleSubmit} encType="multipart/form-data" className="bg-white p-8 rounded-xl shadow-sm border border-gray-100 max-w-4xl space-y-6">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div className="col-span-1 md:col-span-2">
-          <label className="block text-sm font-medium text-gray-700 mb-1">Tiêu đề bài viết (Title) *</label>
+          <label className="block text-sm font-medium text-gray-700 mb-1">Tiêu đề bài viết *</label>
           <input required name="title" value={formData.title} onChange={handleChange} className="w-full px-4 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-earth-brown outline-none" />
         </div>
 
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">Chuyên mục (Category)</label>
+          <label className="block text-sm font-medium text-gray-700 mb-1">Chuyên mục</label>
           <input required name="category" value={formData.category} onChange={handleChange} className="w-full px-4 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-earth-brown outline-none" />
         </div>
 
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">Ngày đăng (Date)</label>
+          <label className="block text-sm font-medium text-gray-700 mb-1">Ngày đăng</label>
           <input required name="date" value={formData.date} onChange={handleChange} className="w-full px-4 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-earth-brown outline-none" />
         </div>
-        
+
+        {/* Upload Ảnh bìa */}
+        <div className="col-span-1 md:col-span-2 p-6 border-2 border-dashed border-gray-300 rounded-xl bg-gray-50 hover:bg-gray-100 transition-colors">
+          <label className="block text-sm font-medium text-gray-900 mb-2">Ảnh bìa (Cover Image)</label>
+          <input
+            type="file"
+            name="imageFiles"
+            accept="image/*"
+            onChange={handleFileChange}
+            className="w-full file:mr-4 file:py-2 file:px-4 file:rounded file:border-0 file:text-sm file:font-semibold file:bg-earth-brown file:text-white hover:file:bg-earth-brown/90 cursor-pointer"
+          />
+          <p className="text-xs text-gray-500 mt-2">Tải ảnh từ máy tính lên (tối đa 5MB). Ảnh sẽ được lưu vào Server.</p>
+          {fileError && <p className="text-sm text-red-600 mt-1">{fileError}</p>}
+          <input type="hidden" name="img" value={formData.img} />
+
+          {(coverPreview || initialData?.img) && (
+            <div className="mt-4 max-w-md rounded overflow-hidden border border-gray-200">
+              <img src={coverPreview || initialData?.img} className="w-full h-48 object-cover" alt="Preview" />
+            </div>
+          )}
+        </div>
+
         <div className="col-span-1 md:col-span-2">
           <label className="block text-sm font-medium text-gray-700 mb-1">Mô tả ngắn (Excerpt) *</label>
           <textarea required name="excerpt" value={formData.excerpt} onChange={handleChange} rows={3} className="w-full px-4 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-earth-brown outline-none" />
         </div>
 
         <div className="col-span-1 md:col-span-2">
-          <label className="block text-sm font-medium text-gray-700 mb-1">Đường dẫn Ảnh đại diện (Cover Image URL)</label>
-          <input name="img" value={formData.img} onChange={handleChange} className="w-full px-4 py-2 border border-gray-300 rounded outline-none" placeholder="https://..." />
-        </div>
-
-        <div className="col-span-1 md:col-span-2">
-          <label className="block text-sm font-medium text-gray-700 mb-1">Nội dung chi tiết (Content - HTML)</label>
-          <textarea name="content" value={formData.content} onChange={handleChange} rows={10} className="w-full px-4 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-earth-brown outline-none font-mono text-sm" placeholder="<p>Bài viết của bạn ở đây...</p>" />
+          <label className="block text-sm font-medium text-gray-700 mb-2">Nội dung chi tiết</label>
+          <div className="border border-gray-300 rounded focus-within:ring-2 focus-within:ring-earth-brown">
+            <input type="hidden" name="content" value={formData.content} />
+            <ReactQuill
+              value={formData.content}
+              onChange={handleContentChange}
+              modules={quillModules}
+              placeholder="Nhập nội dung bài viết..."
+              style={{ minHeight: "300px" }}
+            />
+          </div>
         </div>
       </div>
 

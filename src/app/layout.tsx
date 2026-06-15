@@ -1,6 +1,5 @@
 import "../styles/index.css";
 import type { Metadata } from "next";
-import { CopilotWrapper } from "../components/copilot-wrapper";
 
 export const metadata: Metadata = {
   title: "Modern Estate",
@@ -21,9 +20,7 @@ export default function RootLayout({
         <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=swap" rel="stylesheet" />
       </head>
       <body className="antialiased font-body-md bg-surface text-on-surface">
-        <CopilotWrapper>
-          {children}
-        </CopilotWrapper>
+        {children}
       </body>
     </html>
   );

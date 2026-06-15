@@ -215,16 +215,16 @@ function ShowcaseCard({ item, delay }: { item: ShowcaseItem; delay: string }) {
       </div>
 
       {/* Classic Border Deco overlay */}
-      <div className="absolute inset-0 border border-transparent group-hover:border-white/20 transition-colors duration-500 pointer-events-none z-10 m-3" />
+      <div className="absolute inset-0 border border-transparent group-hover:border-white/20 transition-colors duration-500 pointer-events-none z-20 m-3" />
 
       {/* Base Gradient overlay for readability */}
-      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent opacity-80 group-hover:opacity-90 transition-opacity duration-500" />
+      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent opacity-80 group-hover:opacity-90 transition-opacity duration-500 z-20 pointer-events-none" />
 
       {/* Hover highlight overlay */}
-      <div className="absolute inset-0 bg-gradient-to-tr from-earth-brown/40 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
+      <div className="absolute inset-0 bg-gradient-to-tr from-earth-brown/40 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none z-20" />
 
       {/* Category tag on top right */}
-      <div className="absolute top-4 right-4 z-20 overflow-hidden">
+      <div className="absolute top-4 right-4 z-30 overflow-hidden">
         <span
           className="bg-earth-brown/85 backdrop-blur-md text-white px-3 py-1.5 font-label-caps tracking-widest font-bold inline-block transform translate-y-0 group-hover:-translate-y-1 transition-transform duration-300 border border-antique-gold/25"
           style={{ fontSize: "8px" }}
@@ -234,7 +234,7 @@ function ShowcaseCard({ item, delay }: { item: ShowcaseItem; delay: string }) {
       </div>
 
       {/* Text Information Content Card */}
-      <div className="absolute inset-x-0 bottom-0 p-6 z-20 flex flex-col justify-end text-white">
+      <div className="absolute inset-x-0 bottom-0 p-6 z-30 flex flex-col justify-end text-white">
         <div className="transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500 ease-out">
           <h3
             className="font-display-lg text-white font-bold leading-snug mb-1 group-hover:text-antique-gold transition-colors duration-300"

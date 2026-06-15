@@ -6,7 +6,13 @@ import { useRouter } from "next/navigation";
 export default function ProjectForm({ initialData, categories = [] }: { initialData?: any, categories?: any[] }) {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
-  const [previewImages, setPreviewImages] = useState<string[]>(initialData?.images || []);
+  const [existingImages, setExistingImages] = useState<string[]>(initialData?.images || []);
+  const [newFiles, setNewFiles] = useState<File[]>([]);
+
+  const allPreviews = [
+    ...existingImages.map((url, i) => ({ type: 'url', src: url, index: i })),
+    ...newFiles.map((file, i) => ({ type: 'file', src: URL.createObjectURL(file), index: i }))
+  ];
 
   const [formData, setFormData] = useState({
     title: initialData?.title || "",
@@ -68,10 +74,17 @@ export default function ProjectForm({ initialData, categories = [] }: { initialD
   };
 
   const handleFileChange = (e: any) => {
-    const files = Array.from(e.target.files);
-    // Tạo preview URL cho ảnh mới tải lên
-    const newPreviews = files.map((f: any) => URL.createObjectURL(f));
-    setPreviewImages(prev => [...prev, ...newPreviews]);
+    const files = Array.from(e.target.files) as File[];
+    setNewFiles(prev => [...prev, ...files]);
+    e.target.value = '';
+  };
+
+  const removeImage = (item: { type: string, src: string, index: number }) => {
+    if (item.type === 'url') {
+      setExistingImages(prev => prev.filter((_, i) => i !== item.index));
+    } else {
+      setNewFiles(prev => prev.filter((_, i) => i !== item.index));
+    }
   };
 
   const handleSubmit = async (e: any) => {
@@ -81,8 +94,12 @@ export default function ProjectForm({ initialData, categories = [] }: { initialD
     try {
       const data = new FormData(e.target);
       
+      data.delete('imageFiles');
+      newFiles.forEach(file => {
+        data.append('imageFiles', file);
+      });
+
       // Gửi danh sách ảnh cũ lên server để bảo toàn
-      const existingImages = initialData?.images || [];
       data.append('existingImages', JSON.stringify(existingImages));
 
       if (initialData?.id) {
@@ -160,7 +177,6 @@ export default function ProjectForm({ initialData, categories = [] }: { initialD
           <label className="block text-sm font-medium text-gray-900 mb-2">Tải ảnh lên Local (Nhiều ảnh)</label>
           <input 
             type="file" 
-            name="imageFiles" 
             multiple 
             accept="image/*"
             onChange={handleFileChange}
@@ -168,11 +184,21 @@ export default function ProjectForm({ initialData, categories = [] }: { initialD
           />
           <p className="text-xs text-gray-500 mt-2">Bạn có thể quét chọn nhiều ảnh cùng lúc từ máy tính. Ảnh tải lên sẽ được lưu tự động vào Server.</p>
           
-          {previewImages.length > 0 && (
+          {allPreviews.length > 0 && (
             <div className="mt-4 grid grid-cols-2 md:grid-cols-4 gap-4">
-              {previewImages.map((src, i) => (
-                <div key={i} className="relative aspect-video rounded overflow-hidden border border-gray-200">
-                  <img src={src} className="w-full h-full object-cover" alt={`Preview ${i}`} />
+              {allPreviews.map((item, i) => (
+                <div key={i} className="relative aspect-video rounded overflow-hidden border border-gray-200 group">
+                  <img src={item.src} className="w-full h-full object-cover" alt={`Preview ${i}`} />
+                  
+                  {/* Delete Button */}
+                  <button
+                    type="button"
+                    onClick={() => removeImage(item)}
+                    className="absolute top-1 right-1 bg-red-600/90 hover:bg-red-700 text-white p-1 rounded-full opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center shadow-sm"
+                  >
+                    <span className="material-symbols-outlined" style={{fontSize: "14px", fontWeight: "bold"}}>close</span>
+                  </button>
+
                   <div className="absolute top-1 left-1 bg-black/70 text-white text-[10px] px-1.5 py-0.5 rounded font-bold tracking-widest">
                     {i === 0 ? "MAIN IMG" : `SIDE IMG ${i}`}
                   </div>

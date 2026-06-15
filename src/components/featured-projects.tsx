@@ -105,18 +105,18 @@ export function FeaturedProjects({ projects = [] }: FeaturedProjectsProps) {
         <div className="grid grid-cols-12 gap-y-12 md:gap-y-20 relative">
           <button
             onClick={() => setCurrent((c) => (c - 1 + data.length) % data.length)}
-            className="absolute -left-[40px] xl:-left-[120px] top-1/2 -translate-y-1/2 w-12 h-12 rounded-full border border-outline-variant/30 flex items-center justify-center text-earth-brown hover:bg-earth-brown hover:text-white transition-all z-20 bg-surface"
+            className="hidden md:flex absolute -left-[40px] xl:-left-[120px] top-1/2 -translate-y-1/2 w-12 h-12 rounded-full border border-outline-variant/30 items-center justify-center text-earth-brown hover:bg-earth-brown hover:text-white transition-all z-20 bg-surface"
           >
             <span className="material-symbols-outlined">arrow_back</span>
           </button>
           <button
             onClick={() => setCurrent((c) => (c + 1) % data.length)}
-            className="absolute -right-[40px] xl:-right-[120px] top-1/2 -translate-y-1/2 w-12 h-12 rounded-full border border-outline-variant/30 flex items-center justify-center text-earth-brown hover:bg-earth-brown hover:text-white transition-all z-20 bg-surface"
+            className="hidden md:flex absolute -right-[40px] xl:-right-[120px] top-1/2 -translate-y-1/2 w-12 h-12 rounded-full border border-outline-variant/30 items-center justify-center text-earth-brown hover:bg-earth-brown hover:text-white transition-all z-20 bg-surface"
           >
             <span className="material-symbols-outlined">arrow_forward</span>
           </button>
-          <div className="col-span-12 lg:col-span-7 group relative pb-28">
-            <div className="aspect-[16/9] md:aspect-[2/1] border border-outline-variant/20 p-2 bg-surface-container-lowest shadow-2xl">
+          <div className="col-span-12 lg:col-span-7 group relative md:pb-28">
+            <div className="aspect-[4/3] md:aspect-[2/1] border border-outline-variant/20 p-2 bg-surface-container-lowest shadow-2xl">
               <div className="relative w-full h-full overflow-hidden">
                 {data.map((p, idx) => (
                   <img
@@ -135,7 +135,7 @@ export function FeaturedProjects({ projects = [] }: FeaturedProjectsProps) {
                 ))}
               </div>
             </div>
-            <div className="absolute bottom-0 right-0 md:-right-12 bg-white p-6 md:p-8 shadow-[0_25px_60px_-15px_rgba(0,0,0,0.15)] max-w-lg border-t-4 border-earth-brown">
+            <div className="relative md:absolute bottom-0 right-0 md:-right-12 bg-white p-6 md:p-8 shadow-[0_25px_60px_-15px_rgba(0,0,0,0.15)] max-w-lg border-t-4 border-earth-brown mx-4 md:mx-0 -mt-16 md:mt-0 z-20">
               <span
                 className="font-label-caps text-antique-gold mb-2 block uppercase tracking-widest font-bold"
                 style={{ fontSize: "9px" }}
@@ -143,12 +143,12 @@ export function FeaturedProjects({ projects = [] }: FeaturedProjectsProps) {
                 {project.badge}
               </span>
               <h3
-                className="font-display-lg text-earth-brown mb-2"
+                className="font-display-lg text-earth-brown mb-2 line-clamp-2"
                 style={{ fontSize: "clamp(20px, 2vw, 28px)", fontWeight: 700 }}
               >
                 {project.title}
               </h3>
-              <p className="font-body-md text-on-surface mb-3 leading-relaxed" style={{ fontSize: "14px" }}>
+              <p className="font-body-md text-on-surface mb-3 leading-relaxed line-clamp-3" style={{ fontSize: "14px" }}>
                 {project.desc}
               </p>
               <button className="font-label-caps text-earth-brown font-bold tracking-[0.2em] hover:text-antique-gold transition-colors flex items-center gap-3"

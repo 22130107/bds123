@@ -1,10 +1,11 @@
 import { useState } from "react";
+import { submitConsultation } from "../actions/consultation-actions";
 
 interface ConsultationFormProps {
   defaultMessage?: string;
 }
 
-type FormStatus = "idle" | "loading" | "success";
+type FormStatus = "idle" | "loading" | "success" | "error";
 
 export function ConsultationForm({ defaultMessage = "" }: ConsultationFormProps) {
   const [status, setStatus] = useState<FormStatus>("idle");
@@ -15,14 +16,26 @@ export function ConsultationForm({ defaultMessage = "" }: ConsultationFormProps)
     message: defaultMessage,
   });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setStatus("loading");
-    setTimeout(() => {
+    
+    const formDataObj = new FormData();
+    formDataObj.append("name", formData.name);
+    formDataObj.append("phone", formData.phone);
+    formDataObj.append("email", formData.email);
+    formDataObj.append("message", formData.message);
+
+    const result = await submitConsultation(formDataObj);
+
+    if (result.success) {
       setStatus("success");
       setFormData({ name: "", phone: "", email: "", message: defaultMessage });
       setTimeout(() => setStatus("idle"), 5000);
-    }, 2000);
+    } else {
+      setStatus("error");
+      setTimeout(() => setStatus("idle"), 5000);
+    }
   };
 
   const inputClass =
@@ -107,7 +120,7 @@ export function ConsultationForm({ defaultMessage = "" }: ConsultationFormProps)
           type="submit"
           disabled={status === "loading"}
           className={`w-full text-white py-4 font-label-caps uppercase tracking-widest hover:bg-forest-deep transition-all active:scale-95 flex items-center justify-center gap-2 ${
-            status === "success" ? "bg-moss-green" : "bg-moss-green"
+            status === "success" ? "bg-moss-green" : status === "error" ? "bg-red-600 hover:bg-red-700" : "bg-moss-green"
           } disabled:opacity-80 disabled:cursor-not-allowed`}
           style={{ fontSize: "12px", letterSpacing: "0.1em", fontWeight: 700 }}
         >
@@ -122,6 +135,11 @@ export function ConsultationForm({ defaultMessage = "" }: ConsultationFormProps)
             <>
               <span className="material-symbols-outlined" style={{ fontSize: "18px" }}>check_circle</span>
               Đã nhận yêu cầu
+            </>
+          ) : status === "error" ? (
+            <>
+              <span className="material-symbols-outlined" style={{ fontSize: "18px" }}>error</span>
+              Lỗi! Thử lại
             </>
           ) : (
             <>

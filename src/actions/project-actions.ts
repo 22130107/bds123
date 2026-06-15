@@ -69,7 +69,7 @@ export async function createProject(formData: FormData) {
   const description = formData.get('description');
   const type = formData.get('type');
   const category = formData.get('category');
-  const isFeatured = formData.get('isFeatured') === 'true';
+  const isFeatured = formData.get('isFeatured') === 'on' || formData.get('isFeatured') === 'true';
   const existingImagesJson = formData.get('existingImages') as string;
   let finalImages: string[] = [];
 
@@ -103,7 +103,7 @@ export async function updateProject(id: number, formData: FormData) {
   const description = formData.get('description');
   const type = formData.get('type');
   const category = formData.get('category');
-  const isFeatured = formData.get('isFeatured') === 'true';
+  const isFeatured = formData.get('isFeatured') === 'on' || formData.get('isFeatured') === 'true';
   const existingImagesJson = formData.get('existingImages') as string;
   let finalImages: string[] = [];
 

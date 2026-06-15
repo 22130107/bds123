@@ -6,7 +6,6 @@ import { PropertyCard } from "../property-card";
 import { Pagination } from "../pagination";
 import { LocationWidget, FeaturedProjectsWidget } from "../sidebar-widgets";
 import { Footer } from "../footer";
-import { CopilotPageData } from "../copilot-page-data";
 
 import { useRouter } from "next/navigation";
 
@@ -35,9 +34,12 @@ export function ListingPage({ projects = [], currentCategory }: { projects?: any
     badgeColor: (p.isFeatured ? "gold" : "dark") as const
   }));
 
+  const ITEMS_PER_PAGE = 5;
+  const totalPages = Math.max(1, Math.ceil(mappedProjects.length / ITEMS_PER_PAGE));
+  const paginatedProjects = mappedProjects.slice((currentPage - 1) * ITEMS_PER_PAGE, currentPage * ITEMS_PER_PAGE);
+
   return (
     <>
-      <CopilotPageData projects={projects} />
       <div className="bg-surface text-on-surface font-body-md" style={{ overflowX: "hidden" }}>
       <TopNavBar activePage="listing" onNavigate={handleNavigate} />
 
@@ -87,7 +89,10 @@ export function ListingPage({ projects = [], currentCategory }: { projects?: any
               </span>
             </div>
             <div className="space-y-8">
-              {mappedProjects.map((property) => (
+              {paginatedProjects.length === 0 && (
+                <div className="text-center py-10 text-on-surface-variant">Không có bất động sản nào phù hợp.</div>
+              )}
+              {paginatedProjects.map((property) => (
                 <PropertyCard
                   key={property.id}
                   {...property}
@@ -95,11 +100,13 @@ export function ListingPage({ projects = [], currentCategory }: { projects?: any
                 />
               ))}
             </div>
-            <Pagination
-              currentPage={currentPage}
-              totalPages={5}
-              onPageChange={setCurrentPage}
-            />
+            {totalPages > 1 && (
+              <Pagination
+                currentPage={currentPage}
+                totalPages={totalPages}
+                onPageChange={setCurrentPage}
+              />
+            )}
           </div>
 
           {/* Right: Sidebar */}
