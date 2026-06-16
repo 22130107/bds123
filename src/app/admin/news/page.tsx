@@ -23,16 +23,18 @@ export default async function NewsAdminPage() {
           <thead>
             <tr className="bg-gray-50 border-b border-gray-100 text-sm font-semibold text-gray-600">
               <th className="p-4 w-16 text-center">ID</th>
+              <th className="p-4 w-24 text-center">Ảnh nổi bật</th>
               <th className="p-4 w-32">Chuyên mục</th>
               <th className="p-4">Tiêu đề bài viết</th>
               <th className="p-4 w-32 text-center">Ngày đăng</th>
+              <th className="p-4 w-24 text-center">Link</th>
               <th className="p-4 w-32 text-center">Thao tác</th>
             </tr>
           </thead>
           <tbody className="text-sm text-gray-700">
             {newsList.length === 0 ? (
               <tr>
-                <td colSpan={5} className="p-8 text-center text-gray-500">
+                <td colSpan={7} className="p-8 text-center text-gray-500">
                   Chưa có dữ liệu. Bấm "Thêm Bài viết" để bắt đầu.
                 </td>
               </tr>
@@ -40,9 +42,28 @@ export default async function NewsAdminPage() {
               newsList.map((n) => (
                 <tr key={n.id} className="border-b border-gray-50 hover:bg-gray-50/50">
                   <td className="p-4 text-center font-medium text-gray-500">#{n.id}</td>
+                  <td className="p-4 text-center">
+                    {n.img ? (
+                      <img src={n.img} alt={n.title} className="w-16 h-12 object-cover rounded shadow-sm border border-gray-100 mx-auto" />
+                    ) : (
+                      <div className="w-16 h-12 bg-gray-100 rounded flex items-center justify-center text-xs text-gray-400 mx-auto">
+                        N/A
+                      </div>
+                    )}
+                  </td>
                   <td className="p-4 font-label-caps text-xs font-bold text-earth-brown">{n.category}</td>
                   <td className="p-4 font-medium text-gray-900">{n.title}</td>
                   <td className="p-4 text-center text-gray-500">{n.date}</td>
+                  <td className="p-4 text-center">
+                    <Link 
+                      href={`/news/${n.id}`} 
+                      target="_blank" 
+                      className="w-8 h-8 rounded-full bg-green-50 text-green-600 flex items-center justify-center hover:bg-green-100 transition-colors mx-auto"
+                      title="Xem bài viết"
+                    >
+                      <span className="material-symbols-outlined text-[16px]">visibility</span>
+                    </Link>
+                  </td>
                   <td className="p-4 text-center">
                     <div className="flex items-center justify-center gap-2">
                       <Link 

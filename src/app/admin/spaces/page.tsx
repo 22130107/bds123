@@ -23,6 +23,7 @@ export default async function SpacesAdminPage() {
           <thead>
             <tr className="bg-gray-50 border-b border-gray-100 text-sm font-semibold text-gray-600">
               <th className="p-4 w-16 text-center">ID</th>
+              <th className="p-4 w-24 text-center">Ảnh nổi bật</th>
               <th className="p-4 w-32">Bộ sưu tập</th>
               <th className="p-4 w-40">Danh mục</th>
               <th className="p-4">Tiêu đề</th>
@@ -33,16 +34,26 @@ export default async function SpacesAdminPage() {
           <tbody className="text-sm text-gray-700">
             {spaces.length === 0 ? (
               <tr>
-                <td colSpan={6} className="p-8 text-center text-gray-500">
+                <td colSpan={7} className="p-8 text-center text-gray-500">
                   Chưa có dữ liệu. Bấm "Thêm Không gian" để bắt đầu.
                 </td>
               </tr>
             ) : (
               spaces.map((s) => {
                 const imgCount = Array.isArray(s.images) ? s.images.length : 0;
+                const featuredImg = imgCount > 0 ? s.images[0] : null;
                 return (
                   <tr key={s.id} className="border-b border-gray-50 hover:bg-gray-50/50">
                     <td className="p-4 text-center font-medium text-gray-500">#{s.id}</td>
+                    <td className="p-4 text-center">
+                      {featuredImg ? (
+                        <img src={featuredImg} alt={s.title} className="w-16 h-12 object-cover rounded shadow-sm border border-gray-100 mx-auto" />
+                      ) : (
+                        <div className="w-16 h-12 bg-gray-100 rounded flex items-center justify-center text-xs text-gray-400 mx-auto">
+                          N/A
+                        </div>
+                      )}
+                    </td>
                     <td className="p-4 font-bold text-earth-brown">{s.collection}</td>
                     <td className="p-4 font-medium">{s.category}</td>
                     <td className="p-4 text-gray-900">{s.title}</td>
