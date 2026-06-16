@@ -69,6 +69,8 @@ export async function createProject(formData: FormData) {
   const description = formData.get('description');
   const type = formData.get('type');
   const category = formData.get('category');
+  const bedrooms = formData.get('bedrooms') ? parseInt(formData.get('bedrooms') as string, 10) : 0;
+  const bathrooms = formData.get('bathrooms') ? parseInt(formData.get('bathrooms') as string, 10) : 0;
   const isFeatured = formData.get('isFeatured') === 'on' || formData.get('isFeatured') === 'true';
   const existingImagesJson = formData.get('existingImages') as string;
   let finalImages: string[] = [];
@@ -86,8 +88,8 @@ export async function createProject(formData: FormData) {
   const sideImg = finalImages.length > 1 ? finalImages[1] : (finalImages.length > 0 ? finalImages[0] : '');
 
   const [result] = await pool.query(
-    'INSERT INTO projects (title, location, mainImg, sideImg, area, price, description, isFeatured, type, category, images) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
-    [title, location, mainImg, sideImg, area, price, description, isFeatured, type, category, JSON.stringify(finalImages)]
+    'INSERT INTO projects (title, location, mainImg, sideImg, area, price, description, isFeatured, type, category, images, bedrooms, bathrooms) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
+    [title, location, mainImg, sideImg, area, price, description, isFeatured, type, category, JSON.stringify(finalImages), bedrooms, bathrooms]
   );
   revalidatePath('/admin');
   revalidatePath('/admin/projects');
@@ -103,6 +105,8 @@ export async function updateProject(id: number, formData: FormData) {
   const description = formData.get('description');
   const type = formData.get('type');
   const category = formData.get('category');
+  const bedrooms = formData.get('bedrooms') ? parseInt(formData.get('bedrooms') as string, 10) : 0;
+  const bathrooms = formData.get('bathrooms') ? parseInt(formData.get('bathrooms') as string, 10) : 0;
   const isFeatured = formData.get('isFeatured') === 'on' || formData.get('isFeatured') === 'true';
   const existingImagesJson = formData.get('existingImages') as string;
   let finalImages: string[] = [];
@@ -120,8 +124,8 @@ export async function updateProject(id: number, formData: FormData) {
   const sideImg = finalImages.length > 1 ? finalImages[1] : (finalImages.length > 0 ? finalImages[0] : '');
 
   const [result] = await pool.query(
-    'UPDATE projects SET title = ?, location = ?, mainImg = ?, sideImg = ?, area = ?, price = ?, description = ?, isFeatured = ?, type = ?, category = ?, images = ? WHERE id = ?',
-    [title, location, mainImg, sideImg, area, price, description, isFeatured, type, category, JSON.stringify(finalImages), id]
+    'UPDATE projects SET title = ?, location = ?, mainImg = ?, sideImg = ?, area = ?, price = ?, description = ?, isFeatured = ?, type = ?, category = ?, images = ?, bedrooms = ?, bathrooms = ? WHERE id = ?',
+    [title, location, mainImg, sideImg, area, price, description, isFeatured, type, category, JSON.stringify(finalImages), bedrooms, bathrooms, id]
   );
   revalidatePath('/admin');
   revalidatePath('/admin/projects');
