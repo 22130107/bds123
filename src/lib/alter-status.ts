@@ -1,3 +1,5 @@
+import dotenv from "dotenv";
+dotenv.config();
 import { pool } from "./db";
 
 async function alterTable() {
