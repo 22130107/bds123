@@ -1,13 +1,24 @@
 import Link from "next/link";
-import { getProjects } from "../../../actions/project-actions";
+import { getProjectsPaginated, getAllLocations } from "../../../actions/project-actions";
 import DeleteButton from "./delete-button";
 
-export default async function ProjectsAdminPage() {
-  const projects = await getProjects();
+export default async function ProjectsAdminPage(props: {
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>
+}) {
+  const searchParams = await props.searchParams;
+  const search = typeof searchParams.search === 'string' ? searchParams.search : undefined;
+  const location = typeof searchParams.location === 'string' ? searchParams.location : undefined;
+  const page = searchParams.page ? parseInt(searchParams.page as string, 10) : 1;
+
+  const [projectsResult, locations] = await Promise.all([
+    getProjectsPaginated({ search, location, page, limit: 10 }),
+    getAllLocations()
+  ]);
+  const projects = projectsResult.data;
 
   return (
     <div>
-      <div className="flex items-center justify-between mb-8">
+      <div className="flex items-center justify-between mb-6">
         <h1 className="text-2xl font-bold text-gray-800">Quản lý Dự án</h1>
         <Link 
           href="/admin/projects/new" 
@@ -16,6 +27,48 @@ export default async function ProjectsAdminPage() {
           <span className="material-symbols-outlined text-[18px]">add</span>
           Thêm Dự án mới
         </Link>
+      </div>
+
+      <div className="bg-white p-4 rounded-xl shadow-sm border border-gray-100 mb-6">
+        <form method="GET" action="/admin/projects" className="flex flex-wrap gap-4 items-end">
+          <div className="flex-1 min-w-[200px]">
+            <label className="block text-sm font-medium text-gray-700 mb-1">Tìm kiếm</label>
+            <input 
+              type="text" 
+              name="search" 
+              defaultValue={search || ""} 
+              placeholder="Tên, vị trí, mô tả..." 
+              className="w-full px-3 py-2 border border-gray-300 rounded outline-none focus:ring-2 focus:ring-earth-brown"
+            />
+          </div>
+          <div className="w-48">
+            <label className="block text-sm font-medium text-gray-700 mb-1">Địa điểm</label>
+            <select 
+              name="location" 
+              defaultValue={location || ""} 
+              className="w-full px-3 py-2 border border-gray-300 rounded outline-none focus:ring-2 focus:ring-earth-brown bg-white"
+            >
+              <option value="">Tất cả</option>
+              {locations.map((loc) => (
+                <option key={loc.name} value={loc.name}>{loc.name}</option>
+              ))}
+            </select>
+          </div>
+          <button 
+            type="submit" 
+            className="px-6 py-2 bg-gray-800 text-white rounded hover:bg-gray-900 transition-colors h-[42px] flex items-center justify-center font-medium"
+          >
+            Lọc
+          </button>
+          {(search || location) && (
+            <Link 
+              href="/admin/projects"
+              className="px-4 py-2 border border-gray-300 text-gray-700 rounded hover:bg-gray-50 transition-colors h-[42px] flex items-center justify-center font-medium"
+            >
+              Xóa lọc
+            </Link>
+          )}
+        </form>
       </div>
 
       <div className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
@@ -89,6 +142,32 @@ export default async function ProjectsAdminPage() {
             )}
           </tbody>
         </table>
+        
+        {projectsResult.totalPages > 1 && (
+          <div className="p-4 border-t border-gray-100 flex items-center justify-between bg-gray-50/30">
+            <span className="text-sm text-gray-500">
+              Hiển thị trang <span className="font-medium text-gray-900">{projectsResult.page}</span> / <span className="font-medium text-gray-900">{projectsResult.totalPages}</span> (Tổng {projectsResult.total} dự án)
+            </span>
+            <div className="flex gap-1">
+              {Array.from({ length: projectsResult.totalPages }).map((_, i) => {
+                const p = i + 1;
+                const urlParams = new URLSearchParams();
+                if (search) urlParams.set('search', search);
+                if (location) urlParams.set('location', location);
+                urlParams.set('page', p.toString());
+                return (
+                  <Link
+                    key={p}
+                    href={`/admin/projects?${urlParams.toString()}`}
+                    className={`w-8 h-8 flex items-center justify-center rounded text-sm transition-colors ${p === projectsResult.page ? 'bg-earth-brown text-white font-medium' : 'bg-white border border-gray-200 text-gray-700 hover:bg-gray-50 hover:border-gray-300'}`}
+                  >
+                    {p}
+                  </Link>
+                )
+              })}
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );

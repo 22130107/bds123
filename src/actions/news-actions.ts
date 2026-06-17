@@ -11,6 +11,50 @@ export async function getNews() {
   return rows as any[];
 }
 
+export async function getNewsPaginated(params?: { search?: string, date?: string, page?: number, limit?: number }) {
+  let where = '1=1';
+  const values: any[] = [];
+  
+  if (params?.search) {
+    where += ' AND (title LIKE ? OR excerpt LIKE ?)';
+    values.push(`%${params.search}%`, `%${params.search}%`);
+  }
+  if (params?.date) {
+    // Check if date is in YYYY-MM-DD
+    const parts = params.date.split('-');
+    if (parts.length === 3) {
+      const [y, m, d] = parts;
+      const dInt = parseInt(d, 10).toString();
+      const mInt = parseInt(m, 10).toString();
+      
+      const format1 = `${d}/${m}/${y}`;
+      const format2 = `${d}.${m}.${y}`;
+      const format3 = `${d}-${m}-${y}`;
+      const format4 = `${dInt}/${mInt}/${y}`;
+      const format5 = `${dInt}.${mInt}.${y}`;
+      const format6 = `${dInt}-${mInt}-${y}`;
+      
+      where += ' AND (date LIKE ? OR date LIKE ? OR date LIKE ? OR date LIKE ? OR date LIKE ? OR date LIKE ?)';
+      values.push(`%${format1}%`, `%${format2}%`, `%${format3}%`, `%${format4}%`, `%${format5}%`, `%${format6}%`);
+    } else {
+      where += ' AND date LIKE ?';
+      values.push(`%${params.date}%`);
+    }
+  }
+
+  const page = params?.page || 1;
+  const limit = params?.limit || 10;
+  const offset = (page - 1) * limit;
+
+  const [countRows] = await pool.query(`SELECT COUNT(*) as total FROM news WHERE ${where}`, values);
+  const total = (countRows as any)[0].total;
+
+  const query = `SELECT * FROM news WHERE ${where} ORDER BY createdAt DESC LIMIT ? OFFSET ?`;
+  const [rows] = await pool.query(query, [...values, limit, offset]);
+  
+  return { data: rows as any[], total, page, limit, totalPages: Math.ceil(total / limit) };
+}
+
 export async function getNewsById(id: number) {
   const [rows] = await pool.query('SELECT * FROM news WHERE id = ?', [id]);
   return (rows as any[])[0];

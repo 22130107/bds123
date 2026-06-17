@@ -18,9 +18,82 @@ export async function getTopLocations(limit: number = 4) {
   return rows as { name: string; count: number }[];
 }
 
-export async function getProjects() {
-  const [rows] = await pool.query('SELECT * FROM projects ORDER BY createdAt DESC');
+export async function getAllLocations() {
+  const [rows] = await pool.query(`
+    SELECT DISTINCT TRIM(SUBSTRING_INDEX(location, ',', -1)) as name
+    FROM projects 
+    WHERE location IS NOT NULL AND location != ''
+    ORDER BY name ASC
+  `);
+  return rows as { name: string }[];
+}
+
+export async function getProjects(params?: { search?: string, type?: string, category?: string, isFeatured?: string, location?: string }) {
+  let query = 'SELECT * FROM projects WHERE 1=1';
+  const values: any[] = [];
+  
+  if (params?.search) {
+    query += ' AND (title LIKE ? OR location LIKE ? OR description LIKE ?)';
+    values.push(`%${params.search}%`, `%${params.search}%`, `%${params.search}%`);
+  }
+  if (params?.location) {
+    query += ' AND location LIKE ?';
+    values.push(`%${params.location}%`);
+  }
+  if (params?.type) {
+    query += ' AND type = ?';
+    values.push(params.type);
+  }
+  if (params?.category) {
+    query += ' AND category = ?';
+    values.push(params.category);
+  }
+  if (params?.isFeatured) {
+    query += ' AND isFeatured = ?';
+    values.push(params.isFeatured === 'true' ? 1 : 0);
+  }
+  
+  query += ' ORDER BY createdAt DESC';
+  const [rows] = await pool.query(query, values);
   return rows as any[];
+}
+
+export async function getProjectsPaginated(params?: { search?: string, location?: string, type?: string, category?: string, isFeatured?: string, page?: number, limit?: number }) {
+  let where = '1=1';
+  const values: any[] = [];
+  
+  if (params?.search) {
+    where += ' AND (title LIKE ? OR location LIKE ? OR description LIKE ?)';
+    values.push(`%${params.search}%`, `%${params.search}%`, `%${params.search}%`);
+  }
+  if (params?.location) {
+    where += ' AND location LIKE ?';
+    values.push(`%${params.location}%`);
+  }
+  if (params?.type) {
+    where += ' AND type = ?';
+    values.push(params.type);
+  }
+  if (params?.category) {
+    where += ' AND category = ?';
+    values.push(params.category);
+  }
+  if (params?.isFeatured) {
+    where += ' AND isFeatured = ?';
+    values.push(params.isFeatured === 'true' ? 1 : 0);
+  }
+  
+  const [countRows] = await pool.query(`SELECT COUNT(*) as total FROM projects WHERE ${where}`, values);
+  const total = (countRows as any)[0].total;
+
+  const page = params?.page || 1;
+  const limit = params?.limit || 10;
+  const offset = (page - 1) * limit;
+
+  const query = `SELECT * FROM projects WHERE ${where} ORDER BY createdAt DESC LIMIT ? OFFSET ?`;
+  const [rows] = await pool.query(query, [...values, limit, offset]);
+  
+  return { data: rows as any[], total, page, limit, totalPages: Math.ceil(total / limit) };
 }
 
 export async function getProject(id: number) {

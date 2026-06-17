@@ -1,13 +1,21 @@
 import Link from "next/link";
-import { getNews } from "../../../actions/news-actions";
+import { getNewsPaginated } from "../../../actions/news-actions";
 import DeleteButton from "./delete-button";
 
-export default async function NewsAdminPage() {
-  const newsList = await getNews();
+export default async function NewsAdminPage(props: {
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>
+}) {
+  const searchParams = await props.searchParams;
+  const search = typeof searchParams.search === 'string' ? searchParams.search : undefined;
+  const date = typeof searchParams.date === 'string' ? searchParams.date : undefined;
+  const page = searchParams.page ? parseInt(searchParams.page as string, 10) : 1;
+
+  const newsResult = await getNewsPaginated({ search, date, page, limit: 10 });
+  const newsList = newsResult.data;
 
   return (
     <div>
-      <div className="flex items-center justify-between mb-8">
+      <div className="flex items-center justify-between mb-6">
         <h1 className="text-2xl font-bold text-gray-800">Quản lý Tin tức</h1>
         <Link 
           href="/admin/news/new" 
@@ -16,6 +24,44 @@ export default async function NewsAdminPage() {
           <span className="material-symbols-outlined text-[18px]">add</span>
           Thêm Bài viết
         </Link>
+      </div>
+
+      <div className="bg-white p-4 rounded-xl shadow-sm border border-gray-100 mb-6">
+        <form method="GET" action="/admin/news" className="flex flex-wrap gap-4 items-end">
+          <div className="flex-1 min-w-[200px]">
+            <label className="block text-sm font-medium text-gray-700 mb-1">Tìm kiếm</label>
+            <input 
+              type="text" 
+              name="search" 
+              defaultValue={search || ""} 
+              placeholder="Tiêu đề, tóm tắt..." 
+              className="w-full px-3 py-2 border border-gray-300 rounded outline-none focus:ring-2 focus:ring-earth-brown"
+            />
+          </div>
+          <div className="w-48">
+            <label className="block text-sm font-medium text-gray-700 mb-1">Ngày đăng</label>
+            <input 
+              type="date" 
+              name="date" 
+              defaultValue={date || ""} 
+              className="w-full px-3 py-2 border border-gray-300 rounded outline-none focus:ring-2 focus:ring-earth-brown h-[42px]"
+            />
+          </div>
+          <button 
+            type="submit" 
+            className="px-6 py-2 bg-gray-800 text-white rounded hover:bg-gray-900 transition-colors h-[42px] flex items-center justify-center font-medium"
+          >
+            Lọc
+          </button>
+          {(search || date) && (
+            <Link 
+              href="/admin/news"
+              className="px-4 py-2 border border-gray-300 text-gray-700 rounded hover:bg-gray-50 transition-colors h-[42px] flex items-center justify-center font-medium"
+            >
+              Xóa lọc
+            </Link>
+          )}
+        </form>
       </div>
 
       <div className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
@@ -81,6 +127,32 @@ export default async function NewsAdminPage() {
             )}
           </tbody>
         </table>
+
+        {newsResult.totalPages > 1 && (
+          <div className="p-4 border-t border-gray-100 flex items-center justify-between bg-gray-50/30">
+            <span className="text-sm text-gray-500">
+              Hiển thị trang <span className="font-medium text-gray-900">{newsResult.page}</span> / <span className="font-medium text-gray-900">{newsResult.totalPages}</span> (Tổng {newsResult.total} bài viết)
+            </span>
+            <div className="flex gap-1">
+              {Array.from({ length: newsResult.totalPages }).map((_, i) => {
+                const p = i + 1;
+                const urlParams = new URLSearchParams();
+                if (search) urlParams.set('search', search);
+                if (date) urlParams.set('date', date);
+                urlParams.set('page', p.toString());
+                return (
+                  <Link
+                    key={p}
+                    href={`/admin/news?${urlParams.toString()}`}
+                    className={`w-8 h-8 flex items-center justify-center rounded text-sm transition-colors ${p === newsResult.page ? 'bg-earth-brown text-white font-medium' : 'bg-white border border-gray-200 text-gray-700 hover:bg-gray-50 hover:border-gray-300'}`}
+                  >
+                    {p}
+                  </Link>
+                )
+              })}
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );
