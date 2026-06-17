@@ -6,14 +6,26 @@ import { writeFile, mkdir } from "fs/promises";
 import { join } from "path";
 import { existsSync } from "fs";
 
-export async function getNews() {
-  const [rows] = await pool.query('SELECT * FROM news ORDER BY createdAt DESC');
+export async function getNews(status?: string) {
+  let query = 'SELECT * FROM news';
+  const values: any[] = [];
+  if (status) {
+    query += ' WHERE status = ?';
+    values.push(status);
+  }
+  query += ' ORDER BY createdAt DESC';
+  const [rows] = await pool.query(query, values);
   return rows as any[];
 }
 
-export async function getNewsPaginated(params?: { search?: string, date?: string, page?: number, limit?: number }) {
+export async function getNewsPaginated(params?: { search?: string, date?: string, page?: number, limit?: number, status?: string }) {
   let where = '1=1';
   const values: any[] = [];
+  
+  if (params?.status) {
+    where += ' AND status = ?';
+    values.push(params.status);
+  }
   
   if (params?.search) {
     where += ' AND (title LIKE ? OR excerpt LIKE ?)';
@@ -90,13 +102,14 @@ export async function createNews(formData: FormData) {
   const img = formData.get('img');
   const category = formData.get('category');
   const date = formData.get('date');
+  const status = formData.get('status') || 'published';
 
   const newUploads = await handleUploads(formData);
   const finalImg = newUploads.length > 0 ? newUploads[0] : (img || '');
 
   const [result] = await pool.query(
-    'INSERT INTO news (title, excerpt, content, img, category, date) VALUES (?, ?, ?, ?, ?, ?)',
-    [title, excerpt, content, finalImg, category, date]
+    'INSERT INTO news (title, excerpt, content, img, category, date, status) VALUES (?, ?, ?, ?, ?, ?, ?)',
+    [title, excerpt, content, finalImg, category, date, status]
   );
   revalidatePath('/admin/news');
   revalidatePath('/');
@@ -110,13 +123,14 @@ export async function updateNews(id: number, formData: FormData) {
   const img = formData.get('img');
   const category = formData.get('category');
   const date = formData.get('date');
+  const status = formData.get('status') || 'published';
 
   const newUploads = await handleUploads(formData);
   const finalImg = newUploads.length > 0 ? newUploads[0] : (img || '');
 
   const [result] = await pool.query(
-    'UPDATE news SET title = ?, excerpt = ?, content = ?, img = ?, category = ?, date = ? WHERE id = ?',
-    [title, excerpt, content, finalImg, category, date, id]
+    'UPDATE news SET title = ?, excerpt = ?, content = ?, img = ?, category = ?, date = ?, status = ? WHERE id = ?',
+    [title, excerpt, content, finalImg, category, date, status, id]
   );
   revalidatePath('/admin/news');
   revalidatePath('/');

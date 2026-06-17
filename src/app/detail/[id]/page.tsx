@@ -16,7 +16,7 @@ export default async function Page({ params }: { params: Promise<{ id: string }>
     isOnline: true,
   };
   
-  if (!project) {
+  if (!project || project.status !== 'published') {
     notFound();
   }
 

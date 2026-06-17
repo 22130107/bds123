@@ -34,6 +34,7 @@ async function initDB() {
         badge VARCHAR(100),
         isFeatured BOOLEAN DEFAULT false,
         type VARCHAR(50) DEFAULT 'listing',
+        status VARCHAR(50) DEFAULT 'published',
         createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP
       )
     `);
@@ -64,6 +65,7 @@ async function initDB() {
         img VARCHAR(500),
         category VARCHAR(100),
         date VARCHAR(50),
+        status VARCHAR(50) DEFAULT 'published',
         createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP
       )
     `);

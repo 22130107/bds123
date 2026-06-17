@@ -81,6 +81,7 @@ export default async function ProjectsAdminPage(props: {
               <th className="p-4 w-48">Vị trí</th>
               <th className="p-4 w-32">Giá</th>
               <th className="p-4 w-24 text-center">Nổi bật</th>
+              <th className="p-4 w-32 text-center">Trạng thái</th>
               <th className="p-4 w-24 text-center">Link</th>
               <th className="p-4 w-32 text-center">Thao tác</th>
             </tr>
@@ -88,7 +89,7 @@ export default async function ProjectsAdminPage(props: {
           <tbody className="text-sm text-gray-700">
             {projects.length === 0 ? (
               <tr>
-                <td colSpan={8} className="p-8 text-center text-gray-500">
+                <td colSpan={9} className="p-8 text-center text-gray-500">
                   Chưa có dữ liệu. Bấm "Thêm Dự án mới" để bắt đầu.
                 </td>
               </tr>
@@ -113,6 +114,15 @@ export default async function ProjectsAdminPage(props: {
                       <span className="material-symbols-outlined text-green-500 text-[20px]">check_circle</span>
                     ) : (
                       <span className="material-symbols-outlined text-gray-300 text-[20px]">cancel</span>
+                    )}
+                  </td>
+                  <td className="p-4 text-center">
+                    {p.status === 'published' ? (
+                      <span className="px-2.5 py-1 bg-green-50 text-green-700 text-xs font-semibold rounded-full border border-green-200">Hiển thị</span>
+                    ) : p.status === 'draft' ? (
+                      <span className="px-2.5 py-1 bg-gray-50 text-gray-600 text-xs font-semibold rounded-full border border-gray-200">Nháp</span>
+                    ) : (
+                      <span className="px-2.5 py-1 bg-amber-50 text-amber-700 text-xs font-semibold rounded-full border border-amber-200">Ẩn</span>
                     )}
                   </td>
                   <td className="p-4 text-center">

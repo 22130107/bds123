@@ -28,10 +28,14 @@ export async function getAllLocations() {
   return rows as { name: string }[];
 }
 
-export async function getProjects(params?: { search?: string, type?: string, category?: string, isFeatured?: string, location?: string }) {
+export async function getProjects(params?: { search?: string, type?: string, category?: string, isFeatured?: string, location?: string, status?: string }) {
   let query = 'SELECT * FROM projects WHERE 1=1';
   const values: any[] = [];
   
+  if (params?.status) {
+    query += ' AND status = ?';
+    values.push(params.status);
+  }
   if (params?.search) {
     query += ' AND (title LIKE ? OR location LIKE ? OR description LIKE ?)';
     values.push(`%${params.search}%`, `%${params.search}%`, `%${params.search}%`);
@@ -58,10 +62,14 @@ export async function getProjects(params?: { search?: string, type?: string, cat
   return rows as any[];
 }
 
-export async function getProjectsPaginated(params?: { search?: string, location?: string, type?: string, category?: string, isFeatured?: string, page?: number, limit?: number }) {
+export async function getProjectsPaginated(params?: { search?: string, location?: string, type?: string, category?: string, isFeatured?: string, status?: string, page?: number, limit?: number }) {
   let where = '1=1';
   const values: any[] = [];
   
+  if (params?.status) {
+    where += ' AND status = ?';
+    values.push(params.status);
+  }
   if (params?.search) {
     where += ' AND (title LIKE ? OR location LIKE ? OR description LIKE ?)';
     values.push(`%${params.search}%`, `%${params.search}%`, `%${params.search}%`);
@@ -145,6 +153,7 @@ export async function createProject(formData: FormData) {
   const bedrooms = formData.get('bedrooms') ? parseInt(formData.get('bedrooms') as string, 10) : 0;
   const bathrooms = formData.get('bathrooms') ? parseInt(formData.get('bathrooms') as string, 10) : 0;
   const isFeatured = formData.get('isFeatured') === 'on' || formData.get('isFeatured') === 'true';
+  const status = formData.get('status') || 'published';
   const existingImagesJson = formData.get('existingImages') as string;
   let finalImages: string[] = [];
 
@@ -161,8 +170,8 @@ export async function createProject(formData: FormData) {
   const sideImg = finalImages.length > 1 ? finalImages[1] : (finalImages.length > 0 ? finalImages[0] : '');
 
   const [result] = await pool.query(
-    'INSERT INTO projects (title, location, mainImg, sideImg, area, price, description, isFeatured, type, category, images, bedrooms, bathrooms) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
-    [title, location, mainImg, sideImg, area, price, description, isFeatured, type, category, JSON.stringify(finalImages), bedrooms, bathrooms]
+    'INSERT INTO projects (title, location, mainImg, sideImg, area, price, description, isFeatured, type, category, images, bedrooms, bathrooms, status) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
+    [title, location, mainImg, sideImg, area, price, description, isFeatured, type, category, JSON.stringify(finalImages), bedrooms, bathrooms, status]
   );
   revalidatePath('/admin');
   revalidatePath('/admin/projects');
@@ -181,6 +190,7 @@ export async function updateProject(id: number, formData: FormData) {
   const bedrooms = formData.get('bedrooms') ? parseInt(formData.get('bedrooms') as string, 10) : 0;
   const bathrooms = formData.get('bathrooms') ? parseInt(formData.get('bathrooms') as string, 10) : 0;
   const isFeatured = formData.get('isFeatured') === 'on' || formData.get('isFeatured') === 'true';
+  const status = formData.get('status') || 'published';
   const existingImagesJson = formData.get('existingImages') as string;
   let finalImages: string[] = [];
 
@@ -197,8 +207,8 @@ export async function updateProject(id: number, formData: FormData) {
   const sideImg = finalImages.length > 1 ? finalImages[1] : (finalImages.length > 0 ? finalImages[0] : '');
 
   const [result] = await pool.query(
-    'UPDATE projects SET title = ?, location = ?, mainImg = ?, sideImg = ?, area = ?, price = ?, description = ?, isFeatured = ?, type = ?, category = ?, images = ?, bedrooms = ?, bathrooms = ? WHERE id = ?',
-    [title, location, mainImg, sideImg, area, price, description, isFeatured, type, category, JSON.stringify(finalImages), bedrooms, bathrooms, id]
+    'UPDATE projects SET title = ?, location = ?, mainImg = ?, sideImg = ?, area = ?, price = ?, description = ?, isFeatured = ?, type = ?, category = ?, images = ?, bedrooms = ?, bathrooms = ?, status = ? WHERE id = ?',
+    [title, location, mainImg, sideImg, area, price, description, isFeatured, type, category, JSON.stringify(finalImages), bedrooms, bathrooms, status, id]
   );
   revalidatePath('/admin');
   revalidatePath('/admin/projects');

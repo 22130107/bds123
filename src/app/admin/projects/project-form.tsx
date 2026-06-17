@@ -25,6 +25,7 @@ export default function ProjectForm({ initialData, categories = [] }: { initialD
     category: initialData?.category || "",
     isFeatured: initialData?.isFeatured ? true : false,
     type: initialData?.type || "listing",
+    status: initialData?.status || "published",
   });
 
   const [provinces, setProvinces] = useState<any[]>([]);
@@ -232,6 +233,15 @@ export default function ProjectForm({ initialData, categories = [] }: { initialD
           <select name="type" value={formData.type} onChange={handleChange} className="w-full px-4 py-2 border border-gray-300 rounded outline-none bg-white">
             <option value="listing">Danh sách thông thường (Listing)</option>
             <option value="tailored">Đề xuất cá nhân hóa (Tailored)</option>
+          </select>
+        </div>
+
+        <div>
+          <label className="block text-sm font-medium text-gray-700 mb-1">Trạng thái *</label>
+          <select name="status" value={formData.status} onChange={handleChange} className="w-full px-4 py-2 border border-gray-300 rounded outline-none bg-white">
+            <option value="published">Xuất bản (Hiển thị)</option>
+            <option value="draft">Lưu nháp (Bản nháp)</option>
+            <option value="unpublished">Tạm hạ bài (Ẩn)</option>
           </select>
         </div>
 

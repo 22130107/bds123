@@ -5,7 +5,7 @@ export default async function Page({ searchParams }: { searchParams: Promise<{ [
   const resolvedParams = await searchParams;
   const categoryFilter = resolvedParams.category as string | undefined;
 
-  const projects = await getProjects();
+  const projects = await getProjects({ status: 'published' });
   
   let filteredProjects = projects;
 

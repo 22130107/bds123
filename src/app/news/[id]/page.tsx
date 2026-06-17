@@ -7,12 +7,12 @@ export default async function NewsDetailPageServer({ params }: { params: Promise
   const newsId = parseInt(resolvedParams.id);
   const news = await getNewsById(newsId);
 
-  if (!news) {
+  if (!news || news.status !== 'published') {
     notFound();
   }
 
   // Fetch latest news for sidebar
-  const allNews = await getNews();
+  const allNews = await getNews('published');
   const latestNews = allNews.filter((n: any) => n.id !== newsId).slice(0, 5);
 
   return <NewsDetailClient currentNews={news} latestNews={latestNews} />;

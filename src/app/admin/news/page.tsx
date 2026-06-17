@@ -73,6 +73,7 @@ export default async function NewsAdminPage(props: {
               <th className="p-4 w-32">Chuyên mục</th>
               <th className="p-4">Tiêu đề bài viết</th>
               <th className="p-4 w-32 text-center">Ngày đăng</th>
+              <th className="p-4 w-32 text-center">Trạng thái</th>
               <th className="p-4 w-24 text-center">Link</th>
               <th className="p-4 w-32 text-center">Thao tác</th>
             </tr>
@@ -80,7 +81,7 @@ export default async function NewsAdminPage(props: {
           <tbody className="text-sm text-gray-700">
             {newsList.length === 0 ? (
               <tr>
-                <td colSpan={7} className="p-8 text-center text-gray-500">
+                <td colSpan={8} className="p-8 text-center text-gray-500">
                   Chưa có dữ liệu. Bấm "Thêm Bài viết" để bắt đầu.
                 </td>
               </tr>
@@ -98,8 +99,24 @@ export default async function NewsAdminPage(props: {
                     )}
                   </td>
                   <td className="p-4 font-label-caps text-xs font-bold text-earth-brown">{n.category}</td>
-                  <td className="p-4 font-medium text-gray-900">{n.title}</td>
+                  <td className="p-4">
+                    <div className="font-medium text-gray-900">{n.title}</div>
+                    <div className="text-[11px] text-gray-400 mt-1 flex gap-2">
+                      <span>({n.title.length} ký tự</span>
+                      <span>•</span>
+                      <span>{n.title.trim() === "" ? 0 : n.title.trim().split(/\s+/).length} từ)</span>
+                    </div>
+                  </td>
                   <td className="p-4 text-center text-gray-500">{n.date}</td>
+                  <td className="p-4 text-center">
+                    {n.status === 'published' ? (
+                      <span className="px-2.5 py-1 bg-green-50 text-green-700 text-xs font-semibold rounded-full border border-green-200">Hiển thị</span>
+                    ) : n.status === 'draft' ? (
+                      <span className="px-2.5 py-1 bg-gray-50 text-gray-600 text-xs font-semibold rounded-full border border-gray-200">Nháp</span>
+                    ) : (
+                      <span className="px-2.5 py-1 bg-amber-50 text-amber-700 text-xs font-semibold rounded-full border border-amber-200">Ẩn</span>
+                    )}
+                  </td>
                   <td className="p-4 text-center">
                     <Link 
                       href={`/news/${n.id}`} 

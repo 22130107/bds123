@@ -9,6 +9,27 @@ interface NewsDetailPageProps {
   latestNews: any[];
 }
 
+const convertYoutubeLinksToEmbeds = (html: string): string => {
+  if (!html) return "";
+  
+  // Regex to match <a> tags containing a youtube link
+  const regex = /<a\s+[^>]*href=["'](https?:\/\/(?:www\.)?(?:youtube\.com|youtu\.be)\/[^"']+)["'][^>]*>([\s\S]*?)<\/a>/gi;
+  
+  return html.replace(regex, (match, url, text) => {
+    let videoId = "";
+    const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
+    const matchId = url.match(regExp);
+    if (matchId && matchId[2].length === 11) {
+      videoId = matchId[2];
+    }
+    
+    if (videoId) {
+      return `<iframe class="ql-video" src="https://www.youtube.com/embed/${videoId}" frameborder="0" allowfullscreen></iframe>`;
+    }
+    return match;
+  });
+};
+
 export function NewsDetailPage({ onNavigate, article, latestNews = [] }: NewsDetailPageProps) {
   return (
     <div className="bg-[#f5f5f5] text-[#333] font-body-md min-h-screen flex flex-col" style={{ overflowX: "hidden" }}>
@@ -68,8 +89,9 @@ export function NewsDetailPage({ onNavigate, article, latestNews = [] }: NewsDet
                         prose-p:text-[#333] prose-p:text-[16px] prose-p:leading-[1.7] 
                         prose-img:max-w-full prose-img:h-auto prose-img:my-6
                         prose-a:text-[#0056b3] hover:prose-a:underline
-                        prose-strong:text-[#222]">
-            <div dangerouslySetInnerHTML={{ __html: article.content || "" }} />
+                        prose-strong:text-[#222]
+                        [&_iframe]:w-full [&_iframe]:aspect-video [&_iframe]:my-6 [&_iframe]:rounded-lg [&_iframe]:shadow-sm">
+            <div dangerouslySetInnerHTML={{ __html: convertYoutubeLinksToEmbeds(article.content || "") }} />
           </div>
         </div>
 
