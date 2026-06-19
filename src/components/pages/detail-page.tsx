@@ -9,6 +9,26 @@ import { Footer } from "../footer";
 
 import { useRouter } from "next/navigation";
 
+const convertYoutubeLinksToEmbeds = (html: string): string => {
+  if (!html) return "";
+  
+  const regex = /<a\s+[^>]*href=["'](https?:\/\/(?:www\.)?(?:youtube\.com|youtu\.be)\/[^"']+)["'][^>]*>([\s\S]*?)<\/a>/gi;
+  
+  return html.replace(regex, (match, url, text) => {
+    let videoId = "";
+    const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
+    const matchId = url.match(regExp);
+    if (matchId && matchId[2].length === 11) {
+      videoId = matchId[2];
+    }
+    
+    if (videoId) {
+      return `<iframe class="ql-video" src="https://www.youtube.com/embed/${videoId}" frameborder="0" allowfullscreen></iframe>`;
+    }
+    return match;
+  });
+};
+
 interface DetailPageProps {
   project: any;
   agentInfo: any;
@@ -132,11 +152,9 @@ export function DetailPage({ project, agentInfo }: DetailPageProps) {
               >
                 Kiệt tác kiến trúc bên sông
               </h3>
-              <div className="text-on-surface-variant font-body-lg space-y-4 text-justify"
+              <div className="text-on-surface-variant font-body-lg space-y-4 text-justify prose max-w-none break-words [&_*]:max-w-full [&_iframe]:w-full [&_iframe]:aspect-video [&_iframe]:my-6 [&_iframe]:rounded-lg [&_iframe]:shadow-sm"
                    style={{ fontSize: "18px", lineHeight: "28px" }}>
-                <p className="whitespace-pre-wrap">
-                  {project.description || "Chưa có thông tin mô tả cho dự án này."}
-                </p>
+                <div dangerouslySetInnerHTML={{ __html: convertYoutubeLinksToEmbeds(project.description || "Chưa có thông tin mô tả cho dự án này.") }} />
               </div>
             </div>
           </div>

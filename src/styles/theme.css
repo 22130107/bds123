@@ -335,3 +335,36 @@
   height: auto !important;
   border-radius: 8px;
 }
+
+/* Quill alignment classes for images and text in editor and rendered content */
+.ql-align-center {
+  text-align: center !important;
+}
+.ql-align-right {
+  text-align: right !important;
+}
+.ql-align-left {
+  text-align: left !important;
+}
+.ql-align-justify {
+  text-align: justify !important;
+}
+
+/* Force aligned container child elements like images/videos/iframes to align properly */
+.ql-align-center img,
+.ql-align-center iframe,
+.ql-align-center video {
+  display: inline-block !important;
+}
+
+.ql-align-right img,
+.ql-align-right iframe,
+.ql-align-right video {
+  display: inline-block !important;
+}
+
+.ql-align-left img,
+.ql-align-left iframe,
+.ql-align-left video {
+  display: inline-block !important;
+}

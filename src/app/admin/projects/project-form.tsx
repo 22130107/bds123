@@ -1,7 +1,11 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { createProject, updateProject } from "../../../actions/project-actions";
 import { useRouter } from "next/navigation";
+import dynamic from "next/dynamic";
+
+const ReactQuill = dynamic(() => import("react-quill-new"), { ssr: false });
+import "react-quill-new/dist/quill.snow.css";
 
 export default function ProjectForm({ initialData, categories = [] }: { initialData?: any, categories?: any[] }) {
   const router = useRouter();
@@ -74,6 +78,23 @@ export default function ProjectForm({ initialData, categories = [] }: { initialD
     }));
   };
 
+  const handleDescriptionChange = (value: string) => {
+    setFormData(prev => ({ ...prev, description: value }));
+  };
+
+  const quillModules = useMemo(() => ({
+    toolbar: {
+      container: [
+        [{ header: [1, 2, 3, false] }],
+        ["bold", "italic", "underline", "strike"],
+        [{ list: "ordered" }, { list: "bullet" }],
+        [{ align: [] }],
+        ["link", "image", "video"],
+        ["clean"],
+      ],
+    },
+  }), []);
+
   const handleFileChange = (e: any) => {
     const files = Array.from(e.target.files) as File[];
     setNewFiles(prev => [...prev, ...files]);
@@ -122,11 +143,25 @@ export default function ProjectForm({ initialData, categories = [] }: { initialD
         <div className="col-span-1 md:col-span-2">
           <label className="block text-sm font-medium text-gray-700 mb-1">Tên dự án *</label>
           <input required name="title" value={formData.title} onChange={handleChange} className="w-full px-4 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-earth-brown focus:border-transparent outline-none" />
+          <div className="flex gap-4 text-xs text-gray-500 mt-1">
+            <span>Đã nhập: <strong className="text-gray-700">{formData.title.length}</strong> ký tự</span>
+            <span>•</span>
+            <span><strong className="text-gray-700">{formData.title.trim() === "" ? 0 : formData.title.trim().split(/\s+/).length}</strong> từ</span>
+          </div>
         </div>
         
         <div className="col-span-1 md:col-span-2">
-          <label className="block text-sm font-medium text-gray-700 mb-1">Mô tả</label>
-          <textarea name="description" value={formData.description} onChange={handleChange} rows={4} className="w-full px-4 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-earth-brown outline-none" />
+          <label className="block text-sm font-medium text-gray-700 mb-2">Mô tả</label>
+          <div className="border border-gray-300 rounded focus-within:ring-2 focus-within:ring-earth-brown">
+            <input type="hidden" name="description" value={formData.description} />
+            <ReactQuill
+              theme="snow"
+              value={formData.description}
+              onChange={handleDescriptionChange}
+              modules={quillModules}
+              className="bg-white min-h-[250px] rounded"
+            />
+          </div>
         </div>
 
         <div className="col-span-1 md:col-span-2 grid grid-cols-1 md:grid-cols-3 gap-4">

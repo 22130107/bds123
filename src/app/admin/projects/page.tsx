@@ -106,7 +106,14 @@ export default async function ProjectsAdminPage(props: {
                       </div>
                     )}
                   </td>
-                  <td className="p-4 font-medium text-gray-900">{p.title}</td>
+                  <td className="p-4">
+                    <div className="font-medium text-gray-900">{p.title}</div>
+                    <div className="text-[11px] text-gray-400 mt-1 flex gap-2">
+                      <span>({p.title.length} ký tự</span>
+                      <span>•</span>
+                      <span>{p.title.trim() === "" ? 0 : p.title.trim().split(/\s+/).length} từ)</span>
+                    </div>
+                  </td>
                   <td className="p-4 text-gray-500 truncate max-w-[200px]">{p.location}</td>
                   <td className="p-4 font-medium text-earth-brown">{p.price}</td>
                   <td className="p-4 text-center">

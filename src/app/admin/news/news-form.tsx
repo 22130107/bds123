@@ -28,6 +28,7 @@ export default function NewsForm({ initialData }: { initialData?: any }) {
         [{ header: [1, 2, 3, false] }],
         ["bold", "italic", "underline", "strike"],
         [{ list: "ordered" }, { list: "bullet" }],
+        [{ align: [] }],
         ["link", "image", "video"],
         ["clean"],
       ],
