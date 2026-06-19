@@ -6,6 +6,8 @@ export const metadata = {
   description: "Kết nối với Happy M để nhận tư vấn và thông tin chi tiết nhất về các dự án bất động sản cao cấp, biệt thự nghỉ dưỡng, căn hộ chung cư hạng sang.",
 };
 
+export const dynamic = "force-dynamic";
+
 export default async function Page() {
   const agentInfo = await getAgentInfo() || {
     name: "Trịnh Hữu Huynh",

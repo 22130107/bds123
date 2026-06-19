@@ -75,6 +75,7 @@ export async function updateAgentInfo(formData: FormData) {
 
     revalidatePath("/admin/settings");
     revalidatePath("/detail/[id]", "page");
+    revalidatePath("/contact");
     
     return { success: true };
   } catch (error) {

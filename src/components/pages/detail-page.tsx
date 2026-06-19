@@ -152,8 +152,12 @@ export function DetailPage({ project, agentInfo }: DetailPageProps) {
               >
                 Kiệt tác kiến trúc bên sông
               </h3>
-              <div className="text-on-surface-variant font-body-lg space-y-4 text-justify prose max-w-none break-words [&_*]:max-w-full [&_iframe]:w-full [&_iframe]:aspect-video [&_iframe]:my-6 [&_iframe]:rounded-lg [&_iframe]:shadow-sm"
-                   style={{ fontSize: "18px", lineHeight: "28px" }}>
+              <div className="prose max-w-none break-words [&_*]:max-w-full
+                            prose-p:text-[#333] prose-p:text-[16px] prose-p:leading-[1.7] 
+                            prose-img:max-w-full prose-img:h-auto prose-img:my-6
+                            prose-a:text-[#0056b3] hover:prose-a:underline
+                            prose-strong:text-[#222]
+                            [&_iframe]:w-full [&_iframe]:aspect-video [&_iframe]:my-6 [&_iframe]:rounded-lg [&_iframe]:shadow-sm">
                 <div dangerouslySetInnerHTML={{ __html: convertYoutubeLinksToEmbeds(project.description || "Chưa có thông tin mô tả cho dự án này.") }} />
               </div>
             </div>
