@@ -215,7 +215,7 @@ export function Footer({ variant = "default" }: FooterProps) {
               {col.special ? (
                 <ul className="space-y-4">
                   <li><a href="#" className="font-body-md text-earth-brown hover:text-antique-gold transition-colors font-bold" style={{ fontSize: "16px" }}>1900 8888</a></li>
-                  <li><a href="#" className="font-body-md text-on-surface hover:text-antique-gold transition-colors" style={{ fontSize: "16px" }}>contact@timnhahot.vn</a></li>
+                  <li><a href="#" className="font-body-md text-on-surface hover:text-antique-gold transition-colors" style={{ fontSize: "16px" }}>nhadephm79@gmail.com</a></li>
                   <li className="pt-4">
                     <span className="font-label-caps text-antique-gold block mb-2 uppercase font-bold" style={{ fontSize: "9px" }}>HOTLINE 24/7</span>
                     <span className="font-body-md text-earth-brown font-bold" style={{ fontSize: "16px" }}>090 123 4567</span>
