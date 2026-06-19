@@ -55,6 +55,7 @@ const navItems: NavItem[] = [
     ]
   },
   { label: "TIN TỨC", page: "news" },
+  { label: "LIÊN HỆ", page: "contact" },
 ];
 
 interface TopNavBarProps {
@@ -97,6 +98,7 @@ export function TopNavBar({ activePage, onNavigate, categories: initialCategorie
       }))
     },
     { label: "TIN TỨC", page: "news" },
+    { label: "LIÊN HỆ", page: "contact" },
   ];
 
   return (
@@ -128,7 +130,8 @@ export function TopNavBar({ activePage, onNavigate, categories: initialCategorie
               (activePage === "home" && page === "home" && label === "TRANG CHỦ") ||
               ((activePage === "listing" || activePage === "detail") && label === "MUA BÁN NHÀ ĐẤT") ||
               (activePage === "projects" && label === "DỰ ÁN") ||
-              (activePage === "news" && label === "TIN TỨC");
+              (activePage === "news" && label === "TIN TỨC") ||
+              (activePage === "contact" && label === "LIÊN HỆ");
             return (
               <div key={label} className="relative group h-full flex items-center">
                 <a
@@ -186,7 +189,8 @@ export function TopNavBar({ activePage, onNavigate, categories: initialCategorie
                 (activePage === "home" && page === "home" && label === "TRANG CHỦ") ||
                 ((activePage === "listing" || activePage === "detail") && label === "MUA BÁN NHÀ ĐẤT") ||
                 (activePage === "projects" && label === "DỰ ÁN") ||
-                (activePage === "news" && label === "TIN TỨC");
+                (activePage === "news" && label === "TIN TỨC") ||
+                (activePage === "contact" && label === "LIÊN HỆ");
               return (
                 <div key={label} className="flex flex-col">
                   <a
