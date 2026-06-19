@@ -368,3 +368,9 @@
 .ql-align-left video {
   display: inline-block !important;
 }
+
+/* Ngăn chặn lỗi bẻ chữ trên toàn trang cho các nội dung văn bản */
+.prose, .prose * {
+  word-break: normal !important;
+  overflow-wrap: break-word !important;
+}

@@ -12,10 +12,13 @@ interface NewsDetailPageProps {
 const convertYoutubeLinksToEmbeds = (html: string): string => {
   if (!html) return "";
   
+  // Clean non-breaking spaces to allow normal word wrapping
+  const cleanedHtml = html.replace(/&nbsp;/gi, " ").replace(/\u00a0/g, " ");
+  
   // Regex to match <a> tags containing a youtube link
   const regex = /<a\s+[^>]*href=["'](https?:\/\/(?:www\.)?(?:youtube\.com|youtu\.be)\/[^"']+)["'][^>]*>([\s\S]*?)<\/a>/gi;
   
-  return html.replace(regex, (match, url, text) => {
+  return cleanedHtml.replace(regex, (match, url, text) => {
     let videoId = "";
     const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
     const matchId = url.match(regExp);
@@ -90,7 +93,8 @@ export function NewsDetailPage({ onNavigate, article, latestNews = [] }: NewsDet
                         prose-img:max-w-full prose-img:h-auto prose-img:my-6
                         prose-a:text-[#0056b3] hover:prose-a:underline
                         prose-strong:text-[#222]
-                        [&_iframe]:w-full [&_iframe]:aspect-video [&_iframe]:my-6 [&_iframe]:rounded-lg [&_iframe]:shadow-sm">
+                        [&_iframe]:w-full [&_iframe]:aspect-video [&_iframe]:my-6 [&_iframe]:rounded-lg [&_iframe]:shadow-sm"
+               style={{ wordBreak: "normal", overflowWrap: "break-word" }}>
             <div dangerouslySetInnerHTML={{ __html: convertYoutubeLinksToEmbeds(article.content || "") }} />
           </div>
         </div>
