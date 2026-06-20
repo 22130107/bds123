@@ -80,8 +80,18 @@ export function DetailPage({ project, agentInfo }: DetailPageProps) {
 
   const dynamicSpecs = [
     { icon: "layers", label: "Diện tích", value: project.area ? `${project.area} m²` : "Đang cập nhật" },
+    ...(project.width ? [{ icon: "straighten", label: "Chiều ngang", value: `${parseFloat(project.width)} m` }] : []),
+    ...(project.length ? [{ icon: "straighten", label: "Chiều dài", value: `${parseFloat(project.length)} m` }] : []),
+    ...(project.direction ? [{ icon: "explore", label: "Hướng nhà", value: project.direction }] : []),
+    ...(project.frontRoad ? [{ icon: "edit_road", label: "Đường trước nhà", value: `${parseFloat(project.frontRoad)} m` }] : []),
+    ...(project.legal ? [{ icon: "description", label: "Pháp lý", value: project.legal }] : []),
+    ...(project.floors ? [{ icon: "layers", label: "Số lầu", value: `${project.floors} lầu` }] : []),
     { icon: "bed", label: "Số phòng ngủ", value: project.bedrooms ? `${project.bedrooms} PN` : "N/A" },
     { icon: "bathtub", label: "Số phòng tắm/WC", value: project.bathrooms ? `${project.bathrooms} WC` : "N/A" },
+    ...(project.hasKitchen ? [{ icon: "kitchen", label: "Nhà bếp", value: "Có" }] : []),
+    ...(project.hasDiningRoom ? [{ icon: "restaurant", label: "Phòng ăn", value: "Có" }] : []),
+    ...(project.hasTerrace ? [{ icon: "deck", label: "Sân thượng", value: "Có" }] : []),
+    ...(project.hasParking ? [{ icon: "directions_car", label: "Chỗ để xe hơi", value: "Có" }] : []),
   ];
 
   return (

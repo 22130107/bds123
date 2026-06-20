@@ -29,6 +29,17 @@ export default function ProjectForm({ initialData, categories = [] }: { initialD
     isFeatured: initialData?.isFeatured ? true : false,
     type: initialData?.type || "listing",
     status: initialData?.status || "published",
+    // Thông tin khác
+    width: initialData?.width || "",
+    length: initialData?.length || "",
+    direction: initialData?.direction || "",
+    frontRoad: initialData?.frontRoad || "",
+    legal: initialData?.legal || "",
+    floors: initialData?.floors || "",
+    hasKitchen: initialData?.hasKitchen ? true : false,
+    hasDiningRoom: initialData?.hasDiningRoom ? true : false,
+    hasTerrace: initialData?.hasTerrace ? true : false,
+    hasParking: initialData?.hasParking ? true : false,
   });
 
   const [provinces, setProvinces] = useState<any[]>([]);
@@ -270,7 +281,98 @@ export default function ProjectForm({ initialData, categories = [] }: { initialD
           <input type="checkbox" id="isFeatured" name="isFeatured" checked={formData.isFeatured} onChange={handleChange} className="w-5 h-5 text-earth-brown rounded focus:ring-earth-brown" />
           <label htmlFor="isFeatured" className="text-sm font-medium text-gray-700">Hiển thị nổi bật ở Trang chủ (Dự án nổi bật)</label>
         </div>
+
+        {/* Các thông tin khác */}
+        <div className="col-span-1 md:col-span-2 border-t border-gray-100 pt-6 mt-4">
+          <h3 className="text-sm font-semibold text-white bg-earth-brown px-4 py-2.5 rounded shadow-sm mb-6">Các thông tin khác</h3>
+          
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 items-start">
+            {/* Cột 1: Chiều ngang, Hướng, Pháp lý */}
+            <div className="space-y-4">
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Chiều ngang</label>
+                <div className="relative flex items-center">
+                  <input type="number" step="any" name="width" value={formData.width} onChange={handleChange} className="w-full px-4 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-earth-brown outline-none pr-8 bg-white" />
+                  <span className="absolute right-3 text-gray-400 text-sm">m</span>
+                </div>
+              </div>
+              
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Hướng</label>
+                <select name="direction" value={formData.direction} onChange={handleChange} className="w-full px-4 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-earth-brown outline-none bg-white">
+                  <option value="">Không xác định</option>
+                  <option value="Đông">Đông</option>
+                  <option value="Tây">Tây</option>
+                  <option value="Nam">Nam</option>
+                  <option value="Bắc">Bắc</option>
+                  <option value="Đông Nam">Đông Nam</option>
+                  <option value="Đông Bắc">Đông Bắc</option>
+                  <option value="Tây Nam">Tây Nam</option>
+                  <option value="Tây Bắc">Tây Bắc</option>
+                </select>
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Pháp lý</label>
+                <select name="legal" value={formData.legal} onChange={handleChange} className="w-full px-4 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-earth-brown outline-none bg-white">
+                  <option value="">Chọn</option>
+                  <option value="Sổ đỏ">Sổ đỏ</option>
+                  <option value="Sổ hồng">Sổ hồng</option>
+                  <option value="Hợp đồng mua bán">Hợp đồng mua bán</option>
+                  <option value="Đang chờ sổ">Đang chờ sổ</option>
+                </select>
+              </div>
+            </div>
+
+            {/* Cột 2: Chiều dài, Đường trước nhà, Số lầu */}
+            <div className="space-y-4">
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Chiều dài</label>
+                <div className="relative flex items-center">
+                  <input type="number" step="any" name="length" value={formData.length} onChange={handleChange} className="w-full px-4 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-earth-brown outline-none pr-8 bg-white" />
+                  <span className="absolute right-3 text-gray-400 text-sm">m</span>
+                </div>
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Đường trước nhà</label>
+                <div className="relative flex items-center">
+                  <input type="number" step="any" name="frontRoad" value={formData.frontRoad} onChange={handleChange} className="w-full px-4 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-earth-brown outline-none pr-8 bg-white" />
+                  <span className="absolute right-3 text-gray-400 text-sm">m</span>
+                </div>
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Số lầu</label>
+                <input type="number" name="floors" value={formData.floors} onChange={handleChange} className="w-full px-4 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-earth-brown outline-none bg-white" />
+              </div>
+            </div>
+
+            {/* Cột 3: Tiện ích khác */}
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1.5">Tiện ích khác</label>
+              <div className="bg-gray-50 border border-gray-100 rounded-lg p-4 space-y-3.5">
+                <label className="flex items-center gap-3 cursor-pointer group">
+                  <input type="checkbox" name="hasKitchen" checked={formData.hasKitchen} onChange={handleChange} className="w-5 h-5 text-earth-brown border-gray-300 rounded focus:ring-earth-brown accent-earth-brown" />
+                  <span className="text-sm text-gray-700 group-hover:text-gray-900 transition-colors font-medium">Nhà bếp</span>
+                </label>
+                <label className="flex items-center gap-3 cursor-pointer group">
+                  <input type="checkbox" name="hasDiningRoom" checked={formData.hasDiningRoom} onChange={handleChange} className="w-5 h-5 text-earth-brown border-gray-300 rounded focus:ring-earth-brown accent-earth-brown" />
+                  <span className="text-sm text-gray-700 group-hover:text-gray-900 transition-colors font-medium">Phòng ăn</span>
+                </label>
+                <label className="flex items-center gap-3 cursor-pointer group">
+                  <input type="checkbox" name="hasTerrace" checked={formData.hasTerrace} onChange={handleChange} className="w-5 h-5 text-earth-brown border-gray-300 rounded focus:ring-earth-brown accent-earth-brown" />
+                  <span className="text-sm text-gray-700 group-hover:text-gray-900 transition-colors font-medium">Sân thượng</span>
+                </label>
+                <label className="flex items-center gap-3 cursor-pointer group">
+                  <input type="checkbox" name="hasParking" checked={formData.hasParking} onChange={handleChange} className="w-5 h-5 text-earth-brown border-gray-300 rounded focus:ring-earth-brown accent-earth-brown" />
+                  <span className="text-sm text-gray-700 group-hover:text-gray-900 transition-colors font-medium">Chỗ để xe hơi</span>
+                </label>
+              </div>
+            </div>
+        </div>
       </div>
+    </div>
 
       <div className="flex justify-end gap-4 border-t border-gray-100 pt-6">
         <button type="button" onClick={() => router.back()} className="px-6 py-2 border border-gray-300 rounded text-gray-700 hover:bg-gray-50 font-medium transition-colors">

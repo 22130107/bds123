@@ -154,6 +154,18 @@ export async function createProject(formData: FormData) {
   const bathrooms = formData.get('bathrooms') ? parseInt(formData.get('bathrooms') as string, 10) : 0;
   const isFeatured = formData.get('isFeatured') === 'on' || formData.get('isFeatured') === 'true';
   const status = formData.get('status') || 'published';
+  // Thông tin khác
+  const width = formData.get('width') || null;
+  const length = formData.get('length') || null;
+  const direction = formData.get('direction') || null;
+  const frontRoad = formData.get('frontRoad') || null;
+  const legal = formData.get('legal') || null;
+  const floors = formData.get('floors') ? parseInt(formData.get('floors') as string, 10) : null;
+  const hasKitchen = formData.get('hasKitchen') === 'on' || formData.get('hasKitchen') === 'true';
+  const hasDiningRoom = formData.get('hasDiningRoom') === 'on' || formData.get('hasDiningRoom') === 'true';
+  const hasTerrace = formData.get('hasTerrace') === 'on' || formData.get('hasTerrace') === 'true';
+  const hasParking = formData.get('hasParking') === 'on' || formData.get('hasParking') === 'true';
+
   const existingImagesJson = formData.get('existingImages') as string;
   let finalImages: string[] = [];
 
@@ -170,8 +182,8 @@ export async function createProject(formData: FormData) {
   const sideImg = finalImages.length > 1 ? finalImages[1] : (finalImages.length > 0 ? finalImages[0] : '');
 
   const [result] = await pool.query(
-    'INSERT INTO projects (title, location, mainImg, sideImg, area, price, description, isFeatured, type, category, images, bedrooms, bathrooms, status) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
-    [title, location, mainImg, sideImg, area, price, description, isFeatured, type, category, JSON.stringify(finalImages), bedrooms, bathrooms, status]
+    'INSERT INTO projects (title, location, mainImg, sideImg, area, price, description, isFeatured, type, category, images, bedrooms, bathrooms, status, width, length, direction, frontRoad, legal, floors, hasKitchen, hasDiningRoom, hasTerrace, hasParking) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
+    [title, location, mainImg, sideImg, area, price, description, isFeatured, type, category, JSON.stringify(finalImages), bedrooms, bathrooms, status, width, length, direction, frontRoad, legal, floors, hasKitchen, hasDiningRoom, hasTerrace, hasParking]
   );
   revalidatePath('/admin');
   revalidatePath('/admin/projects');
@@ -191,6 +203,18 @@ export async function updateProject(id: number, formData: FormData) {
   const bathrooms = formData.get('bathrooms') ? parseInt(formData.get('bathrooms') as string, 10) : 0;
   const isFeatured = formData.get('isFeatured') === 'on' || formData.get('isFeatured') === 'true';
   const status = formData.get('status') || 'published';
+  // Thông tin khác
+  const width = formData.get('width') || null;
+  const length = formData.get('length') || null;
+  const direction = formData.get('direction') || null;
+  const frontRoad = formData.get('frontRoad') || null;
+  const legal = formData.get('legal') || null;
+  const floors = formData.get('floors') ? parseInt(formData.get('floors') as string, 10) : null;
+  const hasKitchen = formData.get('hasKitchen') === 'on' || formData.get('hasKitchen') === 'true';
+  const hasDiningRoom = formData.get('hasDiningRoom') === 'on' || formData.get('hasDiningRoom') === 'true';
+  const hasTerrace = formData.get('hasTerrace') === 'on' || formData.get('hasTerrace') === 'true';
+  const hasParking = formData.get('hasParking') === 'on' || formData.get('hasParking') === 'true';
+
   const existingImagesJson = formData.get('existingImages') as string;
   let finalImages: string[] = [];
 
@@ -207,8 +231,8 @@ export async function updateProject(id: number, formData: FormData) {
   const sideImg = finalImages.length > 1 ? finalImages[1] : (finalImages.length > 0 ? finalImages[0] : '');
 
   const [result] = await pool.query(
-    'UPDATE projects SET title = ?, location = ?, mainImg = ?, sideImg = ?, area = ?, price = ?, description = ?, isFeatured = ?, type = ?, category = ?, images = ?, bedrooms = ?, bathrooms = ?, status = ? WHERE id = ?',
-    [title, location, mainImg, sideImg, area, price, description, isFeatured, type, category, JSON.stringify(finalImages), bedrooms, bathrooms, status, id]
+    'UPDATE projects SET title = ?, location = ?, mainImg = ?, sideImg = ?, area = ?, price = ?, description = ?, isFeatured = ?, type = ?, category = ?, images = ?, bedrooms = ?, bathrooms = ?, status = ?, width = ?, length = ?, direction = ?, frontRoad = ?, legal = ?, floors = ?, hasKitchen = ?, hasDiningRoom = ?, hasTerrace = ?, hasParking = ? WHERE id = ?',
+    [title, location, mainImg, sideImg, area, price, description, isFeatured, type, category, JSON.stringify(finalImages), bedrooms, bathrooms, status, width, length, direction, frontRoad, legal, floors, hasKitchen, hasDiningRoom, hasTerrace, hasParking, id]
   );
   revalidatePath('/admin');
   revalidatePath('/admin/projects');
