@@ -4,8 +4,7 @@ import dynamic from "next/dynamic";
 import { createNews, updateNews } from "../../../actions/news-actions";
 import { useRouter } from "next/navigation";
 
-const ReactQuill = dynamic(() => import("react-quill-new"), { ssr: false });
-import "react-quill-new/dist/quill.snow.css";
+const QuillEditor = dynamic(() => import("../../../components/QuillEditor"), { ssr: false });
 
 export default function NewsForm({ initialData }: { initialData?: any }) {
   const router = useRouter();
@@ -22,18 +21,7 @@ export default function NewsForm({ initialData }: { initialData?: any }) {
     status: initialData?.status || "published",
   });
 
-  const quillModules = useMemo(() => ({
-    toolbar: {
-      container: [
-        [{ header: [1, 2, 3, false] }],
-        ["bold", "italic", "underline", "strike"],
-        [{ list: "ordered" }, { list: "bullet" }],
-        [{ align: [] }],
-        ["link", "image", "video"],
-        ["clean"],
-      ],
-    },
-  }), []);
+
 
   const handleChange = (e: any) => {
     const { name, value } = e.target;
@@ -136,10 +124,9 @@ export default function NewsForm({ initialData }: { initialData?: any }) {
           <label className="block text-sm font-medium text-gray-700 mb-2">Nội dung chi tiết</label>
           <div className="border border-gray-300 rounded focus-within:ring-2 focus-within:ring-earth-brown">
             <input type="hidden" name="content" value={formData.content} />
-            <ReactQuill
+            <QuillEditor
               value={formData.content}
               onChange={handleContentChange}
-              modules={quillModules}
               placeholder="Nhập nội dung bài viết..."
               style={{ minHeight: "300px" }}
             />

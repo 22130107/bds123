@@ -4,8 +4,7 @@ import { createProject, updateProject } from "../../../actions/project-actions";
 import { useRouter } from "next/navigation";
 import dynamic from "next/dynamic";
 
-const ReactQuill = dynamic(() => import("react-quill-new"), { ssr: false });
-import "react-quill-new/dist/quill.snow.css";
+const QuillEditor = dynamic(() => import("../../../components/QuillEditor"), { ssr: false });
 
 export default function ProjectForm({ initialData, categories = [] }: { initialData?: any, categories?: any[] }) {
   const router = useRouter();
@@ -82,18 +81,7 @@ export default function ProjectForm({ initialData, categories = [] }: { initialD
     setFormData(prev => ({ ...prev, description: value }));
   };
 
-  const quillModules = useMemo(() => ({
-    toolbar: {
-      container: [
-        [{ header: [1, 2, 3, false] }],
-        ["bold", "italic", "underline", "strike"],
-        [{ list: "ordered" }, { list: "bullet" }],
-        [{ align: [] }],
-        ["link", "image", "video"],
-        ["clean"],
-      ],
-    },
-  }), []);
+
 
   const handleFileChange = (e: any) => {
     const files = Array.from(e.target.files) as File[];
@@ -154,11 +142,9 @@ export default function ProjectForm({ initialData, categories = [] }: { initialD
           <label className="block text-sm font-medium text-gray-700 mb-2">Mô tả</label>
           <div className="border border-gray-300 rounded focus-within:ring-2 focus-within:ring-earth-brown">
             <input type="hidden" name="description" value={formData.description} />
-            <ReactQuill
-              theme="snow"
+            <QuillEditor
               value={formData.description}
               onChange={handleDescriptionChange}
-              modules={quillModules}
               className="bg-white min-h-[250px] rounded"
             />
           </div>
