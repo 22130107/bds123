@@ -2,8 +2,8 @@ import Link from "next/link";
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
   return (
-    <div className="min-h-screen flex bg-gray-50 text-gray-900">
-      <aside className="w-64 bg-earth-brown text-white shadow-xl flex flex-col">
+    <div className="min-h-screen flex bg-gray-50 text-gray-900" style={{ alignItems: 'flex-start' }}>
+      <aside className="w-64 bg-earth-brown text-white shadow-xl flex flex-col sticky top-0 h-screen overflow-y-auto">
         <div className="p-6 border-b border-white/10">
           <h1 className="text-xl font-display-lg font-bold tracking-widest text-antique-gold">QUẢN TRỊ</h1>
           <p className="text-xs text-white/50 mt-1">BATDONGSAN CMS</p>
@@ -42,7 +42,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
         </div>
       </aside>
 
-      <main className="flex-1 overflow-y-auto">
+      <main className="flex-1 min-h-screen">
         <header className="bg-white shadow-sm px-8 py-4 flex items-center justify-between sticky top-0 z-10">
           <h2 className="text-lg font-bold text-gray-700">Hệ thống quản trị</h2>
           <div className="flex items-center gap-4">

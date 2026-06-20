@@ -23,6 +23,22 @@
   pointer-events: none;
 }
 
+/* ── Sticky Quill Toolbar ───────────────────────────────────────────────── */
+/* Header admin có sticky top-0, chiều cao ~57px → toolbar bám ngay bên dưới */
+.ql-toolbar.ql-snow {
+  position: sticky;
+  top: 57px;
+  z-index: 20;
+  background: #fff;
+  /* Giữ border gốc của Quill Snow, thêm shadow nhẹ để phân tách */
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+/* Đảm bảo dropdown picker mở ra TRÊN nội dung editor, không bị cắt */
+.ql-snow .ql-picker-options {
+  z-index: 30 !important;
+}
+
 /* Custom Quill sizes */
 .ql-snow .ql-picker.ql-size .ql-picker-label[data-value="10px"]::before, .ql-snow .ql-picker.ql-size .ql-picker-item[data-value="10px"]::before { content: '10px'; }
 .ql-snow .ql-picker.ql-size .ql-picker-label[data-value="11px"]::before, .ql-snow .ql-picker.ql-size .ql-picker-item[data-value="11px"]::before { content: '11px'; }
