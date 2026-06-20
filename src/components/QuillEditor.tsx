@@ -23,7 +23,7 @@ export default function QuillEditor({ value, onChange, placeholder, className, s
   const [modalOpen, setModalOpen] = useState(false);
   const [modalData, setModalData] = useState<MediaAttributes | null>(null);
   const [mediaType, setMediaType] = useState<'image' | 'video'>('image');
-  const [targetBlot, setTargetBlot] = useState<any>(null);
+  const [targetIndex, setTargetIndex] = useState<number | null>(null);
 
   useEffect(() => {
     // We need a short timeout to let ReactQuill initialize the editor instance
@@ -32,7 +32,24 @@ export default function QuillEditor({ value, onChange, placeholder, className, s
       if (!editor) return;
 
       const handleDblClick = (e: MouseEvent) => {
-        const target = e.target as HTMLElement;
+        let target = e.target as HTMLElement;
+        
+        // Nếu click không trúng IMG/IFRAME (có thể do iframe có pointer-events: none)
+        // Ta tìm iframe dựa trên tọa độ chuột
+        if (target.tagName !== 'IMG' && target.tagName !== 'IFRAME') {
+          const iframes = editor.root.querySelectorAll('iframe');
+          for (let i = 0; i < iframes.length; i++) {
+            const rect = iframes[i].getBoundingClientRect();
+            if (
+              e.clientX >= rect.left && e.clientX <= rect.right &&
+              e.clientY >= rect.top && e.clientY <= rect.bottom
+            ) {
+              target = iframes[i];
+              break;
+            }
+          }
+        }
+
         if (target.tagName === 'IMG' || target.tagName === 'IFRAME') {
           const blot = Quill.find(target);
           if (blot) {
@@ -54,7 +71,7 @@ export default function QuillEditor({ value, onChange, placeholder, className, s
               vspace: parsedStyle.vspace || '',
               align: parsedStyle.align || ''
             });
-            setTargetBlot(blot);
+            setTargetIndex(editor.getIndex(blot));
             setModalOpen(true);
           }
         }
@@ -77,17 +94,26 @@ export default function QuillEditor({ value, onChange, placeholder, className, s
 
   const handleSaveMedia = (attrs: MediaAttributes) => {
     const editor = reactQuillRef.current?.getEditor();
-    if (!editor || !targetBlot) return;
+    if (!editor || targetIndex === null) return;
     
-    const index = editor.getIndex(targetBlot);
-    if (index !== undefined && index >= 0) {
+    if (targetIndex !== undefined && targetIndex >= 0) {
       const formatStr = buildMediaStyle(attrs);
-      editor.formatText(index, 1, 'width', attrs.width || false);
-      editor.formatText(index, 1, 'height', attrs.height || false);
+      
+      const formats: any = {
+        width: attrs.width || false,
+        height: attrs.height || false,
+        style: formatStr || false,
+      };
+      
       if (mediaType === 'image') {
-        editor.formatText(index, 1, 'alt', attrs.alt || false);
+        formats.alt = attrs.alt || false;
       }
-      editor.formatText(index, 1, 'style', formatStr || false);
+      
+      // Sử dụng 1 lệnh duy nhất để không bị xung đột event listener của react-quill
+      editor.formatText(targetIndex, 1, formats);
+      
+      // Kích hoạt cập nhật ép buộc
+      setTargetIndex(null);
     }
   };
 
@@ -109,6 +135,30 @@ export default function QuillEditor({ value, onChange, placeholder, className, s
         ["clean"],
       ],
     },
+    clipboard: {
+      matchers: [
+        ['IFRAME', (node: any, delta: any) => {
+          if (delta.ops && delta.ops.length > 0 && delta.ops[0].insert && delta.ops[0].insert.video) {
+            const style = node.getAttribute('style');
+            if (style) {
+              delta.ops[0].attributes = delta.ops[0].attributes || {};
+              delta.ops[0].attributes.style = style;
+            }
+          }
+          return delta;
+        }],
+        ['IMG', (node: any, delta: any) => {
+          if (delta.ops && delta.ops.length > 0 && delta.ops[0].insert && delta.ops[0].insert.image) {
+            const style = node.getAttribute('style');
+            if (style) {
+              delta.ops[0].attributes = delta.ops[0].attributes || {};
+              delta.ops[0].attributes.style = style;
+            }
+          }
+          return delta;
+        }]
+      ]
+    }
   }), []);
 
   return (

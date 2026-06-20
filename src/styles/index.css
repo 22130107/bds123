@@ -18,6 +18,11 @@
   animation: slideUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
+/* Ngăn iframe trong editor bắt sự kiện click */
+.ql-editor iframe {
+  pointer-events: none;
+}
+
 /* Custom Quill sizes */
 .ql-snow .ql-picker.ql-size .ql-picker-label[data-value="10px"]::before, .ql-snow .ql-picker.ql-size .ql-picker-item[data-value="10px"]::before { content: '10px'; }
 .ql-snow .ql-picker.ql-size .ql-picker-label[data-value="11px"]::before, .ql-snow .ql-picker.ql-size .ql-picker-item[data-value="11px"]::before { content: '11px'; }

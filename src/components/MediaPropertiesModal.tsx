@@ -44,6 +44,8 @@ export const parseMediaStyle = (styleStr: string): Partial<MediaAttributes> => {
   const div = document.createElement('div');
   div.style.cssText = styleStr;
 
+  if (div.style.width) attrs.width = div.style.width.replace('px', '');
+  if (div.style.height) attrs.height = div.style.height.replace('px', '');
   if (div.style.borderWidth) attrs.borderWidth = div.style.borderWidth.replace('px', '');
   if (div.style.borderColor) attrs.borderColor = rgbToHex(div.style.borderColor);
   
@@ -72,31 +74,37 @@ export const buildMediaStyle = (attrs: MediaAttributes): string => {
     return val;
   };
 
+  const w = ensurePx(attrs.width);
+  if (w) div.style.setProperty('width', w, 'important');
+
+  const h = ensurePx(attrs.height);
+  if (h) div.style.setProperty('height', h, 'important');
+
   const bWidth = ensurePx(attrs.borderWidth);
   if (bWidth) {
-    div.style.border = `${bWidth} solid ${attrs.borderColor || '#000000'}`;
+    div.style.setProperty('border', `${bWidth} solid ${attrs.borderColor || '#000000'}`, 'important');
   }
   
   if (attrs.align === 'center') {
-    div.style.display = 'block';
-    div.style.marginLeft = 'auto';
-    div.style.marginRight = 'auto';
+    div.style.setProperty('display', 'block', 'important');
+    div.style.setProperty('margin-left', 'auto', 'important');
+    div.style.setProperty('margin-right', 'auto', 'important');
   } else if (attrs.align === 'left' || attrs.align === 'right') {
-    div.style.float = attrs.align;
+    div.style.setProperty('float', attrs.align, 'important');
   }
 
   if (attrs.align !== 'center') {
     const hSpace = ensurePx(attrs.hspace);
     if (hSpace) {
-      div.style.marginLeft = hSpace;
-      div.style.marginRight = hSpace;
+      div.style.setProperty('margin-left', hSpace, 'important');
+      div.style.setProperty('margin-right', hSpace, 'important');
     }
   }
 
   const vSpace = ensurePx(attrs.vspace);
   if (vSpace) {
-    div.style.marginTop = vSpace;
-    div.style.marginBottom = vSpace;
+    div.style.setProperty('margin-top', vSpace, 'important');
+    div.style.setProperty('margin-bottom', vSpace, 'important');
   }
 
   return div.style.cssText;
