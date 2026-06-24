@@ -112,6 +112,7 @@ export async function createNews(formData: FormData) {
     [title, excerpt, content, finalImg, category, date, status]
   );
   revalidatePath('/admin/news');
+  revalidatePath('/news');
   revalidatePath('/');
   return { success: true };
 }
@@ -133,6 +134,7 @@ export async function updateNews(id: number, formData: FormData) {
     [title, excerpt, content, finalImg, category, date, status, id]
   );
   revalidatePath('/admin/news');
+  revalidatePath('/news');
   revalidatePath('/');
   return { success: true };
 }
@@ -140,6 +142,7 @@ export async function updateNews(id: number, formData: FormData) {
 export async function deleteNews(id: number) {
   const [result] = await pool.query('DELETE FROM news WHERE id = ?', [id]);
   revalidatePath('/admin/news');
+  revalidatePath('/news');
   revalidatePath('/');
   return { success: true };
 }

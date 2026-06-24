@@ -187,6 +187,7 @@ export async function createProject(formData: FormData) {
   );
   revalidatePath('/admin');
   revalidatePath('/admin/projects');
+  revalidatePath('/listing');
   revalidatePath('/');
   return { success: true };
 }
@@ -236,6 +237,7 @@ export async function updateProject(id: number, formData: FormData) {
   );
   revalidatePath('/admin');
   revalidatePath('/admin/projects');
+  revalidatePath('/listing');
   revalidatePath('/');
   return { success: true };
 }
@@ -244,6 +246,7 @@ export async function deleteProject(id: number) {
   const [result] = await pool.query('DELETE FROM projects WHERE id = ?', [id]);
   revalidatePath('/admin');
   revalidatePath('/admin/projects');
+  revalidatePath('/listing');
   revalidatePath('/');
   return { success: true };
 }
