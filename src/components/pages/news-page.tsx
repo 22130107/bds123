@@ -4,6 +4,7 @@ import { useState } from "react";
 import { TopNavBar } from "../top-nav-bar";
 import { Footer } from "../footer";
 import { Pagination } from "../pagination";
+import logoFallback from "../../assets/logo_icon.png";
 
 interface NewsPageProps {
   onNavigate: (page: string) => void;
@@ -17,7 +18,7 @@ export function NewsPage({ onNavigate, dbNews = [] }: NewsPageProps) {
     date: n.date || "",
     category: n.category || "TIN TỨC",
     excerpt: n.excerpt,
-    image: n.img,
+    image: n.img || logoFallback.src,
   }));
 
   const ITEMS_PER_PAGE = 6;

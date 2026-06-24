@@ -2,6 +2,7 @@
 
 import { TopNavBar } from "../top-nav-bar";
 import { Footer } from "../footer";
+import logoFallback from "../../assets/logo_icon.png";
 
 interface NewsDetailPageProps {
   onNavigate: (page: string) => void;
@@ -81,11 +82,9 @@ export function NewsDetailPage({ onNavigate, article, latestNews = [] }: NewsDet
           )}
 
           {/* Featured Image - only show if it's not already in the content, but based on the image, the user has the image inside the article body or right after the excerpt. Assuming we just place it here if it exists. */}
-          {article.img && (
-            <div className="w-full mb-6 overflow-hidden">
-              <img src={article.img} alt={article.title} className="w-full h-auto object-cover" />
-            </div>
-          )}
+          <div className="w-full mb-6 overflow-hidden">
+            <img src={article.img || logoFallback.src} alt={article.title} className="w-full h-auto object-cover" />
+          </div>
 
           {/* Body Content */}
           <div className="prose max-w-none break-words [&_*]:max-w-full
@@ -115,7 +114,7 @@ export function NewsDetailPage({ onNavigate, article, latestNews = [] }: NewsDet
                   className={`flex gap-3 py-3 cursor-pointer group ${idx !== latestNews.length - 1 ? 'border-b border-gray-100' : ''}`}
                 >
                   <div className="w-[100px] h-[70px] shrink-0 overflow-hidden bg-gray-100">
-                    {item.img && <img src={item.img} alt={item.title} className="w-full h-full object-cover group-hover:opacity-90 transition-opacity" />}
+                    <img src={item.img || logoFallback.src} alt={item.title} className="w-full h-full object-cover group-hover:opacity-90 transition-opacity" />
                   </div>
                   <div className="flex flex-col">
                     <h4 className="text-[13px] font-semibold text-[#333] leading-[1.4] line-clamp-3 group-hover:text-earth-brown transition-colors">

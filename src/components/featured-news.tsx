@@ -1,4 +1,5 @@
 import Link from "next/link";
+import logoFallback from "../assets/logo_icon.png";
 
 interface NewsArticle {
   id: string;
@@ -21,7 +22,7 @@ export function FeaturedNews({ news = [] }: { news?: any[] }) {
     date: n.date || "",
     title: n.title,
     excerpt: n.excerpt,
-    image: n.img,
+    image: n.img || logoFallback.src,
     featured: idx === 0
   }));
 
