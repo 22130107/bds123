@@ -112,7 +112,7 @@ export function DetailPage({ project, agentInfo }: DetailPageProps) {
         {/* Property Header */}
         <div className="max-w-[1280px] mx-auto px-5 md:px-[80px] pb-6">
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
-            <div>
+            <div className="max-w-[800px] w-full">
               <div className="flex items-center gap-3 mb-2">
                 {project.badge && (
                   <span className="bg-antique-gold text-white font-label-caps px-3 py-1"
