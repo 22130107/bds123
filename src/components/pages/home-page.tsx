@@ -24,11 +24,11 @@ export function HomePage({ onNavigate, dbProjects = [], dbSpaces = [], dbNews = 
       <main className="pt-0">
         <HeroSection onNavigate={onNavigate} />
         <SpaceShowcase spaces={dbSpaces} />
-        <TailoredSection onViewDetail={() => onNavigate("detail")} projects={tailored} />
-        <FeaturedProjects projects={featured} />
-        <LocationSection />
+        <TailoredSection onViewDetail={(id) => onNavigate(`detail/${id}`)} projects={tailored} />
+        <FeaturedProjects projects={featured} onViewDetail={(id) => onNavigate(`detail/${id}`)} />
+        <LocationSection projects={dbProjects} />
         <FeaturedNews news={dbNews} />
-        <CTASection onSchedule={() => onNavigate("listing")} onViewCatalog={() => onNavigate("listing")} />
+        <CTASection onSchedule={() => onNavigate("contact")} onViewCatalog={() => onNavigate("listing")} />
       </main>
       <Footer />
     </div>

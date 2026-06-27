@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 interface Location {
   city: string;
   count: string;
@@ -34,9 +36,22 @@ const locations: Location[] = [
   },
 ];
 
-export function LocationSection() {
-  const largeLocation = locations.find((l) => l.large);
-  const smallLocations = locations.filter((l) => !l.large);
+interface LocationSectionProps {
+  projects?: any[];
+}
+
+export function LocationSection({ projects = [] }: LocationSectionProps) {
+  const getProjectCount = (city: string) => {
+    return projects.filter(p => p.location?.toLowerCase().includes(city.toLowerCase())).length;
+  };
+
+  const dynamicLocations = locations.map(loc => ({
+    ...loc,
+    count: `${getProjectCount(loc.city)} tin đăng`
+  }));
+
+  const largeLocation = dynamicLocations.find((l) => l.large);
+  const smallLocations = dynamicLocations.filter((l) => !l.large);
 
   return (
     <section 
@@ -78,8 +93,9 @@ export function LocationSection() {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           {/* Large location card (col-span-2) */}
           {largeLocation && (
-            <div
-              className="relative overflow-hidden group cursor-pointer lg:col-span-2 h-[300px] lg:h-[400px] border border-white/10"
+            <Link
+              href={`/listing?location=${encodeURIComponent(largeLocation.city)}`}
+              className="relative overflow-hidden group cursor-pointer lg:col-span-2 h-[300px] lg:h-[400px] border border-white/10 block"
             >
               <img
                 src={largeLocation.image}
@@ -104,15 +120,16 @@ export function LocationSection() {
                   </p>
                 </div>
               </div>
-            </div>
+            </Link>
           )}
 
           {/* Small location cards in a 2x2 grid (col-span-1) */}
           <div className="lg:col-span-1 grid grid-cols-2 gap-6">
             {smallLocations.map((loc) => (
-              <div
+              <Link
                 key={loc.city}
-                className="relative overflow-hidden group cursor-pointer h-[138px] lg:h-[188px] border border-white/10"
+                href={`/listing?location=${encodeURIComponent(loc.city)}`}
+                className="relative overflow-hidden group cursor-pointer h-[138px] lg:h-[188px] border border-white/10 block"
               >
                 <img
                   src={loc.image}
@@ -134,7 +151,7 @@ export function LocationSection() {
                     {loc.count}
                   </p>
                 </div>
-              </div>
+              </Link>
             ))}
           </div>
         </div>

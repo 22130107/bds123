@@ -1,6 +1,7 @@
 import { useState } from "react";
 
 interface Project {
+  id?: string | number;
   title: string;
   desc: string;
   mainImg: string;
@@ -10,6 +11,7 @@ interface Project {
 
 const projectData: Project[] = [
   {
+    id: 11,
     title: "Rivea Hanoi",
     desc: "Tọa lạc tại Phường Vĩnh Hưng, quận Hoàng Mai, Hà Nội. Dự án sở hữu quy mô 29.853 m2 với pháp lý hợp đồng mua bán hoàn thiện cùng mức giá vô cùng hấp dẫn từ 3-8 Tỷ.",
     mainImg: "https://xemnha.vn/uploads/upload-images/images/phoi-canh-rivea-hanoi.jpg",
@@ -17,6 +19,7 @@ const projectData: Project[] = [
     badge: "SẮP MỞ BÁN",
   },
   {
+    id: 12,
     title: "Vinhomes Nguyễn Trãi (Cao Xà Lá)",
     desc: "Tọa lạc tại địa chỉ đắc địa 233 – 233B – 235 Nguyễn Trãi, quận Thanh Xuân, Hà Nội. Dự án có quy mô 109.98 m2, pháp lý sổ đỏ lâu dài.",
     mainImg: "https://xemnha.vn/uploads/upload-images/images/Vinhomes-Cao-Xa-La.jpg",
@@ -24,6 +27,7 @@ const projectData: Project[] = [
     badge: "ĐANG XÂY DỰNG",
   },
   {
+    id: 13,
     title: "Imperia Signature",
     desc: "Tọa lạc tại Đông Hội, Đông Anh, Hà Nội. Tổ hợp căn hộ cao cấp quy mô 4.65 ha, pháp lý hợp đồng mua bán vững chắc, giá từ 2-7 Tỷ.",
     mainImg: "https://xemnha.vn/uploads/images/view-imperia-signature.jpg",
@@ -31,6 +35,7 @@ const projectData: Project[] = [
     badge: "SẮP MỞ BÁN",
   },
   {
+    id: 14,
     title: "SAM Towers",
     desc: "Tọa lạc tại Lô A2-1 Như Nguyệt, Phường Thuận Phước, Quận Hải Châu, Đà Nẵng. Căn hộ cao cấp ven sông Hàn quy mô 4.9 m2, giá từ 80-100 Triệu/m2.",
     mainImg: "https://xemnha.vn/images/logo-vinhomes.jpg",
@@ -41,9 +46,10 @@ const projectData: Project[] = [
 
 interface FeaturedProjectsProps {
   projects?: any[];
+  onViewDetail?: (id: string | number) => void;
 }
 
-export function FeaturedProjects({ projects = [] }: FeaturedProjectsProps) {
+export function FeaturedProjects({ projects = [], onViewDetail }: FeaturedProjectsProps) {
   const data = projects.length > 0 ? projects.map(p => ({
     id: p.id,
     title: p.title,
@@ -151,8 +157,11 @@ export function FeaturedProjects({ projects = [] }: FeaturedProjectsProps) {
               <p className="font-body-md text-on-surface mb-3 leading-relaxed line-clamp-3" style={{ fontSize: "14px" }}>
                 {project.desc}
               </p>
-              <button className="font-label-caps text-earth-brown font-bold tracking-[0.2em] hover:text-antique-gold transition-colors flex items-center gap-3"
-                      style={{ fontSize: "10px" }}>
+              <button
+                onClick={() => onViewDetail?.(project.id || 11)}
+                className="font-label-caps text-earth-brown font-bold tracking-[0.2em] hover:text-antique-gold transition-colors flex items-center gap-3 cursor-pointer"
+                style={{ fontSize: "10px" }}
+              >
                 KHÁM PHÁ CHI TIẾT <span className="w-8 h-[2px] bg-antique-gold" />
               </button>
             </div>

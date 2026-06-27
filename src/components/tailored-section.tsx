@@ -1,6 +1,7 @@
 import { useState } from "react";
 
 interface Property {
+  id?: string | number;
   title: string;
   location: string;
   price: string;
@@ -11,6 +12,7 @@ interface Property {
 
 const tailoredData: Property[] = [
   {
+    id: 3,
     title: "CHÍNH CHỦ BÁN CĂN NHÀ VƯỜN 120m2 KĐT GELEXIMCO LÊ TRỌNG TẤN GIÁ SIÊU RẺ",
     location: "Dương Nội, Hà Đông, Hà Nội",
     price: "20.5 Tỷ VNĐ",
@@ -19,6 +21,7 @@ const tailoredData: Property[] = [
     badge: "CHÍNH CHỦ",
   },
   {
+    id: 4,
     title: "Bán Nhà Vườn 160m2 Mặt Tiền 8m Khu D Geleximco Giá Rẻ Chỉ 21 Tỷ",
     location: "Dương Nội, Hà Đông, Hà Nội",
     price: "21 Tỷ VNĐ",
@@ -27,6 +30,7 @@ const tailoredData: Property[] = [
     badge: "GIÁ RẺ",
   },
   {
+    id: 5,
     title: "Cơ Hội Cuối Cùng - Sở Hữu Nhà Khu A Giáp VIN, Mặt Tiền 6m, Chỉ 18,5 Tỷ",
     location: "Dương Nội, Hà Đông, Hà Nội",
     price: "18.5 Tỷ VNĐ",
@@ -35,6 +39,7 @@ const tailoredData: Property[] = [
     badge: "GIÁ TỐT",
   },
   {
+    id: 6,
     title: "Cần Bán Nhanh Căn 60m2 Khu B Geleximco – Nhỏ Gọn Đầy Đủ Tiện Ích",
     location: "Dương Nội, Hà Đông, Hà Nội",
     price: "12.5 Tỷ VNĐ",
@@ -43,6 +48,7 @@ const tailoredData: Property[] = [
     badge: "BÁN GẤP",
   },
   {
+    id: 7,
     title: "Bán Nhà Đặng Tiến Đông Q Đống Đa 90m X Mt 6m Gần Phố Giá Nhỉnh 14 Tỷ",
     location: "Ô Chợ Dừa, Đống Đa, Hà Nội",
     price: "14.9 Tỷ VNĐ",
@@ -51,6 +57,7 @@ const tailoredData: Property[] = [
     badge: "GẦN PHỐ",
   },
   {
+    id: 8,
     title: "Cần Bán Nhanh Lô Biệt Thự View Hồ B2.1 BT4 Giá Đầu Tư Tại KDT Thanh Hà Cienco 5",
     location: "Kiến Hưng, Hà Đông, Hà Nội",
     price: "Thỏa thuận",
@@ -59,7 +66,8 @@ const tailoredData: Property[] = [
     badge: "VIEW HỒ",
   },
   {
-    title: "BÁN LIỀN KỀ 75M2 KHU B GELEXIMCO - MẶT TRƯỜNG HỌC, GIÁP VINHOMES, GIÁ HẤP DẪN ĐẦU TƯ",
+    id: 9,
+    title: "BÁN LIỀK KỀ 75M2 KHU B GELEXIMCO - MẶT TRƯỜNG HỌC, GIÁP VINHOMES, GIÁ HẤP DẪN ĐẦU TƯ",
     location: "Dương Nội, Hà Đông, Hà Nội",
     price: "9.69 Tỷ VNĐ",
     specs: [4, 4, 75],
@@ -67,6 +75,7 @@ const tailoredData: Property[] = [
     badge: "ĐẦU TƯ",
   },
   {
+    id: 10,
     title: "BÁN CĂN LIỀN KỀ HƠN 480M2 SÀN KHU A GELEXIMCO GIÁP VINHOMES SMART CITY GIÁ NHỈNH 15 TỶ",
     location: "Dương Nội, Hà Đông, Hà Nội",
     price: "15 Tỷ VNĐ",
@@ -77,7 +86,7 @@ const tailoredData: Property[] = [
 ];
 
 interface TailoredSectionProps {
-  onViewDetail?: () => void;
+  onViewDetail?: (id: string | number) => void;
   projects?: any[];
 }
 
@@ -94,6 +103,33 @@ export function TailoredSection({ onViewDetail, projects = [] }: TailoredSection
 
   const [current, setCurrent] = useState(0);
   const property = data[current] || tailoredData[0];
+
+  const [touchStart, setTouchStart] = useState<number | null>(null);
+  const [touchEnd, setTouchEnd] = useState<number | null>(null);
+
+  const minSwipeDistance = 50;
+
+  const onTouchStart = (e: React.TouchEvent) => {
+    setTouchEnd(null);
+    setTouchStart(e.targetTouches[0].clientX);
+  };
+
+  const onTouchMove = (e: React.TouchEvent) => {
+    setTouchEnd(e.targetTouches[0].clientX);
+  };
+
+  const onTouchEnd = () => {
+    if (!touchStart || !touchEnd) return;
+    const distance = touchStart - touchEnd;
+    const isLeftSwipe = distance > minSwipeDistance;
+    const isRightSwipe = distance < -minSwipeDistance;
+    
+    if (isLeftSwipe) {
+      setCurrent((c) => (c + 1) % data.length);
+    } else if (isRightSwipe) {
+      setCurrent((c) => (c - 1 + data.length) % data.length);
+    }
+  };
 
 
 
@@ -132,16 +168,21 @@ export function TailoredSection({ onViewDetail, projects = [] }: TailoredSection
         </div>
 
         {/* Slider */}
-        <div className="relative group/nav">
+        <div 
+          className="relative group/nav"
+          onTouchStart={onTouchStart}
+          onTouchMove={onTouchMove}
+          onTouchEnd={onTouchEnd}
+        >
           <button
             onClick={() => setCurrent((c) => (c - 1 + data.length) % data.length)}
-            className="absolute left-0 top-1/2 -translate-y-1/2 z-20 w-12 h-12 rounded-full bg-white shadow-xl border border-outline-variant/30 flex items-center justify-center text-earth-brown hover:bg-earth-brown hover:text-white transition-all opacity-0 group-hover/nav:opacity-100 -translate-x-6 group-hover/nav:-translate-x-1/2"
+            className="hidden md:flex absolute -left-4 md:-left-16 top-1/2 -translate-y-1/2 z-20 w-12 h-12 rounded-full bg-white shadow-xl border border-outline-variant/30 items-center justify-center text-earth-brown hover:bg-[#A04000] hover:text-white transition-all cursor-pointer"
           >
             <span className="material-symbols-outlined">chevron_left</span>
           </button>
           <button
             onClick={() => setCurrent((c) => (c + 1) % data.length)}
-            className="absolute right-0 top-1/2 -translate-y-1/2 z-20 w-12 h-12 rounded-full bg-white shadow-xl border border-outline-variant/30 flex items-center justify-center text-earth-brown hover:bg-earth-brown hover:text-white transition-all opacity-0 group-hover/nav:opacity-100 translate-x-6 group-hover/nav:translate-x-1/2"
+            className="hidden md:flex absolute -right-4 md:-right-16 top-1/2 -translate-y-1/2 z-20 w-12 h-12 rounded-full bg-white shadow-xl border border-outline-variant/30 items-center justify-center text-earth-brown hover:bg-[#A04000] hover:text-white transition-all cursor-pointer"
           >
             <span className="material-symbols-outlined">chevron_right</span>
           </button>
@@ -233,7 +274,7 @@ export function TailoredSection({ onViewDetail, projects = [] }: TailoredSection
                 </div>
               </div>
               <button
-                onClick={onViewDetail}
+                onClick={() => onViewDetail?.(property.id || 3)}
                 className="flex items-center gap-4 group/btn cursor-pointer"
               >
                 <span

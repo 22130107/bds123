@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import Link from "next/link";
 
 interface ShowcaseItem {
   id: string;
@@ -177,7 +178,7 @@ const collectionsData: Collection[] = [
   },
 ];
 
-function ShowcaseCard({ item, delay }: { item: ShowcaseItem; delay: string }) {
+function ShowcaseCard({ item, delay, collectionId }: { item: ShowcaseItem; delay: string; collectionId: string }) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isHovered, setIsHovered] = useState(false);
 
@@ -194,8 +195,9 @@ function ShowcaseCard({ item, delay }: { item: ShowcaseItem; delay: string }) {
   }, [isHovered, item.images.length]);
 
   return (
-    <div
-      className={`relative overflow-hidden group cursor-pointer border border-outline-variant/20 shadow-sm ${item.gridClass} animate-slide-up`}
+    <Link
+      href={`/spaces?collection=${collectionId}&category=${encodeURIComponent(item.category.split("/")[1]?.trim() || item.category)}`}
+      className={`relative overflow-hidden group cursor-pointer border border-outline-variant/20 shadow-sm ${item.gridClass} animate-slide-up block`}
       style={{ animationDelay: delay, opacity: 0 }}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
@@ -218,7 +220,7 @@ function ShowcaseCard({ item, delay }: { item: ShowcaseItem; delay: string }) {
       <div className="absolute inset-0 border border-transparent group-hover:border-white/20 transition-colors duration-500 pointer-events-none z-20 m-3" />
 
       {/* Base Gradient overlay for readability */}
-      <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/60 to-black/10 transition-opacity duration-500 z-20 pointer-events-none" />
+      <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent transition-opacity duration-500 z-20 pointer-events-none" />
 
       {/* Hover highlight overlay */}
       <div className="absolute inset-0 bg-gradient-to-tr from-earth-brown/40 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none z-20" />
@@ -234,7 +236,7 @@ function ShowcaseCard({ item, delay }: { item: ShowcaseItem; delay: string }) {
       </div>
 
       {/* Text Information Content Card */}
-      <div className="absolute inset-x-0 bottom-0 p-6 z-30 flex flex-col justify-end text-white bg-gradient-to-t from-black/90 via-black/60 to-transparent pt-16">
+      <div className="absolute inset-x-0 bottom-0 p-6 z-30 flex flex-col justify-end text-white bg-gradient-to-t from-black/70 via-transparent to-transparent pt-16">
         <div className="transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500 ease-out">
           <h3
             className="font-display-lg text-white font-bold leading-snug mb-1 group-hover:text-antique-gold transition-colors duration-300"
@@ -259,7 +261,7 @@ function ShowcaseCard({ item, delay }: { item: ShowcaseItem; delay: string }) {
           </span>
         </div>
       </div>
-    </div>
+    </Link>
   );
 }
 
@@ -346,7 +348,7 @@ export function SpaceShowcase({ spaces = [] }: { spaces?: any[] }) {
         {/* Dynamic Showcase Grid */}
         <div key={activeTab} className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 auto-rows-[220px] md:auto-rows-[250px] lg:auto-rows-[280px]">
           {currentCollection.items.map((item, idx) => (
-            <ShowcaseCard key={item.id} item={item} delay={`${idx * 0.08}s`} />
+            <ShowcaseCard key={item.id} item={item} delay={`${idx * 0.08}s`} collectionId={activeTab} />
           ))}
         </div>
       </div>
