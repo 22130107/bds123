@@ -91,14 +91,14 @@ export function FeaturedProjectsWidget() {
             <div>
               <h5
                 className="font-label-caps text-primary group-hover:text-antique-gold transition-colors line-clamp-1"
-                style={{ fontSize: "12px", letterSpacing: "0.1em", fontWeight: 700 }}
+                style={{ fontSize: "12px", letterSpacing: "0.05em", fontWeight: 700 }}
               >
                 {project.title}
               </h5>
-              <p className="text-on-surface-variant uppercase line-clamp-1" style={{ fontSize: "11px" }}>
+              <p className="text-on-surface-variant line-clamp-1 text-sm" style={{ fontSize: "13px" }}>
                 {project.location}
               </p>
-              <p className="font-semibold text-antique-gold" style={{ fontSize: "12px" }}>
+              <p className="font-semibold" style={{ fontSize: "12px", color: "#8B6914" }}>
                 {project.price}
               </p>
               <p className="text-gray-400 mt-1" style={{ fontSize: "10px" }}>

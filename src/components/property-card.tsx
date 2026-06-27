@@ -50,7 +50,7 @@ export function PropertyCard({
             style={{
               fontSize: "10px",
               fontWeight: 700,
-              backgroundColor: badgeColor === "gold" ? "#D4AF37" : "#1E321E",
+              backgroundColor: badgeColor === "gold" ? "#8B6914" : "#1E321E",
             }}
           >
             {badge}
@@ -87,8 +87,8 @@ export function PropertyCard({
         </div>
         <div className="mt-6 pt-4 border-t border-outline-variant flex justify-between items-center">
           <p
-            className="font-price-display text-earth-brown"
-            style={{ fontSize: "22px", lineHeight: "24px", fontWeight: 600 }}
+            className="font-price-display"
+            style={{ fontSize: "22px", lineHeight: "24px", fontWeight: 600, color: "#A04000" }}
           >
             {price}
           </p>

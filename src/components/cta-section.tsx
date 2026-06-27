@@ -18,12 +18,12 @@ export function CTASection({ onSchedule, onViewCatalog }: CTASectionProps) {
         <span className="material-symbols-outlined text-antique-gold mb-10" style={{ fontSize: "60px" }}>
           diamond
         </span>
-        <h2
+        <h3
           className="font-display-lg text-earth-brown mb-8 italic"
           style={{ fontSize: "clamp(28px, 3.5vw, 44px)", fontWeight: 700 }}
         >
           "Sẵn sàng tìm kiếm di sản truyền đời của bạn?"
-        </h2>
+        </h3>
         <p
           className="font-body-lg text-on-surface font-medium mb-14 px-4"
           style={{ fontSize: "18px", lineHeight: "30px" }}
@@ -33,8 +33,8 @@ export function CTASection({ onSchedule, onViewCatalog }: CTASectionProps) {
         <div className="flex flex-col sm:flex-row gap-6 justify-center items-center">
           <button
             onClick={onSchedule}
-            className="bg-earth-brown text-white px-14 py-5 font-label-caps font-bold hover:bg-antique-gold transition-all duration-500 shadow-2xl min-w-[240px]"
-            style={{ fontSize: "11px", letterSpacing: "0.15em" }}
+            className="text-white px-14 py-5 font-label-caps font-bold hover:bg-antique-gold transition-all duration-500 shadow-2xl min-w-[240px]"
+            style={{ fontSize: "11px", letterSpacing: "0.15em", backgroundColor: "#A04000" }}
           >
             ĐẶT LỊCH TƯ VẤN
           </button>

@@ -116,7 +116,7 @@ export function FeaturedProjects({ projects = [] }: FeaturedProjectsProps) {
             <span className="material-symbols-outlined">arrow_forward</span>
           </button>
           <div className="col-span-12 lg:col-span-7 group relative md:pb-28">
-            <div className="aspect-[4/3] md:aspect-[2/1] border border-outline-variant/20 p-2 bg-surface-container-lowest shadow-2xl">
+            <div className="aspect-[4/3] md:aspect-[2/1] border-2 border-outline-variant/20 p-2 bg-surface-container-lowest shadow-xl">
               <div className="relative w-full h-full overflow-hidden">
                 {data.map((p, idx) => (
                   <img

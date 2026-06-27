@@ -55,7 +55,7 @@ export function LocationSection() {
           >
             HÀNH TRÌNH DI SẢN
           </span>
-          <div className="relative p-6 border-y border-white/20 inline-block">
+          <div className="relative p-6 border-y border-white/20 inline-block" style={{ backgroundColor: "#2A1608" }}>
             <div className="absolute inset-x-0 top-0 h-[1px] bg-white/40" />
             <div className="absolute inset-x-0 bottom-0 h-[1px] bg-white/40" />
             <div className="absolute top-0 left-0 w-6 h-6 border-t border-l border-antique-gold" />
@@ -67,7 +67,7 @@ export function LocationSection() {
             </div>
             <h2
               className="font-headline-lg text-white relative z-10"
-              style={{ fontSize: "28px", lineHeight: "38px", fontWeight: 600, letterSpacing: "0.02em" }}
+              style={{ fontSize: "28px", lineHeight: "38px", fontWeight: 600, letterSpacing: "0.02em", textShadow: "0 2px 12px rgba(0,0,0,0.6)" }}
             >
               Vị Trí Đắc Địa
             </h2>
@@ -87,17 +87,17 @@ export function LocationSection() {
                 className="w-full h-full object-cover transition-transform duration-[2000ms] group-hover:scale-105"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent" />
-              <div className="absolute bottom-8 left-8">
+              <div className="absolute bottom-8 left-8 bg-gradient-to-t from-black/80 to-transparent p-4 -m-4 rounded">
                 <h3
                   className="font-headline-lg text-white mb-3"
-                  style={{ fontSize: "28px", lineHeight: "36px", fontWeight: 600 }}
+                  style={{ fontSize: "28px", lineHeight: "36px", fontWeight: 600, textShadow: "0 2px 8px rgba(0,0,0,0.5)" }}
                 >
                   {largeLocation.city}
                 </h3>
                 <div className="flex items-center gap-4">
                   <div className="h-[2px] w-12 bg-antique-gold" />
                   <p
-                    className="font-label-caps text-sand-beige uppercase tracking-[0.3em] font-bold"
+                    className="font-label-caps text-white/90 uppercase tracking-[0.15em] font-bold"
                     style={{ fontSize: "11px" }}
                   >
                     {largeLocation.count}
@@ -120,15 +120,15 @@ export function LocationSection() {
                   className="w-full h-full object-cover transition-transform duration-[2000ms] group-hover:scale-105"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-transparent to-transparent" />
-                <div className="absolute bottom-6 left-6">
+                <div className="absolute bottom-6 left-6 bg-gradient-to-t from-black/80 to-transparent p-3 -m-3 rounded">
                   <h3
                     className="font-headline-md text-white mb-2"
-                    style={{ fontSize: "18px", lineHeight: "24px", fontWeight: 600 }}
+                    style={{ fontSize: "18px", lineHeight: "24px", fontWeight: 600, textShadow: "0 2px 8px rgba(0,0,0,0.5)" }}
                   >
                     {loc.city}
                   </h3>
                   <p
-                    className="font-label-caps text-antique-gold uppercase tracking-widest font-bold"
+                    className="font-label-caps text-white/90 uppercase tracking-widest font-bold"
                     style={{ fontSize: "9px" }}
                   >
                     {loc.count}

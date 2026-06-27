@@ -206,12 +206,12 @@ export function Footer({ variant = "default" }: FooterProps) {
             },
           ].map((col) => (
             <div key={col.title}>
-              <h5
-                className="font-label-caps text-earth-brown mb-8 uppercase tracking-widest"
+              <h3
+                className="font-label-caps text-charcoal-ink mb-8 uppercase tracking-widest"
                 style={{ fontSize: "10px", fontWeight: 700 }}
               >
                 {col.title}
-              </h5>
+              </h3>
               {col.special ? (
                 <ul className="space-y-4">
                   <li><a href="#" className="font-body-md text-earth-brown hover:text-antique-gold transition-colors font-bold" style={{ fontSize: "16px" }}>1900 8888</a></li>

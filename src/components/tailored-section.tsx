@@ -109,7 +109,7 @@ export function TailoredSection({ onViewDetail, projects = [] }: TailoredSection
           >
             DÀNH RIÊNG CHO BẠN
           </span>
-          <div className="relative px-16 py-12 border-x-2 border-antique-gold/30 inline-block mx-auto bg-surface">
+          <div className="relative px-16 py-12 border-x-2 border-antique-gold/30 inline-block mx-auto">
             <div className="absolute inset-x-0 top-0 h-[2px] bg-gradient-to-r from-transparent via-antique-gold/40 to-transparent" />
             <div className="absolute inset-x-0 bottom-0 h-[2px] bg-gradient-to-r from-transparent via-antique-gold/40 to-transparent" />
             <div className="absolute top-0 left-0 w-6 h-6 border-t-2 border-l-2 border-antique-gold" />
@@ -146,9 +146,9 @@ export function TailoredSection({ onViewDetail, projects = [] }: TailoredSection
             <span className="material-symbols-outlined">chevron_right</span>
           </button>
 
-          <div className="flex flex-col lg:flex-row items-center gap-16 lg:gap-24 group p-8 lg:p-12 border border-outline-variant/10 shadow-sm" style={{ backgroundColor: "#F5EDD9" }}>
+          <div className="flex flex-col lg:flex-row items-center gap-16 lg:gap-24 group p-8 lg:p-12" style={{ backgroundColor: "#F5EDD9" }}>
             {/* Image */}
-            <div className="w-full lg:w-3/5 relative overflow-hidden aspect-[16/10] shadow-xl">
+            <div className="w-full lg:w-3/5 relative overflow-hidden aspect-[16/10]">
               <div className="relative w-full h-full overflow-hidden">
                 {data.map((p, idx) => (
                   <img
@@ -177,10 +177,10 @@ export function TailoredSection({ onViewDetail, projects = [] }: TailoredSection
 
             {/* Info */}
             <div className="w-full lg:w-2/5 pr-0 lg:pr-12">
-              <div className="inline-flex items-center gap-2 mb-8 px-4 py-2" style={{ backgroundColor: "#C85A17" }}>
+              <div className="inline-flex items-center gap-2 mb-8 px-4 py-2" style={{ backgroundColor: "#A04000" }}>
                 <span className="material-symbols-outlined text-antique-gold" style={{ fontSize: "18px" }}>location_on</span>
                 <span
-                  className="font-label-caps uppercase tracking-[0.3em] font-bold text-white"
+                  className="font-label-caps tracking-wide font-bold text-white"
                   style={{ fontSize: "11px" }}
                 >
                   {property.location}
@@ -193,7 +193,7 @@ export function TailoredSection({ onViewDetail, projects = [] }: TailoredSection
               >
                 {property.title}
               </h3>
-              <div className="flex flex-col gap-6 border-l-2 pl-10 border-antique-gold mb-12 bg-white p-6">
+              <div className="flex flex-col gap-6 border-l-2 pl-10 border-antique-gold mb-12 p-6">
                 <div className="space-y-2">
                   <span
                     className="font-label-caps text-earth-brown font-bold uppercase tracking-widest block w-fit border-b-2 border-earth-brown pb-1"

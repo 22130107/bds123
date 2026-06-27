@@ -44,17 +44,17 @@ export function ListingPage({ projects = [], currentCategory }: { projects?: any
       <TopNavBar activePage="listing" onNavigate={handleNavigate} />
 
       {/* Hero Banner */}
-      <section className="relative w-full h-[400px] overflow-hidden pt-20">
+      <section className="relative w-full h-[400px] overflow-hidden pt-20 bg-neutral-900">
         <img
           src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=1600"
           alt="Hero Banner"
-          className="w-full h-full object-cover"
+          className="absolute inset-0 w-full h-full object-cover"
           style={{ filter: "brightness(0.5)" }}
         />
         <div className="absolute inset-0 flex flex-col items-center justify-center text-center px-4">
           <h1
             className="font-display-lg text-white mb-4 uppercase"
-            style={{ fontSize: "clamp(28px, 4vw, 52px)", fontWeight: 700 }}
+            style={{ fontSize: "clamp(28px, 4vw, 52px)", fontWeight: 700, textShadow: "0 4px 20px rgba(0,0,0,0.6)" }}
           >
             {title}
           </h1>
@@ -76,12 +76,12 @@ export function ListingPage({ projects = [], currentCategory }: { projects?: any
           <div className="lg:w-2/3 space-y-12">
             <div className="flex justify-between items-center border-b border-outline-variant pb-4 mb-8">
               <div className="heritage-frame">
-                <span
-                  className="font-label-caps text-antique-gold uppercase tracking-[0.2em]"
-                  style={{ fontSize: "12px" }}
+                <h2
+                  className="font-label-caps uppercase tracking-[0.2em]"
+                  style={{ fontSize: "12px", color: "#8B6914" }}
                 >
                   Danh Sách Tin Rao
-                </span>
+                </h2>
               </div>
               <span className="font-body-md text-on-surface-variant italic" style={{ fontSize: "16px" }}>
                 Tìm thấy{" "}

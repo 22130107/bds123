@@ -103,7 +103,7 @@ export function HeroSection({ onNavigate }: HeroSectionProps) {
                 fontSize: "11px",
                 letterSpacing: "0.12em",
                 fontWeight: 700,
-                backgroundColor: activeTab === key ? "#C85A17" : "rgba(255, 255, 255, 0.15)",
+                backgroundColor: activeTab === key ? "#A04000" : "rgba(0, 0, 0, 0.35)",
                 color: "#ffffff",
                 backdropFilter: "blur(8px)",
               }}
@@ -114,8 +114,8 @@ export function HeroSection({ onNavigate }: HeroSectionProps) {
         </div>
 
         {/* Search box */}
-        <div className="bg-white/10 backdrop-blur-2xl border border-white/20 p-1.5 shadow-2xl">
-          <div className="bg-white">
+        <div className="bg-white/10 backdrop-blur-2xl border-2 border-white/20 p-1.5 shadow-xl">
+          <div className="bg-white p-2">
             {/* Main row */}
             <div className="flex items-stretch border-b border-outline-variant/20">
               {/* Loại nhà đất */}
@@ -148,8 +148,8 @@ export function HeroSection({ onNavigate }: HeroSectionProps) {
               {/* Nút tìm kiếm */}
               <button
                 onClick={handleSearch}
-                className="px-3 md:px-10 py-4 font-label-caps text-white bg-earth-brown hover:bg-antique-gold transition-all duration-500 shrink-0 active:scale-95 text-[10px] md:text-[12px]"
-                style={{ letterSpacing: "0.15em", fontWeight: 700 }}
+                className="px-3 md:px-10 py-4 font-label-caps text-white hover:bg-antique-gold transition-all duration-500 shrink-0 active:scale-95 text-[10px] md:text-[12px]"
+                style={{ letterSpacing: "0.15em", fontWeight: 700, backgroundColor: "#A04000" }}
               >
                 TÌM KIẾM
               </button>
