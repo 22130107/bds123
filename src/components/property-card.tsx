@@ -70,7 +70,7 @@ export function PropertyCard({
           <div 
             className="text-on-surface-variant font-body-md line-clamp-2" 
             style={{ fontSize: "16px" }}
-            dangerouslySetInnerHTML={{ __html: description }}
+            dangerouslySetInnerHTML={{ __html: description ? description.replace(/<[^>]*>?/gm, '') : '' }}
           />
           <div className="flex flex-wrap gap-4 pt-2">
             {[

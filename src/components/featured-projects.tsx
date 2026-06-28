@@ -158,7 +158,7 @@ export function FeaturedProjects({ projects = [], onViewDetail }: FeaturedProjec
               <div 
                 className="font-body-md text-on-surface mb-3 leading-relaxed line-clamp-3" 
                 style={{ fontSize: "14px" }}
-                dangerouslySetInnerHTML={{ __html: project.desc }}
+                dangerouslySetInnerHTML={{ __html: project.desc ? project.desc.replace(/<[^>]*>?/gm, '') : '' }}
               />
               <button
                 onClick={() => onViewDetail?.((project as any).slug || project.id || 11)}
