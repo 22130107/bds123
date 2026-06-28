@@ -156,7 +156,7 @@ export function FeaturedProjects({ projects = [], onViewDetail }: FeaturedProjec
                 {project.title}
               </h3>
               <div 
-                className="font-body-md text-on-surface mb-3 leading-relaxed line-clamp-3" 
+                className="font-body-md text-on-surface mb-3 leading-relaxed line-clamp-3 [&_iframe]:hidden [&_img]:hidden [&_video]:hidden [&_figure]:hidden [&_table]:hidden [&_audio]:hidden" 
                 style={{ fontSize: "14px" }}
                 dangerouslySetInnerHTML={{ __html: project.desc ? project.desc.replace(/<[^>]*>?/gm, '') : '' }}
               />

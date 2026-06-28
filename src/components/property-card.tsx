@@ -68,7 +68,7 @@ export function PropertyCard({
             {title}
           </h3>
           <div 
-            className="text-on-surface-variant font-body-md line-clamp-2" 
+            className="text-on-surface-variant font-body-md line-clamp-2 [&_iframe]:hidden [&_img]:hidden [&_video]:hidden [&_figure]:hidden [&_table]:hidden [&_audio]:hidden" 
             style={{ fontSize: "16px" }}
             dangerouslySetInnerHTML={{ __html: description ? description.replace(/<[^>]*>?/gm, '') : '' }}
           />
