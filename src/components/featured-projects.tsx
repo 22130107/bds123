@@ -155,9 +155,11 @@ export function FeaturedProjects({ projects = [], onViewDetail }: FeaturedProjec
               >
                 {project.title}
               </h3>
-              <p className="font-body-md text-on-surface mb-3 leading-relaxed line-clamp-3" style={{ fontSize: "14px" }}>
-                {project.desc}
-              </p>
+              <div 
+                className="font-body-md text-on-surface mb-3 leading-relaxed line-clamp-3" 
+                style={{ fontSize: "14px" }}
+                dangerouslySetInnerHTML={{ __html: project.desc }}
+              />
               <button
                 onClick={() => onViewDetail?.((project as any).slug || project.id || 11)}
                 className="font-label-caps text-earth-brown font-bold tracking-[0.2em] hover:text-antique-gold transition-colors flex items-center gap-3 cursor-pointer"

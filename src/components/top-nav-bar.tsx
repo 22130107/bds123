@@ -112,7 +112,7 @@ export function TopNavBar({ activePage, onNavigate, categories: initialCategorie
       >
         {/* Logo */}
         <a
-          href="#"
+          href="/"
           className="flex items-end gap-0 shrink-0 z-50 lg:-translate-x-[120px] -translate-y-1 pb-2"
           onClick={(e) => { e.preventDefault(); onNavigate?.("home"); setIsOpen(false); }}
         >
@@ -135,7 +135,7 @@ export function TopNavBar({ activePage, onNavigate, categories: initialCategorie
             return (
               <div key={label} className="relative group h-full flex items-center">
                 <a
-                  href="#"
+                  href={page === "home" ? "/" : `/${page}`}
                   onClick={(e) => { e.preventDefault(); onNavigate?.(page); }}
                   className={`font-label-caps transition-colors duration-200 whitespace-nowrap block flex items-center h-full border-b-2 ${
                     isActive
@@ -153,7 +153,7 @@ export function TopNavBar({ activePage, onNavigate, categories: initialCategorie
                     {subItems.map((sub, idx) => (
                       <a
                         key={idx}
-                        href="#"
+                        href={`/${sub.page}?${sub.query}`}
                         onClick={(e) => { e.preventDefault(); onNavigate?.(`${sub.page}?${sub.query}`); }}
                         className="block px-6 py-4 border-b border-[#E8E2D2] last:border-b-0 hover:bg-[#EAE4D3] text-earth-brown font-semibold transition-colors whitespace-nowrap"
                         style={{ fontSize: "13px", letterSpacing: "0.05em" }}
@@ -194,7 +194,7 @@ export function TopNavBar({ activePage, onNavigate, categories: initialCategorie
               return (
                 <div key={label} className="flex flex-col">
                   <a
-                    href="#"
+                    href={page === "home" ? "/" : `/${page}`}
                     onClick={(e) => {
                       e.preventDefault();
                       if (!subItems) {
@@ -214,7 +214,7 @@ export function TopNavBar({ activePage, onNavigate, categories: initialCategorie
                       {subItems.map((sub, idx) => (
                         <a
                           key={idx}
-                          href="#"
+                          href={`/${sub.page}?${sub.query}`}
                           onClick={(e) => {
                             e.preventDefault();
                             onNavigate?.(`${sub.page}?${sub.query}`);

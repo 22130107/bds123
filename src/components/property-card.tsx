@@ -67,9 +67,11 @@ export function PropertyCard({
           >
             {title}
           </h3>
-          <p className="text-on-surface-variant font-body-md line-clamp-2" style={{ fontSize: "16px" }}>
-            {description}
-          </p>
+          <div 
+            className="text-on-surface-variant font-body-md line-clamp-2" 
+            style={{ fontSize: "16px" }}
+            dangerouslySetInnerHTML={{ __html: description }}
+          />
           <div className="flex flex-wrap gap-4 pt-2">
             {[
               { icon: "straighten", text: area },
