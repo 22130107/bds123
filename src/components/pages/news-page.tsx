@@ -14,6 +14,7 @@ interface NewsPageProps {
 export function NewsPage({ onNavigate, dbNews = [] }: NewsPageProps) {
   const articles = dbNews.map(n => ({
     id: n.id,
+    slug: n.slug,
     title: n.title,
     date: n.date || "",
     category: n.category || "TIN TỨC",
@@ -63,7 +64,7 @@ export function NewsPage({ onNavigate, dbNews = [] }: NewsPageProps) {
           {paginatedArticles.map((article) => (
             <article 
               key={article.id} 
-              onClick={() => onNavigate(`news/${article.id}`)}
+              onClick={() => onNavigate(`news/${article.slug || article.id}`)}
               className="bg-white border border-outline-variant/20 overflow-hidden group cursor-pointer hover:shadow-xl transition-all duration-300 flex flex-col"
             >
               {/* Image Container */}

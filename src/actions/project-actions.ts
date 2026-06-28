@@ -5,6 +5,7 @@ import { revalidatePath } from "next/cache";
 import { writeFile, mkdir } from "fs/promises";
 import { join } from "path";
 import { existsSync } from "fs";
+import { generateSlug } from "../lib/slugify";
 
 export async function getTopLocations(limit: number = 4) {
   const [rows] = await pool.query(`
@@ -109,6 +110,37 @@ export async function getProject(id: number) {
   return (rows as any[])[0];
 }
 
+export async function getProjectBySlug(slug: string) {
+  const [rows] = await pool.query('SELECT * FROM projects WHERE slug = ?', [slug]);
+  const result = (rows as any[])[0];
+  if (result) return result;
+
+  const id = parseInt(slug, 10);
+  if (!isNaN(id)) {
+    const [idRows] = await pool.query('SELECT * FROM projects WHERE id = ?', [id]);
+    return (idRows as any[])[0];
+  }
+
+  return null;
+}
+
+async function ensureUniqueSlug(slug: string, excludeId?: number): Promise<string> {
+  let candidate = slug;
+  let counter = 2;
+  while (true) {
+    let query = 'SELECT id FROM projects WHERE slug = ?';
+    const values: any[] = [candidate];
+    if (excludeId) {
+      query += ' AND id != ?';
+      values.push(excludeId);
+    }
+    const [rows] = await pool.query(query, values);
+    if ((rows as any[]).length === 0) return candidate;
+    candidate = `${slug}-${counter}`;
+    counter++;
+  }
+}
+
 export async function incrementViews(id: number) {
   await pool.query('UPDATE projects SET views = views + 1 WHERE id = ?', [id]);
 }
@@ -132,7 +164,7 @@ async function handleUploads(formData: FormData): Promise<string[]> {
       const bytes = await file.arrayBuffer();
       const buffer = Buffer.from(bytes);
       // Xóa khoảng trắng trong tên file để tránh lỗi URL
-      const safeName = file.name.replace(/\s+/g, '-');
+      const safeName = file.name.replace(/\\s+/g, '-');
       const filename = `${Date.now()}-${safeName}`;
       const filepath = join(uploadDir, filename);
       await writeFile(filepath, buffer);
@@ -143,7 +175,7 @@ async function handleUploads(formData: FormData): Promise<string[]> {
 }
 
 export async function createProject(formData: FormData) {
-  const title = formData.get('title');
+  const title = formData.get('title') as string;
   const location = formData.get('location');
   const area = formData.get('area');
   const price = formData.get('price');
@@ -154,6 +186,8 @@ export async function createProject(formData: FormData) {
   const bathrooms = formData.get('bathrooms') ? parseInt(formData.get('bathrooms') as string, 10) : 0;
   const isFeatured = formData.get('isFeatured') === 'on' || formData.get('isFeatured') === 'true';
   const status = formData.get('status') || 'published';
+  const meta_description = formData.get('meta_description') || '';
+  const schema_markup = formData.get('schema_markup') || '';
   // Thông tin khác
   const width = formData.get('width') || null;
   const length = formData.get('length') || null;
@@ -165,6 +199,14 @@ export async function createProject(formData: FormData) {
   const hasDiningRoom = formData.get('hasDiningRoom') === 'on' || formData.get('hasDiningRoom') === 'true';
   const hasTerrace = formData.get('hasTerrace') === 'on' || formData.get('hasTerrace') === 'true';
   const hasParking = formData.get('hasParking') === 'on' || formData.get('hasParking') === 'true';
+
+  let slug = (formData.get('slug') as string || '').trim();
+  if (!slug) {
+    slug = generateSlug(title);
+  } else {
+    slug = generateSlug(slug);
+  }
+  slug = await ensureUniqueSlug(slug);
 
   const existingImagesJson = formData.get('existingImages') as string;
   let finalImages: string[] = [];
@@ -182,8 +224,8 @@ export async function createProject(formData: FormData) {
   const sideImg = finalImages.length > 1 ? finalImages[1] : (finalImages.length > 0 ? finalImages[0] : '');
 
   const [result] = await pool.query(
-    'INSERT INTO projects (title, location, mainImg, sideImg, area, price, description, isFeatured, type, category, images, bedrooms, bathrooms, status, width, length, direction, frontRoad, legal, floors, hasKitchen, hasDiningRoom, hasTerrace, hasParking) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
-    [title, location, mainImg, sideImg, area, price, description, isFeatured, type, category, JSON.stringify(finalImages), bedrooms, bathrooms, status, width, length, direction, frontRoad, legal, floors, hasKitchen, hasDiningRoom, hasTerrace, hasParking]
+    'INSERT INTO projects (title, slug, meta_description, schema_markup, location, mainImg, sideImg, area, price, description, isFeatured, type, category, images, bedrooms, bathrooms, status, width, length, direction, frontRoad, legal, floors, hasKitchen, hasDiningRoom, hasTerrace, hasParking) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
+    [title, slug, meta_description, schema_markup, location, mainImg, sideImg, area, price, description, isFeatured, type, category, JSON.stringify(finalImages), bedrooms, bathrooms, status, width, length, direction, frontRoad, legal, floors, hasKitchen, hasDiningRoom, hasTerrace, hasParking]
   );
   revalidatePath('/admin');
   revalidatePath('/admin/projects');
@@ -193,7 +235,7 @@ export async function createProject(formData: FormData) {
 }
 
 export async function updateProject(id: number, formData: FormData) {
-  const title = formData.get('title');
+  const title = formData.get('title') as string;
   const location = formData.get('location');
   const area = formData.get('area');
   const price = formData.get('price');
@@ -204,6 +246,8 @@ export async function updateProject(id: number, formData: FormData) {
   const bathrooms = formData.get('bathrooms') ? parseInt(formData.get('bathrooms') as string, 10) : 0;
   const isFeatured = formData.get('isFeatured') === 'on' || formData.get('isFeatured') === 'true';
   const status = formData.get('status') || 'published';
+  const meta_description = formData.get('meta_description') || '';
+  const schema_markup = formData.get('schema_markup') || '';
   // Thông tin khác
   const width = formData.get('width') || null;
   const length = formData.get('length') || null;
@@ -215,6 +259,14 @@ export async function updateProject(id: number, formData: FormData) {
   const hasDiningRoom = formData.get('hasDiningRoom') === 'on' || formData.get('hasDiningRoom') === 'true';
   const hasTerrace = formData.get('hasTerrace') === 'on' || formData.get('hasTerrace') === 'true';
   const hasParking = formData.get('hasParking') === 'on' || formData.get('hasParking') === 'true';
+
+  let slug = (formData.get('slug') as string || '').trim();
+  if (!slug) {
+    slug = generateSlug(title);
+  } else {
+    slug = generateSlug(slug);
+  }
+  slug = await ensureUniqueSlug(slug, id);
 
   const existingImagesJson = formData.get('existingImages') as string;
   let finalImages: string[] = [];
@@ -232,8 +284,8 @@ export async function updateProject(id: number, formData: FormData) {
   const sideImg = finalImages.length > 1 ? finalImages[1] : (finalImages.length > 0 ? finalImages[0] : '');
 
   const [result] = await pool.query(
-    'UPDATE projects SET title = ?, location = ?, mainImg = ?, sideImg = ?, area = ?, price = ?, description = ?, isFeatured = ?, type = ?, category = ?, images = ?, bedrooms = ?, bathrooms = ?, status = ?, width = ?, length = ?, direction = ?, frontRoad = ?, legal = ?, floors = ?, hasKitchen = ?, hasDiningRoom = ?, hasTerrace = ?, hasParking = ? WHERE id = ?',
-    [title, location, mainImg, sideImg, area, price, description, isFeatured, type, category, JSON.stringify(finalImages), bedrooms, bathrooms, status, width, length, direction, frontRoad, legal, floors, hasKitchen, hasDiningRoom, hasTerrace, hasParking, id]
+    'UPDATE projects SET title = ?, slug = ?, meta_description = ?, schema_markup = ?, location = ?, mainImg = ?, sideImg = ?, area = ?, price = ?, description = ?, isFeatured = ?, type = ?, category = ?, images = ?, bedrooms = ?, bathrooms = ?, status = ?, width = ?, length = ?, direction = ?, frontRoad = ?, legal = ?, floors = ?, hasKitchen = ?, hasDiningRoom = ?, hasTerrace = ?, hasParking = ? WHERE id = ?',
+    [title, slug, meta_description, schema_markup, location, mainImg, sideImg, area, price, description, isFeatured, type, category, JSON.stringify(finalImages), bedrooms, bathrooms, status, width, length, direction, frontRoad, legal, floors, hasKitchen, hasDiningRoom, hasTerrace, hasParking, id]
   );
   revalidatePath('/admin');
   revalidatePath('/admin/projects');

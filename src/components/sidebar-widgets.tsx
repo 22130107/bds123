@@ -80,7 +80,7 @@ export function FeaturedProjectsWidget() {
       </div>
       <div className="space-y-6">
         {featuredProjects.map((project) => (
-          <div key={project.id} className="flex gap-4 group cursor-pointer" onClick={() => router.push(`/detail/${project.id}`)}>
+          <div key={project.id} className="flex gap-4 group cursor-pointer" onClick={() => router.push(`/detail/${project.slug || project.id}`)}>
             <div className="w-16 h-16 shrink-0 overflow-hidden">
               <img
                 src={project.mainImg || "https://images.unsplash.com/photo-1613490908578-8120c16b5a32?w=400"}

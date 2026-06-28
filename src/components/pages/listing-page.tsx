@@ -23,6 +23,7 @@ export function ListingPage({ projects = [], currentCategory }: { projects?: any
   // Map dữ liệu thật từ DB ra định dạng của PropertyCard
   const mappedProjects = projects.map(p => ({
     id: p.id.toString(),
+    slug: p.slug,
     title: p.title,
     description: p.description,
     area: p.area ? `${p.area} m²` : "Đang cập nhật",
@@ -96,7 +97,7 @@ export function ListingPage({ projects = [], currentCategory }: { projects?: any
                 <PropertyCard
                   key={property.id}
                   {...property}
-                  onViewDetail={() => handleNavigate(`detail/${property.id}`)}
+                  onViewDetail={() => handleNavigate(`detail/${property.slug || property.id}`)}
                 />
               ))}
             </div>

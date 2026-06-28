@@ -93,6 +93,7 @@ interface TailoredSectionProps {
 export function TailoredSection({ onViewDetail, projects = [] }: TailoredSectionProps) {
   const data = projects.length > 0 ? projects.map(p => ({
     id: p.id,
+    slug: p.slug,
     title: p.title,
     location: p.location,
     price: p.price,
@@ -274,7 +275,7 @@ export function TailoredSection({ onViewDetail, projects = [] }: TailoredSection
                 </div>
               </div>
               <button
-                onClick={() => onViewDetail?.(property.id || 3)}
+                onClick={() => onViewDetail?.((property as any).slug || property.id || 3)}
                 className="flex items-center gap-4 group/btn cursor-pointer"
               >
                 <span

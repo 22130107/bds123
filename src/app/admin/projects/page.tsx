@@ -134,7 +134,7 @@ export default async function ProjectsAdminPage(props: {
                   </td>
                   <td className="p-4 text-center">
                     <Link 
-                      href={`/detail/${p.id}`} 
+                      href={`/detail/${p.slug || p.id}`} 
                       target="_blank" 
                       className="w-8 h-8 rounded-full bg-green-50 text-green-600 flex items-center justify-center hover:bg-green-100 transition-colors mx-auto"
                       title="Xem dự án"

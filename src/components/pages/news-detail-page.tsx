@@ -34,6 +34,13 @@ const convertYoutubeLinksToEmbeds = (html: string): string => {
   });
 };
 
+// Xử lý nội dung: giữ nguyên HTML, loại bỏ script tags khỏi hiển thị (chúng được render server-side)
+const renderContentWithScripts = (html: string): string => {
+  if (!html) return "";
+  // Loại bỏ thẻ script khỏi nội dung hiển thị (script JSON-LD được render ở server)
+  return html.replace(/<script[^>]*>[\s\S]*?<\/script>/gi, '');
+};
+
 export function NewsDetailPage({ onNavigate, article, latestNews = [] }: NewsDetailPageProps) {
   return (
     <div className="bg-[#f5f5f5] text-[#333] font-body-md min-h-screen flex flex-col" style={{ overflowX: "hidden" }}>
@@ -94,7 +101,7 @@ export function NewsDetailPage({ onNavigate, article, latestNews = [] }: NewsDet
                         prose-strong:text-[#222]
                         [&_iframe]:w-full [&_iframe]:aspect-video [&_iframe]:my-6 [&_iframe]:rounded-lg [&_iframe]:shadow-sm"
                style={{ wordBreak: "normal", overflowWrap: "break-word" }}>
-            <div dangerouslySetInnerHTML={{ __html: convertYoutubeLinksToEmbeds(article.content || "") }} />
+            <div dangerouslySetInnerHTML={{ __html: renderContentWithScripts(convertYoutubeLinksToEmbeds(article.content || "")) }} />
           </div>
         </div>
 
@@ -110,7 +117,7 @@ export function NewsDetailPage({ onNavigate, article, latestNews = [] }: NewsDet
               {latestNews.map((item: any, idx: number) => (
                 <div 
                   key={item.id} 
-                  onClick={() => onNavigate(`news/${item.id}`)}
+                  onClick={() => onNavigate(`news/${item.slug || item.id}`)}
                   className={`flex gap-3 py-3 cursor-pointer group ${idx !== latestNews.length - 1 ? 'border-b border-gray-100' : ''}`}
                 >
                   <div className="w-[100px] h-[70px] shrink-0 overflow-hidden bg-gray-100">

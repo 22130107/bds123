@@ -52,6 +52,7 @@ interface FeaturedProjectsProps {
 export function FeaturedProjects({ projects = [], onViewDetail }: FeaturedProjectsProps) {
   const data = projects.length > 0 ? projects.map(p => ({
     id: p.id,
+    slug: p.slug,
     title: p.title,
     location: p.location,
     desc: p.description || "Đang cập nhật mô tả dự án...",
@@ -158,7 +159,7 @@ export function FeaturedProjects({ projects = [], onViewDetail }: FeaturedProjec
                 {project.desc}
               </p>
               <button
-                onClick={() => onViewDetail?.(project.id || 11)}
+                onClick={() => onViewDetail?.((project as any).slug || project.id || 11)}
                 className="font-label-caps text-earth-brown font-bold tracking-[0.2em] hover:text-antique-gold transition-colors flex items-center gap-3 cursor-pointer"
                 style={{ fontSize: "10px" }}
               >

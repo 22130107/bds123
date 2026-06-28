@@ -5,6 +5,7 @@ import { revalidatePath } from "next/cache";
 import { writeFile, mkdir } from "fs/promises";
 import { join } from "path";
 import { existsSync } from "fs";
+import { generateSlug } from "../lib/slugify";
 
 export async function getNews(status?: string) {
   let query = 'SELECT * FROM news';
@@ -72,6 +73,39 @@ export async function getNewsById(id: number) {
   return (rows as any[])[0];
 }
 
+export async function getNewsBySlug(slug: string) {
+  // Thử tìm theo slug trước
+  const [rows] = await pool.query('SELECT * FROM news WHERE slug = ?', [slug]);
+  const result = (rows as any[])[0];
+  if (result) return result;
+
+  // Fallback: nếu slug là số, tìm theo id (backward compatibility cho bài cũ)
+  const id = parseInt(slug, 10);
+  if (!isNaN(id)) {
+    const [idRows] = await pool.query('SELECT * FROM news WHERE id = ?', [id]);
+    return (idRows as any[])[0];
+  }
+
+  return null;
+}
+
+async function ensureUniqueSlug(slug: string, excludeId?: number): Promise<string> {
+  let candidate = slug;
+  let counter = 2;
+  while (true) {
+    let query = 'SELECT id FROM news WHERE slug = ?';
+    const values: any[] = [candidate];
+    if (excludeId) {
+      query += ' AND id != ?';
+      values.push(excludeId);
+    }
+    const [rows] = await pool.query(query, values);
+    if ((rows as any[]).length === 0) return candidate;
+    candidate = `${slug}-${counter}`;
+    counter++;
+  }
+}
+
 async function handleUploads(formData: FormData): Promise<string[]> {
   const uploadDir = join(process.cwd(), ".uploads");
   if (!existsSync(uploadDir)) {
@@ -96,20 +130,31 @@ async function handleUploads(formData: FormData): Promise<string[]> {
 }
 
 export async function createNews(formData: FormData) {
-  const title = formData.get('title');
+  const title = formData.get('title') as string;
   const excerpt = formData.get('excerpt');
+  const meta_description = formData.get('meta_description') || '';
   const content = formData.get('content');
+  const schema_markup = formData.get('schema_markup') || '';
   const img = formData.get('img');
   const category = formData.get('category');
   const date = formData.get('date');
   const status = formData.get('status') || 'published';
 
+  // Slug: dùng giá trị user nhập hoặc sinh tự động từ title
+  let slug = (formData.get('slug') as string || '').trim();
+  if (!slug) {
+    slug = generateSlug(title);
+  } else {
+    slug = generateSlug(slug);
+  }
+  slug = await ensureUniqueSlug(slug);
+
   const newUploads = await handleUploads(formData);
   const finalImg = newUploads.length > 0 ? newUploads[0] : (img || '');
 
   const [result] = await pool.query(
-    'INSERT INTO news (title, excerpt, content, img, category, date, status) VALUES (?, ?, ?, ?, ?, ?, ?)',
-    [title, excerpt, content, finalImg, category, date, status]
+    'INSERT INTO news (title, slug, excerpt, meta_description, content, schema_markup, img, category, date, status) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
+    [title, slug, excerpt, meta_description, content, schema_markup, finalImg, category, date, status]
   );
   revalidatePath('/admin/news');
   revalidatePath('/news');
@@ -118,20 +163,31 @@ export async function createNews(formData: FormData) {
 }
 
 export async function updateNews(id: number, formData: FormData) {
-  const title = formData.get('title');
+  const title = formData.get('title') as string;
   const excerpt = formData.get('excerpt');
+  const meta_description = formData.get('meta_description') || '';
   const content = formData.get('content');
+  const schema_markup = formData.get('schema_markup') || '';
   const img = formData.get('img');
   const category = formData.get('category');
   const date = formData.get('date');
   const status = formData.get('status') || 'published';
 
+  // Slug: dùng giá trị user nhập hoặc sinh tự động từ title
+  let slug = (formData.get('slug') as string || '').trim();
+  if (!slug) {
+    slug = generateSlug(title);
+  } else {
+    slug = generateSlug(slug);
+  }
+  slug = await ensureUniqueSlug(slug, id);
+
   const newUploads = await handleUploads(formData);
   const finalImg = newUploads.length > 0 ? newUploads[0] : (img || '');
 
   const [result] = await pool.query(
-    'UPDATE news SET title = ?, excerpt = ?, content = ?, img = ?, category = ?, date = ?, status = ? WHERE id = ?',
-    [title, excerpt, content, finalImg, category, date, status, id]
+    'UPDATE news SET title = ?, slug = ?, excerpt = ?, meta_description = ?, content = ?, schema_markup = ?, img = ?, category = ?, date = ?, status = ? WHERE id = ?',
+    [title, slug, excerpt, meta_description, content, schema_markup, finalImg, category, date, status, id]
   );
   revalidatePath('/admin/news');
   revalidatePath('/news');

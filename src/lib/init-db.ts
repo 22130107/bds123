@@ -60,13 +60,17 @@ async function initDB() {
       CREATE TABLE IF NOT EXISTS news (
         id INT AUTO_INCREMENT PRIMARY KEY,
         title VARCHAR(255) NOT NULL,
+        slug VARCHAR(500),
         excerpt TEXT,
+        meta_description TEXT,
         content LONGTEXT,
+        schema_markup LONGTEXT,
         img VARCHAR(500),
         category VARCHAR(100),
         date VARCHAR(50),
         status VARCHAR(50) DEFAULT 'published',
-        createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+        createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+        UNIQUE INDEX idx_news_slug (slug)
       )
     `);
     console.log("Table 'news' created.");
