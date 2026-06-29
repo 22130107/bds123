@@ -124,10 +124,6 @@ export function DetailPage({ project, agentInfo }: DetailPageProps) {
                   <span className="material-symbols-outlined" style={{ fontSize: "16px" }}>location_on</span>
                   {project.location}
                 </span>
-                <span className="flex items-center gap-1 text-on-surface-variant ml-4" style={{ fontSize: "14px" }}>
-                  <span className="material-symbols-outlined" style={{ fontSize: "16px" }}>visibility</span>
-                  {project.views} lượt xem
-                </span>
               </div>
               <h1
                 className="font-headline-lg text-primary"
@@ -184,6 +180,14 @@ export function DetailPage({ project, agentInfo }: DetailPageProps) {
               defaultMessage='Xin chào, tôi quan tâm đến tin đăng "Biệt thự Riverfront Serenity". Vui lòng liên hệ tư vấn lại cho tôi. Xin cảm ơn!'
             />
           </div>
+        </div>
+
+        {/* Views counter */}
+        <div className="max-w-[1280px] mx-auto px-5 md:px-[80px] pb-8 text-right text-on-surface-variant" style={{ fontSize: "14px" }}>
+          <span className="inline-flex items-center gap-1">
+            <span className="material-symbols-outlined" style={{ fontSize: "16px" }}>visibility</span>
+            {project.views} lượt xem
+          </span>
         </div>
       </main>
 

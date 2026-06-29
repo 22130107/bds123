@@ -148,6 +148,49 @@ export default function NewsForm({ initialData }: { initialData?: any }) {
           </div>
         </div>
 
+        {/* Meta Description cho SEO */}
+        <div className="col-span-1 md:col-span-3">
+          <label className="block text-sm font-medium text-gray-700 mb-1">
+            Meta Description (SEO)
+            <span className="text-xs text-gray-400 font-normal ml-2">(Mô tả hiển thị trên Google, nên 150-160 ký tự)</span>
+          </label>
+          <textarea
+            name="meta_description"
+            value={formData.meta_description}
+            onChange={handleChange}
+            rows={2}
+            placeholder="Nhập mô tả SEO cho bài viết. Nếu để trống sẽ dùng Excerpt."
+            className="w-full px-4 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-earth-brown outline-none"
+          />
+          <div className="flex gap-4 text-xs mt-1">
+            <span className={`${formData.meta_description.length > 160 ? 'text-red-500' : 'text-gray-500'}`}>
+              {formData.meta_description.length}/160 ký tự
+              {formData.meta_description.length > 160 && ' ⚠ Quá dài'}
+            </span>
+            {!formData.meta_description && <span className="text-amber-500">Sẽ dùng Excerpt làm meta description</span>}
+          </div>
+        </div>
+
+        {/* Schema Markup / Script / Raw HTML */}
+        <div className="col-span-1 md:col-span-3">
+          <label className="block text-sm font-medium text-gray-700 mb-1">
+            Mã HTML/Script tùy chỉnh (Schema, Tracking, Custom JS/CSS)
+            <span className="text-xs text-gray-400 font-normal ml-2">(Sẽ render trực tiếp vào mã nguồn HTML)</span>
+          </label>
+          <textarea
+            name="schema_markup"
+            value={formData.schema_markup}
+            onChange={handleChange}
+            rows={6}
+            placeholder={'<script type="application/ld+json">\n{\n  "@context": "https://schema.org",\n  "@type": "Article",\n  "headline": "Tiêu đề bài viết"\n}\n</script>\n\n<h1>Thẻ tùy chỉnh</h1>'}
+            className="w-full px-4 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-earth-brown outline-none font-mono text-sm bg-gray-50"
+            style={{ tabSize: 2 }}
+          />
+          <p className="text-xs text-gray-400 mt-1">
+            Nhập mã HTML/Script tự do. Nếu là Schema JSON-LD, bạn vui lòng tự nhập cả thẻ <code className="bg-gray-100 px-1 rounded">&lt;script type="application/ld+json"&gt;</code> bao bọc bên ngoài.
+          </p>
+        </div>
+
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-1">Chuyên mục</label>
           <input required name="category" value={formData.category} onChange={handleChange} className="w-full px-4 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-earth-brown outline-none" />
@@ -193,29 +236,6 @@ export default function NewsForm({ initialData }: { initialData?: any }) {
           <textarea required name="excerpt" value={formData.excerpt} onChange={handleChange} rows={3} className="w-full px-4 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-earth-brown outline-none" />
         </div>
 
-        {/* Meta Description cho SEO */}
-        <div className="col-span-1 md:col-span-3">
-          <label className="block text-sm font-medium text-gray-700 mb-1">
-            Meta Description (SEO)
-            <span className="text-xs text-gray-400 font-normal ml-2">(Mô tả hiển thị trên Google, nên 150-160 ký tự)</span>
-          </label>
-          <textarea
-            name="meta_description"
-            value={formData.meta_description}
-            onChange={handleChange}
-            rows={2}
-            placeholder="Nhập mô tả SEO cho bài viết. Nếu để trống sẽ dùng Excerpt."
-            className="w-full px-4 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-earth-brown outline-none"
-          />
-          <div className="flex gap-4 text-xs mt-1">
-            <span className={`${formData.meta_description.length > 160 ? 'text-red-500' : 'text-gray-500'}`}>
-              {formData.meta_description.length}/160 ký tự
-              {formData.meta_description.length > 160 && ' ⚠ Quá dài'}
-            </span>
-            {!formData.meta_description && <span className="text-amber-500">Sẽ dùng Excerpt làm meta description</span>}
-          </div>
-        </div>
-
         <div className="col-span-1 md:col-span-3">
           <label className="block text-sm font-medium text-gray-700 mb-2">Nội dung chi tiết</label>
           <div className="border border-gray-300 rounded focus-within:ring-2 focus-within:ring-earth-brown">
@@ -229,25 +249,7 @@ export default function NewsForm({ initialData }: { initialData?: any }) {
           </div>
         </div>
 
-        {/* Schema Markup / Script / Raw HTML */}
-        <div className="col-span-1 md:col-span-3">
-          <label className="block text-sm font-medium text-gray-700 mb-1">
-            Mã HTML/Script tùy chỉnh (Schema, Tracking, Custom JS/CSS)
-            <span className="text-xs text-gray-400 font-normal ml-2">(Sẽ render trực tiếp vào mã nguồn HTML)</span>
-          </label>
-          <textarea
-            name="schema_markup"
-            value={formData.schema_markup}
-            onChange={handleChange}
-            rows={6}
-            placeholder={'<script type="application/ld+json">\n{\n  "@context": "https://schema.org",\n  "@type": "Article",\n  "headline": "Tiêu đề bài viết"\n}\n</script>\n\n<h1>Thẻ tùy chỉnh</h1>'}
-            className="w-full px-4 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-earth-brown outline-none font-mono text-sm bg-gray-50"
-            style={{ tabSize: 2 }}
-          />
-          <p className="text-xs text-gray-400 mt-1">
-            Nhập mã HTML/Script tự do. Nếu là Schema JSON-LD, bạn vui lòng tự nhập cả thẻ <code className="bg-gray-100 px-1 rounded">&lt;script type="application/ld+json"&gt;</code> bao bọc bên ngoài.
-          </p>
-        </div>
+
       </div>
 
       <div className="flex justify-end gap-4 border-t border-gray-100 pt-6">
