@@ -53,6 +53,7 @@ export default async function NewsDetailPageServer({ params }: Props) {
       {/* Raw HTML/Script injection */}
       {news.schema_markup && (
         <div
+          style={{ display: "none" }}
           suppressHydrationWarning
           dangerouslySetInnerHTML={{ __html: news.schema_markup }}
         />

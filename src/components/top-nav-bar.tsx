@@ -107,8 +107,12 @@ export function TopNavBar({ activePage, onNavigate, categories: initialCategorie
       style={{ height: "80px" }}
     >
       <nav
-        className="mx-auto px-5 md:px-[80px] flex justify-between items-center h-full relative"
-        style={{ maxWidth: "1280px" }}
+        className="mx-auto flex justify-between items-center h-full relative"
+        style={{ 
+          maxWidth: "1280px",
+          paddingLeft: "var(--nav-padding)",
+          paddingRight: "var(--nav-padding)"
+        }}
       >
         {/* Logo */}
         <a
@@ -124,7 +128,10 @@ export function TopNavBar({ activePage, onNavigate, categories: initialCategorie
         </a>
 
         {/* Nav links */}
-        <div className="hidden lg:flex items-center gap-8 ml-auto h-full">
+        <div 
+          className="hidden lg:flex items-center ml-auto h-full"
+          style={{ gap: "var(--nav-gap)" }}
+        >
           {dynamicNavItems.map(({ label, page, subItems }) => {
             const isActive =
               (activePage === "home" && page === "home" && label === "TRANG CHỦ") ||

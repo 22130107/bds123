@@ -1,5 +1,6 @@
 import "../styles/index.css";
 import type { Metadata } from "next";
+import { FloatingToolbar } from "../components/floating-toolbar";
 
 export const metadata: Metadata = {
   title: "Modern Estate",
@@ -21,7 +22,9 @@ export default function RootLayout({
       </head>
       <body className="antialiased font-body-md bg-surface text-on-surface">
         {children}
+        <FloatingToolbar />
       </body>
     </html>
   );
 }
+

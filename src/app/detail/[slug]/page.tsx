@@ -61,6 +61,7 @@ export default async function Page({ params }: Props) {
       {/* Raw HTML/Script injection */}
       {project.schema_markup && (
         <div
+          style={{ display: "none" }}
           suppressHydrationWarning
           dangerouslySetInnerHTML={{ __html: project.schema_markup }}
         />
