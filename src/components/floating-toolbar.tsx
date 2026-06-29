@@ -3,6 +3,8 @@
 import { useEffect, useState } from "react";
 import { ArrowUp, Plus, Minus } from "lucide-react";
 
+const ALLOWED_SIZES = [12, 13, 14, 15, 16, 17, 18, 19];
+
 export function FloatingToolbar() {
   const [showScrollTop, setShowScrollTop] = useState(false);
   const [fontSize, setFontSize] = useState(14); // default 14px as in theme.css
@@ -27,7 +29,7 @@ export function FloatingToolbar() {
     let currentSize = 14;
     if (savedSize) {
       const size = parseInt(savedSize, 10);
-      if (!isNaN(size) && size >= 12 && size <= 24) {
+      if (!isNaN(size) && ALLOWED_SIZES.includes(size)) {
         setFontSize(size);
         currentSize = size;
       }
@@ -94,8 +96,9 @@ export function FloatingToolbar() {
   };
 
   const handleZoomIn = () => {
-    if (fontSize < 24) {
-      const newSize = fontSize + 1;
+    const currentIndex = ALLOWED_SIZES.indexOf(fontSize);
+    if (currentIndex !== -1 && currentIndex < ALLOWED_SIZES.length - 1) {
+      const newSize = ALLOWED_SIZES[currentIndex + 1];
       setFontSize(newSize);
       const scale = newSize / 14;
       document.documentElement.style.setProperty("--text-scale", `${scale.toFixed(3)}`);
@@ -104,8 +107,9 @@ export function FloatingToolbar() {
   };
 
   const handleZoomOut = () => {
-    if (fontSize > 12) {
-      const newSize = fontSize - 1;
+    const currentIndex = ALLOWED_SIZES.indexOf(fontSize);
+    if (currentIndex !== -1 && currentIndex > 0) {
+      const newSize = ALLOWED_SIZES[currentIndex - 1];
       setFontSize(newSize);
       const scale = newSize / 14;
       document.documentElement.style.setProperty("--text-scale", `${scale.toFixed(3)}`);
@@ -159,7 +163,7 @@ export function FloatingToolbar() {
         {/* Zoom In button */}
         <button
           onClick={handleZoomIn}
-          disabled={fontSize >= 24}
+          disabled={fontSize === ALLOWED_SIZES[ALLOWED_SIZES.length - 1]}
           className="rounded-full bg-[#ba1a1a] text-white flex items-center justify-center hover:bg-[#a11616] transition-all duration-200 transform hover:scale-105 active:scale-95 disabled:opacity-50 disabled:pointer-events-none cursor-pointer"
           style={{
             width: "32px",
@@ -190,7 +194,7 @@ export function FloatingToolbar() {
         {/* Zoom Out button */}
         <button
           onClick={handleZoomOut}
-          disabled={fontSize <= 12}
+          disabled={fontSize === ALLOWED_SIZES[0]}
           className="rounded-full bg-[#ba1a1a] text-white flex items-center justify-center hover:bg-[#a11616] transition-all duration-200 transform hover:scale-105 active:scale-95 disabled:opacity-50 disabled:pointer-events-none cursor-pointer"
           style={{
             width: "32px",
