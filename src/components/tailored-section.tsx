@@ -135,7 +135,7 @@ export function TailoredSection({ onViewDetail, projects = [] }: TailoredSection
 
 
   return (
-    <section className="bg-surface py-32 md:py-48 overflow-hidden border-y border-outline-variant/20">
+    <section className="bg-surface py-20 md:py-36 overflow-hidden border-y border-outline-variant/20">
       <div className="max-w-[1440px] mx-auto px-6 md:px-[100px]">
         {/* Header */}
         <div className="mb-24 flex flex-col items-center text-center">
@@ -188,7 +188,7 @@ export function TailoredSection({ onViewDetail, projects = [] }: TailoredSection
             <span className="material-symbols-outlined">chevron_right</span>
           </button>
 
-          <div className="flex flex-col lg:flex-row items-center gap-16 lg:gap-24 group p-8 lg:p-12" style={{ backgroundColor: "#F5EDD9" }}>
+          <div className="flex flex-col lg:flex-row items-center gap-8 lg:gap-24 group p-4 sm:p-8 lg:p-12" style={{ backgroundColor: "#F5EDD9" }}>
             {/* Image */}
             <div className="w-full lg:w-3/5 relative overflow-hidden aspect-[16/10]">
               <div className="relative w-full h-full overflow-hidden">
@@ -229,13 +229,13 @@ export function TailoredSection({ onViewDetail, projects = [] }: TailoredSection
                 </span>
               </div>
               <h3
-                className="font-display-lg text-earth-brown mb-10 leading-tight line-clamp-2"
-                style={{ fontSize: "clamp(24px, 2.5vw, 36px)", fontWeight: 700 }}
+                className="font-display-lg text-earth-brown mb-6 md:mb-10 leading-tight line-clamp-2"
+                style={{ fontSize: "clamp(20px, 2.5vw, 36px)", fontWeight: 700 }}
                 title={property.title}
               >
                 {property.title}
               </h3>
-              <div className="flex flex-col gap-6 border-l-2 pl-10 border-antique-gold mb-12 p-6">
+              <div className="flex flex-col gap-4 md:gap-6 border-l-2 pl-4 md:pl-10 border-antique-gold mb-8 md:mb-12 p-4 md:p-6">
                 <div className="space-y-2">
                   <span
                     className="font-label-caps text-earth-brown font-bold uppercase tracking-widest block w-fit border-b-2 border-earth-brown pb-1"

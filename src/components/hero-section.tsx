@@ -76,7 +76,7 @@ export function HeroSection({ onNavigate }: HeroSectionProps) {
         <h1
           className="font-body-lg text-white leading-tight"
           style={{
-            fontSize: "clamp(48px, 7vw, 80px)",
+            fontSize: "clamp(32px, 6vw, 72px)",
             lineHeight: "1.1",
             fontWeight: 700,
             textShadow: "rgba(0,0,0,0.4) 0px 4px 20px",
@@ -117,13 +117,13 @@ export function HeroSection({ onNavigate }: HeroSectionProps) {
         <div className="bg-white/10 backdrop-blur-2xl border-2 border-white/20 p-1.5 shadow-xl">
           <div className="bg-white p-2">
             {/* Main row */}
-            <div className="flex items-stretch border-b border-outline-variant/20">
+            <div className="flex flex-col md:flex-row items-stretch border-b border-outline-variant/20">
               {/* Loại nhà đất */}
-              <div className="flex items-center border-r border-outline-variant/20 px-2 md:px-5 shrink-0 w-[95px] md:w-auto">
+              <div className="flex items-center border-b md:border-b-0 md:border-r border-outline-variant/20 px-4 md:px-5 w-full md:w-auto justify-between md:justify-start">
                 <select
                   value={category}
                   onChange={(e) => setCategory(e.target.value)}
-                  className="w-full md:w-auto bg-transparent border-none focus:ring-0 font-body-md text-on-surface appearance-none outline-none pr-4 md:pr-5 py-4 cursor-pointer text-[12px] md:text-[15px]"
+                  className="w-full md:w-auto bg-transparent border-none focus:ring-0 font-body-md text-on-surface appearance-none outline-none py-3 md:py-4 cursor-pointer text-[14px] md:text-[15px]"
                   style={{ fontWeight: 500 }}
                 >
                   <option>Loại nhà đất</option>
@@ -133,7 +133,7 @@ export function HeroSection({ onNavigate }: HeroSectionProps) {
               </div>
 
               {/* Địa điểm */}
-              <div className="flex-1 min-w-0 flex items-center px-2 md:px-5">
+              <div className="flex-1 flex items-center px-4 md:px-5 border-b md:border-b-0 border-outline-variant/20">
                 <span className="material-symbols-outlined text-antique-gold mr-1.5 md:mr-3 shrink-0 text-sm md:text-xl">location_on</span>
                 <input
                   type="text"
@@ -141,14 +141,14 @@ export function HeroSection({ onNavigate }: HeroSectionProps) {
                   onChange={(e) => setKeyword(e.target.value)}
                   onKeyDown={(e) => e.key === "Enter" && handleSearch()}
                   placeholder="Nhập địa điểm hoặc dự án..."
-                  className="w-full bg-transparent border-none focus:ring-0 font-body-md text-on-surface placeholder:text-on-surface-variant/50 outline-none py-4 text-[12px] md:text-[15px]"
+                  className="w-full bg-transparent border-none focus:ring-0 font-body-md text-on-surface placeholder:text-on-surface-variant/50 outline-none py-3 md:py-4 text-[14px] md:text-[15px]"
                 />
               </div>
 
               {/* Nút tìm kiếm */}
               <button
                 onClick={handleSearch}
-                className="px-3 md:px-10 py-4 font-label-caps text-white hover:bg-antique-gold transition-all duration-500 shrink-0 active:scale-95 text-[10px] md:text-[12px]"
+                className="w-full md:w-auto px-6 md:px-10 py-3.5 md:py-4 font-label-caps text-white hover:bg-antique-gold transition-all duration-500 shrink-0 active:scale-95 text-[12px] md:text-[13px]"
                 style={{ letterSpacing: "0.15em", fontWeight: 700, backgroundColor: "#A04000" }}
               >
                 TÌM KIẾM
@@ -156,13 +156,13 @@ export function HeroSection({ onNavigate }: HeroSectionProps) {
             </div>
 
             {/* Filter row */}
-            <div className="flex divide-x divide-outline-variant/20">
+            <div className="grid grid-cols-2 md:flex md:divide-x divide-outline-variant/20 border-t border-outline-variant/10">
               {/* Toàn quốc */}
-              <div className="flex-1 min-w-0 flex items-center px-1 md:px-4 py-2 md:py-2.5">
+              <div className="flex items-center px-3 py-2 md:py-2.5 border-r border-b border-outline-variant/10 md:border-r-0 md:border-b-0 md:flex-1 min-w-0">
                 <select
                   value={location}
                   onChange={(e) => setLocation(e.target.value)}
-                  className="w-full bg-transparent border-none focus:ring-0 text-on-surface-variant appearance-none outline-none cursor-pointer text-[10px] md:text-[13px]"
+                  className="w-full bg-transparent border-none focus:ring-0 text-on-surface-variant appearance-none outline-none cursor-pointer text-[12px] md:text-[13px]"
                   style={{ fontWeight: 500 }}
                 >
                   <option value="Toàn quốc">Toàn quốc</option>
@@ -171,11 +171,11 @@ export function HeroSection({ onNavigate }: HeroSectionProps) {
                 <span className="material-symbols-outlined text-outline-variant pointer-events-none shrink-0 -ml-4 text-xs md:text-[16px]">expand_more</span>
               </div>
               {/* Mức giá */}
-              <div className="flex-1 min-w-0 flex items-center px-1 md:px-4 py-2 md:py-2.5">
+              <div className="flex items-center px-3 py-2 md:py-2.5 border-b border-outline-variant/10 md:border-b-0 md:flex-1 min-w-0">
                 <select
                   value={price}
                   onChange={(e) => setPrice(e.target.value)}
-                  className="w-full bg-transparent border-none focus:ring-0 text-on-surface-variant appearance-none outline-none cursor-pointer text-[10px] md:text-[13px]"
+                  className="w-full bg-transparent border-none focus:ring-0 text-on-surface-variant appearance-none outline-none cursor-pointer text-[12px] md:text-[13px]"
                   style={{ fontWeight: 500 }}
                 >
                   {["Mức giá", "Trên 20 Tỷ VNĐ", "50 - 100 Tỷ VNĐ", "Trên 100 Tỷ VNĐ"].map((o) => <option key={o} value={o}>{o}</option>)}
@@ -183,11 +183,11 @@ export function HeroSection({ onNavigate }: HeroSectionProps) {
                 <span className="material-symbols-outlined text-outline-variant pointer-events-none shrink-0 -ml-4 text-xs md:text-[16px]">expand_more</span>
               </div>
               {/* Diện tích */}
-              <div className="flex-1 min-w-0 flex items-center px-1 md:px-4 py-2 md:py-2.5">
+              <div className="flex items-center px-3 py-2 md:py-2.5 border-r border-outline-variant/10 md:border-r-0 md:flex-1 min-w-0">
                 <select
                   value={area}
                   onChange={(e) => setArea(e.target.value)}
-                  className="w-full bg-transparent border-none focus:ring-0 text-on-surface-variant appearance-none outline-none cursor-pointer text-[10px] md:text-[13px]"
+                  className="w-full bg-transparent border-none focus:ring-0 text-on-surface-variant appearance-none outline-none cursor-pointer text-[12px] md:text-[13px]"
                   style={{ fontWeight: 500 }}
                 >
                   {["Diện tích", "Dưới 200 m²", "200 - 500 m²", "Trên 500 m²"].map((o) => <option key={o} value={o}>{o}</option>)}
@@ -195,11 +195,11 @@ export function HeroSection({ onNavigate }: HeroSectionProps) {
                 <span className="material-symbols-outlined text-outline-variant pointer-events-none shrink-0 -ml-4 text-xs md:text-[16px]">expand_more</span>
               </div>
               {/* Dự án */}
-              <div className="flex-1 min-w-0 flex items-center px-1 md:px-4 py-2 md:py-2.5">
+              <div className="flex items-center px-3 py-2 md:py-2.5 md:flex-1 min-w-0">
                 <select
                   value={project}
                   onChange={(e) => setProject(e.target.value)}
-                  className="w-full bg-transparent border-none focus:ring-0 text-on-surface-variant appearance-none outline-none cursor-pointer text-[10px] md:text-[13px]"
+                  className="w-full bg-transparent border-none focus:ring-0 text-on-surface-variant appearance-none outline-none cursor-pointer text-[12px] md:text-[13px]"
                   style={{ fontWeight: 500 }}
                 >
                   {["Dự án", ...dbProjects].map((o) => <option key={o} value={o}>{o}</option>)}

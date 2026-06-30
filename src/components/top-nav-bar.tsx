@@ -1,4 +1,7 @@
+"use client";
+
 import { useState, useEffect } from "react";
+import { motion, useScroll, useMotionValueEvent } from "motion/react";
 import logoIcon from "../assets/logo_icon.png";
 import { getCategories } from "../actions/category-actions";
 
@@ -67,6 +70,17 @@ interface TopNavBarProps {
 export function TopNavBar({ activePage, onNavigate, categories: initialCategories = [] }: TopNavBarProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [categories, setCategories] = useState<any[]>(initialCategories);
+  const [hidden, setHidden] = useState(false);
+  const { scrollY } = useScroll();
+
+  useMotionValueEvent(scrollY, "change", (latest) => {
+    const previous = scrollY.getPrevious() ?? 0;
+    if (latest > previous && latest > 150) {
+      setHidden(true);
+    } else {
+      setHidden(false);
+    }
+  });
 
   useEffect(() => {
     if (categories.length === 0) {
@@ -102,9 +116,15 @@ export function TopNavBar({ activePage, onNavigate, categories: initialCategorie
   ];
 
   return (
-    <header
+    <motion.header
       className="fixed top-0 w-full z-50 bg-earth-brown border-b border-white/20 shadow-sm"
       style={{ height: "80px" }}
+      variants={{
+        visible: { y: 0 },
+        hidden: { y: "-100%" }
+      }}
+      animate={hidden ? "hidden" : "visible"}
+      transition={{ duration: 0.3, ease: "easeInOut" }}
     >
       <nav
         className="mx-auto flex justify-between items-center h-full relative"
@@ -190,7 +210,7 @@ export function TopNavBar({ activePage, onNavigate, categories: initialCategorie
 
         {/* Mobile menu dropdown */}
         {isOpen && (
-          <div className="absolute top-[80px] left-0 w-full bg-white border-b-2 border-earth-brown shadow-lg flex flex-col py-6 px-8 gap-5 lg:hidden z-40 max-h-[80vh] overflow-y-auto">
+          <div className="absolute top-[80px] left-0 w-full bg-white/95 backdrop-blur-md border-b-2 border-earth-brown shadow-lg flex flex-col py-6 px-8 gap-5 lg:hidden z-40 max-h-[80vh] overflow-y-auto">
             {dynamicNavItems.map(({ label, page, subItems }) => {
               const isActive =
                 (activePage === "home" && page === "home" && label === "TRANG CHỦ") ||
@@ -240,6 +260,6 @@ export function TopNavBar({ activePage, onNavigate, categories: initialCategorie
           </div>
         )}
       </nav>
-    </header>
+    </motion.header>
   );
 }

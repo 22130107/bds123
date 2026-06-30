@@ -142,7 +142,7 @@ export function FeaturedProjects({ projects = [], onViewDetail }: FeaturedProjec
                 ))}
               </div>
             </div>
-            <div className="relative md:absolute bottom-0 right-0 md:-right-12 bg-white p-6 md:p-8 shadow-[0_25px_60px_-15px_rgba(0,0,0,0.15)] max-w-lg border-t-4 border-earth-brown mx-4 md:mx-0 -mt-16 md:mt-0 z-20">
+            <div className="relative md:absolute bottom-0 right-0 md:-right-12 bg-white p-4 sm:p-8 shadow-[0_25px_60px_-15px_rgba(0,0,0,0.15)] max-w-lg border-t-4 border-earth-brown mx-0 sm:mx-4 md:mx-0 -mt-8 md:mt-0 z-20">
               <span
                 className="font-label-caps text-antique-gold mb-2 block uppercase tracking-widest font-bold"
                 style={{ fontSize: "9px" }}
@@ -204,7 +204,7 @@ export function FeaturedProjects({ projects = [], onViewDetail }: FeaturedProjec
                 ))}
               </div>
             </div>
-            <div className="relative aspect-square border border-outline-variant/20 p-2 bg-surface-container-lowest shadow-lg">
+            <div className="hidden lg:block relative aspect-square border border-outline-variant/20 p-2 bg-surface-container-lowest shadow-lg">
               <div className="relative w-full h-full overflow-hidden">
                 {data.map((p, idx) => (
                   <img

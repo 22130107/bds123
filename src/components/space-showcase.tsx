@@ -346,7 +346,7 @@ export function SpaceShowcase({ spaces = [] }: { spaces?: any[] }) {
         </div>
 
         {/* Dynamic Showcase Grid */}
-        <div key={activeTab} className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 auto-rows-[220px] md:auto-rows-[250px] lg:auto-rows-[280px]">
+        <div key={activeTab} className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 auto-rows-[250px] md:auto-rows-[250px] lg:auto-rows-[280px]">
           {currentCollection.items.map((item, idx) => (
             <ShowcaseCard key={item.id} item={item} delay={`${idx * 0.08}s`} collectionId={activeTab} />
           ))}

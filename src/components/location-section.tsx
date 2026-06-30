@@ -103,10 +103,10 @@ export function LocationSection({ projects = [] }: LocationSectionProps) {
                 className="w-full h-full object-cover transition-transform duration-[2000ms] group-hover:scale-105"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent" />
-              <div className="absolute bottom-8 left-8 bg-gradient-to-t from-black/80 to-transparent p-4 -m-4 rounded">
+              <div className="absolute bottom-6 left-6 md:bottom-8 md:left-8 bg-gradient-to-t from-black/80 to-transparent p-3 md:p-4 -m-3 md:-m-4 rounded">
                 <h3
-                  className="font-headline-lg text-white mb-3"
-                  style={{ fontSize: "28px", lineHeight: "36px", fontWeight: 600, textShadow: "0 2px 8px rgba(0,0,0,0.5)" }}
+                  className="font-headline-lg text-white mb-2"
+                  style={{ fontSize: "clamp(20px, 4vw, 28px)", lineHeight: "1.2", fontWeight: 600, textShadow: "0 2px 8px rgba(0,0,0,0.5)" }}
                 >
                   {largeLocation.city}
                 </h3>
@@ -137,16 +137,16 @@ export function LocationSection({ projects = [] }: LocationSectionProps) {
                   className="w-full h-full object-cover transition-transform duration-[2000ms] group-hover:scale-105"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-transparent to-transparent" />
-                <div className="absolute bottom-6 left-6 bg-gradient-to-t from-black/80 to-transparent p-3 -m-3 rounded">
+                <div className="absolute bottom-4 left-4 md:bottom-6 md:left-6 bg-gradient-to-t from-black/80 to-transparent p-2 md:p-3 -m-2 md:-m-3 rounded">
                   <h3
-                    className="font-headline-md text-white mb-2"
-                    style={{ fontSize: "18px", lineHeight: "24px", fontWeight: 600, textShadow: "0 2px 8px rgba(0,0,0,0.5)" }}
+                    className="font-headline-md text-white mb-1 md:mb-2"
+                    style={{ fontSize: "clamp(14px, 4vw, 18px)", lineHeight: "1.2", fontWeight: 600, textShadow: "0 2px 8px rgba(0,0,0,0.5)" }}
                   >
                     {loc.city}
                   </h3>
                   <p
                     className="font-label-caps text-white/90 uppercase tracking-widest font-bold"
-                    style={{ fontSize: "9px" }}
+                    style={{ fontSize: "clamp(8px, 2vw, 9px)" }}
                   >
                     {loc.count}
                   </p>

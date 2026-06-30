@@ -129,17 +129,17 @@ export function FeaturedNews({ news = [] }: { news?: any[] }) {
               <Link
                 key={article.id}
                 href={`/news/${article.id}`}
-                className="group cursor-pointer flex gap-6 items-start bg-white p-4 border border-earth-brown/30 shadow-sm transition-all hover:shadow-lg"
+                className="group cursor-pointer flex flex-col sm:flex-row gap-4 sm:gap-6 items-start bg-white p-4 border border-earth-brown/30 shadow-sm transition-all hover:shadow-lg block"
               >
-                <article className="flex gap-6 w-full items-start">
-                  <div className="w-1/3 aspect-square overflow-hidden bg-surface-container-low flex-shrink-0">
+                <article className="flex flex-col sm:flex-row gap-4 sm:gap-6 w-full items-start">
+                  <div className="w-full sm:w-1/3 aspect-[16/9] sm:aspect-square overflow-hidden bg-surface-container-low flex-shrink-0">
                     <img
                       src={article.image}
                       alt={article.title}
                       className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-1000"
                     />
                   </div>
-                  <div className="flex-1">
+                  <div className="flex-1 w-full">
                     <div className="flex flex-wrap items-center gap-2 mb-2">
                       <span
                         className="font-label-caps uppercase tracking-[0.2em] font-bold px-2.5 py-1"

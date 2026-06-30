@@ -9,7 +9,7 @@ export function Footer({ variant = "default" }: FooterProps) {
     return (
       <footer className="bg-primary-container py-20 border-t border-earth-brown w-full">
         <div
-          className="mx-auto px-[80px] grid grid-cols-1 md:grid-cols-4 gap-6"
+          className="mx-auto px-6 md:px-[80px] grid grid-cols-1 md:grid-cols-4 gap-6"
           style={{ maxWidth: "1280px" }}
         >
           <div className="col-span-1">
@@ -70,7 +70,7 @@ export function Footer({ variant = "default" }: FooterProps) {
           </div>
         </div>
         <div
-          className="mx-auto px-[80px] mt-20 pt-8 border-t border-on-primary-container/10"
+          className="mx-auto px-6 md:px-[80px] mt-20 pt-8 border-t border-on-primary-container/10"
           style={{ maxWidth: "1280px" }}
         >
           <p className="font-body-md text-on-primary-container/60 text-center md:text-left"
@@ -86,7 +86,7 @@ export function Footer({ variant = "default" }: FooterProps) {
     return (
       <footer className="w-full pt-20 pb-10 bg-primary">
         <div
-          className="grid grid-cols-1 md:grid-cols-4 gap-6 px-[80px] mx-auto"
+          className="grid grid-cols-1 md:grid-cols-4 gap-6 px-6 md:px-[80px] mx-auto"
           style={{ maxWidth: "1280px" }}
         >
           <div className="md:col-span-1">
@@ -149,7 +149,7 @@ export function Footer({ variant = "default" }: FooterProps) {
           </div>
         </div>
         <div
-          className="mt-20 pt-8 border-t border-on-primary-container/10 px-[80px] mx-auto flex flex-col md:flex-row justify-between items-center gap-4"
+          className="mt-20 pt-8 border-t border-on-primary-container/10 px-6 md:px-[80px] mx-auto flex flex-col md:flex-row justify-between items-center gap-4"
           style={{ maxWidth: "1280px" }}
         >
           <span className="font-body-md text-on-primary-container/80" style={{ fontSize: "16px" }}>
