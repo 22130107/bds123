@@ -59,7 +59,7 @@ export function HeroSection({ onNavigate }: HeroSectionProps) {
   };
 
   return (
-    <section className="relative h-[70vh] min-h-[500px] flex items-end justify-center overflow-hidden bg-earth-brown pb-16">
+    <section className="relative h-[92vh] min-h-[600px] md:min-h-[700px] flex items-end justify-center overflow-hidden bg-earth-brown pb-16">
       {/* Background image */}
       <div
         className="absolute inset-0 bg-cover bg-center"
@@ -72,19 +72,25 @@ export function HeroSection({ onNavigate }: HeroSectionProps) {
       </div>
 
       {/* Headline */}
-      <div className="absolute top-1/3 -translate-y-1/2 left-0 right-0 text-center px-6 z-10">
-        <h1
-          className="font-body-lg text-white leading-tight"
-          style={{
-            fontSize: "clamp(32px, 6vw, 72px)",
-            lineHeight: "1.1",
-            fontWeight: 700,
-            textShadow: "rgba(0,0,0,0.4) 0px 4px 20px",
-          }}
-        >
-          Kinh Đô Của Những <br />
-          <span className="italic font-normal">Di Sản Bền Vững</span>
-        </h1>
+      <div className="absolute top-1/3 -translate-y-1/4 left-0 right-0 px-6 md:px-[100px] z-10 max-w-[1440px] mx-auto w-full">
+        <div className="text-left w-full">
+          <h1
+            className="font-body-lg text-white leading-tight"
+            style={{
+              fontSize: "clamp(36px, 5vw, 64px)",
+              lineHeight: "1.2",
+              fontWeight: 700,
+              textShadow: "rgba(0,0,0,0.4) 0px 4px 20px",
+            }}
+          >
+            <span className="whitespace-nowrap">Kinh Đô Của Những</span> <br />
+            <span className="italic font-normal whitespace-nowrap">Di Sản Bền Vững</span>
+          </h1>
+          <p className="text-white mt-6 text-[16px] md:text-[20px] font-medium tracking-wide drop-shadow-md" style={{ textShadow: "rgba(0,0,0,0.6) 0px 2px 10px" }}>
+            Nơi giá trị trường tồn cùng thời gian
+          </p>
+          <div className="h-[2px] w-24 bg-antique-gold mt-4 shadow-sm" />
+        </div>
       </div>
 
       {/* Search widget */}
@@ -98,7 +104,7 @@ export function HeroSection({ onNavigate }: HeroSectionProps) {
             <button
               key={key}
               onClick={() => setActiveTab(key as "buy" | "rent")}
-              className="px-6 py-3 font-label-caps transition-all duration-300"
+              className={`px-6 py-3 font-label-caps transition-all duration-300 ${key === 'buy' ? 'rounded-tl-xl' : ''} ${key === 'rent' ? 'rounded-tr-xl' : ''}`}
               style={{
                 fontSize: "11px",
                 letterSpacing: "0.12em",
@@ -114,8 +120,8 @@ export function HeroSection({ onNavigate }: HeroSectionProps) {
         </div>
 
         {/* Search box */}
-        <div className="bg-white/10 backdrop-blur-2xl border-2 border-white/20 p-1.5 shadow-xl">
-          <div className="bg-white p-2">
+        <div className="bg-white/10 backdrop-blur-2xl border-2 border-white/20 p-2 shadow-xl rounded-tr-xl rounded-b-xl rounded-tl-none">
+          <div className="bg-white p-2 rounded-lg">
             {/* Main row */}
             <div className="flex flex-col md:flex-row items-stretch border-b border-outline-variant/20">
               {/* Loại nhà đất */}
@@ -133,8 +139,8 @@ export function HeroSection({ onNavigate }: HeroSectionProps) {
               </div>
 
               {/* Địa điểm */}
-              <div className="flex-1 flex items-center px-4 md:px-5 border-b md:border-b-0 border-outline-variant/20">
-                <span className="material-symbols-outlined text-antique-gold mr-1.5 md:mr-3 shrink-0 text-sm md:text-xl">location_on</span>
+              <div className="flex-1 flex items-center px-4 md:px-5 py-2 md:py-0 border-b md:border-b-0 border-outline-variant/20">
+                <span className="material-symbols-outlined text-antique-gold mr-2 md:mr-3 shrink-0 text-[20px] md:text-[24px]">location_on</span>
                 <input
                   type="text"
                   value={keyword}
@@ -146,13 +152,15 @@ export function HeroSection({ onNavigate }: HeroSectionProps) {
               </div>
 
               {/* Nút tìm kiếm */}
-              <button
-                onClick={handleSearch}
-                className="w-full md:w-auto px-6 md:px-10 py-3.5 md:py-4 font-label-caps text-white hover:bg-antique-gold transition-all duration-500 shrink-0 active:scale-95 text-[12px] md:text-[13px]"
-                style={{ letterSpacing: "0.15em", fontWeight: 700, backgroundColor: "#A04000" }}
-              >
-                TÌM KIẾM
-              </button>
+              <div className="p-2 md:p-0 md:ml-2 shrink-0">
+                <button
+                  onClick={handleSearch}
+                  className="w-full md:w-auto px-6 md:px-10 py-3.5 md:py-4 font-label-caps text-white hover:bg-antique-gold transition-all duration-500 active:scale-95 text-[13px] rounded-lg"
+                  style={{ letterSpacing: "0.15em", fontWeight: 700, backgroundColor: "#A04000" }}
+                >
+                  TÌM KIẾM
+                </button>
+              </div>
             </div>
 
             {/* Filter row */}

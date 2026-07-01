@@ -298,10 +298,7 @@ export function SpaceShowcase({ spaces = [] }: { spaces?: any[] }) {
 
   return (
     <section 
-      className="py-24 md:py-36 border-b border-outline-variant/20 relative overflow-hidden"
-      style={{
-        background: `linear-gradient(135deg, #F7F4EB 0%, #F7F4EB 25%, #F2EBDC 25%, #F2EBDC 50%, #EADFCA 50%, #EADFCA 75%, #F5EDD9 75%, #F5EDD9 100%)`
-      }}
+      className="pt-12 md:pt-16 pb-24 md:pb-36 border-b border-outline-variant/20 relative overflow-hidden"
     >
       <div className="max-w-[1440px] mx-auto px-6 md:px-[100px]">
         {/* Header Section */}
