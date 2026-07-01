@@ -100,13 +100,12 @@ export function DetailPage({ project, agentInfo }: DetailPageProps) {
 
       <main className="pt-20">
         {/* Breadcrumb */}
-        <div className="max-w-[1280px] mx-auto px-5 md:px-[80px] py-4 flex items-center gap-2 text-on-surface-variant"
-             style={{ fontSize: "14px" }}>
-          <button onClick={() => handleNavigate("home")} className="hover:text-antique-gold transition-colors">Trang chủ</button>
-          <span className="material-symbols-outlined" style={{ fontSize: "16px" }}>chevron_right</span>
-          <button onClick={() => handleNavigate("listing")} className="hover:text-antique-gold transition-colors">Bất động sản</button>
-          <span className="material-symbols-outlined" style={{ fontSize: "16px" }}>chevron_right</span>
-          <span className="text-primary font-semibold">{project.title}</span>
+        <div className="max-w-[1280px] mx-auto px-5 md:px-[80px] py-4 flex items-center gap-2 text-on-surface-variant text-sm">
+          <button onClick={() => handleNavigate("home")} className="hover:text-antique-gold transition-colors shrink-0 whitespace-nowrap">Trang chủ</button>
+          <span className="material-symbols-outlined shrink-0" style={{ fontSize: "16px" }}>chevron_right</span>
+          <button onClick={() => handleNavigate("listing")} className="hover:text-antique-gold transition-colors shrink-0 whitespace-nowrap">Bất động sản</button>
+          <span className="material-symbols-outlined shrink-0" style={{ fontSize: "16px" }}>chevron_right</span>
+          <span className="text-primary font-semibold truncate min-w-0 max-w-[120px] sm:max-w-[200px] md:max-w-none">{project.title}</span>
         </div>
 
         {/* Property Header */}
@@ -115,31 +114,24 @@ export function DetailPage({ project, agentInfo }: DetailPageProps) {
             <div className="max-w-[800px] w-full">
               <div className="flex items-center gap-3 mb-2">
                 {project.badge && (
-                  <span className="bg-antique-gold text-white font-label-caps px-3 py-1"
-                        style={{ fontSize: "10px", letterSpacing: "0.1em", fontWeight: 700 }}>
+                  <span className="bg-antique-gold text-white font-label-caps px-3 py-1 text-[10px] tracking-widest font-bold">
                     {project.badge}
                   </span>
                 )}
-                <span className="flex items-center gap-1 text-on-surface-variant" style={{ fontSize: "14px" }}>
-                  <span className="material-symbols-outlined" style={{ fontSize: "16px" }}>location_on</span>
+                <span className="flex items-center gap-1 text-on-surface-variant text-sm">
+                  <span className="material-symbols-outlined text-base">location_on</span>
                   {project.location}
                 </span>
               </div>
-              <h1
-                className="font-headline-lg text-primary"
-                style={{ fontSize: "32px", lineHeight: "40px", fontWeight: 600 }}
-              >
+              <h1 className="font-headline-lg text-primary text-2xl md:text-[32px] leading-tight md:leading-[40px] font-semibold">
                 {project.title}
               </h1>
             </div>
-            <div className="text-right">
-              <span className="font-label-caps text-on-surface-variant uppercase" style={{ fontSize: "10px" }}>
+            <div className="text-left md:text-right mt-3 md:mt-0 border border-earth-brown/20 bg-earth-brown/5 rounded-lg px-5 py-3 shrink-0 min-w-[200px]">
+              <span className="font-label-caps text-earth-brown/80 uppercase text-[10px] tracking-wider font-medium">
                 Giá niêm yết
               </span>
-              <p
-                className="font-price-display text-earth-brown"
-                style={{ fontSize: "28px", lineHeight: "32px", fontWeight: 600 }}
-              >
+              <p className="font-price-display text-earth-brown text-2xl md:text-[28px] leading-tight md:leading-[32px] font-semibold mt-1">
                 {project.price}
               </p>
             </div>
