@@ -111,6 +111,7 @@ export function FeaturedProjectsWidget() {
       <button
         className="w-full mt-8 py-2 border border-outline-variant font-label-caps hover:bg-primary hover:text-white transition-all uppercase tracking-widest"
         style={{ fontSize: "10px" }}
+        onClick={() => router.push('/listing')}
       >
         Xem tất cả dự án
       </button>
