@@ -224,13 +224,17 @@ export async function createProject(formData: FormData) {
   let coverIndex = parseInt(coverIndexStr, 10);
   if (isNaN(coverIndex)) coverIndex = 0;
 
+  const sideIndexStr = formData.get('sideIndex') as string;
+  let sideIndex = parseInt(sideIndexStr, 10);
+  if (isNaN(sideIndex)) sideIndex = 1;
+
+  const mainImg = finalImages.length > 0 ? (finalImages[coverIndex] || finalImages[0]) : '';
+  const sideImg = finalImages.length > 0 ? (finalImages[sideIndex] || mainImg) : '';
+
   if (coverIndex > 0 && coverIndex < finalImages.length) {
     const coverImage = finalImages.splice(coverIndex, 1)[0];
     finalImages.unshift(coverImage);
   }
-
-  const mainImg = finalImages.length > 0 ? finalImages[0] : '';
-  const sideImg = finalImages.length > 1 ? finalImages[1] : (finalImages.length > 0 ? finalImages[0] : '');
 
   const [result] = await pool.query(
     'INSERT INTO projects (title, slug, meta_description, schema_markup, location, mainImg, sideImg, area, price, description, isFeatured, type, category, images, bedrooms, bathrooms, status, width, length, direction, frontRoad, legal, floors, hasKitchen, hasDiningRoom, hasTerrace, hasParking) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
@@ -293,13 +297,17 @@ export async function updateProject(id: number, formData: FormData) {
   let coverIndex = parseInt(coverIndexStr, 10);
   if (isNaN(coverIndex)) coverIndex = 0;
 
+  const sideIndexStr = formData.get('sideIndex') as string;
+  let sideIndex = parseInt(sideIndexStr, 10);
+  if (isNaN(sideIndex)) sideIndex = 1;
+
+  const mainImg = finalImages.length > 0 ? (finalImages[coverIndex] || finalImages[0]) : '';
+  const sideImg = finalImages.length > 0 ? (finalImages[sideIndex] || mainImg) : '';
+
   if (coverIndex > 0 && coverIndex < finalImages.length) {
     const coverImage = finalImages.splice(coverIndex, 1)[0];
     finalImages.unshift(coverImage);
   }
-
-  const mainImg = finalImages.length > 0 ? finalImages[0] : '';
-  const sideImg = finalImages.length > 1 ? finalImages[1] : (finalImages.length > 0 ? finalImages[0] : '');
 
   const [result] = await pool.query(
     'UPDATE projects SET title = ?, slug = ?, meta_description = ?, schema_markup = ?, location = ?, mainImg = ?, sideImg = ?, area = ?, price = ?, description = ?, isFeatured = ?, type = ?, category = ?, images = ?, bedrooms = ?, bathrooms = ?, status = ?, width = ?, length = ?, direction = ?, frontRoad = ?, legal = ?, floors = ?, hasKitchen = ?, hasDiningRoom = ?, hasTerrace = ?, hasParking = ? WHERE id = ?',

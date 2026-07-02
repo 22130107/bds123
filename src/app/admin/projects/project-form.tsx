@@ -40,6 +40,7 @@ export default function ProjectForm({ initialData, categories = [] }: { initialD
   const [slugManuallyEdited, setSlugManuallyEdited] = useState(!!initialData?.slug);
 
   const [coverIndex, setCoverIndex] = useState(0);
+  const [sideIndex, setSideIndex] = useState(1);
 
   const allPreviews = [
     ...existingImages.map((url, i) => ({ type: 'url', src: url, index: i })),
@@ -154,6 +155,12 @@ export default function ProjectForm({ initialData, categories = [] }: { initialD
       setCoverIndex(prev => prev - 1);
     }
 
+    if (item.globalIndex === sideIndex) {
+      setSideIndex(1);
+    } else if (item.globalIndex < sideIndex) {
+      setSideIndex(prev => prev - 1);
+    }
+
     if (item.type === 'url') {
       setExistingImages(prev => prev.filter((_, i) => i !== item.index));
     } else {
@@ -176,6 +183,7 @@ export default function ProjectForm({ initialData, categories = [] }: { initialD
       // Gửi danh sách ảnh cũ lên server để bảo toàn
       data.append('existingImages', JSON.stringify(existingImages));
       data.append('coverIndex', coverIndex.toString());
+      data.append('sideIndex', sideIndex.toString());
 
       if (initialData?.id) {
         await updateProject(initialData.id, data);
@@ -347,34 +355,53 @@ export default function ProjectForm({ initialData, categories = [] }: { initialD
           {allPreviews.length > 0 && (
             <div className="mt-4 grid grid-cols-2 md:grid-cols-4 gap-4">
               {allPreviews.map((item, i) => (
-                <div key={i} className={`relative aspect-video rounded overflow-hidden border-2 group ${i === coverIndex ? 'border-earth-brown' : 'border-gray-200'}`}>
+                <div key={i} className={`relative aspect-video rounded overflow-hidden border-2 group ${i === coverIndex ? 'border-earth-brown' : (formData.isFeatured && i === sideIndex ? 'border-antique-gold' : 'border-gray-200')}`}>
                   <img src={item.src} className="w-full h-full object-cover" alt={`Preview ${i}`} />
                   
-                  {/* Set Cover Button */}
-                  {i !== coverIndex && (
-                    <button
-                      type="button"
-                      onClick={() => setCoverIndex(i)}
-                      className="absolute top-1 left-1 bg-white/90 hover:bg-white text-gray-800 text-[10px] px-2 py-1 rounded font-medium shadow-sm opacity-0 group-hover:opacity-100 transition-opacity z-10"
-                    >
-                      Đặt làm ảnh bìa
-                    </button>
-                  )}
+                  {/* Overlay for Buttons */}
+                  <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity z-10 flex flex-col justify-center items-center gap-2">
+                    {i !== coverIndex && (
+                      <button
+                        type="button"
+                        onClick={() => setCoverIndex(i)}
+                        className="bg-white hover:bg-gray-100 text-gray-800 text-[10px] px-3 py-1.5 rounded font-bold shadow-sm"
+                      >
+                        Đặt làm ẢNH CHÍNH (Bìa)
+                      </button>
+                    )}
+                    
+                    {formData.isFeatured && i !== sideIndex && (
+                      <button
+                        type="button"
+                        onClick={() => setSideIndex(i)}
+                        className="bg-white hover:bg-gray-100 text-gray-800 text-[10px] px-3 py-1.5 rounded font-bold shadow-sm"
+                      >
+                        Đặt làm ẢNH PHỤ (Nổi bật)
+                      </button>
+                    )}
+                  </div>
 
                   {/* Delete Button */}
                   <button
                     type="button"
                     onClick={() => removeImage(item)}
-                    className="absolute top-1 right-1 bg-red-600/90 hover:bg-red-700 text-white p-1 rounded-full opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center shadow-sm z-10"
+                    className="absolute top-1 right-1 bg-red-600/90 hover:bg-red-700 text-white p-1 rounded-full opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center shadow-sm z-20"
                   >
                     <span className="material-symbols-outlined" style={{fontSize: "14px", fontWeight: "bold"}}>close</span>
                   </button>
 
-                  {i === coverIndex && (
-                    <div className="absolute top-1 left-1 bg-earth-brown text-white text-[10px] px-1.5 py-0.5 rounded font-bold tracking-widest z-10">
-                      ẢNH BÌA
-                    </div>
-                  )}
+                  <div className="absolute top-1 left-1 flex flex-col gap-1 z-20">
+                    {i === coverIndex && (
+                      <div className="bg-earth-brown text-white text-[10px] px-1.5 py-0.5 rounded font-bold tracking-widest shadow-sm">
+                        ẢNH CHÍNH
+                      </div>
+                    )}
+                    {formData.isFeatured && i === sideIndex && (
+                      <div className="bg-antique-gold text-white text-[10px] px-1.5 py-0.5 rounded font-bold tracking-widest shadow-sm">
+                        ẢNH PHỤ
+                      </div>
+                    )}
+                  </div>
                 </div>
               ))}
             </div>
