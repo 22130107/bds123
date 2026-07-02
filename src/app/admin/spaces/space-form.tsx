@@ -14,7 +14,7 @@ export default function SpaceForm({ initialData }: { initialData?: any }) {
 
   const [formData, setFormData] = useState({
     collection: initialData?.collection || "SAIGON",
-    category: initialData?.category || "Ngoại thất",
+    category: initialData?.category || "01 / NGOẠI THẤT",
     title: initialData?.title || "",
     subtitle: initialData?.subtitle || "",
     images: initialImagesStr,
@@ -98,7 +98,15 @@ export default function SpaceForm({ initialData }: { initialData?: any }) {
 
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-1">Danh mục phòng (Category)</label>
-          <input required name="category" value={formData.category} onChange={handleChange} className="w-full px-4 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-earth-brown outline-none" placeholder="VD: Ngoại thất, Bếp, Phòng khách..." />
+          <select required name="category" value={formData.category} onChange={handleChange} className="w-full px-4 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-earth-brown outline-none bg-white">
+            <option value="01 / NGOẠI THẤT">01 / NGOẠI THẤT</option>
+            <option value="02 / PHÒNG BẾP">02 / PHÒNG BẾP</option>
+            <option value="03 / PHÒNG KHÁCH">03 / PHÒNG KHÁCH</option>
+            <option value="04 / PHÒNG TẮM">04 / PHÒNG TẮM</option>
+            <option value="05 / NGOÀI TRỜI">05 / NGOÀI TRỜI</option>
+            <option value="06 / PHÒNG NGỦ">06 / PHÒNG NGỦ</option>
+            <option value="KHÁC">KHÁC</option>
+          </select>
         </div>
 
         <div className="col-span-1 md:col-span-2">

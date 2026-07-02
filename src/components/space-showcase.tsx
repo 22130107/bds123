@@ -211,19 +211,13 @@ function ShowcaseCard({ item, delay, collectionId }: { item: ShowcaseItem; delay
             alt={`${item.title} view ${idx + 1}`}
             className={`absolute inset-0 w-full h-full object-cover transition-all duration-1000 ease-in-out ${
               idx === currentIndex ? "opacity-100 z-10" : "opacity-0 z-0"
-            } ${isHovered ? "brightness-[0.85] scale-105" : "brightness-100 scale-100"}`}
+            } ${isHovered ? "scale-105" : "scale-100"}`}
           />
         ))}
       </div>
 
       {/* Classic Border Deco overlay */}
       <div className="absolute inset-0 border border-transparent group-hover:border-white/20 transition-colors duration-500 pointer-events-none z-20 m-3" />
-
-      {/* Base Gradient overlay for readability */}
-      <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent transition-opacity duration-500 z-20 pointer-events-none" />
-
-      {/* Hover highlight overlay */}
-      <div className="absolute inset-0 bg-gradient-to-tr from-earth-brown/40 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none z-20" />
 
       {/* Category tag on top right */}
       <div className="absolute top-4 right-4 z-30 overflow-hidden">
@@ -236,7 +230,7 @@ function ShowcaseCard({ item, delay, collectionId }: { item: ShowcaseItem; delay
       </div>
 
       {/* Text Information Content Card */}
-      <div className="absolute inset-x-0 bottom-0 p-6 z-30 flex flex-col justify-end text-white bg-gradient-to-t from-black/70 via-transparent to-transparent pt-16">
+      <div className="absolute inset-x-0 bottom-0 p-6 z-30 flex flex-col justify-end text-white bg-gradient-to-t from-black/90 via-black/40 to-transparent pt-28 pointer-events-none">
         <div className="transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500 ease-out">
           <h3
             className="font-display-lg text-white font-bold leading-snug mb-1 group-hover:text-antique-gold transition-colors duration-300"
