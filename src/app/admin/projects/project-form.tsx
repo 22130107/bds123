@@ -401,14 +401,6 @@ export default function ProjectForm({ initialData, categories = [] }: { initialD
         </div>
 
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">Loại hiển thị</label>
-          <select name="type" value={formData.type} onChange={handleChange} className="w-full px-4 py-2 border border-gray-300 rounded outline-none bg-white">
-            <option value="listing">Danh sách thông thường (Listing)</option>
-            <option value="tailored">Đề xuất cá nhân hóa (Tailored)</option>
-          </select>
-        </div>
-
-        <div>
           <label className="block text-sm font-medium text-gray-700 mb-1">Trạng thái *</label>
           <select name="status" value={formData.status} onChange={handleChange} className="w-full px-4 py-2 border border-gray-300 rounded outline-none bg-white">
             <option value="published">Xuất bản (Hiển thị)</option>
@@ -417,9 +409,22 @@ export default function ProjectForm({ initialData, categories = [] }: { initialD
           </select>
         </div>
 
-        <div className="col-span-1 md:col-span-2 flex items-center gap-2 mt-4">
-          <input type="checkbox" id="isFeatured" name="isFeatured" checked={formData.isFeatured} onChange={handleChange} className="w-5 h-5 text-earth-brown rounded focus:ring-earth-brown" />
-          <label htmlFor="isFeatured" className="text-sm font-medium text-gray-700">Hiển thị nổi bật ở Trang chủ (Dự án nổi bật)</label>
+        <div className="col-span-1 md:col-span-2 flex flex-col gap-3 mt-4 border border-gray-100 p-4 rounded-lg bg-gray-50">
+          <h4 className="text-sm font-semibold text-gray-800 mb-1">Tùy chọn hiển thị thêm</h4>
+          <label className="flex items-center gap-3 cursor-pointer">
+            <input type="checkbox" name="isFeatured" checked={formData.isFeatured} onChange={handleChange} className="w-5 h-5 text-earth-brown rounded focus:ring-earth-brown accent-earth-brown" />
+            <span className="text-sm font-medium text-gray-700">Hiển thị nổi bật ở Trang chủ (Dự án nổi bật)</span>
+          </label>
+          <label className="flex items-center gap-3 cursor-pointer">
+            <input 
+              type="checkbox" 
+              checked={formData.type === 'tailored'} 
+              onChange={(e) => setFormData(prev => ({ ...prev, type: e.target.checked ? 'tailored' : 'listing' }))} 
+              className="w-5 h-5 text-earth-brown rounded focus:ring-earth-brown accent-earth-brown" 
+            />
+            <span className="text-sm font-medium text-gray-700">Hiển thị ở mục Đề xuất cá nhân hóa (Tailored)</span>
+          </label>
+          <input type="hidden" name="type" value={formData.type} />
         </div>
 
         {/* Các thông tin khác */}
