@@ -220,6 +220,15 @@ export async function createProject(formData: FormData) {
   const newUploads = await handleUploads(formData);
   finalImages = [...finalImages, ...newUploads];
 
+  const coverIndexStr = formData.get('coverIndex') as string;
+  let coverIndex = parseInt(coverIndexStr, 10);
+  if (isNaN(coverIndex)) coverIndex = 0;
+
+  if (coverIndex > 0 && coverIndex < finalImages.length) {
+    const coverImage = finalImages.splice(coverIndex, 1)[0];
+    finalImages.unshift(coverImage);
+  }
+
   const mainImg = finalImages.length > 0 ? finalImages[0] : '';
   const sideImg = finalImages.length > 1 ? finalImages[1] : (finalImages.length > 0 ? finalImages[0] : '');
 
@@ -279,6 +288,15 @@ export async function updateProject(id: number, formData: FormData) {
 
   const newUploads = await handleUploads(formData);
   finalImages = [...finalImages, ...newUploads];
+
+  const coverIndexStr = formData.get('coverIndex') as string;
+  let coverIndex = parseInt(coverIndexStr, 10);
+  if (isNaN(coverIndex)) coverIndex = 0;
+
+  if (coverIndex > 0 && coverIndex < finalImages.length) {
+    const coverImage = finalImages.splice(coverIndex, 1)[0];
+    finalImages.unshift(coverImage);
+  }
 
   const mainImg = finalImages.length > 0 ? finalImages[0] : '';
   const sideImg = finalImages.length > 1 ? finalImages[1] : (finalImages.length > 0 ? finalImages[0] : '');

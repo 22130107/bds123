@@ -73,10 +73,23 @@ export function DetailPage({ project, agentInfo }: DetailPageProps) {
     else router.push(`/${page}`);
   };
 
-  const dynamicImages = [
-    { src: project.mainImg || "https://images.unsplash.com/photo-1613490908578-8120c16b5a32?w=800", alt: "Ảnh chính" },
-    ...(project.images || []).map((img: string) => ({ src: img, alt: "Ảnh phụ" }))
-  ];
+  let parsedImages = project.images || [];
+  if (typeof parsedImages === 'string') {
+    try {
+      parsedImages = JSON.parse(parsedImages);
+    } catch (e) {
+      parsedImages = [];
+    }
+  }
+
+  let dynamicImages = [];
+  if (parsedImages && parsedImages.length > 0) {
+    dynamicImages = parsedImages.map((img: string, i: number) => ({ src: img, alt: i === 0 ? "Ảnh chính" : "Ảnh phụ" }));
+  } else if (project.mainImg) {
+    dynamicImages = [{ src: project.mainImg, alt: "Ảnh chính" }];
+  } else {
+    dynamicImages = [{ src: "https://images.unsplash.com/photo-1613490908578-8120c16b5a32?w=800", alt: "Ảnh chính" }];
+  }
 
   const dynamicSpecs = [
     { icon: "layers", label: "Diện tích", value: project.area ? `${project.area} m²` : "Đang cập nhật" },
