@@ -24,8 +24,36 @@ export function NewsPage({ onNavigate, dbNews = [] }: NewsPageProps) {
 
   const ITEMS_PER_PAGE = 6;
   const [currentPage, setCurrentPage] = useState(1);
-  const totalPages = Math.max(1, Math.ceil(articles.length / ITEMS_PER_PAGE));
-  const paginatedArticles = articles.slice((currentPage - 1) * ITEMS_PER_PAGE, currentPage * ITEMS_PER_PAGE);
+  const [searchQuery, setSearchQuery] = useState("");
+
+  const removeAccents = (str: string) => {
+    return str
+      .normalize("NFD")
+      .replace(/[\u0300-\u036f]/g, "")
+      .replace(/đ/g, "d")
+      .replace(/Đ/g, "D")
+      .toLowerCase();
+  };
+
+  const filteredArticles = articles.filter(article => {
+    if (!searchQuery.trim()) return true;
+    const normalizedSearch = removeAccents(searchQuery.trim());
+    const searchTerms = normalizedSearch.split(/\s+/);
+    
+    const normalizedTitle = removeAccents(article.title);
+    const normalizedExcerpt = article.excerpt ? removeAccents(article.excerpt) : "";
+    const combinedText = `${normalizedTitle} ${normalizedExcerpt}`;
+
+    return searchTerms.every(term => combinedText.includes(term));
+  });
+
+  const totalPages = Math.max(1, Math.ceil(filteredArticles.length / ITEMS_PER_PAGE));
+  const paginatedArticles = filteredArticles.slice((currentPage - 1) * ITEMS_PER_PAGE, currentPage * ITEMS_PER_PAGE);
+
+  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchQuery(e.target.value);
+    setCurrentPage(1);
+  };
 
   return (
     <div className="bg-surface text-on-surface font-body-md min-h-screen flex flex-col" style={{ overflowX: "hidden" }}>
@@ -55,10 +83,30 @@ export function NewsPage({ onNavigate, dbNews = [] }: NewsPageProps) {
 
       {/* Main Content */}
       <main className="flex-1 max-w-[1280px] w-full mx-auto px-5 md:px-[80px] py-16">
+        
+        {/* Search Module */}
+        <div className="mb-10 flex flex-col md:flex-row justify-between items-center gap-4">
+          <h2 className="font-headline-md text-primary" style={{ fontSize: "24px", fontWeight: 600 }}>
+            Tất cả bài viết
+          </h2>
+          <div className="relative w-full md:w-[400px]">
+            <input 
+              type="text" 
+              placeholder="Tìm kiếm tin tức..." 
+              value={searchQuery}
+              onChange={handleSearchChange}
+              className="w-full pl-12 pr-4 py-3.5 border border-outline-variant/40 rounded-full focus:outline-none focus:border-antique-gold focus:ring-1 focus:ring-antique-gold transition-all text-[15px] bg-white shadow-sm"
+            />
+            <span className="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-on-surface-variant/70" style={{ fontSize: "22px" }}>
+              search
+            </span>
+          </div>
+        </div>
+
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {articles.length === 0 && (
+          {filteredArticles.length === 0 && (
             <div className="col-span-1 md:col-span-2 lg:col-span-3 text-center py-20 text-on-surface-variant font-medium text-lg border-2 border-dashed border-outline-variant/30 rounded-xl">
-              Chưa có bài viết nào được đăng tải.
+              {searchQuery ? "Không tìm thấy bài viết nào phù hợp với từ khóa." : "Chưa có bài viết nào được đăng tải."}
             </div>
           )}
           {paginatedArticles.map((article) => (
