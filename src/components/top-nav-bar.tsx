@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { motion, useScroll, useMotionValueEvent } from "motion/react";
 import logoIcon from "../assets/logo_icon.png";
 import { getCategories } from "../actions/category-actions";
+import { generateSlug } from "../lib/slugify";
 
 interface NavItem {
   label: string;
@@ -17,44 +18,44 @@ const navItems: NavItem[] = [
     label: "MUA BÁN NHÀ ĐẤT", 
     page: "listing",
     subItems: [
-      { label: "BÁN CĂN HỘ CHUNG CƯ", page: "listing", query: "category=BÁN CĂN HỘ CHUNG CƯ" },
-      { label: "BÁN NHÀ RIÊNG", page: "listing", query: "category=BÁN NHÀ RIÊNG" },
-      { label: "BÁN BIỆT THỰ, LIỀN KỀ", page: "listing", query: "category=BÁN BIỆT THỰ, LIỀN KỀ" },
-      { label: "BÁN NHÀ MẶT PHỐ", page: "listing", query: "category=BÁN NHÀ MẶT PHỐ" },
-      { label: "BÁN ĐẤT NỀN DỰ ÁN", page: "listing", query: "category=BÁN ĐẤT NỀN DỰ ÁN" },
-      { label: "BÁN ĐẤT", page: "listing", query: "category=BÁN ĐẤT" },
-      { label: "BÁN TRANG TRẠI, KHU NGHỈ DƯỠNG", page: "listing", query: "category=BÁN TRANG TRẠI, KHU NGHỈ DƯỠNG" },
-      { label: "BÁN KHO, NHÀ XƯỞNG", page: "listing", query: "category=BÁN KHO, NHÀ XƯỞNG" },
-      { label: "BÁN LOẠI BẤT ĐỘNG SẢN KHÁC", page: "listing", query: "category=BÁN LOẠI BẤT ĐỘNG SẢN KHÁC" },
+      { label: "BÁN CĂN HỘ CHUNG CƯ", page: `danh-muc/${generateSlug("BÁN CĂN HỘ CHUNG CƯ")}` },
+      { label: "BÁN NHÀ RIÊNG", page: `danh-muc/${generateSlug("BÁN NHÀ RIÊNG")}` },
+      { label: "BÁN BIỆT THỰ, LIỀN KỀ", page: `danh-muc/${generateSlug("BÁN BIỆT THỰ, LIỀN KỀ")}` },
+      { label: "BÁN NHÀ MẶT PHỐ", page: `danh-muc/${generateSlug("BÁN NHÀ MẶT PHỐ")}` },
+      { label: "BÁN ĐẤT NỀN DỰ ÁN", page: `danh-muc/${generateSlug("BÁN ĐẤT NỀN DỰ ÁN")}` },
+      { label: "BÁN ĐẤT", page: `danh-muc/${generateSlug("BÁN ĐẤT")}` },
+      { label: "BÁN TRANG TRẠI, KHU NGHỈ DƯỠNG", page: `danh-muc/${generateSlug("BÁN TRANG TRẠI, KHU NGHỈ DƯỠNG")}` },
+      { label: "BÁN KHO, NHÀ XƯỞNG", page: `danh-muc/${generateSlug("BÁN KHO, NHÀ XƯỞNG")}` },
+      { label: "BÁN LOẠI BẤT ĐỘNG SẢN KHÁC", page: `danh-muc/${generateSlug("BÁN LOẠI BẤT ĐỘNG SẢN KHÁC")}` },
     ]
   },
   { 
     label: "CHO THUÊ NHÀ ĐẤT", 
-    page: "listing?category=CHO THUÊ NHÀ ĐẤT",
+    page: "listing?type=CHO THUÊ NHÀ ĐẤT",
     subItems: [
-      { label: "CHO THUÊ CĂN HỘ CHUNG CƯ", page: "listing", query: "category=CHO THUÊ CĂN HỘ CHUNG CƯ" },
-      { label: "CHO THUÊ NHÀ RIÊNG", page: "listing", query: "category=CHO THUÊ NHÀ RIÊNG" },
-      { label: "CHO THUÊ BIỆT THỰ, NHÀ LIỀN KỀ", page: "listing", query: "category=CHO THUÊ BIỆT THỰ, NHÀ LIỀN KỀ" },
-      { label: "CHO THUÊ CỬA HÀNG, KIOT", page: "listing", query: "category=CHO THUÊ CỬA HÀNG, KIOT" },
-      { label: "CHO THUÊ VĂN PHÒNG", page: "listing", query: "category=CHO THUÊ VĂN PHÒNG" },
-      { label: "CHO THUÊ NHÀ TRỌ, PHÒNG TRỌ", page: "listing", query: "category=CHO THUÊ NHÀ TRỌ, PHÒNG TRỌ" },
-      { label: "CHO THUÊ KHO, NHÀ XƯỞNG, ĐẤT", page: "listing", query: "category=CHO THUÊ KHO, NHÀ XƯỞNG, ĐẤT" },
-      { label: "CHO THUÊ SHOPHOUSE, NHÀ PHỐ THƯƠNG MẠI", page: "listing", query: "category=CHO THUÊ SHOPHOUSE, NHÀ PHỐ THƯƠNG MẠI" },
-      { label: "CHO THUÊ LOẠI BẤT ĐỘNG SẢN KHÁC", page: "listing", query: "category=CHO THUÊ LOẠI BẤT ĐỘNG SẢN KHÁC" },
+      { label: "CHO THUÊ CĂN HỘ CHUNG CƯ", page: `danh-muc/${generateSlug("CHO THUÊ CĂN HỘ CHUNG CƯ")}` },
+      { label: "CHO THUÊ NHÀ RIÊNG", page: `danh-muc/${generateSlug("CHO THUÊ NHÀ RIÊNG")}` },
+      { label: "CHO THUÊ BIỆT THỰ, NHÀ LIỀN KỀ", page: `danh-muc/${generateSlug("CHO THUÊ BIỆT THỰ, NHÀ LIỀN KỀ")}` },
+      { label: "CHO THUÊ CỬA HÀNG, KIOT", page: `danh-muc/${generateSlug("CHO THUÊ CỬA HÀNG, KIOT")}` },
+      { label: "CHO THUÊ VĂN PHÒNG", page: `danh-muc/${generateSlug("CHO THUÊ VĂN PHÒNG")}` },
+      { label: "CHO THUÊ NHÀ TRỌ, PHÒNG TRỌ", page: `danh-muc/${generateSlug("CHO THUÊ NHÀ TRỌ, PHÒNG TRỌ")}` },
+      { label: "CHO THUÊ KHO, NHÀ XƯỞNG, ĐẤT", page: `danh-muc/${generateSlug("CHO THUÊ KHO, NHÀ XƯỞNG, ĐẤT")}` },
+      { label: "CHO THUÊ SHOPHOUSE, NHÀ PHỐ THƯƠNG MẠI", page: `danh-muc/${generateSlug("CHO THUÊ SHOPHOUSE, NHÀ PHỐ THƯƠNG MẠI")}` },
+      { label: "CHO THUÊ LOẠI BẤT ĐỘNG SẢN KHÁC", page: `danh-muc/${generateSlug("CHO THUÊ LOẠI BẤT ĐỘNG SẢN KHÁC")}` },
     ]
   },
   { 
     label: "DỰ ÁN", 
-    page: "listing?category=DỰ ÁN",
+    page: "listing?type=DỰ ÁN",
     subItems: [
-      { label: "DỰ ÁN CĂN HỘ CHUNG CƯ", page: "listing", query: "category=DỰ ÁN CĂN HỘ CHUNG CƯ" },
-      { label: "DỰ ÁN BIỆT THỰ, LIỀN KỀ", page: "listing", query: "category=DỰ ÁN BIỆT THỰ, LIỀN KỀ" },
-      { label: "DỰ ÁN ĐẤT NỀN", page: "listing", query: "category=DỰ ÁN ĐẤT NỀN" },
-      { label: "DỰ ÁN KHU ĐÔ THỊ MỚI", page: "listing", query: "category=DỰ ÁN KHU ĐÔ THỊ MỚI" },
-      { label: "DỰ ÁN KHU NGHỈ DƯỠNG", page: "listing", query: "category=DỰ ÁN KHU NGHỈ DƯỠNG" },
-      { label: "DỰ ÁN NHÀ Ở XÃ HỘI", page: "listing", query: "category=DỰ ÁN NHÀ Ở XÃ HỘI" },
-      { label: "DỰ ÁN SHOPHOUSE", page: "listing", query: "category=DỰ ÁN SHOPHOUSE" },
-      { label: "DỰ ÁN CONDOTEL", page: "listing", query: "category=DỰ ÁN CONDOTEL" },
+      { label: "DỰ ÁN CĂN HỘ CHUNG CƯ", page: `danh-muc/${generateSlug("DỰ ÁN CĂN HỘ CHUNG CƯ")}` },
+      { label: "DỰ ÁN BIỆT THỰ, LIỀN KỀ", page: `danh-muc/${generateSlug("DỰ ÁN BIỆT THỰ, LIỀN KỀ")}` },
+      { label: "DỰ ÁN ĐẤT NỀN", page: `danh-muc/${generateSlug("DỰ ÁN ĐẤT NỀN")}` },
+      { label: "DỰ ÁN KHU ĐÔ THỊ MỚI", page: `danh-muc/${generateSlug("DỰ ÁN KHU ĐÔ THỊ MỚI")}` },
+      { label: "DỰ ÁN KHU NGHỈ DƯỠNG", page: `danh-muc/${generateSlug("DỰ ÁN KHU NGHỈ DƯỠNG")}` },
+      { label: "DỰ ÁN NHÀ Ở XÃ HỘI", page: `danh-muc/${generateSlug("DỰ ÁN NHÀ Ở XÃ HỘI")}` },
+      { label: "DỰ ÁN SHOPHOUSE", page: `danh-muc/${generateSlug("DỰ ÁN SHOPHOUSE")}` },
+      { label: "DỰ ÁN CONDOTEL", page: `danh-muc/${generateSlug("DỰ ÁN CONDOTEL")}` },
     ]
   },
   { label: "TIN TỨC", page: "news" },
@@ -94,21 +95,21 @@ export function TopNavBar({ activePage, onNavigate, categories: initialCategorie
       label: "MUA BÁN NHÀ ĐẤT", 
       page: "listing",
       subItems: categories.filter(c => c.group_name === "MUA BÁN NHÀ ĐẤT").map(c => ({
-        label: c.name, page: "listing", query: `category=${c.name}`
+        label: c.name, page: `danh-muc/${generateSlug(c.name)}`
       }))
     },
     { 
       label: "CHO THUÊ NHÀ ĐẤT", 
-      page: "listing?category=CHO THUÊ NHÀ ĐẤT",
+      page: "listing?type=CHO THUÊ NHÀ ĐẤT",
       subItems: categories.filter(c => c.group_name === "CHO THUÊ NHÀ ĐẤT").map(c => ({
-        label: c.name, page: "listing", query: `category=${c.name}`
+        label: c.name, page: `danh-muc/${generateSlug(c.name)}`
       }))
     },
     { 
       label: "DỰ ÁN", 
-      page: "listing?category=DỰ ÁN",
+      page: "listing?type=DỰ ÁN",
       subItems: categories.filter(c => c.group_name === "DỰ ÁN").map(c => ({
-        label: c.name, page: "listing", query: `category=${c.name}`
+        label: c.name, page: `danh-muc/${generateSlug(c.name)}`
       }))
     },
     { label: "TIN TỨC", page: "news" },
@@ -180,8 +181,8 @@ export function TopNavBar({ activePage, onNavigate, categories: initialCategorie
                     {subItems.map((sub, idx) => (
                       <a
                         key={idx}
-                        href={`/${sub.page}?${sub.query}`}
-                        onClick={(e) => { e.preventDefault(); onNavigate?.(`${sub.page}?${sub.query}`); }}
+                        href={`/${sub.page}${sub.query ? '?' + sub.query : ''}`}
+                        onClick={(e) => { e.preventDefault(); onNavigate?.(sub.query ? `${sub.page}?${sub.query}` : sub.page); }}
                         className="block px-6 py-4 border-b border-[#E8E2D2] last:border-b-0 hover:bg-[#EAE4D3] text-earth-brown font-semibold transition-colors whitespace-nowrap"
                         style={{ fontSize: "13px", letterSpacing: "0.05em" }}
                       >
@@ -241,10 +242,10 @@ export function TopNavBar({ activePage, onNavigate, categories: initialCategorie
                       {subItems.map((sub, idx) => (
                         <a
                           key={idx}
-                          href={`/${sub.page}?${sub.query}`}
+                          href={`/${sub.page}${sub.query ? '?' + sub.query : ''}`}
                           onClick={(e) => {
                             e.preventDefault();
-                            onNavigate?.(`${sub.page}?${sub.query}`);
+                            onNavigate?.(sub.query ? `${sub.page}?${sub.query}` : sub.page);
                             setIsOpen(false);
                           }}
                           className="text-earth-brown font-medium text-sm"
