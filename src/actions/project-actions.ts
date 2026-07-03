@@ -182,6 +182,7 @@ export async function createProject(formData: FormData) {
   const description = formData.get('description');
   const type = formData.get('type');
   const category = formData.get('category');
+  const badge = formData.get('badge') || '';
   const bedrooms = formData.get('bedrooms') ? parseInt(formData.get('bedrooms') as string, 10) : 0;
   const bathrooms = formData.get('bathrooms') ? parseInt(formData.get('bathrooms') as string, 10) : 0;
   const isFeatured = formData.get('isFeatured') === 'on' || formData.get('isFeatured') === 'true';
@@ -237,8 +238,8 @@ export async function createProject(formData: FormData) {
   }
 
   const [result] = await pool.query(
-    'INSERT INTO projects (title, slug, meta_description, schema_markup, location, mainImg, sideImg, area, price, description, isFeatured, type, category, images, bedrooms, bathrooms, status, width, length, direction, frontRoad, legal, floors, hasKitchen, hasDiningRoom, hasTerrace, hasParking) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
-    [title, slug, meta_description, schema_markup, location, mainImg, sideImg, area, price, description, isFeatured, type, category, JSON.stringify(finalImages), bedrooms, bathrooms, status, width, length, direction, frontRoad, legal, floors, hasKitchen, hasDiningRoom, hasTerrace, hasParking]
+    'INSERT INTO projects (title, slug, meta_description, schema_markup, location, mainImg, sideImg, area, price, description, isFeatured, type, category, badge, images, bedrooms, bathrooms, status, width, length, direction, frontRoad, legal, floors, hasKitchen, hasDiningRoom, hasTerrace, hasParking) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
+    [title, slug, meta_description, schema_markup, location, mainImg, sideImg, area, price, description, isFeatured, type, category, badge, JSON.stringify(finalImages), bedrooms, bathrooms, status, width, length, direction, frontRoad, legal, floors, hasKitchen, hasDiningRoom, hasTerrace, hasParking]
   );
   revalidatePath('/admin');
   revalidatePath('/admin/projects');
@@ -255,6 +256,7 @@ export async function updateProject(id: number, formData: FormData) {
   const description = formData.get('description');
   const type = formData.get('type');
   const category = formData.get('category');
+  const badge = formData.get('badge') || '';
   const bedrooms = formData.get('bedrooms') ? parseInt(formData.get('bedrooms') as string, 10) : 0;
   const bathrooms = formData.get('bathrooms') ? parseInt(formData.get('bathrooms') as string, 10) : 0;
   const isFeatured = formData.get('isFeatured') === 'on' || formData.get('isFeatured') === 'true';
@@ -310,8 +312,8 @@ export async function updateProject(id: number, formData: FormData) {
   }
 
   const [result] = await pool.query(
-    'UPDATE projects SET title = ?, slug = ?, meta_description = ?, schema_markup = ?, location = ?, mainImg = ?, sideImg = ?, area = ?, price = ?, description = ?, isFeatured = ?, type = ?, category = ?, images = ?, bedrooms = ?, bathrooms = ?, status = ?, width = ?, length = ?, direction = ?, frontRoad = ?, legal = ?, floors = ?, hasKitchen = ?, hasDiningRoom = ?, hasTerrace = ?, hasParking = ? WHERE id = ?',
-    [title, slug, meta_description, schema_markup, location, mainImg, sideImg, area, price, description, isFeatured, type, category, JSON.stringify(finalImages), bedrooms, bathrooms, status, width, length, direction, frontRoad, legal, floors, hasKitchen, hasDiningRoom, hasTerrace, hasParking, id]
+    'UPDATE projects SET title = ?, slug = ?, meta_description = ?, schema_markup = ?, location = ?, mainImg = ?, sideImg = ?, area = ?, price = ?, description = ?, isFeatured = ?, type = ?, category = ?, badge = ?, images = ?, bedrooms = ?, bathrooms = ?, status = ?, width = ?, length = ?, direction = ?, frontRoad = ?, legal = ?, floors = ?, hasKitchen = ?, hasDiningRoom = ?, hasTerrace = ?, hasParking = ? WHERE id = ?',
+    [title, slug, meta_description, schema_markup, location, mainImg, sideImg, area, price, description, isFeatured, type, category, badge, JSON.stringify(finalImages), bedrooms, bathrooms, status, width, length, direction, frontRoad, legal, floors, hasKitchen, hasDiningRoom, hasTerrace, hasParking, id]
   );
   revalidatePath('/admin');
   revalidatePath('/admin/projects');
