@@ -262,7 +262,9 @@ function ShowcaseCard({ item, delay, collectionId }: { item: ShowcaseItem; delay
 
 export function SpaceShowcase({ spaces = [] }: { spaces?: any[] }) {
   const dynamicCollections = collectionsData.map(col => {
-    const dbSpaces = spaces.filter(s => s.collection === col.id.toUpperCase());
+    const dbSpaces = spaces
+      .filter(s => s.collection === col.id.toUpperCase())
+      .sort((a, b) => (a.category || "").localeCompare(b.category || ""));
     
     return {
       ...col,
