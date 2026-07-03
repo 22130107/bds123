@@ -46,6 +46,7 @@ export async function createSpace(formData: FormData) {
   const subtitle = formData.get('subtitle');
   const gridClass = formData.get('gridClass');
   const existingImages = formData.get('existingImages') as string;
+  let coverIndex = parseInt(formData.get('coverIndex') as string) || 0;
 
   let finalImages: string[] = [];
   if (existingImages) {
@@ -54,6 +55,11 @@ export async function createSpace(formData: FormData) {
 
   const newUploads = await handleUploads(formData);
   finalImages = [...finalImages, ...newUploads];
+
+  if (coverIndex > 0 && coverIndex < finalImages.length) {
+    const coverImage = finalImages.splice(coverIndex, 1)[0];
+    finalImages.unshift(coverImage);
+  }
 
   const [result] = await pool.query(
     'INSERT INTO spaces (collection, category, title, subtitle, images, gridClass) VALUES (?, ?, ?, ?, ?, ?)',
@@ -71,6 +77,7 @@ export async function updateSpace(id: number, formData: FormData) {
   const subtitle = formData.get('subtitle');
   const gridClass = formData.get('gridClass');
   const existingImages = formData.get('existingImages') as string;
+  let coverIndex = parseInt(formData.get('coverIndex') as string) || 0;
 
   let finalImages: string[] = [];
   if (existingImages) {
@@ -79,6 +86,11 @@ export async function updateSpace(id: number, formData: FormData) {
 
   const newUploads = await handleUploads(formData);
   finalImages = [...finalImages, ...newUploads];
+
+  if (coverIndex > 0 && coverIndex < finalImages.length) {
+    const coverImage = finalImages.splice(coverIndex, 1)[0];
+    finalImages.unshift(coverImage);
+  }
 
   const [result] = await pool.query(
     'UPDATE spaces SET collection = ?, category = ?, title = ?, subtitle = ?, images = ?, gridClass = ? WHERE id = ?',

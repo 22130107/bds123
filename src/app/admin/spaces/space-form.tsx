@@ -7,6 +7,7 @@ export default function SpaceForm({ initialData }: { initialData?: any }) {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
   const [previewImages, setPreviewImages] = useState<string[]>(initialData?.images || []);
+  const [coverIndex, setCoverIndex] = useState(0);
 
   const initialImagesStr = initialData?.images
     ? (Array.isArray(initialData.images) ? initialData.images.join('\n') : initialData.images)
@@ -44,12 +45,17 @@ export default function SpaceForm({ initialData }: { initialData?: any }) {
     e.target.value = '';
   };
 
-  const removeImage = (item: { type: string, src: string, index: number }) => {
+  const removeImage = (item: { type: string, src: string, index: number }, globalIndex: number) => {
     if (item.type === 'url') {
       const newUrls = parsedTextUrls.filter((_, i) => i !== item.index);
       setFormData(prev => ({ ...prev, images: newUrls.join('\n') }));
     } else {
       setNewFiles(prev => prev.filter((_, i) => i !== item.index));
+    }
+    if (globalIndex === coverIndex) {
+      setCoverIndex(0);
+    } else if (globalIndex < coverIndex) {
+      setCoverIndex(prev => prev - 1);
     }
   };
 
@@ -71,6 +77,7 @@ export default function SpaceForm({ initialData }: { initialData?: any }) {
 
       // Append text URL existing images
       data.append('existingImages', JSON.stringify(parsedTextUrls));
+      data.append('coverIndex', coverIndex.toString());
 
       if (initialData?.id) {
         await updateSpace(initialData.id, data);
@@ -140,14 +147,26 @@ export default function SpaceForm({ initialData }: { initialData?: any }) {
                   {/* Delete Button */}
                   <button
                     type="button"
-                    onClick={() => removeImage(item)}
-                    className="absolute top-1 right-1 bg-red-600/90 hover:bg-red-700 text-white p-1 rounded-full opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center shadow-sm"
+                    onClick={() => removeImage(item, i)}
+                    className="absolute top-1 right-1 bg-red-600/90 hover:bg-red-700 text-white p-1 rounded-full opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center shadow-sm z-10"
+                    title="Xóa ảnh"
                   >
                     <span className="material-symbols-outlined" style={{fontSize: "14px", fontWeight: "bold"}}>close</span>
                   </button>
 
-                  <div className="absolute top-1 left-1 bg-black/70 text-white text-[10px] px-1.5 py-0.5 rounded font-bold tracking-widest">
-                    {i === 0 ? "MAIN" : `IMG ${i}`}
+                  {/* Set Cover Button */}
+                  {i !== coverIndex && (
+                    <button
+                      type="button"
+                      onClick={() => setCoverIndex(i)}
+                      className="absolute bottom-1 right-1 bg-black/60 hover:bg-black text-white text-[10px] px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity z-10"
+                    >
+                      Đặt làm bìa
+                    </button>
+                  )}
+
+                  <div className={`absolute top-1 left-1 text-white text-[10px] px-1.5 py-0.5 rounded font-bold tracking-widest z-10 ${i === coverIndex ? 'bg-earth-brown' : 'bg-black/70'}`}>
+                    {i === coverIndex ? "ẢNH BÌA" : `IMG ${i + 1}`}
                   </div>
                 </div>
               ))}
