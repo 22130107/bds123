@@ -461,7 +461,7 @@ function SpacesGalleryContent({ dbSpaces }: { dbSpaces: any[] }) {
                           {img.categoryName}
                         </span>
                         <h3 className="font-display-lg text-earth-brown font-bold uppercase text-base sm:text-lg tracking-wide mt-1.5 group-hover:text-antique-gold transition-colors duration-300">
-                          {img.title}
+                          Mẫu {idx + 1}
                         </h3>
                         <div className="w-6 h-[1.5px] bg-antique-gold/40 mt-3 group-hover:w-14 transition-all duration-500" />
                       </div>
@@ -524,7 +524,7 @@ function SpacesGalleryContent({ dbSpaces }: { dbSpaces: any[] }) {
                 {galleryImages[lightboxIndex].categoryName}
               </span>
               <h3 className="font-display-md text-white font-bold text-xl md:text-2xl mt-1 leading-snug">
-                {galleryImages[lightboxIndex].title}
+                Mẫu {lightboxIndex + 1}
               </h3>
               {/* Pagination index indicator */}
               <div className="text-white/50 text-[10px] tracking-widest uppercase font-bold mt-3 font-label-caps">
