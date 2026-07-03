@@ -53,7 +53,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
           </div>
         </header>
 
-        <div className="p-8">
+        <div className="p-8 pb-24">
           {children}
         </div>
       </main>

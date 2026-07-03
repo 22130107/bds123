@@ -161,10 +161,7 @@ export default async function ProjectsAdminPage(props: {
         </table>
         
         {projectsResult.totalPages > 1 && (
-          <div className="p-4 border-t border-gray-100 flex items-center justify-between bg-gray-50/30">
-            <span className="text-sm text-gray-500">
-              Hiển thị trang <span className="font-medium text-gray-900">{projectsResult.page}</span> / <span className="font-medium text-gray-900">{projectsResult.totalPages}</span> (Tổng {projectsResult.total} dự án)
-            </span>
+          <div className="p-4 border-t border-gray-100 flex items-center justify-start gap-6 bg-gray-50/30">
             <div className="flex gap-1">
               {Array.from({ length: projectsResult.totalPages }).map((_, i) => {
                 const p = i + 1;
@@ -183,6 +180,9 @@ export default async function ProjectsAdminPage(props: {
                 )
               })}
             </div>
+            <span className="text-sm text-gray-500">
+              Hiển thị trang <span className="font-medium text-gray-900">{projectsResult.page}</span> / <span className="font-medium text-gray-900">{projectsResult.totalPages}</span> (Tổng {projectsResult.total} dự án)
+            </span>
           </div>
         )}
       </div>

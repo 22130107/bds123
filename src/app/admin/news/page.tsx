@@ -146,10 +146,7 @@ export default async function NewsAdminPage(props: {
         </table>
 
         {newsResult.totalPages > 1 && (
-          <div className="p-4 border-t border-gray-100 flex items-center justify-between bg-gray-50/30">
-            <span className="text-sm text-gray-500">
-              Hiển thị trang <span className="font-medium text-gray-900">{newsResult.page}</span> / <span className="font-medium text-gray-900">{newsResult.totalPages}</span> (Tổng {newsResult.total} bài viết)
-            </span>
+          <div className="p-4 border-t border-gray-100 flex items-center justify-start gap-6 bg-gray-50/30">
             <div className="flex gap-1">
               {Array.from({ length: newsResult.totalPages }).map((_, i) => {
                 const p = i + 1;
@@ -168,6 +165,9 @@ export default async function NewsAdminPage(props: {
                 )
               })}
             </div>
+            <span className="text-sm text-gray-500">
+              Hiển thị trang <span className="font-medium text-gray-900">{newsResult.page}</span> / <span className="font-medium text-gray-900">{newsResult.totalPages}</span> (Tổng {newsResult.total} bài viết)
+            </span>
           </div>
         )}
       </div>

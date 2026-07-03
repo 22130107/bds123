@@ -6,6 +6,7 @@ import { updateAgentInfo } from "../../../actions/settings-actions";
 export function ContactSettingsForm({ initialData }: { initialData: any }) {
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("");
+  const [avatarUrl, setAvatarUrl] = useState(initialData.avatar || "");
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -78,24 +79,36 @@ export function ContactSettingsForm({ initialData }: { initialData: any }) {
         </div>
 
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">Ảnh đại diện (Avatar)</label>
-          <div className="space-y-3">
-            <input
-              type="file"
-              name="avatarFile"
-              accept="image/*"
-              className="w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-earth-brown/10 file:text-earth-brown hover:file:bg-earth-brown/20"
-            />
-            <div className="flex items-center gap-2 text-sm text-gray-500">
-              <span>Hoặc nhập URL ảnh:</span>
+          <label className="block text-sm font-medium text-gray-700 mb-2">Ảnh đại diện (Avatar)</label>
+          <div className="flex items-start gap-6">
+            <div className="shrink-0">
+              {avatarUrl ? (
+                <img src={avatarUrl} alt="Avatar" className="w-20 h-20 rounded-full object-cover border border-gray-200 shadow-sm" />
+              ) : (
+                <div className="w-20 h-20 rounded-full bg-gray-100 flex items-center justify-center text-gray-400 border border-gray-200 shadow-sm">
+                  <span className="material-symbols-outlined text-3xl">person</span>
+                </div>
+              )}
             </div>
-            <input
-              type="text"
-              name="avatar"
-              defaultValue={initialData.avatar || ""}
-              placeholder="https://..."
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-earth-brown focus:border-transparent outline-none"
-            />
+            <div className="space-y-3 flex-1">
+              <input
+                type="file"
+                name="avatarFile"
+                accept="image/*"
+                className="w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-earth-brown/10 file:text-earth-brown hover:file:bg-earth-brown/20"
+              />
+              <div className="flex items-center gap-2 text-sm text-gray-500">
+                <span>Hoặc nhập URL ảnh:</span>
+              </div>
+              <input
+                type="text"
+                name="avatar"
+                value={avatarUrl}
+                onChange={(e) => setAvatarUrl(e.target.value)}
+                placeholder="https://..."
+                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-earth-brown focus:border-transparent outline-none"
+              />
+            </div>
           </div>
         </div>
 
