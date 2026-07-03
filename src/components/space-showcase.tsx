@@ -209,9 +209,10 @@ function ShowcaseCard({ item, delay, collectionId }: { item: ShowcaseItem; delay
           <img
             key={idx}
             src={imgSrc}
+            loading="lazy"
             alt={`${item.title} view ${idx + 1}`}
-            className={`absolute inset-0 w-full h-full object-cover transition-all duration-1000 ease-in-out ${
-              idx === currentIndex ? "opacity-100 z-10" : "opacity-0 z-0"
+            className={`absolute inset-0 w-full h-full object-cover transition-[opacity,transform] duration-1000 ease-in-out transform-gpu will-change-[transform,opacity] ${
+              idx === currentIndex ? "opacity-100" : "opacity-0"
             } ${isHovered ? "scale-105" : "scale-100"}`}
           />
         ))}

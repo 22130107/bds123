@@ -437,22 +437,17 @@ function SpacesGalleryContent({ dbSpaces }: { dbSpaces: any[] }) {
                     <div
                       key={idx}
                       onClick={() => setLightboxIndex(idx)}
-                      className="flex-shrink-0 snap-center w-[85vw] sm:w-[500px] md:w-[580px] lg:w-[640px] flex flex-col group cursor-pointer"
+                      className="flex-shrink-0 snap-center w-[85vw] sm:w-[500px] md:w-[580px] lg:w-[640px] flex flex-col cursor-pointer transform-gpu will-change-transform"
                     >
                       {/* Clean Image Card (No Overlays, No Gradients) */}
-                      <div className="relative overflow-hidden border border-outline-variant/35 shadow-[0_20px_50px_rgba(0,0,0,0.12)] aspect-[3/2] w-full bg-surface-container-lowest transition-all duration-[800ms] hover:shadow-[0_35px_70px_rgba(0,0,0,0.2)] hover:-translate-y-1">
+                      <div className="relative overflow-hidden border border-outline-variant/35 shadow-[0_20px_50px_rgba(0,0,0,0.12)] aspect-[3/2] w-full bg-surface-container-lowest">
                         <img
                           src={img.src}
                           alt={img.title}
-                          className="w-full h-full object-cover transition-transform duration-[3000ms] group-hover:scale-105"
+                          className="w-full h-full object-cover"
                           loading="lazy"
+                          decoding="async"
                         />
-                        {/* Zoom Indicator on Hover */}
-                        <div className="absolute top-4 right-4 z-20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-black/40 p-2 rounded-full flex items-center justify-center">
-                          <span className="material-symbols-outlined text-white text-lg">
-                            zoom_in
-                          </span>
-                        </div>
                       </div>
 
                       {/* Clean Details below the card (Subtitle/Description removed) */}
@@ -460,10 +455,10 @@ function SpacesGalleryContent({ dbSpaces }: { dbSpaces: any[] }) {
                         <span className="font-label-caps text-[9px] tracking-[0.25em] font-bold text-antique-gold uppercase">
                           {img.categoryName}
                         </span>
-                        <h3 className="font-display-lg text-earth-brown font-bold uppercase text-base sm:text-lg tracking-wide mt-1.5 group-hover:text-antique-gold transition-colors duration-300">
+                        <h3 className="font-display-lg text-earth-brown font-bold uppercase text-base sm:text-lg tracking-wide mt-1.5">
                           Mẫu {idx + 1}
                         </h3>
-                        <div className="w-6 h-[1.5px] bg-antique-gold/40 mt-3 group-hover:w-14 transition-all duration-500" />
+                        <div className="w-6 h-[1.5px] bg-antique-gold/40 mt-3" />
                       </div>
                     </div>
                   ))}
