@@ -1,6 +1,16 @@
 import { ListingPage } from "../../components/pages/listing-page";
 import { getProjects } from "../../actions/project-actions";
 
+const removeAccents = (str: string) => {
+  if (!str) return "";
+  return str
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/đ/g, "d")
+    .replace(/Đ/g, "D")
+    .toLowerCase();
+};
+
 export default async function Page({ searchParams }: { searchParams: Promise<{ [key: string]: string | string[] | undefined }> }) {
   const resolvedParams = await searchParams;
   const categoryFilter = resolvedParams.category as string | undefined;
@@ -28,12 +38,17 @@ export default async function Page({ searchParams }: { searchParams: Promise<{ [
   const area = resolvedParams.area as string | undefined;
 
   if (keyword) {
-    const kw = keyword.toLowerCase();
-    filteredProjects = filteredProjects.filter(p => 
-      p.title?.toLowerCase().includes(kw) || 
-      p.location?.toLowerCase().includes(kw) || 
-      p.description?.toLowerCase().includes(kw)
-    );
+    const normalizedSearch = removeAccents(keyword.trim());
+    const searchTerms = normalizedSearch.split(/\s+/);
+    
+    filteredProjects = filteredProjects.filter(p => {
+      const normalizedTitle = removeAccents(p.title || "");
+      const normalizedLocation = removeAccents(p.location || "");
+      const normalizedDescription = removeAccents(p.description || "");
+      const combinedText = `${normalizedTitle} ${normalizedLocation} ${normalizedDescription}`;
+      
+      return searchTerms.every(term => combinedText.includes(term));
+    });
   }
 
   if (location && !location.startsWith("Tất cả")) {
