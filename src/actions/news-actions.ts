@@ -6,6 +6,7 @@ import { writeFile, mkdir } from "fs/promises";
 import { join } from "path";
 import { existsSync } from "fs";
 import { generateSlug } from "../lib/slugify";
+import sharp from "sharp";
 
 export async function getNews(status?: string) {
   let query = 'SELECT * FROM news';
@@ -119,10 +120,14 @@ async function handleUploads(formData: FormData): Promise<string[]> {
     if (file && file.size > 0 && file.name) {
       const bytes = await file.arrayBuffer();
       const buffer = Buffer.from(bytes);
-      const safeName = file.name.replace(/\s+/g, '-');
-      const filename = `${Date.now()}-${safeName}`;
+      const safeName = file.name.replace(/\.[^/.]+$/, "").replace(/\s+/g, '-');
+      const filename = `${Date.now()}-${safeName}.webp`;
       const filepath = join(uploadDir, filename);
-      await writeFile(filepath, buffer);
+      
+      await sharp(buffer)
+        .webp({ quality: 80, lossless: false })
+        .toFile(filepath);
+        
       uploadedPaths.push(`/api/uploads/${filename}`);
     }
   }

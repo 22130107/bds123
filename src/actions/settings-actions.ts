@@ -5,6 +5,7 @@ import { revalidatePath } from "next/cache";
 import { writeFile, mkdir } from "fs/promises";
 import { join } from "path";
 import { existsSync } from "fs";
+import sharp from "sharp";
 
 export async function getAgentInfo() {
   try {
@@ -32,10 +33,13 @@ async function handleUpload(file: File | null): Promise<string | null> {
 
   const bytes = await file.arrayBuffer();
   const buffer = Buffer.from(bytes);
-  const safeName = file.name.replace(/\s+/g, '-');
-  const filename = `${Date.now()}-${safeName}`;
+  const safeName = file.name.replace(/\.[^/.]+$/, "").replace(/\s+/g, '-');
+  const filename = `${Date.now()}-${safeName}.webp`;
   const filepath = join(uploadDir, filename);
-  await writeFile(filepath, buffer);
+  
+  await sharp(buffer)
+    .webp({ quality: 80, lossless: false })
+    .toFile(filepath);
   
   return `/api/uploads/${filename}`;
 }
