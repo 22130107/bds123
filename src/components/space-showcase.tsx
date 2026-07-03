@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import { generateSlug } from "../lib/slugify";
 
 interface ShowcaseItem {
   id: string;
@@ -196,7 +197,7 @@ function ShowcaseCard({ item, delay, collectionId }: { item: ShowcaseItem; delay
 
   return (
     <Link
-      href={`/spaces?collection=${collectionId}&category=${encodeURIComponent(item.category.split("/")[1]?.trim() || item.category)}`}
+      href={`/spaces?collection=${collectionId}&category=${generateSlug(item.category.split("/")[1]?.trim() || item.category)}`}
       className={`relative overflow-hidden group cursor-pointer border border-outline-variant/20 shadow-sm ${item.gridClass} animate-slide-up block`}
       style={{ animationDelay: delay, opacity: 0 }}
       onMouseEnter={() => setIsHovered(true)}

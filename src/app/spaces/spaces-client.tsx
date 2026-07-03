@@ -6,6 +6,7 @@ import { TopNavBar } from "../../components/top-nav-bar";
 import { Footer } from "../../components/footer";
 import { CTASection } from "../../components/cta-section";
 import Link from "next/link";
+import { generateSlug } from "../../lib/slugify";
 
 interface ShowcaseItem {
   id: string;
@@ -241,7 +242,7 @@ function SpacesGalleryContent({ dbSpaces }: { dbSpaces: any[] }) {
     }
     if (catParam) {
       const matchedCat = CATEGORIES.find(
-        (c) => c.toLowerCase() === catParam.toLowerCase()
+        (c) => generateSlug(c) === catParam.toLowerCase()
       );
       if (matchedCat) {
         setActiveCategory(matchedCat);
