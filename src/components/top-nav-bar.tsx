@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { motion, useScroll, useMotionValueEvent } from "motion/react";
 import logoIcon from "../assets/logo_icon.png";
+import { usePathname } from "next/navigation";
 import { getCategories } from "../actions/category-actions";
 import { generateSlug } from "../lib/slugify";
 
@@ -73,6 +74,7 @@ export function TopNavBar({ activePage, onNavigate, categories: initialCategorie
   const [categories, setCategories] = useState<any[]>(initialCategories);
   const [hidden, setHidden] = useState(false);
   const { scrollY } = useScroll();
+  const pathname = usePathname();
 
   useMotionValueEvent(scrollY, "change", (latest) => {
     const previous = scrollY.getPrevious() ?? 0;
@@ -156,10 +158,14 @@ export function TopNavBar({ activePage, onNavigate, categories: initialCategorie
           {dynamicNavItems.map(({ label, page, subItems }) => {
             const isActive =
               (activePage === "home" && page === "home" && label === "TRANG CHỦ") ||
-              ((activePage === "danh-muc" || activePage === "detail") && label === "MUA BÁN NHÀ ĐẤT") ||
               (activePage === "projects" && label === "DỰ ÁN") ||
               (activePage === "news" && label === "TIN TỨC") ||
-              (activePage === "contact" && label === "LIÊN HỆ");
+              (activePage === "contact" && label === "LIÊN HỆ") ||
+              ((activePage === "danh-muc" || activePage === "detail") && (
+                (label === "CHO THUÊ NHÀ ĐẤT" && pathname?.includes("cho-thue")) ||
+                (label === "DỰ ÁN" && pathname?.includes("du-an")) ||
+                (label === "MUA BÁN NHÀ ĐẤT" && !pathname?.includes("cho-thue") && !pathname?.includes("du-an"))
+              ));
             return (
               <div key={label} className="relative group h-full flex items-center">
                 <a
@@ -215,10 +221,14 @@ export function TopNavBar({ activePage, onNavigate, categories: initialCategorie
             {dynamicNavItems.map(({ label, page, subItems }) => {
               const isActive =
                 (activePage === "home" && page === "home" && label === "TRANG CHỦ") ||
-                ((activePage === "danh-muc" || activePage === "detail") && label === "MUA BÁN NHÀ ĐẤT") ||
                 (activePage === "projects" && label === "DỰ ÁN") ||
                 (activePage === "news" && label === "TIN TỨC") ||
-                (activePage === "contact" && label === "LIÊN HỆ");
+                (activePage === "contact" && label === "LIÊN HỆ") ||
+                ((activePage === "danh-muc" || activePage === "detail") && (
+                  (label === "CHO THUÊ NHÀ ĐẤT" && pathname?.includes("cho-thue")) ||
+                  (label === "DỰ ÁN" && pathname?.includes("du-an")) ||
+                  (label === "MUA BÁN NHÀ ĐẤT" && !pathname?.includes("cho-thue") && !pathname?.includes("du-an"))
+                ));
               return (
                 <div key={label} className="flex flex-col">
                   <a
