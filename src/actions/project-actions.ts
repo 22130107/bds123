@@ -335,3 +335,58 @@ export async function deleteProject(id: number) {
   revalidatePath('/');
   return { success: true };
 }
+
+function parsePrice(priceStr: string | null | undefined): number {
+  if (!priceStr) return 0;
+  const lower = priceStr.toLowerCase();
+  let numStr = priceStr.replace(/,/g, '.').replace(/[^\d.]/g, '');
+  let num = parseFloat(numStr);
+  if (isNaN(num)) return 0;
+  if (lower.includes('tỷ')) return num * 1000000000;
+  if (lower.includes('triệu')) return num * 1000000;
+  return num;
+}
+
+export async function getRelatedProjectsForDetail(project: any) {
+  const [rows] = await pool.query("SELECT * FROM projects WHERE status = 'published' AND id != ?", [project.id]);
+  const allProjects = rows as any[];
+  const usedIds = new Set<number>();
+
+  const currentPrice = parsePrice(project.price);
+  
+  // Helpers
+  const shuffle = (array: any[]) => array.sort(() => 0.5 - Math.random());
+  
+  // 1. Same price (+- 500 million), different location
+  const priceRange = 500000000;
+  const samePriceDiffLocation = allProjects.filter(p => {
+    // We consider "different location" strictly as different string for now, or just extract the city
+    const getCity = (loc: string) => loc ? loc.split(',').pop()?.trim() : "";
+    const pCity = getCity(p.location);
+    const cCity = getCity(project.location);
+    
+    if (pCity === cCity && pCity !== "") return false;
+    if (currentPrice === 0) return false;
+    
+    const pPrice = parsePrice(p.price);
+    return pPrice > 0 && Math.abs(pPrice - currentPrice) <= priceRange;
+  });
+  
+  const row1 = shuffle(samePriceDiffLocation).slice(0, 4);
+  row1.forEach(p => usedIds.add(p.id));
+
+  // 2. Same location, not in usedIds
+  const sameLocation = allProjects.filter(p => {
+    const getCity = (loc: string) => loc ? loc.split(',').pop()?.trim() : "";
+    return getCity(p.location) === getCity(project.location) && !usedIds.has(p.id);
+  });
+  const row2 = shuffle(sameLocation).slice(0, 4);
+  row2.forEach(p => usedIds.add(p.id));
+
+  // 3. Most viewed, not in usedIds
+  const remaining = allProjects.filter(p => !usedIds.has(p.id));
+  const row3 = remaining.sort((a, b) => (b.views || 0) - (a.views || 0)).slice(0, 4);
+
+  return { row1, row2, row3 };
+}
+

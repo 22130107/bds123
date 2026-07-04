@@ -1,4 +1,4 @@
-import { getProjectBySlug, incrementViews } from "../../../actions/project-actions";
+import { getProjectBySlug, incrementViews, getRelatedProjectsForDetail } from "../../../actions/project-actions";
 import { getAgentInfo } from "../../../actions/settings-actions";
 import { DetailPage } from "../../../components/pages/detail-page";
 import { notFound } from "next/navigation";
@@ -56,6 +56,8 @@ export default async function Page({ params }: Props) {
 
   await incrementViews(project.id);
 
+  const relatedProjects = await getRelatedProjectsForDetail(project);
+
   return (
     <>
       {/* Raw HTML/Script injection */}
@@ -66,7 +68,7 @@ export default async function Page({ params }: Props) {
           dangerouslySetInnerHTML={{ __html: project.schema_markup }}
         />
       )}
-      <DetailPage project={project} agentInfo={agentInfo} />
+      <DetailPage project={project} agentInfo={agentInfo} relatedProjects={relatedProjects} />
     </>
   );
 }

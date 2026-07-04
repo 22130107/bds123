@@ -6,6 +6,7 @@ import { TechnicalSpecs } from "../technical-specs";
 import { AgentCard } from "../agent-card";
 import { ConsultationForm } from "../consultation-form";
 import { Footer } from "../footer";
+import Link from "next/link";
 
 import { useRouter } from "next/navigation";
 
@@ -35,7 +36,46 @@ const convertYoutubeLinksToEmbeds = (html: string): string => {
 interface DetailPageProps {
   project: any;
   agentInfo: any;
+  relatedProjects?: {
+    row1: any[];
+    row2: any[];
+    row3: any[];
+  };
 }
+
+const RelatedProjectsRow = ({ title, projects }: { title: string, projects: any[] }) => {
+  if (!projects || projects.length === 0) return null;
+  return (
+    <div className="max-w-[1280px] mx-auto px-5 md:px-[80px] pb-12">
+      <div className="flex items-center gap-4 mb-8">
+        <div className="w-1 h-8 bg-antique-gold rounded-full"></div>
+        <h3 className="text-xl md:text-2xl font-bold text-earth-brown font-headline-md uppercase tracking-[0.1em]">{title}</h3>
+        <div className="flex-1 h-[1px] bg-gradient-to-r from-antique-gold/50 to-transparent"></div>
+      </div>
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        {projects.map((p) => (
+          <Link key={p.id} href={`/detail/${p.slug || p.id}`} className="group block bg-white border border-outline-variant/30 shadow-sm hover:shadow-lg transition-all overflow-hidden flex flex-col h-full">
+            <div className="aspect-[4/3] overflow-hidden relative">
+              <img src={p.mainImg || "https://images.unsplash.com/photo-1613490908578-8120c16b5a32?w=800"} alt={p.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
+              {p.price && (
+                <div className="absolute bottom-0 left-0 bg-antique-gold text-white font-bold px-3 py-1 text-sm">
+                  {p.price}
+                </div>
+              )}
+            </div>
+            <div className="p-4 flex flex-col flex-grow">
+              <h4 className="font-bold text-earth-brown line-clamp-2 mb-2 group-hover:text-antique-gold transition-colors">{p.title}</h4>
+              <p className="text-sm text-on-surface-variant line-clamp-1 mt-auto flex items-center gap-1">
+                <span className="material-symbols-outlined text-[14px]">location_on</span>
+                {p.location ? p.location.split(',').pop()?.trim() : "Đang cập nhật"}
+              </p>
+            </div>
+          </Link>
+        ))}
+      </div>
+    </div>
+  );
+};
 
 const villaImages = [
   {
@@ -64,7 +104,7 @@ const villaSpecs = [
   { icon: "description", label: "Giấy tờ pháp lý", value: "Sổ đỏ" },
 ];
 
-export function DetailPage({ project, agentInfo }: DetailPageProps) {
+export function DetailPage({ project, agentInfo, relatedProjects }: DetailPageProps) {
   const router = useRouter();
 
   const handleNavigate = (page: string) => {
@@ -195,6 +235,15 @@ export function DetailPage({ project, agentInfo }: DetailPageProps) {
           </span>
         </div>
       </main>
+
+      {/* Related Projects */}
+      {relatedProjects && (
+        <div className="bg-surface-container-low pt-12">
+          <RelatedProjectsRow title="Gợi ý cùng tầm giá" projects={relatedProjects.row1} />
+          <RelatedProjectsRow title="Dự án cùng khu vực" projects={relatedProjects.row2} />
+          <RelatedProjectsRow title="Được quan tâm nhiều nhất" projects={relatedProjects.row3} />
+        </div>
+      )}
 
       <Footer />
     </div>
