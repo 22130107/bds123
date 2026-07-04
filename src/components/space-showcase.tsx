@@ -186,6 +186,9 @@ function ShowcaseCard({ item, delay, collectionId }: { item: ShowcaseItem; delay
   useEffect(() => {
     let interval: NodeJS.Timeout;
     if (isHovered) {
+      if (item.images.length > 1) {
+        setCurrentIndex(1);
+      }
       interval = setInterval(() => {
         setCurrentIndex((prev) => (prev + 1) % item.images.length);
       }, 1500); // Lướt ảnh mỗi 1.5 giây
