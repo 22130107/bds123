@@ -11,11 +11,14 @@ export default async function DanhMucPage({ params, searchParams }: { params: Pr
   const categories = await getCategories();
   const matchedCategory = categories.find(c => generateSlug(c.name) === slug);
   
-  if (!matchedCategory) {
+  const groupNames = ["MUA BÁN NHÀ ĐẤT", "CHO THUÊ NHÀ ĐẤT", "DỰ ÁN"];
+  const matchedGroup = groupNames.find(g => generateSlug(g) === slug);
+  
+  if (!matchedCategory && !matchedGroup) {
     notFound();
   }
 
-  const categoryFilter = matchedCategory.name;
+  const categoryFilter = matchedCategory ? matchedCategory.name : (matchedGroup as string);
   
   const projects = await getProjects({ status: 'published' });
   let filteredProjects = projects;
@@ -25,6 +28,8 @@ export default async function DanhMucPage({ params, searchParams }: { params: Pr
     filteredProjects = filteredProjects.filter(p => p.category?.includes("CHO THUÊ"));
   } else if (categoryFilter === "DỰ ÁN") {
     filteredProjects = filteredProjects.filter(p => p.category?.includes("DỰ ÁN"));
+  } else if (categoryFilter === "MUA BÁN NHÀ ĐẤT") {
+    filteredProjects = filteredProjects.filter(p => !p.category?.includes("CHO THUÊ") && !p.category?.includes("DỰ ÁN"));
   } else {
     filteredProjects = filteredProjects.filter(p => p.category === categoryFilter);
   }

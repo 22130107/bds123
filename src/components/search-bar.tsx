@@ -13,25 +13,37 @@ export interface SearchFilters {
 }
 
 import { useState, useEffect } from "react";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams, usePathname } from "next/navigation";
 import { getTopLocations } from "../actions/project-actions";
 
 export function SearchBar({ onSearch }: SearchBarProps) {
   const router = useRouter();
   const searchParams = useSearchParams();
+  const pathname = usePathname();
+
+  const getTypeFromPathname = () => {
+    if (pathname === "/danh-muc/mua-ban-nha-dat") return "MUA BÁN NHÀ ĐẤT";
+    if (pathname === "/danh-muc/cho-thue-nha-dat") return "CHO THUÊ NHÀ ĐẤT";
+    if (pathname === "/danh-muc/du-an") return "DỰ ÁN";
+    return searchParams.get("type") || "Tất cả loại hình";
+  };
 
   const [showLocSuggestions, setShowLocSuggestions] = useState(false);
 
   const [filters, setFilters] = useState<SearchFilters>({
     keyword: searchParams.get("keyword") || "",
     location: searchParams.get("location") || "Tất cả địa điểm",
-    type: searchParams.get("type") || "Tất cả loại hình",
+    type: getTypeFromPathname(),
     price: searchParams.get("price") || "Tất cả mức giá",
     area: searchParams.get("area") || "Tất cả diện tích",
   });
 
   const categories = ["MUA BÁN NHÀ ĐẤT", "CHO THUÊ NHÀ ĐẤT", "DỰ ÁN"];
   const [dbLocations, setDbLocations] = useState<string[]>(["Hà Nội", "TP. Hồ Chí Minh", "Đà Nẵng"]);
+
+  useEffect(() => {
+    setFilters(prev => ({ ...prev, type: getTypeFromPathname() }));
+  }, [pathname, searchParams]);
 
   useEffect(() => {
     getTopLocations(20).then((data) => {
@@ -43,14 +55,38 @@ export function SearchBar({ onSearch }: SearchBarProps) {
 
   const applyFilters = (newFilters: SearchFilters) => {
     const params = new URLSearchParams(searchParams.toString());
+    let basePath = pathname || "/listing";
+    
+    if (newFilters.type === "MUA BÁN NHÀ ĐẤT") {
+      basePath = "/danh-muc/mua-ban-nha-dat";
+    } else if (newFilters.type === "CHO THUÊ NHÀ ĐẤT") {
+      basePath = "/danh-muc/cho-thue-nha-dat";
+    } else if (newFilters.type === "DỰ ÁN") {
+      basePath = "/danh-muc/du-an";
+    } else if (newFilters.type === "Tất cả loại hình") {
+      if (["/danh-muc/mua-ban-nha-dat", "/danh-muc/cho-thue-nha-dat", "/danh-muc/du-an"].includes(pathname)) {
+        basePath = "/listing";
+      }
+    }
+
     Object.entries(newFilters).forEach(([key, value]) => {
-      if (value && !value.startsWith("Tất cả") && value !== "") {
-        params.set(key, value);
+      if (key === "type") {
+        if (value && !value.startsWith("Tất cả") && value !== "" && basePath === "/listing") {
+          params.set(key, value);
+        } else {
+          params.delete(key);
+        }
       } else {
-        params.delete(key);
+        if (value && !value.startsWith("Tất cả") && value !== "") {
+          params.set(key, value);
+        } else {
+          params.delete(key);
+        }
       }
     });
-    router.push(`/listing?${params.toString()}`);
+    
+    const qs = params.toString();
+    router.push(qs ? `${basePath}?${qs}` : basePath);
   };
 
   const handleChange = (field: keyof SearchFilters, value: string) => {

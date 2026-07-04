@@ -16,7 +16,7 @@ const navItems: NavItem[] = [
   { label: "TRANG CHỦ", page: "home" },
   { 
     label: "MUA BÁN NHÀ ĐẤT", 
-    page: "listing",
+    page: "danh-muc/mua-ban-nha-dat",
     subItems: [
       { label: "BÁN CĂN HỘ CHUNG CƯ", page: `danh-muc/${generateSlug("BÁN CĂN HỘ CHUNG CƯ")}` },
       { label: "BÁN NHÀ RIÊNG", page: `danh-muc/${generateSlug("BÁN NHÀ RIÊNG")}` },
@@ -31,7 +31,7 @@ const navItems: NavItem[] = [
   },
   { 
     label: "CHO THUÊ NHÀ ĐẤT", 
-    page: "listing?type=CHO THUÊ NHÀ ĐẤT",
+    page: "danh-muc/cho-thue-nha-dat",
     subItems: [
       { label: "CHO THUÊ CĂN HỘ CHUNG CƯ", page: `danh-muc/${generateSlug("CHO THUÊ CĂN HỘ CHUNG CƯ")}` },
       { label: "CHO THUÊ NHÀ RIÊNG", page: `danh-muc/${generateSlug("CHO THUÊ NHÀ RIÊNG")}` },
@@ -46,7 +46,7 @@ const navItems: NavItem[] = [
   },
   { 
     label: "DỰ ÁN", 
-    page: "listing?type=DỰ ÁN",
+    page: "danh-muc/du-an",
     subItems: [
       { label: "DỰ ÁN CĂN HỘ CHUNG CƯ", page: `danh-muc/${generateSlug("DỰ ÁN CĂN HỘ CHUNG CƯ")}` },
       { label: "DỰ ÁN BIỆT THỰ, LIỀN KỀ", page: `danh-muc/${generateSlug("DỰ ÁN BIỆT THỰ, LIỀN KỀ")}` },
@@ -93,21 +93,21 @@ export function TopNavBar({ activePage, onNavigate, categories: initialCategorie
     { label: "TRANG CHỦ", page: "home" },
     { 
       label: "MUA BÁN NHÀ ĐẤT", 
-      page: "listing",
+      page: "danh-muc/mua-ban-nha-dat",
       subItems: categories.filter(c => c.group_name === "MUA BÁN NHÀ ĐẤT").map(c => ({
         label: c.name, page: `danh-muc/${generateSlug(c.name)}`
       }))
     },
     { 
       label: "CHO THUÊ NHÀ ĐẤT", 
-      page: "listing?type=CHO THUÊ NHÀ ĐẤT",
+      page: "danh-muc/cho-thue-nha-dat",
       subItems: categories.filter(c => c.group_name === "CHO THUÊ NHÀ ĐẤT").map(c => ({
         label: c.name, page: `danh-muc/${generateSlug(c.name)}`
       }))
     },
     { 
       label: "DỰ ÁN", 
-      page: "listing?type=DỰ ÁN",
+      page: "danh-muc/du-an",
       subItems: categories.filter(c => c.group_name === "DỰ ÁN").map(c => ({
         label: c.name, page: `danh-muc/${generateSlug(c.name)}`
       }))

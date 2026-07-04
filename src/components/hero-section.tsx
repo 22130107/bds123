@@ -37,17 +37,23 @@ export function HeroSection({ onNavigate }: HeroSectionProps) {
 
   const handleSearch = () => {
     const params = new URLSearchParams();
-    
-    if (activeTab === "buy") params.set("type", "MUA BÁN NHÀ ĐẤT");
-    else if (activeTab === "rent") params.set("type", "CHO THUÊ NHÀ ĐẤT");
 
     if (keyword) params.set("keyword", keyword);
     if (location && location !== "Toàn quốc") params.set("location", location);
     if (price && price !== "Mức giá") params.set("price", price);
     if (area && area !== "Diện tích") params.set("area", area);
     if (project && project !== "Dự án") params.set("keyword", project);
+    if (category && category !== "Loại nhà đất") params.set("category", category);
 
-    router.push(`/listing?${params.toString()}`);
+    let basePath = "/listing";
+    if (activeTab === "buy") {
+      basePath = "/danh-muc/mua-ban-nha-dat";
+    } else if (activeTab === "rent") {
+      basePath = "/danh-muc/cho-thue-nha-dat";
+    }
+
+    const qs = params.toString();
+    router.push(qs ? `${basePath}?${qs}` : basePath);
   };
 
   return (

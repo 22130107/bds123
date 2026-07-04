@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect, useRef, Suspense } from "react";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useRouter, useParams } from "next/navigation";
 import { TopNavBar } from "../../components/top-nav-bar";
 import { Footer } from "../../components/footer";
 import { CTASection } from "../../components/cta-section";
@@ -184,7 +184,8 @@ const CATEGORIES = [
 
 function SpacesGalleryContent({ dbSpaces }: { dbSpaces: any[] }) {
   const router = useRouter();
-  const searchParams = useSearchParams();
+  const params = useParams();
+  const slug = params?.slug as string[] | undefined;
 
   // Mapped collection data
   const dynamicCollections = collectionsDataFallback.map((col) => {
@@ -234,21 +235,31 @@ function SpacesGalleryContent({ dbSpaces }: { dbSpaces: any[] }) {
 
   // Sync state from query parameters on load
   useEffect(() => {
-    const colParam = searchParams.get("collection");
-    const catParam = searchParams.get("category");
-
-    if (colParam && ["saigon", "hanoi"].includes(colParam)) {
-      setActiveCollection(colParam);
-    }
-    if (catParam) {
-      const matchedCat = CATEGORIES.find(
-        (c) => generateSlug(c) === catParam.toLowerCase()
-      );
-      if (matchedCat) {
-        setActiveCategory(matchedCat);
+    if (slug && slug.length > 0) {
+      const colParam = slug[0];
+      if (colParam && ["saigon", "hanoi"].includes(colParam)) {
+        setActiveCollection(colParam);
       }
+      
+      const catParam = slug[1];
+      if (catParam) {
+        const matchedCat = CATEGORIES.find(
+          (c) => generateSlug(c) === catParam.toLowerCase()
+        );
+        if (matchedCat) {
+          setActiveCategory(matchedCat);
+        } else {
+          setActiveCategory("TẤT CẢ");
+        }
+      } else {
+        setActiveCategory("TẤT CẢ");
+      }
+    } else {
+      // Default to saigon when no slug is present
+      setActiveCollection("saigon");
+      setActiveCategory("TẤT CẢ");
     }
-  }, [searchParams]);
+  }, [slug]);
 
   const handleNavigate = (page: string) => {
     if (page === "home") router.push("/");
@@ -361,8 +372,7 @@ function SpacesGalleryContent({ dbSpaces }: { dbSpaces: any[] }) {
                 <button
                   key={col.id}
                   onClick={() => {
-                    setActiveCollection(col.id);
-                    setActiveCategory("TẤT CẢ");
+                    router.push(`/spaces/${col.id}`, { scroll: false });
                   }}
                   className={`px-8 py-2.5 rounded-full font-label-caps text-[10px] tracking-widest font-bold transition-all ${
                     activeCollection === col.id
@@ -385,7 +395,13 @@ function SpacesGalleryContent({ dbSpaces }: { dbSpaces: any[] }) {
               {CATEGORIES.map((cat) => (
                 <button
                   key={cat}
-                  onClick={() => setActiveCategory(cat)}
+                  onClick={() => {
+                    if (cat === "TẤT CẢ") {
+                      router.push(`/spaces/${activeCollection}`, { scroll: false });
+                    } else {
+                      router.push(`/spaces/${activeCollection}/${generateSlug(cat)}`, { scroll: false });
+                    }
+                  }}
                   className={`px-4 py-2 font-label-caps text-[9px] tracking-widest font-bold border transition-all ${
                     activeCategory === cat
                       ? "bg-earth-brown text-white border-earth-brown shadow-sm"

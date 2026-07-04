@@ -160,31 +160,82 @@ export default async function ProjectsAdminPage(props: {
           </tbody>
         </table>
         
-        {projectsResult.totalPages > 1 && (
-          <div className="p-4 border-t border-gray-100 flex items-center justify-start gap-6 bg-gray-50/30">
-            <div className="flex gap-1">
-              {Array.from({ length: projectsResult.totalPages }).map((_, i) => {
-                const p = i + 1;
-                const urlParams = new URLSearchParams();
-                if (search) urlParams.set('search', search);
-                if (location) urlParams.set('location', location);
-                urlParams.set('page', p.toString());
-                return (
+        {projectsResult.totalPages > 1 && (() => {
+          const current = projectsResult.page;
+          const total = projectsResult.totalPages;
+          
+          let visiblePages: (number | string)[] = [];
+          if (total <= 7) {
+            visiblePages = Array.from({ length: total }, (_, i) => i + 1);
+          } else if (current <= 4) {
+            visiblePages = [1, 2, 3, 4, 5, '...', total];
+          } else if (current >= total - 3) {
+            visiblePages = [1, '...', total - 4, total - 3, total - 2, total - 1, total];
+          } else {
+            visiblePages = [1, '...', current - 1, current, current + 1, '...', total];
+          }
+
+          return (
+            <div className="p-4 border-t border-gray-100 flex flex-wrap items-center justify-start gap-6 bg-gray-50/30">
+              <div className="flex flex-wrap gap-1">
+                {current > 1 && (
                   <Link
-                    key={p}
-                    href={`/admin/projects?${urlParams.toString()}`}
-                    className={`w-8 h-8 flex items-center justify-center rounded text-sm transition-colors ${p === projectsResult.page ? 'bg-earth-brown text-white font-medium' : 'bg-white border border-gray-200 text-gray-700 hover:bg-gray-50 hover:border-gray-300'}`}
+                    href={`/admin/projects?${(() => {
+                      const sp = new URLSearchParams();
+                      if (search) sp.set('search', search);
+                      if (location) sp.set('location', location);
+                      sp.set('page', (current - 1).toString());
+                      return sp.toString();
+                    })()}`}
+                    className="w-8 h-8 flex items-center justify-center rounded text-sm transition-colors bg-white border border-gray-200 text-gray-700 hover:bg-gray-50 hover:border-gray-300"
+                    title="Trang trước"
                   >
-                    {p}
+                    <span className="material-symbols-outlined text-[16px]">chevron_left</span>
                   </Link>
-                )
-              })}
+                )}
+                
+                {visiblePages.map((p, index) => {
+                  if (p === '...') {
+                    return <span key={`dots-${index}`} className="w-8 h-8 flex items-center justify-center text-gray-400">...</span>;
+                  }
+                  
+                  const urlParams = new URLSearchParams();
+                  if (search) urlParams.set('search', search);
+                  if (location) urlParams.set('location', location);
+                  urlParams.set('page', p.toString());
+                  return (
+                    <Link
+                      key={p}
+                      href={`/admin/projects?${urlParams.toString()}`}
+                      className={`w-8 h-8 flex items-center justify-center rounded text-sm transition-colors ${p === current ? 'bg-earth-brown text-white font-medium' : 'bg-white border border-gray-200 text-gray-700 hover:bg-gray-50 hover:border-gray-300'}`}
+                    >
+                      {p}
+                    </Link>
+                  )
+                })}
+
+                {current < total && (
+                  <Link
+                    href={`/admin/projects?${(() => {
+                      const sp = new URLSearchParams();
+                      if (search) sp.set('search', search);
+                      if (location) sp.set('location', location);
+                      sp.set('page', (current + 1).toString());
+                      return sp.toString();
+                    })()}`}
+                    className="w-8 h-8 flex items-center justify-center rounded text-sm transition-colors bg-white border border-gray-200 text-gray-700 hover:bg-gray-50 hover:border-gray-300"
+                    title="Trang sau"
+                  >
+                    <span className="material-symbols-outlined text-[16px]">chevron_right</span>
+                  </Link>
+                )}
+              </div>
+              <span className="text-sm text-gray-500 mt-2 sm:mt-0">
+                Hiển thị trang <span className="font-medium text-gray-900">{current}</span> / <span className="font-medium text-gray-900">{total}</span> (Tổng {projectsResult.total} dự án)
+              </span>
             </div>
-            <span className="text-sm text-gray-500">
-              Hiển thị trang <span className="font-medium text-gray-900">{projectsResult.page}</span> / <span className="font-medium text-gray-900">{projectsResult.totalPages}</span> (Tổng {projectsResult.total} dự án)
-            </span>
-          </div>
-        )}
+          );
+        })()}
       </div>
     </div>
   );

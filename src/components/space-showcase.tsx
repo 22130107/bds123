@@ -197,7 +197,7 @@ function ShowcaseCard({ item, delay, collectionId }: { item: ShowcaseItem; delay
 
   return (
     <Link
-      href={`/spaces?collection=${collectionId}&category=${generateSlug(item.category.split("/")[1]?.trim() || item.category)}`}
+      href={`/spaces/${collectionId}/${generateSlug(item.category.split("/")[1]?.trim() || item.category)}`}
       className={`relative overflow-hidden group cursor-pointer border border-outline-variant/20 shadow-sm ${item.gridClass} animate-slide-up block`}
       style={{ animationDelay: delay, opacity: 0 }}
       onMouseEnter={() => setIsHovered(true)}
@@ -213,7 +213,7 @@ function ShowcaseCard({ item, delay, collectionId }: { item: ShowcaseItem; delay
             alt={`${item.title} view ${idx + 1}`}
             className={`absolute inset-0 w-full h-full object-cover transition-[opacity,transform] duration-1000 ease-in-out transform-gpu will-change-[transform,opacity] ${
               idx === currentIndex ? "opacity-100" : "opacity-0"
-            } ${isHovered ? "scale-105" : "scale-100"}`}
+            }`}
           />
         ))}
       </div>
