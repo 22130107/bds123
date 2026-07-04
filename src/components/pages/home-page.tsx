@@ -36,7 +36,7 @@ export function HomePage({ onNavigate, dbProjects = [], dbSpaces = [], dbNews = 
         <FeaturedProjects projects={featured} onViewDetail={(id) => onNavigate(`detail/${id}`)} />
         <LocationSection projects={dbProjects} />
         <FeaturedNews news={dbNews} />
-        <CTASection onSchedule={() => onNavigate("contact")} onViewCatalog={() => onNavigate("listing")} />
+        <CTASection onSchedule={() => onNavigate("contact")} onViewCatalog={() => onNavigate("danh-muc")} />
       </main>
       <Footer />
     </div>

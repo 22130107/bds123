@@ -1,4 +1,4 @@
-import { ListingPage } from "../../components/pages/listing-page";
+import { DanhMucPage } from "../../components/pages/danh-muc-page";
 import { getProjects } from "../../actions/project-actions";
 
 const removeAccents = (str: string) => {
@@ -94,5 +94,5 @@ export default async function Page({ searchParams }: { searchParams: Promise<{ [
     });
   }
 
-  return <ListingPage projects={filteredProjects} currentCategory={categoryFilter} />;
+  return <DanhMucPage projects={filteredProjects} currentCategory={categoryFilter} />;
 }

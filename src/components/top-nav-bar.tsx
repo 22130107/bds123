@@ -156,7 +156,7 @@ export function TopNavBar({ activePage, onNavigate, categories: initialCategorie
           {dynamicNavItems.map(({ label, page, subItems }) => {
             const isActive =
               (activePage === "home" && page === "home" && label === "TRANG CHỦ") ||
-              ((activePage === "listing" || activePage === "detail") && label === "MUA BÁN NHÀ ĐẤT") ||
+              ((activePage === "danh-muc" || activePage === "detail") && label === "MUA BÁN NHÀ ĐẤT") ||
               (activePage === "projects" && label === "DỰ ÁN") ||
               (activePage === "news" && label === "TIN TỨC") ||
               (activePage === "contact" && label === "LIÊN HỆ");
@@ -215,7 +215,7 @@ export function TopNavBar({ activePage, onNavigate, categories: initialCategorie
             {dynamicNavItems.map(({ label, page, subItems }) => {
               const isActive =
                 (activePage === "home" && page === "home" && label === "TRANG CHỦ") ||
-                ((activePage === "listing" || activePage === "detail") && label === "MUA BÁN NHÀ ĐẤT") ||
+                ((activePage === "danh-muc" || activePage === "detail") && label === "MUA BÁN NHÀ ĐẤT") ||
                 (activePage === "projects" && label === "DỰ ÁN") ||
                 (activePage === "news" && label === "TIN TỨC") ||
                 (activePage === "contact" && label === "LIÊN HỆ");

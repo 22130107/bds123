@@ -546,7 +546,7 @@ function SpacesGalleryContent({ dbSpaces }: { dbSpaces: any[] }) {
         </div>
       )}
 
-      <CTASection onSchedule={() => handleNavigate("contact")} onViewCatalog={() => handleNavigate("listing")} />
+      <CTASection onSchedule={() => handleNavigate("contact")} onViewCatalog={() => handleNavigate("danh-muc")} />
       <Footer />
     </div>
   );

@@ -1,10 +1,10 @@
-import { ListingPage } from "../../../components/pages/listing-page";
+import { DanhMucPage } from "../../../components/pages/danh-muc-page";
 import { getProjects } from "../../../actions/project-actions";
 import { getCategories } from "../../../actions/category-actions";
 import { generateSlug } from "../../../lib/slugify";
 import { notFound } from "next/navigation";
 
-export default async function DanhMucPage({ params, searchParams }: { params: Promise<{ slug: string }>, searchParams: Promise<{ [key: string]: string | string[] | undefined }> }) {
+export default async function DanhMucSlugPage({ params, searchParams }: { params: Promise<{ slug: string }>, searchParams: Promise<{ [key: string]: string | string[] | undefined }> }) {
   const resolvedParams = await params;
   const slug = resolvedParams.slug;
   
@@ -81,5 +81,5 @@ export default async function DanhMucPage({ params, searchParams }: { params: Pr
     });
   }
 
-  return <ListingPage projects={filteredProjects} currentCategory={categoryFilter} />;
+  return <DanhMucPage projects={filteredProjects} currentCategory={categoryFilter} />;
 }
