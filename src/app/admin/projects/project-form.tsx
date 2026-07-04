@@ -42,6 +42,16 @@ export default function ProjectForm({ initialData, categories = [] }: { initialD
   const [coverIndex, setCoverIndex] = useState(0);
   const [sideIndex, setSideIndex] = useState(1);
 
+  const directionOptions = ["", "Đông", "Tây", "Nam", "Bắc", "Đông Nam", "Đông Bắc", "Tây Nam", "Tây Bắc"];
+  const legalOptions = ["", "Sổ đỏ", "Sổ hồng", "Hợp đồng mua bán", "Đang chờ sổ"];
+
+  const [customDirectionMode, setCustomDirectionMode] = useState(
+    initialData?.direction ? !directionOptions.includes(initialData.direction) : false
+  );
+  const [customLegalMode, setCustomLegalMode] = useState(
+    initialData?.legal ? !legalOptions.includes(initialData.legal) : false
+  );
+
   const allPreviews = [
     ...existingImages.map((url, i) => ({ type: 'url', src: url, index: i })),
     ...newFiles.map((file, i) => ({ type: 'file', src: URL.createObjectURL(file), index: i }))
@@ -471,28 +481,100 @@ export default function ProjectForm({ initialData, categories = [] }: { initialD
               
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">Hướng</label>
-                <select name="direction" value={formData.direction} onChange={handleChange} className="w-full px-4 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-earth-brown outline-none bg-white">
-                  <option value="">Không xác định</option>
-                  <option value="Đông">Đông</option>
-                  <option value="Tây">Tây</option>
-                  <option value="Nam">Nam</option>
-                  <option value="Bắc">Bắc</option>
-                  <option value="Đông Nam">Đông Nam</option>
-                  <option value="Đông Bắc">Đông Bắc</option>
-                  <option value="Tây Nam">Tây Nam</option>
-                  <option value="Tây Bắc">Tây Bắc</option>
-                </select>
+                {!customDirectionMode ? (
+                  <select 
+                    name="direction" 
+                    value={formData.direction} 
+                    onChange={(e) => {
+                      if (e.target.value === "OTHER") {
+                        setCustomDirectionMode(true);
+                        setFormData(prev => ({ ...prev, direction: "" }));
+                      } else {
+                        handleChange(e);
+                      }
+                    }} 
+                    className="w-full px-4 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-earth-brown outline-none bg-white"
+                  >
+                    <option value="">Chọn</option>
+                    <option value="Đông">Đông</option>
+                    <option value="Tây">Tây</option>
+                    <option value="Nam">Nam</option>
+                    <option value="Bắc">Bắc</option>
+                    <option value="Đông Nam">Đông Nam</option>
+                    <option value="Đông Bắc">Đông Bắc</option>
+                    <option value="Tây Nam">Tây Nam</option>
+                    <option value="Tây Bắc">Tây Bắc</option>
+                    <option value="OTHER">&lt;&lt; Khác &gt;&gt;</option>
+                  </select>
+                ) : (
+                  <div className="relative flex items-center">
+                    <input 
+                      type="text" 
+                      name="direction" 
+                      value={formData.direction} 
+                      onChange={handleChange} 
+                      placeholder="Nhập hướng khác..."
+                      className="w-full px-4 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-earth-brown outline-none pr-8 bg-white" 
+                    />
+                    <button 
+                      type="button"
+                      onClick={() => {
+                        setCustomDirectionMode(false);
+                        setFormData(prev => ({ ...prev, direction: "" }));
+                      }}
+                      className="absolute right-2 text-gray-400 hover:text-red-500"
+                    >
+                      <span className="material-symbols-outlined" style={{ fontSize: "20px" }}>close</span>
+                    </button>
+                  </div>
+                )}
               </div>
 
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">Pháp lý</label>
-                <select name="legal" value={formData.legal} onChange={handleChange} className="w-full px-4 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-earth-brown outline-none bg-white">
-                  <option value="">Chọn</option>
-                  <option value="Sổ đỏ">Sổ đỏ</option>
-                  <option value="Sổ hồng">Sổ hồng</option>
-                  <option value="Hợp đồng mua bán">Hợp đồng mua bán</option>
-                  <option value="Đang chờ sổ">Đang chờ sổ</option>
-                </select>
+                {!customLegalMode ? (
+                  <select 
+                    name="legal" 
+                    value={formData.legal} 
+                    onChange={(e) => {
+                      if (e.target.value === "OTHER") {
+                        setCustomLegalMode(true);
+                        setFormData(prev => ({ ...prev, legal: "" }));
+                      } else {
+                        handleChange(e);
+                      }
+                    }} 
+                    className="w-full px-4 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-earth-brown outline-none bg-white"
+                  >
+                    <option value="">Chọn</option>
+                    <option value="Sổ đỏ">Sổ đỏ</option>
+                    <option value="Sổ hồng">Sổ hồng</option>
+                    <option value="Hợp đồng mua bán">Hợp đồng mua bán</option>
+                    <option value="Đang chờ sổ">Đang chờ sổ</option>
+                    <option value="OTHER">&lt;&lt; Khác &gt;&gt;</option>
+                  </select>
+                ) : (
+                  <div className="relative flex items-center">
+                    <input 
+                      type="text" 
+                      name="legal" 
+                      value={formData.legal} 
+                      onChange={handleChange} 
+                      placeholder="Nhập pháp lý khác..."
+                      className="w-full px-4 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-earth-brown outline-none pr-8 bg-white" 
+                    />
+                    <button 
+                      type="button"
+                      onClick={() => {
+                        setCustomLegalMode(false);
+                        setFormData(prev => ({ ...prev, legal: "" }));
+                      }}
+                      className="absolute right-2 text-gray-400 hover:text-red-500"
+                    >
+                      <span className="material-symbols-outlined" style={{ fontSize: "20px" }}>close</span>
+                    </button>
+                  </div>
+                )}
               </div>
             </div>
 
