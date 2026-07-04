@@ -45,7 +45,7 @@ export function HeroSection({ onNavigate }: HeroSectionProps) {
     if (project && project !== "Dự án") params.set("keyword", project);
     if (category && category !== "Loại nhà đất") params.set("category", category);
 
-    let basePath = "/listing";
+    let basePath = "/danh-muc";
     if (activeTab === "buy") {
       basePath = "/danh-muc/mua-ban-nha-dat";
     } else if (activeTab === "rent") {

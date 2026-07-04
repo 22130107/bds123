@@ -12,15 +12,8 @@ interface PropertyGalleryProps {
 
 export function PropertyGallery({ images, title }: PropertyGalleryProps) {
   const [activeIndex, setActiveIndex] = useState(0);
-  const [liked, setLiked] = useState(false);
-  const [likeCount, setLikeCount] = useState(12);
   const [isLightboxOpen, setIsLightboxOpen] = useState(false);
   const [lightboxIndex, setLightboxIndex] = useState(0);
-
-  const handleLike = () => {
-    setLiked((v) => !v);
-    setLikeCount((c) => (liked ? c - 1 : c + 1));
-  };
 
   const openLightbox = (index: number) => {
     setLightboxIndex(index);
@@ -117,29 +110,7 @@ export function PropertyGallery({ images, title }: PropertyGalleryProps) {
         )}
       </div>
 
-      {/* Actions */}
-      <div className="mt-6 flex justify-between items-center">
-        <button
-          onClick={handleLike}
-          className="flex items-center gap-2 text-on-surface-variant hover:text-antique-gold transition-colors"
-        >
-          <span
-            className="material-symbols-outlined text-antique-gold"
-            style={{ fontVariationSettings: liked ? "'FILL' 1" : "'FILL' 0" }}
-          >
-            favorite
-          </span>
-          <span className="font-label-caps" style={{ fontSize: "12px" }}>
-            Yêu thích ({likeCount})
-          </span>
-        </button>
-        <button className="flex items-center gap-2 text-on-surface-variant hover:text-antique-gold transition-colors">
-          <span className="material-symbols-outlined text-antique-gold">share</span>
-          <span className="font-label-caps" style={{ fontSize: "12px" }}>
-            Chia sẻ
-          </span>
-        </button>
-      </div>
+
 
       {/* Lightbox Modal */}
       {isLightboxOpen && (

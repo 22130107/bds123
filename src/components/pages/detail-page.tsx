@@ -69,7 +69,7 @@ export function DetailPage({ project, agentInfo }: DetailPageProps) {
 
   const handleNavigate = (page: string) => {
     if (page === "home") router.push("/");
-    else if (page === "listing") router.push("/listing");
+    else if (page === "listing") router.push("/danh-muc");
     else router.push(`/${page}`);
   };
 

@@ -55,7 +55,7 @@ export function SearchBar({ onSearch }: SearchBarProps) {
 
   const applyFilters = (newFilters: SearchFilters) => {
     const params = new URLSearchParams(searchParams.toString());
-    let basePath = pathname || "/listing";
+    let basePath = pathname || "/danh-muc";
     
     if (newFilters.type === "MUA BÁN NHÀ ĐẤT") {
       basePath = "/danh-muc/mua-ban-nha-dat";
@@ -65,13 +65,13 @@ export function SearchBar({ onSearch }: SearchBarProps) {
       basePath = "/danh-muc/du-an";
     } else if (newFilters.type === "Tất cả loại hình") {
       if (["/danh-muc/mua-ban-nha-dat", "/danh-muc/cho-thue-nha-dat", "/danh-muc/du-an"].includes(pathname)) {
-        basePath = "/listing";
+        basePath = "/danh-muc";
       }
     }
 
     Object.entries(newFilters).forEach(([key, value]) => {
       if (key === "type") {
-        if (value && !value.startsWith("Tất cả") && value !== "" && basePath === "/listing") {
+        if (value && !value.startsWith("Tất cả") && value !== "" && basePath === "/danh-muc") {
           params.set(key, value);
         } else {
           params.delete(key);

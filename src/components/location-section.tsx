@@ -94,7 +94,7 @@ export function LocationSection({ projects = [] }: LocationSectionProps) {
           {/* Large location card (col-span-2) */}
           {largeLocation && (
             <Link
-              href={`/listing?location=${encodeURIComponent(largeLocation.city)}`}
+              href={`/danh-muc?location=${encodeURIComponent(largeLocation.city)}`}
               className="relative overflow-hidden group cursor-pointer lg:col-span-2 h-[300px] lg:h-[400px] border border-white/10 block"
             >
               <img
@@ -128,7 +128,7 @@ export function LocationSection({ projects = [] }: LocationSectionProps) {
             {smallLocations.map((loc) => (
               <Link
                 key={loc.city}
-                href={`/listing?location=${encodeURIComponent(loc.city)}`}
+                href={`/danh-muc?location=${encodeURIComponent(loc.city)}`}
                 className="relative overflow-hidden group cursor-pointer h-[138px] lg:h-[188px] border border-white/10 block"
               >
                 <img
