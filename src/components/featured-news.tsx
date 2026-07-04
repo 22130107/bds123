@@ -8,6 +8,7 @@ interface NewsArticle {
   title: string;
   excerpt?: string;
   image: string;
+  slug?: string;
   featured?: boolean;
 }
 
@@ -22,6 +23,7 @@ export function FeaturedNews({ news = [] }: { news?: any[] }) {
     date: n.date || "",
     title: n.title,
     excerpt: n.excerpt,
+    slug: n.slug,
     image: n.img || logoFallback.src,
     featured: idx === 0
   }));
@@ -83,7 +85,7 @@ export function FeaturedNews({ news = [] }: { news?: any[] }) {
         <div className="grid grid-cols-1 md:grid-cols-12 gap-x-12 gap-y-20 lg:gap-x-16">
           {/* Featured Article */}
           {featured && (
-            <Link href={`/news/${featured.id}`} className="md:col-span-7 group cursor-pointer bg-white p-5 border border-earth-brown/30 shadow-sm transition-all hover:shadow-xl block">
+            <Link href={`/news/${featured.slug || featured.id}`} className="md:col-span-7 group cursor-pointer bg-white p-5 border border-earth-brown/30 shadow-sm transition-all hover:shadow-xl block">
               <article>
                 <div className="relative overflow-hidden aspect-[16/9] bg-surface-container-low mb-6">
                   <img
@@ -128,7 +130,7 @@ export function FeaturedNews({ news = [] }: { news?: any[] }) {
             {secondary.map((article) => (
               <Link
                 key={article.id}
-                href={`/news/${article.id}`}
+                href={`/news/${article.slug || article.id}`}
                 className="group cursor-pointer flex flex-col sm:flex-row gap-4 sm:gap-6 items-start bg-white p-4 border border-earth-brown/30 shadow-sm transition-all hover:shadow-lg block"
               >
                 <article className="flex flex-col sm:flex-row gap-4 sm:gap-6 w-full items-start">
