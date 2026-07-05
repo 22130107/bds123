@@ -448,19 +448,20 @@ export default function ProjectForm({ initialData, categories = [] }: { initialD
 
         <div className="col-span-1 md:col-span-2 flex flex-col gap-3 mt-4 border border-gray-100 p-4 rounded-lg bg-gray-50">
           <h4 className="text-sm font-semibold text-gray-800 mb-1">Tùy chọn hiển thị thêm</h4>
-          <label className="flex items-center gap-3 cursor-pointer">
-            <input type="checkbox" name="isFeatured" checked={formData.isFeatured} onChange={handleChange} className="w-5 h-5 text-earth-brown rounded focus:ring-earth-brown accent-earth-brown" />
-            <span className="text-sm font-medium text-gray-700">Hiển thị nổi bật ở Trang chủ (Dự án nổi bật)</span>
-          </label>
-          <label className="flex items-center gap-3 cursor-pointer">
+          <div className="flex items-center gap-3">
+            <input id="isFeatured-checkbox" type="checkbox" name="isFeatured" checked={formData.isFeatured} onChange={handleChange} className="w-5 h-5 text-earth-brown rounded focus:ring-earth-brown accent-earth-brown cursor-pointer" />
+            <label htmlFor="isFeatured-checkbox" className="text-sm font-medium text-gray-700 cursor-pointer select-none flex-1">Hiển thị nổi bật ở Trang chủ (Dự án nổi bật)</label>
+          </div>
+          <div className="flex items-center gap-3">
             <input 
+              id="type-tailored-checkbox"
               type="checkbox" 
               checked={formData.type === 'tailored'} 
               onChange={(e) => setFormData(prev => ({ ...prev, type: e.target.checked ? 'tailored' : 'listing' }))} 
-              className="w-5 h-5 text-earth-brown rounded focus:ring-earth-brown accent-earth-brown" 
+              className="w-5 h-5 text-earth-brown rounded focus:ring-earth-brown accent-earth-brown cursor-pointer" 
             />
-            <span className="text-sm font-medium text-gray-700">Hiển thị ở mục Đề xuất cá nhân hóa (Tailored)</span>
-          </label>
+            <label htmlFor="type-tailored-checkbox" className="text-sm font-medium text-gray-700 cursor-pointer select-none flex-1">Hiển thị ở mục Đề xuất cá nhân hóa (Tailored)</label>
+          </div>
           <input type="hidden" name="type" value={formData.type} />
         </div>
 
@@ -606,22 +607,22 @@ export default function ProjectForm({ initialData, categories = [] }: { initialD
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1.5">Tiện ích khác</label>
               <div className="bg-gray-50 border border-gray-100 rounded-lg p-4 space-y-3.5">
-                <label className="flex items-center gap-3 cursor-pointer group">
-                  <input type="checkbox" name="hasKitchen" checked={formData.hasKitchen} onChange={handleChange} className="w-5 h-5 text-earth-brown border-gray-300 rounded focus:ring-earth-brown accent-earth-brown" />
-                  <span className="text-sm text-gray-700 group-hover:text-gray-900 transition-colors font-medium">Nhà bếp</span>
-                </label>
-                <label className="flex items-center gap-3 cursor-pointer group">
-                  <input type="checkbox" name="hasDiningRoom" checked={formData.hasDiningRoom} onChange={handleChange} className="w-5 h-5 text-earth-brown border-gray-300 rounded focus:ring-earth-brown accent-earth-brown" />
-                  <span className="text-sm text-gray-700 group-hover:text-gray-900 transition-colors font-medium">Phòng ăn</span>
-                </label>
-                <label className="flex items-center gap-3 cursor-pointer group">
-                  <input type="checkbox" name="hasTerrace" checked={formData.hasTerrace} onChange={handleChange} className="w-5 h-5 text-earth-brown border-gray-300 rounded focus:ring-earth-brown accent-earth-brown" />
-                  <span className="text-sm text-gray-700 group-hover:text-gray-900 transition-colors font-medium">Sân thượng</span>
-                </label>
-                <label className="flex items-center gap-3 cursor-pointer group">
-                  <input type="checkbox" name="hasParking" checked={formData.hasParking} onChange={handleChange} className="w-5 h-5 text-earth-brown border-gray-300 rounded focus:ring-earth-brown accent-earth-brown" />
-                  <span className="text-sm text-gray-700 group-hover:text-gray-900 transition-colors font-medium">Chỗ để xe hơi</span>
-                </label>
+                <div className="flex items-center gap-3 group">
+                  <input id="hasKitchen-checkbox" type="checkbox" name="hasKitchen" checked={formData.hasKitchen} onChange={handleChange} className="w-5 h-5 text-earth-brown border-gray-300 rounded focus:ring-earth-brown accent-earth-brown cursor-pointer" />
+                  <label htmlFor="hasKitchen-checkbox" className="text-sm text-gray-700 group-hover:text-gray-900 transition-colors font-medium cursor-pointer select-none flex-1">Nhà bếp</label>
+                </div>
+                <div className="flex items-center gap-3 group">
+                  <input id="hasDiningRoom-checkbox" type="checkbox" name="hasDiningRoom" checked={formData.hasDiningRoom} onChange={handleChange} className="w-5 h-5 text-earth-brown border-gray-300 rounded focus:ring-earth-brown accent-earth-brown cursor-pointer" />
+                  <label htmlFor="hasDiningRoom-checkbox" className="text-sm text-gray-700 group-hover:text-gray-900 transition-colors font-medium cursor-pointer select-none flex-1">Phòng ăn</label>
+                </div>
+                <div className="flex items-center gap-3 group">
+                  <input id="hasTerrace-checkbox" type="checkbox" name="hasTerrace" checked={formData.hasTerrace} onChange={handleChange} className="w-5 h-5 text-earth-brown border-gray-300 rounded focus:ring-earth-brown accent-earth-brown cursor-pointer" />
+                  <label htmlFor="hasTerrace-checkbox" className="text-sm text-gray-700 group-hover:text-gray-900 transition-colors font-medium cursor-pointer select-none flex-1">Sân thượng</label>
+                </div>
+                <div className="flex items-center gap-3 group">
+                  <input id="hasParking-checkbox" type="checkbox" name="hasParking" checked={formData.hasParking} onChange={handleChange} className="w-5 h-5 text-earth-brown border-gray-300 rounded focus:ring-earth-brown accent-earth-brown cursor-pointer" />
+                  <label htmlFor="hasParking-checkbox" className="text-sm text-gray-700 group-hover:text-gray-900 transition-colors font-medium cursor-pointer select-none flex-1">Chỗ để xe hơi</label>
+                </div>
               </div>
             </div>
         </div>

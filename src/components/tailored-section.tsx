@@ -179,18 +179,32 @@ export function TailoredSection({ onViewDetail, projects = [] }: TailoredSection
             onClick={() => setCurrent((c) => (c - 1 + data.length) % data.length)}
             className="hidden md:flex absolute -left-4 md:-left-16 top-1/2 -translate-y-1/2 z-20 w-12 h-12 rounded-full bg-white shadow-xl border border-outline-variant/30 items-center justify-center text-earth-brown hover:bg-[#A04000] hover:text-white transition-all cursor-pointer"
           >
-            <span className="material-symbols-outlined">chevron_left</span>
+            <span className="material-symbols-outlined text-[24px]">chevron_left</span>
           </button>
           <button
             onClick={() => setCurrent((c) => (c + 1) % data.length)}
             className="hidden md:flex absolute -right-4 md:-right-16 top-1/2 -translate-y-1/2 z-20 w-12 h-12 rounded-full bg-white shadow-xl border border-outline-variant/30 items-center justify-center text-earth-brown hover:bg-[#A04000] hover:text-white transition-all cursor-pointer"
           >
-            <span className="material-symbols-outlined">chevron_right</span>
+            <span className="material-symbols-outlined text-[24px]">chevron_right</span>
           </button>
 
           <div className="flex flex-col lg:flex-row items-center gap-8 lg:gap-24 group p-4 sm:p-8 lg:p-12" style={{ backgroundColor: "#F5EDD9" }}>
             {/* Image */}
-            <div className="w-full lg:w-3/5 relative overflow-hidden aspect-[16/10]">
+            <div className="w-full lg:w-3/5 relative">
+              {/* Mobile Only Navigation Buttons */}
+              <button
+                onClick={() => setCurrent((c) => (c - 1 + data.length) % data.length)}
+                className="flex md:hidden absolute -left-3 top-1/2 -translate-y-1/2 z-20 w-10 h-10 rounded-full bg-white shadow-xl border border-outline-variant/30 items-center justify-center text-earth-brown hover:bg-[#A04000] hover:text-white transition-all cursor-pointer"
+              >
+                <span className="material-symbols-outlined text-[20px]">chevron_left</span>
+              </button>
+              <button
+                onClick={() => setCurrent((c) => (c + 1) % data.length)}
+                className="flex md:hidden absolute -right-3 top-1/2 -translate-y-1/2 z-20 w-10 h-10 rounded-full bg-white shadow-xl border border-outline-variant/30 items-center justify-center text-earth-brown hover:bg-[#A04000] hover:text-white transition-all cursor-pointer"
+              >
+                <span className="material-symbols-outlined text-[20px]">chevron_right</span>
+              </button>
+              <div className="relative overflow-hidden aspect-[16/10]">
               <div className="relative w-full h-full overflow-hidden">
                 {data.map((p, idx) => (
                   <img
@@ -215,6 +229,7 @@ export function TailoredSection({ onViewDetail, projects = [] }: TailoredSection
                   {property.badge}
                 </span>
               </div>
+            </div>
             </div>
 
             {/* Info */}

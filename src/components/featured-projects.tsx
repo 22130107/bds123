@@ -112,18 +112,32 @@ export function FeaturedProjects({ projects = [], onViewDetail }: FeaturedProjec
         <div className="grid grid-cols-12 gap-y-12 md:gap-y-20 relative">
           <button
             onClick={() => setCurrent((c) => (c - 1 + data.length) % data.length)}
-            className="hidden md:flex absolute -left-[40px] xl:-left-[120px] top-1/2 -translate-y-1/2 w-12 h-12 rounded-full border border-outline-variant/30 items-center justify-center text-earth-brown hover:bg-earth-brown hover:text-white transition-all z-20 bg-surface"
+            className="hidden md:flex absolute -left-[40px] xl:-left-[120px] top-1/2 -translate-y-1/2 w-12 h-12 rounded-full border border-outline-variant/30 items-center justify-center text-earth-brown hover:bg-earth-brown hover:text-white transition-all z-20 bg-surface shadow-md"
           >
-            <span className="material-symbols-outlined">arrow_back</span>
+            <span className="material-symbols-outlined text-[24px]">arrow_back</span>
           </button>
           <button
             onClick={() => setCurrent((c) => (c + 1) % data.length)}
-            className="hidden md:flex absolute -right-[40px] xl:-right-[120px] top-1/2 -translate-y-1/2 w-12 h-12 rounded-full border border-outline-variant/30 items-center justify-center text-earth-brown hover:bg-earth-brown hover:text-white transition-all z-20 bg-surface"
+            className="hidden md:flex absolute -right-[40px] xl:-right-[120px] top-1/2 -translate-y-1/2 w-12 h-12 rounded-full border border-outline-variant/30 items-center justify-center text-earth-brown hover:bg-earth-brown hover:text-white transition-all z-20 bg-surface shadow-md"
           >
-            <span className="material-symbols-outlined">arrow_forward</span>
+            <span className="material-symbols-outlined text-[24px]">arrow_forward</span>
           </button>
           <div className="col-span-12 lg:col-span-7 group relative md:pb-28">
-            <div className="aspect-[4/3] md:aspect-[2/1] border-2 border-outline-variant/20 p-2 bg-surface-container-lowest shadow-xl">
+            <div className="relative w-full">
+              {/* Mobile Only Navigation Buttons */}
+              <button
+                onClick={() => setCurrent((c) => (c - 1 + data.length) % data.length)}
+                className="flex md:hidden absolute -left-3 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full border border-outline-variant/30 items-center justify-center text-earth-brown hover:bg-earth-brown hover:text-white transition-all z-20 bg-surface shadow-md"
+              >
+                <span className="material-symbols-outlined text-[20px]">arrow_back</span>
+              </button>
+              <button
+                onClick={() => setCurrent((c) => (c + 1) % data.length)}
+                className="flex md:hidden absolute -right-3 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full border border-outline-variant/30 items-center justify-center text-earth-brown hover:bg-earth-brown hover:text-white transition-all z-20 bg-surface shadow-md"
+              >
+                <span className="material-symbols-outlined text-[20px]">arrow_forward</span>
+              </button>
+              <div className="aspect-[4/3] md:aspect-[2/1] border-2 border-outline-variant/20 p-2 bg-surface-container-lowest shadow-xl">
               <div className="relative w-full h-full overflow-hidden">
                 {data.map((p, idx) => (
                   <img
@@ -141,6 +155,7 @@ export function FeaturedProjects({ projects = [], onViewDetail }: FeaturedProjec
                   />
                 ))}
               </div>
+            </div>
             </div>
             <div className="relative md:absolute bottom-0 right-0 md:-right-12 bg-white p-4 sm:p-8 shadow-[0_25px_60px_-15px_rgba(0,0,0,0.15)] max-w-lg border-t-4 border-earth-brown mx-0 sm:mx-4 md:mx-0 -mt-8 md:mt-0 z-20">
               <span
