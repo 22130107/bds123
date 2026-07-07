@@ -22,13 +22,13 @@ export function CTASection({ onSchedule, onViewCatalog }: CTASectionProps) {
           className="font-display-lg text-earth-brown mb-8 italic"
           style={{ fontSize: "clamp(28px, 3.5vw, 44px)", fontWeight: 700 }}
         >
-          "Sẵn sàng tìm kiếm di sản truyền đời của bạn?"
+          "Bạn cần tìm mua hoặc ký gửi bất động sản?"
         </h3>
         <p
           className="font-body-lg text-on-surface font-medium mb-14 px-4"
           style={{ fontSize: "18px", lineHeight: "30px" }}
         >
-          Liên hệ với các chuyên gia của chúng tôi để được tư vấn tận tâm về các danh mục bất động sản độc bản và kín đáo nhất trên thị trường.
+          Liên hệ ngay với đội ngũ chuyên viên để được tư vấn miễn phí, cập nhật giỏ hàng mới nhất và hỗ trợ thủ tục pháp lý nhanh chóng.
         </p>
         <div className="flex flex-col sm:flex-row gap-6 justify-center items-center">
           <button

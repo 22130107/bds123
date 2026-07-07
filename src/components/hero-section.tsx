@@ -81,11 +81,11 @@ export function HeroSection({ onNavigate }: HeroSectionProps) {
               textShadow: "rgba(0,0,0,0.4) 0px 4px 20px",
             }}
           >
-            <span className="whitespace-nowrap">Kinh Đô Của Những</span> <br />
-            <span className="italic font-normal whitespace-nowrap">Di Sản Bền Vững</span>
+            <span className="whitespace-nowrap">Tìm Kiếm Nơi An Cư</span> <br />
+            <span className="italic font-normal whitespace-nowrap text-white/90">Và Đầu Tư Lý Tưởng</span>
           </h1>
           <p className="text-white mt-6 text-[16px] md:text-[20px] font-medium tracking-wide drop-shadow-md" style={{ textShadow: "rgba(0,0,0,0.6) 0px 2px 10px" }}>
-            Nơi giá trị trường tồn cùng thời gian
+            Nền tảng giao dịch bất động sản uy tín, minh bạch và nhanh chóng.
           </p>
           <div className="h-[2px] w-24 bg-antique-gold mt-4 shadow-sm" />
         </div>

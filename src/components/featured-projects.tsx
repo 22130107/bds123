@@ -103,7 +103,7 @@ export function FeaturedProjects({ projects = [], onViewDetail }: FeaturedProjec
               className="font-body-lg text-on-surface font-medium max-w-sm border-r-0 md:border-r-2 border-antique-gold pr-0 md:pr-8 pb-2 text-center md:text-right"
               style={{ fontSize: "18px", lineHeight: "30px" }}
             >
-              Tuyển tập những dự án bất động sản được định nghĩa là di sản kiến trúc ngay từ khi khởi công.
+              Kết nối người mua và người bán bằng giải pháp bất động sản toàn diện.
             </p>
           </div>
         </div>
@@ -192,16 +192,16 @@ export function FeaturedProjects({ projects = [], onViewDetail }: FeaturedProjec
                 className="font-display-lg text-earth-brown mb-1 leading-snug italic"
                 style={{ fontSize: "clamp(16px, 1.5vw, 22px)", fontWeight: 700 }}
               >
-                "Kiến tạo không gian cho những giá trị truyền đời qua nhiều thế hệ."
+                "Đồng hành cùng bạn trên mọi hành trình giao dịch bất động sản."
               </h4>
               <p
                 className="font-body-md text-on-surface mb-2 leading-relaxed"
                 style={{ fontSize: "14px", lineHeight: "22px" }}
               >
-                Mỗi dự án tại Modern Estate đều trải qua quá trình thẩm định nghiêm ngặt về vị trí phong thủy, ngôn ngữ kiến trúc và tiềm năng tăng trưởng bền vững.
+                HAPPY M cam kết mang đến những sản phẩm bất động sản có pháp lý rõ ràng, vị trí tiềm năng và giá trị tăng trưởng ổn định. Chúng tôi giúp quá trình mua bán của bạn trở nên đơn giản và an toàn hơn.
               </p>
               <div className="grid grid-cols-2 gap-4">
-                {[{ n: "15+", l: "Năm Kinh Nghiệm" }, { n: "200+", l: "Biệt Thự Độc Bản" }].map(({ n, l }) => (
+                {[{ n: "15+", l: "Năm Kinh Nghiệm" }, { n: "200+", l: "Giao Dịch Bất Động Sản" }].map(({ n, l }) => (
                   <div key={l}>
                     <span
                       className="font-display-lg text-earth-brown font-bold block mb-0"
