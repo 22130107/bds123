@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 
 interface Location {
   city: string;
@@ -97,10 +98,12 @@ export function LocationSection({ projects = [] }: LocationSectionProps) {
               href={`/danh-muc?location=${encodeURIComponent(largeLocation.city)}`}
               className="relative overflow-hidden group cursor-pointer lg:col-span-2 h-[300px] lg:h-[400px] border border-white/10 block"
             >
-              <img
+              <Image
                 src={largeLocation.image}
                 alt={largeLocation.city}
-                className="w-full h-full object-cover transition-transform duration-[2000ms] group-hover:scale-105"
+                fill
+                className="object-cover transition-[transform] transform-gpu will-change-transform duration-[2000ms] group-hover:scale-105"
+                sizes="(max-width: 1024px) 100vw, 66vw"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent" />
               <div className="absolute bottom-6 left-6 md:bottom-8 md:left-8 bg-gradient-to-t from-black/80 to-transparent p-3 md:p-4 -m-3 md:-m-4 rounded">
@@ -131,10 +134,13 @@ export function LocationSection({ projects = [] }: LocationSectionProps) {
                 href={`/danh-muc?location=${encodeURIComponent(loc.city)}`}
                 className="relative overflow-hidden group cursor-pointer h-[138px] lg:h-[188px] border border-white/10 block"
               >
-                <img
+                <Image
                   src={loc.image}
                   alt={loc.city}
-                  className="w-full h-full object-cover transition-transform duration-[2000ms] group-hover:scale-105"
+                  fill
+                  loading="lazy"
+                  className="object-cover transition-[transform] transform-gpu will-change-transform duration-[2000ms] group-hover:scale-105"
+                  sizes="(max-width: 1024px) 50vw, 16vw"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-transparent to-transparent" />
                 <div className="absolute bottom-4 left-4 md:bottom-6 md:left-6 bg-gradient-to-t from-black/80 to-transparent p-2 md:p-3 -m-2 md:-m-3 rounded">

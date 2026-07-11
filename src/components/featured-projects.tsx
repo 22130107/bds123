@@ -1,4 +1,5 @@
 import { useState } from "react";
+import Image from "next/image";
 
 interface Project {
   id?: string | number;
@@ -140,11 +141,13 @@ export function FeaturedProjects({ projects = [], onViewDetail }: FeaturedProjec
               <div className="aspect-[4/3] md:aspect-[2/1] border-2 border-outline-variant/20 p-2 bg-surface-container-lowest shadow-xl">
               <div className="relative w-full h-full overflow-hidden">
                 {data.map((p, idx) => (
-                  <img
+                  <Image
                     key={idx}
                     src={p.mainImg}
                     alt={p.title}
-                    className={`absolute top-0 left-0 w-full h-full object-cover grayscale-[30%] group-hover:grayscale-0 group-hover:scale-105 transition-all duration-[1200ms] ${
+                    fill
+                    loading={idx === current ? "eager" : "lazy"}
+                    className={`absolute top-0 left-0 object-cover grayscale-[30%] group-hover:grayscale-0 group-hover:scale-105 transition-[transform,opacity] transform-gpu will-change-[transform,opacity] duration-[1200ms] ${
                       idx === current
                         ? "translate-x-0 opacity-100 z-10"
                         : idx < current
@@ -152,6 +155,7 @@ export function FeaturedProjects({ projects = [], onViewDetail }: FeaturedProjec
                         : "translate-x-full opacity-0 z-0"
                     }`}
                     style={{ transitionTimingFunction: "cubic-bezier(0.16, 1, 0.3, 1)" }}
+                    sizes="(max-width: 768px) 100vw, 50vw"
                   />
                 ))}
               </div>
@@ -222,11 +226,13 @@ export function FeaturedProjects({ projects = [], onViewDetail }: FeaturedProjec
             <div className="hidden lg:block relative aspect-square border border-outline-variant/20 p-2 bg-surface-container-lowest shadow-lg">
               <div className="relative w-full h-full overflow-hidden">
                 {data.map((p, idx) => (
-                  <img
+                  <Image
                     key={idx}
                     src={p.sideImg}
                     alt=""
-                    className={`absolute top-0 left-0 w-full h-full object-cover hover:sepia-0 transition-all duration-[1200ms] ${
+                    fill
+                    loading={idx === current ? "eager" : "lazy"}
+                    className={`absolute top-0 left-0 object-cover hover:sepia-0 transition-[transform,opacity,filter] transform-gpu will-change-[transform,opacity,filter] duration-[1200ms] ${
                       idx === current
                         ? "translate-x-0 opacity-100 z-10"
                         : idx < current
@@ -238,6 +244,7 @@ export function FeaturedProjects({ projects = [], onViewDetail }: FeaturedProjec
                       transitionTimingFunction: "cubic-bezier(0.16, 1, 0.3, 1)",
                       transitionDelay: "0.1s"
                     }}
+                    sizes="(max-width: 1024px) 0vw, 33vw"
                   />
                 ))}
               </div>

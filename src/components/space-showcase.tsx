@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { generateSlug } from "../lib/slugify";
 
 interface ShowcaseItem {
@@ -209,14 +210,16 @@ function ShowcaseCard({ item, delay, collectionId }: { item: ShowcaseItem; delay
       {/* Slideshow Container */}
       <div className="absolute inset-0 w-full h-full bg-surface-container-lowest">
         {item.images.map((imgSrc, idx) => (
-          <img
+          <Image
             key={idx}
             src={imgSrc}
+            fill
             loading="lazy"
             alt={`${item.title} view ${idx + 1}`}
-            className={`absolute inset-0 w-full h-full object-cover transition-[opacity,transform] duration-1000 ease-in-out transform-gpu will-change-[transform,opacity] ${
+            className={`absolute inset-0 object-cover transition-[opacity,transform] duration-1000 ease-in-out transform-gpu will-change-[transform,opacity] ${
               idx === currentIndex ? "opacity-100" : "opacity-0"
             }`}
+            sizes="(max-width: 768px) 100vw, 33vw"
           />
         ))}
       </div>

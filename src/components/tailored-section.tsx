@@ -1,4 +1,5 @@
 import { useState } from "react";
+import Image from "next/image";
 
 interface Property {
   id?: string | number;
@@ -207,17 +208,20 @@ export function TailoredSection({ onViewDetail, projects = [] }: TailoredSection
               <div className="relative overflow-hidden aspect-[16/10]">
               <div className="relative w-full h-full overflow-hidden">
                 {data.map((p, idx) => (
-                  <img
+                  <Image
                     key={idx}
                     src={p.img}
                     alt={p.title}
-                    className={`absolute inset-0 w-full h-full object-cover transition-all duration-[1200ms] ease-in-out group-hover:scale-110 ${
+                    fill
+                    loading={idx === current ? "eager" : "lazy"}
+                    className={`absolute inset-0 object-cover transition-[transform,opacity] transform-gpu will-change-[transform,opacity] duration-[1200ms] ease-in-out group-hover:scale-110 ${
                       idx === current
                         ? "translate-x-0 opacity-100 z-10"
                         : idx < current
                         ? "-translate-x-full opacity-0 z-0"
                         : "translate-x-full opacity-0 z-0"
                     }`}
+                    sizes="(max-width: 1024px) 100vw, 60vw"
                   />
                 ))}
               </div>

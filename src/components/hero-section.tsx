@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
 import { getTopLocations, getProjects } from "../actions/project-actions";
 import { getCategories } from "../actions/category-actions";
 
@@ -59,13 +60,15 @@ export function HeroSection({ onNavigate }: HeroSectionProps) {
   return (
     <section className="relative h-[92vh] min-h-[600px] md:min-h-[700px] flex items-end justify-center overflow-hidden bg-earth-brown pb-16">
       {/* Background image */}
-      <div
-        className="absolute inset-0 bg-cover bg-center"
-        style={{
-          backgroundImage:
-            "url('https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=1600')",
-        }}
-      >
+      <div className="absolute inset-0">
+        <Image
+          src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=1600"
+          alt="Hero background"
+          fill
+          priority
+          className="object-cover object-center"
+          sizes="100vw"
+        />
         <div className="absolute inset-0 hero-gradient" />
       </div>
 
