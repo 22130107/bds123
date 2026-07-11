@@ -73,10 +73,9 @@ export function Footer({ variant = "default" }: FooterProps) {
           className="mx-auto px-6 md:px-[80px] mt-20 pt-8 border-t border-on-primary-container/10"
           style={{ maxWidth: "1280px" }}
         >
-          <p className="font-body-md text-on-primary-container/60 text-center md:text-left"
-             style={{ fontSize: "16px" }}>
-            © 2024 Modern Estate Heritage. Bản quyền đã được bảo hộ.
-          </p>
+          <div className="text-on-surface-variant font-body-sm pt-8 text-center border-t border-outline-variant/20">
+            © 2024 Happy M. Bản quyền đã được bảo hộ.
+          </div>
         </div>
       </footer>
     );

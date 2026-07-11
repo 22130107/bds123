@@ -29,8 +29,8 @@ export default function LoginPage() {
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-900 via-earth-brown to-gray-900">
       <div className="bg-white rounded-2xl shadow-2xl p-10 w-full max-w-md">
         <div className="text-center mb-8">
-          <h1 className="text-3xl font-bold text-gray-900 mb-2">QUẢN TRỊ</h1>
-          <p className="text-gray-500">Đăng nhập hệ thống quản trị Modern Estate</p>
+          <h1 className="text-3xl font-bold text-gray-900 mb-2">Đăng nhập</h1>
+          <p className="text-gray-500">Đăng nhập hệ thống quản trị Happy M</p>
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-5">
@@ -73,9 +73,9 @@ export default function LoginPage() {
           </button>
         </form>
 
-        <p className="text-center text-xs text-gray-400 mt-8">
-          Modern Estate CMS &copy; 2026
-        </p>
+        <div className="mt-8 text-center text-sm text-gray-400">
+          Happy M CMS &copy; 2026
+        </div>
       </div>
     </div>
   );

@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 import { FloatingToolbar } from "../components/floating-toolbar";
 
 export const metadata: Metadata = {
-  title: "Modern Estate",
+  title: "Happy M",
   description: "Bất động sản cao cấp",
 };
 
