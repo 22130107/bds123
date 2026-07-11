@@ -214,7 +214,7 @@ export function TailoredSection({ onViewDetail, projects = [] }: TailoredSection
                     alt={p.title}
                     fill
                     loading={idx === current ? "eager" : "lazy"}
-                    className={`absolute inset-0 object-cover transition-[transform,opacity] transform-gpu will-change-[transform,opacity] duration-[1200ms] ease-in-out group-hover:scale-110 ${
+                    className={`absolute inset-0 object-cover transition-[transform,opacity] transform-gpu will-change-[transform,opacity] duration-[1200ms] ease-in-out ${
                       idx === current
                         ? "translate-x-0 opacity-100 z-10"
                         : idx < current

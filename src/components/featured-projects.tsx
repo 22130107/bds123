@@ -147,7 +147,7 @@ export function FeaturedProjects({ projects = [], onViewDetail }: FeaturedProjec
                     alt={p.title}
                     fill
                     loading={idx === current ? "eager" : "lazy"}
-                    className={`absolute top-0 left-0 object-cover grayscale-[30%] group-hover:grayscale-0 group-hover:scale-105 transition-[transform,opacity] transform-gpu will-change-[transform,opacity] duration-[1200ms] ${
+                    className={`absolute top-0 left-0 object-cover transition-[transform,opacity] transform-gpu will-change-[transform,opacity] duration-[1200ms] ${
                       idx === current
                         ? "translate-x-0 opacity-100 z-10"
                         : idx < current
@@ -232,7 +232,7 @@ export function FeaturedProjects({ projects = [], onViewDetail }: FeaturedProjec
                     alt=""
                     fill
                     loading={idx === current ? "eager" : "lazy"}
-                    className={`absolute top-0 left-0 object-cover hover:sepia-0 transition-[transform,opacity,filter] transform-gpu will-change-[transform,opacity,filter] duration-[1200ms] ${
+                    className={`absolute top-0 left-0 object-cover transition-[transform,opacity,filter] transform-gpu will-change-[transform,opacity,filter] duration-[1200ms] ${
                       idx === current
                         ? "translate-x-0 opacity-100 z-10"
                         : idx < current
@@ -240,7 +240,6 @@ export function FeaturedProjects({ projects = [], onViewDetail }: FeaturedProjec
                         : "translate-x-full opacity-0 z-0"
                     }`}
                     style={{ 
-                      filter: "sepia(0.2)", 
                       transitionTimingFunction: "cubic-bezier(0.16, 1, 0.3, 1)",
                       transitionDelay: "0.1s"
                     }}
