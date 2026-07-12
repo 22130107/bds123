@@ -77,12 +77,8 @@ export function TopNavBar({ activePage, onNavigate, categories: initialCategorie
   const pathname = usePathname();
 
   useMotionValueEvent(scrollY, "change", (latest) => {
-    const previous = scrollY.getPrevious() ?? 0;
-    if (latest > previous && latest > 150) {
-      setHidden(true);
-    } else {
-      setHidden(false);
-    }
+    // Keep header fixed always - do not hide on scroll down
+    setHidden(false);
   });
 
   useEffect(() => {

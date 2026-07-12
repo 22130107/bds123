@@ -61,12 +61,13 @@ export function NewsPage({ onNavigate, dbNews = [] }: NewsPageProps) {
 
       {/* Hero Header */}
       <section className="relative w-full h-[350px] overflow-hidden pt-20">
-        <div className="absolute inset-0 bg-earth-brown">
+        <div className="absolute inset-0">
           <img
             src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=1600"
             alt="News Banner"
-            className="w-full h-full object-cover opacity-30"
+            className="w-full h-full object-cover"
           />
+          <div className="absolute inset-0 bg-black/40" />
         </div>
         <div className="absolute inset-0 flex flex-col items-center justify-center text-center px-4">
           <h1

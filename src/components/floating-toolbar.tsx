@@ -195,7 +195,7 @@ export function FloatingToolbar() {
         <button
           onClick={handleZoomOut}
           disabled={fontSize === ALLOWED_SIZES[0]}
-          className="rounded-full bg-[#A04000] text-white flex items-center justify-center hover:bg-[#853500] transition-all duration-200 transform hover:scale-105 active:scale-95 disabled:opacity-50 disabled:pointer-events-none cursor-pointer"
+          className="rounded-full bg-earth-brown text-white flex items-center justify-center hover:bg-earth-brown/90 transition-all duration-200 transform hover:scale-105 active:scale-95 disabled:opacity-50 disabled:pointer-events-none cursor-pointer"
           style={{
             width: "32px",
             height: "32px",

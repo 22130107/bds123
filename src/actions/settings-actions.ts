@@ -87,3 +87,38 @@ export async function updateAgentInfo(formData: FormData) {
     return { success: false, error: "Đã xảy ra lỗi khi cập nhật." };
   }
 }
+
+export async function getSiteTheme() {
+  try {
+    const [rows] = await pool.query(
+      `SELECT setting_value FROM settings WHERE setting_key = 'site_theme'`
+    );
+    const data = rows as any[];
+    if (data.length > 0) {
+      return JSON.parse(data[0].setting_value);
+    }
+    return null;
+  } catch (error) {
+    console.error("Lỗi khi lấy thông tin theme:", error);
+    return null;
+  }
+}
+
+export async function updateSiteTheme(primaryColor: string) {
+  try {
+    const value = JSON.stringify({ primaryColor });
+    await pool.query(
+      `INSERT INTO settings (setting_key, setting_value) 
+       VALUES ('site_theme', ?) 
+       ON DUPLICATE KEY UPDATE setting_value = ?`,
+      [value, value]
+    );
+
+    revalidatePath("/", "layout");
+    
+    return { success: true };
+  } catch (error) {
+    console.error("Lỗi khi cập nhật theme:", error);
+    return { success: false, error: "Đã xảy ra lỗi khi cập nhật." };
+  }
+}

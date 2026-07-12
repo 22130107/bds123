@@ -42,8 +42,8 @@ export function FeaturedNews({ news = [] }: { news?: any[] }) {
               style={{
                 fontSize: "10px",
                 letterSpacing: "0.5em",
-                backgroundColor: "#C85A17",
-                color: "#D4AF37",
+                backgroundColor: "var(--color-earth-brown)",
+                color: "#ffffff",
               }}
             >
               Editorial Insights
