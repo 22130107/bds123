@@ -338,7 +338,7 @@ export function SpaceShowcase({ spaces = [] }: { spaces?: any[] }) {
                     ? "text-white shadow-md"
                     : "text-on-surface-variant hover:text-antique-gold"
                 }`}
-                style={activeTab === col.id ? { backgroundColor: "#A04000" } : {}}
+                style={activeTab === col.id ? { backgroundColor: "var(--color-earth-brown)" } : {}}
               >
                 {col.name}
               </button>

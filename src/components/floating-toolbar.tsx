@@ -136,7 +136,7 @@ export function FloatingToolbar() {
       {/* Scroll to Top button */}
       <button
         onClick={handleScrollTop}
-        className={`rounded-full bg-[#A04000] text-white flex items-center justify-center shadow-lg hover:bg-[#853500] transition-all duration-300 transform hover:scale-110 active:scale-95 cursor-pointer ${
+        className={`rounded-full bg-earth-brown text-white flex items-center justify-center shadow-lg hover:bg-earth-brown/90 transition-all duration-300 transform hover:scale-110 active:scale-95 cursor-pointer ${
           showScrollTop
             ? "opacity-100 translate-y-0 pointer-events-auto"
             : "opacity-0 translate-y-[16px] pointer-events-none"
@@ -164,7 +164,7 @@ export function FloatingToolbar() {
         <button
           onClick={handleZoomIn}
           disabled={fontSize === ALLOWED_SIZES[ALLOWED_SIZES.length - 1]}
-          className="rounded-full bg-[#A04000] text-white flex items-center justify-center hover:bg-[#853500] transition-all duration-200 transform hover:scale-105 active:scale-95 disabled:opacity-50 disabled:pointer-events-none cursor-pointer"
+          className="rounded-full bg-earth-brown text-white flex items-center justify-center hover:bg-earth-brown/90 transition-all duration-200 transform hover:scale-105 active:scale-95 disabled:opacity-50 disabled:pointer-events-none cursor-pointer"
           style={{
             width: "32px",
             height: "32px",
@@ -178,7 +178,7 @@ export function FloatingToolbar() {
         {/* Reset button */}
         <button
           onClick={handleReset}
-          className="rounded-full bg-[#A04000] text-white flex items-center justify-center hover:bg-[#853500] transition-all duration-200 transform hover:scale-105 active:scale-95 cursor-pointer font-bold select-none"
+          className="rounded-full bg-earth-brown text-white flex items-center justify-center hover:bg-earth-brown/90 transition-all duration-200 transform hover:scale-105 active:scale-95 cursor-pointer font-bold select-none"
           style={{
             width: "32px",
             height: "32px",

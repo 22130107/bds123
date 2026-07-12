@@ -178,13 +178,13 @@ export function TailoredSection({ onViewDetail, projects = [] }: TailoredSection
         >
           <button
             onClick={() => setCurrent((c) => (c - 1 + data.length) % data.length)}
-            className="hidden md:flex absolute -left-4 md:-left-16 top-1/2 -translate-y-1/2 z-20 w-12 h-12 rounded-full bg-white shadow-xl border border-outline-variant/30 items-center justify-center text-earth-brown hover:bg-[#A04000] hover:text-white transition-all cursor-pointer"
+            className="hidden md:flex absolute -left-4 md:-left-16 top-1/2 -translate-y-1/2 z-20 w-12 h-12 rounded-full bg-white shadow-xl border border-outline-variant/30 items-center justify-center text-earth-brown hover:bg-earth-brown hover:text-white transition-all cursor-pointer"
           >
             <span className="material-symbols-outlined text-[24px]">chevron_left</span>
           </button>
           <button
             onClick={() => setCurrent((c) => (c + 1) % data.length)}
-            className="hidden md:flex absolute -right-4 md:-right-16 top-1/2 -translate-y-1/2 z-20 w-12 h-12 rounded-full bg-white shadow-xl border border-outline-variant/30 items-center justify-center text-earth-brown hover:bg-[#A04000] hover:text-white transition-all cursor-pointer"
+            className="hidden md:flex absolute -right-4 md:-right-16 top-1/2 -translate-y-1/2 z-20 w-12 h-12 rounded-full bg-white shadow-xl border border-outline-variant/30 items-center justify-center text-earth-brown hover:bg-earth-brown hover:text-white transition-all cursor-pointer"
           >
             <span className="material-symbols-outlined text-[24px]">chevron_right</span>
           </button>
@@ -195,13 +195,13 @@ export function TailoredSection({ onViewDetail, projects = [] }: TailoredSection
               {/* Mobile Only Navigation Buttons */}
               <button
                 onClick={() => setCurrent((c) => (c - 1 + data.length) % data.length)}
-                className="flex md:hidden absolute -left-3 top-1/2 -translate-y-1/2 z-20 w-10 h-10 rounded-full bg-white shadow-xl border border-outline-variant/30 items-center justify-center text-earth-brown hover:bg-[#A04000] hover:text-white transition-all cursor-pointer"
+                className="flex md:hidden absolute -left-3 top-1/2 -translate-y-1/2 z-20 w-10 h-10 rounded-full bg-white shadow-xl border border-outline-variant/30 items-center justify-center text-earth-brown hover:bg-earth-brown hover:text-white transition-all cursor-pointer"
               >
                 <span className="material-symbols-outlined text-[20px]">chevron_left</span>
               </button>
               <button
                 onClick={() => setCurrent((c) => (c + 1) % data.length)}
-                className="flex md:hidden absolute -right-3 top-1/2 -translate-y-1/2 z-20 w-10 h-10 rounded-full bg-white shadow-xl border border-outline-variant/30 items-center justify-center text-earth-brown hover:bg-[#A04000] hover:text-white transition-all cursor-pointer"
+                className="flex md:hidden absolute -right-3 top-1/2 -translate-y-1/2 z-20 w-10 h-10 rounded-full bg-white shadow-xl border border-outline-variant/30 items-center justify-center text-earth-brown hover:bg-earth-brown hover:text-white transition-all cursor-pointer"
               >
                 <span className="material-symbols-outlined text-[20px]">chevron_right</span>
               </button>
@@ -238,7 +238,7 @@ export function TailoredSection({ onViewDetail, projects = [] }: TailoredSection
 
             {/* Info */}
             <div className="w-full lg:w-2/5 pr-0 lg:pr-12">
-              <div className="inline-flex items-center gap-2 mb-8 px-4 py-2" style={{ backgroundColor: "#A04000" }}>
+              <div className="inline-flex items-center gap-2 mb-8 px-4 py-2" style={{ backgroundColor: "var(--color-earth-brown)" }}>
                 <span className="material-symbols-outlined text-antique-gold" style={{ fontSize: "18px" }}>location_on</span>
                 <span
                   className="font-label-caps tracking-wide font-bold text-white"

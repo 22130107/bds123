@@ -90,7 +90,7 @@ export function PropertyCard({
         <div className="mt-6 pt-4 border-t border-outline-variant flex justify-between items-center">
           <p
             className="font-price-display"
-            style={{ fontSize: "22px", lineHeight: "24px", fontWeight: 600, color: "#A04000" }}
+            style={{ fontSize: "22px", lineHeight: "24px", fontWeight: 600, color: "var(--color-earth-brown)" }}
           >
             {price}
           </p>

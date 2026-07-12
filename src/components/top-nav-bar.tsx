@@ -120,7 +120,7 @@ export function TopNavBar({ activePage, onNavigate, categories: initialCategorie
 
   return (
     <motion.header
-      className="fixed top-0 w-full z-50 bg-[#A04000] border-b border-white/20 shadow-sm"
+      className="fixed top-0 w-full z-50 bg-earth-brown border-b border-white/20 shadow-sm"
       style={{ height: "80px" }}
       variants={{
         visible: { y: 0 },

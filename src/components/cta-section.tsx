@@ -34,7 +34,7 @@ export function CTASection({ onSchedule, onViewCatalog }: CTASectionProps) {
           <button
             onClick={onSchedule}
             className="text-white px-14 py-5 font-label-caps font-bold hover:bg-antique-gold transition-all duration-500 shadow-2xl min-w-[240px]"
-            style={{ fontSize: "11px", letterSpacing: "0.15em", backgroundColor: "#A04000" }}
+            style={{ fontSize: "11px", letterSpacing: "0.15em", backgroundColor: "var(--color-earth-brown)" }}
           >
             ĐẶT LỊCH TƯ VẤN
           </button>

@@ -110,7 +110,7 @@ export function HeroSection({ onNavigate }: HeroSectionProps) {
                 fontSize: "11px",
                 letterSpacing: "0.12em",
                 fontWeight: 700,
-                backgroundColor: activeTab === key ? "#A04000" : "rgba(0, 0, 0, 0.35)",
+                backgroundColor: activeTab === key ? "var(--color-earth-brown)" : "rgba(0, 0, 0, 0.35)",
                 color: "#ffffff",
                 backdropFilter: "blur(8px)",
               }}
@@ -157,7 +157,7 @@ export function HeroSection({ onNavigate }: HeroSectionProps) {
                 <button
                   onClick={handleSearch}
                   className="w-full md:w-auto px-6 md:px-10 py-3.5 md:py-4 font-label-caps text-white hover:bg-antique-gold transition-all duration-500 active:scale-95 text-[13px] rounded-lg"
-                  style={{ letterSpacing: "0.15em", fontWeight: 700, backgroundColor: "#A04000" }}
+                  style={{ letterSpacing: "0.15em", fontWeight: 700, backgroundColor: "var(--color-earth-brown)" }}
                 >
                   TÌM KIẾM
                 </button>

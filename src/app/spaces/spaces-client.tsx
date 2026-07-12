@@ -377,11 +377,11 @@ function SpacesGalleryContent({ dbSpaces }: { dbSpaces: any[] }) {
                   className={`px-8 py-2.5 rounded-full font-label-caps text-[10px] tracking-widest font-bold transition-all ${
                     activeCollection === col.id
                       ? "text-white shadow-md"
-                      : "text-on-surface-variant hover:text-antique-gold"
+                      : "text-on-surface-variant hover:text-earth-brown"
                   }`}
                   style={
                     activeCollection === col.id
-                      ? { backgroundColor: "#A04000" }
+                      ? { backgroundColor: "var(--color-earth-brown)" }
                       : {}
                   }
                 >
@@ -432,13 +432,13 @@ function SpacesGalleryContent({ dbSpaces }: { dbSpaces: any[] }) {
                 {/* Navigation Buttons */}
                 <button
                   onClick={scrollLeft}
-                  className="hidden md:flex absolute -left-4 md:-left-16 top-1/2 -translate-y-1/2 z-20 w-14 h-14 rounded-full bg-white shadow-2xl border border-outline-variant/35 items-center justify-center text-earth-brown hover:bg-[#A04000] hover:text-white transition-all cursor-pointer"
+                  className="hidden md:flex absolute -left-4 md:-left-16 top-1/2 -translate-y-1/2 z-20 w-14 h-14 rounded-full bg-white shadow-2xl border border-outline-variant/35 items-center justify-center text-earth-brown hover:bg-earth-brown hover:text-white transition-all cursor-pointer"
                 >
                   <span className="material-symbols-outlined text-2xl">chevron_left</span>
                 </button>
                 <button
                   onClick={scrollRight}
-                  className="hidden md:flex absolute -right-4 md:-right-16 top-1/2 -translate-y-1/2 z-20 w-14 h-14 rounded-full bg-white shadow-2xl border border-outline-variant/35 items-center justify-center text-earth-brown hover:bg-[#A04000] hover:text-white transition-all cursor-pointer"
+                  className="hidden md:flex absolute -right-4 md:-right-16 top-1/2 -translate-y-1/2 z-20 w-14 h-14 rounded-full bg-white shadow-2xl border border-outline-variant/35 items-center justify-center text-earth-brown hover:bg-earth-brown hover:text-white transition-all cursor-pointer"
                 >
                   <span className="material-symbols-outlined text-2xl">chevron_right</span>
                 </button>
