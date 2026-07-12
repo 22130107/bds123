@@ -136,13 +136,27 @@ export function TopNavBar({ activePage, onNavigate, categories: initialCategorie
         {/* Logo */}
         <a
           href="/"
-          className="flex items-end gap-0 shrink-0 z-50 lg:-translate-x-[120px] -translate-y-1 pb-2"
+          className="flex items-center gap-4 shrink-0 z-50 lg:-translate-x-[120px] group"
           onClick={(e) => { e.preventDefault(); onNavigate?.("home"); setIsOpen(false); }}
         >
-          <img src={logoIcon.src} alt="Happy M" className="h-12 lg:h-20 w-auto object-contain" />
-            <div className="flex flex-col -translate-y-[1px]">
-            <span className="text-white font-bold tracking-[0.15em] uppercase" style={{ fontFamily: "'Playfair Display', serif", fontSize: "clamp(12px, 3vw, 18px)", lineHeight: "1.1" }}>HAPPY M</span>
-            <span className="text-white/70 tracking-[0.08em] uppercase font-bold" style={{ fontFamily: "'Hanken Grotesk', sans-serif", fontSize: "clamp(7px, 1.5vw, 9px)", lineHeight: "1.2" }}>MÃI HẠNH PHÚC, MÃI GIÀU SANG</span>
+          <img 
+            src={logoIcon.src} 
+            alt="Happy M" 
+            className="h-14 lg:h-[84px] w-auto object-contain drop-shadow-[0_2px_4px_rgba(0,0,0,0.3)] group-hover:scale-105 transition-transform duration-300" 
+          />
+          <div className="flex flex-col justify-center">
+            <span 
+              className="text-white font-black tracking-[0.15em] uppercase drop-shadow-sm" 
+              style={{ fontFamily: "'Playfair Display', serif", fontSize: "clamp(16px, 3.5vw, 22px)", lineHeight: "1.2" }}
+            >
+              HAPPY M
+            </span>
+            <span 
+              className="text-white/90 tracking-[0.1em] uppercase font-bold drop-shadow-sm" 
+              style={{ fontFamily: "'Hanken Grotesk', sans-serif", fontSize: "clamp(8px, 1.8vw, 10px)", lineHeight: "1.2" }}
+            >
+              MÃI HẠNH PHÚC, MÃI GIÀU SANG
+            </span>
           </div>
         </a>
 
