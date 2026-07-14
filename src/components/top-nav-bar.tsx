@@ -136,24 +136,24 @@ export function TopNavBar({ activePage, onNavigate, categories: initialCategorie
         {/* Logo */}
         <a
           href="/"
-          className="flex items-center gap-4 shrink-0 z-50 lg:-translate-x-[120px]"
+          className="flex items-center gap-3 md:gap-4 shrink-0 z-50 lg:-translate-x-[120px]"
           onClick={(e) => { e.preventDefault(); onNavigate?.("home"); setIsOpen(false); }}
         >
           <img 
             src={logoIcon.src} 
             alt="Happy M" 
-            className="h-12 lg:h-[72px] w-auto object-contain" 
+            className="h-16 lg:h-[72px] w-auto object-contain" 
           />
           <div className="flex flex-col justify-center">
             <span 
               className="text-white font-black tracking-[0.15em] uppercase" 
-              style={{ fontFamily: "'Playfair Display', serif", fontSize: "clamp(14px, 3vw, 20px)", lineHeight: "1.2" }}
+              style={{ fontFamily: "'Playfair Display', serif", fontSize: "clamp(18px, 4vw, 20px)", lineHeight: "1.2" }}
             >
               HAPPY M
             </span>
             <span 
               className="text-white/90 tracking-[0.1em] uppercase font-bold" 
-              style={{ fontFamily: "'Hanken Grotesk', sans-serif", fontSize: "clamp(7px, 1.5vw, 9px)", lineHeight: "1.2" }}
+              style={{ fontFamily: "'Hanken Grotesk', sans-serif", fontSize: "clamp(8px, 2vw, 9px)", lineHeight: "1.2" }}
             >
               MÃI HẠNH PHÚC, MÃI GIÀU SANG
             </span>
