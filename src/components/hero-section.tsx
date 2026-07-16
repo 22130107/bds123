@@ -68,7 +68,7 @@ export function HeroSection({ onNavigate }: HeroSectionProps) {
   return (
     <section className="relative bg-earth-brown">
       {/* MOBILE */}
-      <div className="md:hidden relative">
+      <div className="md:hidden relative pt-[80px]">
         <Image src={herobanner} alt="Hero" className="w-full h-auto object-cover" priority />
         {/* Search widget overlay */}
         <div className="absolute bottom-0 left-0 right-0 z-10 w-full max-w-4xl mx-auto px-4 pb-4">
