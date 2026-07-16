@@ -193,7 +193,7 @@ export function HeroSection({ onNavigate }: HeroSectionProps) {
       </div>
 
       {/* DESKTOP */}
-      <div className="hidden md:block relative h-screen min-h-[900px] overflow-hidden">
+      <div className="hidden md:block relative h-screen min-h-[600px] overflow-hidden">
       {/* Background image */}
       <div className="absolute inset-0">
         <Image
@@ -206,25 +206,26 @@ export function HeroSection({ onNavigate }: HeroSectionProps) {
         />
       </div>
 
+      <div className="absolute inset-0 z-[1]" style={{ background: "linear-gradient(90deg, rgba(12,18,28,.55) 0%, rgba(12,18,28,.28) 35%, rgba(12,18,28,.08) 60%, transparent 100%)" }} />
+
       {/* Headline */}
-      <div className="absolute top-1/3 left-0 right-0 px-[100px] z-10 max-w-[1440px] mx-auto w-full" style={{ transform: "translateY(calc(-25% + 200px))" }}>
+      <div className="absolute top-1/3 left-0 right-0 px-[100px] z-10 max-w-[1440px] mx-auto w-full" style={{ transform: "translateY(calc(-25% + 140px))" }}>
         <div className="text-left w-full">
-          {/* Backdrop mờ phía sau chữ */}
           <div className="inline-block">
             <h1
-              className="font-body-lg text-white leading-tight"
+              className="leading-tight"
               style={{
-                fontSize: "clamp(36px, 5vw, 64px)",
+                fontSize: "clamp(28px, 3.5vw, 48px)",
                 lineHeight: "1.2",
                 fontWeight: 700,
-                textShadow: "rgba(0,0,0,0.95) 2px 2px 0px, rgba(0,0,0,0.8) 0px 6px 30px, rgba(0,0,0,0.6) 0px 12px 60px",
+                fontFamily: "'Playfair Display', Georgia, serif",
               }}
             >
-              <span className="whitespace-nowrap">Tìm Kiếm Nơi An Cư</span> <br />
-              <span className="italic font-normal whitespace-nowrap text-white" style={{ textShadow: "rgba(0,0,0,0.95) 2px 2px 0px, rgba(0,0,0,0.8) 0px 6px 30px" }}>Và Đầu Tư Lý Tưởng</span>
+              <span className="whitespace-nowrap text-white" style={{ fontSize: "clamp(46px, 6vw, 80px)" }}>Tìm Kiếm Nơi An Cư</span> <br />
+              <span className="italic font-normal whitespace-nowrap text-white">Và Đầu Tư Lý Tưởng</span>
             </h1>
           </div>
-          <p className="text-white mt-6 text-[20px] font-semibold tracking-wide" style={{ textShadow: "rgba(0,0,0,0.95) 1px 1px 0px, rgba(0,0,0,0.8) 0px 4px 16px, rgba(0,0,0,0.6) 0px 8px 32px" }}>
+          <p className="mt-6 text-[20px] font-semibold tracking-wide" style={{ color: "#FFFFFF" }}>
             Nền tảng giao dịch bất động sản uy tín, minh bạch và nhanh chóng.
           </p>
           <div className="h-[2px] w-24 bg-antique-gold mt-4 shadow-sm" />
