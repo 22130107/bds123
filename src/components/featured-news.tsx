@@ -97,7 +97,7 @@ export function FeaturedNews({ news = [] }: { news?: any[] }) {
                 <div className="flex items-center gap-3 mb-4">
                   <span
                     className="font-label-caps uppercase tracking-widest font-bold px-3 py-1"
-                    style={{ fontSize: "10px", backgroundColor: "#D4AF37", color: "#ffffff" }}
+                    style={{ fontSize: "10px", backgroundColor: "#F5D78A", color: "#ffffff" }}
                   >
                     {featured.category}
                   </span>
@@ -145,7 +145,7 @@ export function FeaturedNews({ news = [] }: { news?: any[] }) {
                     <div className="flex flex-wrap items-center gap-2 mb-2">
                       <span
                         className="font-label-caps uppercase tracking-[0.2em] font-bold px-2.5 py-1"
-                        style={{ fontSize: "9px", backgroundColor: "#D4AF37", color: "#ffffff" }}
+                        style={{ fontSize: "9px", backgroundColor: "#F5D78A", color: "#ffffff" }}
                       >
                         {article.category}
                       </span>

@@ -79,7 +79,7 @@ export function HeroSection({ onNavigate }: HeroSectionProps) {
       </div>
 
       {/* Headline */}
-      <div className="absolute top-1/3 left-0 right-0 px-6 md:px-[100px] z-10 max-w-[1440px] mx-auto w-full" style={{ transform: "translateY(calc(-25% + 200px))" }}>
+      <div className="absolute top-[12%] md:top-1/3 left-0 right-0 px-6 md:px-[100px] z-10 max-w-[1440px] mx-auto w-full" style={{ transform: "translateY(calc(-25% + 200px))" }}>
         <div className="text-left w-full">
           {/* Backdrop mờ phía sau chữ */}
           <div className="inline-block">

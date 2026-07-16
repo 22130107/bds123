@@ -3,7 +3,7 @@
 /* ─── TimNhaHot Design System Tokens ─── */
 @theme {
   /* Brand colors */
-  --color-antique-gold: #D4AF37;
+  --color-antique-gold: #F5D78A;
   --color-earth-brown: #C55A1B;
   --color-sand-beige: #E5D3B3;
   --color-moss-green: #4CAF50;
@@ -112,7 +112,7 @@
 /* Gold scrollbar */
 .custom-scrollbar::-webkit-scrollbar { width: 4px; }
 .custom-scrollbar::-webkit-scrollbar-track { background: #fbf9f4; }
-.custom-scrollbar::-webkit-scrollbar-thumb { background: #D4AF37; }
+.custom-scrollbar::-webkit-scrollbar-thumb { background: #F5D78A; }
 
 /* Hairline divider */
 .hairline-divider {
@@ -134,7 +134,7 @@
   top: 50%;
   width: 30px;
   height: 1px;
-  background-color: #D4AF37;
+  background-color: #F5D78A;
 }
 .heritage-frame::before { left: 0; }
 .heritage-frame::after { right: 0; }

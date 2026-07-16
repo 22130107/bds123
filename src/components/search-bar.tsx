@@ -122,7 +122,7 @@ export function SearchBar({ onSearch }: SearchBarProps) {
     <div className="max-w-[1280px] mx-auto px-5 md:px-[80px] -mt-10 relative z-10">
       <div
         className="p-8 shadow-xl border-b-2 border-antique-gold grid grid-cols-1 md:grid-cols-5 gap-6 items-end"
-        style={{ backgroundColor: "rgba(255,255,255,0.95)", backdropFilter: "blur(8px)", border: "1px solid #e4e2dd", borderBottomColor: "#D4AF37", borderBottomWidth: 2 }}
+        style={{ backgroundColor: "rgba(255,255,255,0.95)", backdropFilter: "blur(8px)", border: "1px solid #e4e2dd", borderBottomColor: "#F5D78A", borderBottomWidth: 2 }}
       >
         {[
           { label: "Tìm kiếm từ khóa", field: "keyword" as const, placeholder: "Nhập từ khóa...", type: "text", icon: "search" },

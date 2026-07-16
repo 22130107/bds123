@@ -102,7 +102,7 @@ export function LocationSection({ projects = [] }: LocationSectionProps) {
                 src={largeLocation.image}
                 alt={largeLocation.city}
                 fill
-                className="object-cover transition-[transform] transform-gpu will-change-transform duration-[2000ms] group-hover:scale-105"
+                className="object-cover"
                 sizes="(max-width: 1024px) 100vw, 66vw"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent" />
@@ -139,7 +139,7 @@ export function LocationSection({ projects = [] }: LocationSectionProps) {
                   alt={loc.city}
                   fill
                   loading="lazy"
-                  className="object-cover transition-[transform] transform-gpu will-change-transform duration-[2000ms] group-hover:scale-105"
+                  className="object-cover"
                   sizes="(max-width: 1024px) 50vw, 16vw"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-transparent to-transparent" />
