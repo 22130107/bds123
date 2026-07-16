@@ -60,6 +60,7 @@ export default function ProjectForm({ initialData, categories = [] }: { initialD
   const [formData, setFormData] = useState({
     title: initialData?.title || "",
     slug: initialData?.slug || "",
+    investor: initialData?.investor || "",
     meta_description: initialData?.meta_description || "",
     schema_markup: initialData?.schema_markup || "",
     description: initialData?.description || "",
@@ -249,6 +250,12 @@ export default function ProjectForm({ initialData, categories = [] }: { initialD
               </button>
             )}
           </div>
+        </div>
+
+        {/* Chủ đầu tư */}
+        <div className="col-span-1 md:col-span-2">
+          <label className="block text-sm font-medium text-gray-700 mb-1">Chủ đầu tư</label>
+          <input name="investor" value={formData.investor} onChange={handleChange} placeholder="Nhập tên chủ đầu tư (nếu có)" className="w-full px-4 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-earth-brown focus:border-transparent outline-none" />
         </div>
 
         {/* Meta Description cho SEO */}

@@ -36,6 +36,7 @@ export default async function Page({ searchParams }: { searchParams: Promise<{ [
   const type = resolvedParams.type as string | undefined;
   const price = resolvedParams.price as string | undefined;
   const area = resolvedParams.area as string | undefined;
+  const investor = resolvedParams.investor as string | undefined;
 
   if (keyword) {
     const normalizedSearch = removeAccents(keyword.trim());
@@ -48,6 +49,14 @@ export default async function Page({ searchParams }: { searchParams: Promise<{ [
       const combinedText = `${normalizedTitle} ${normalizedLocation} ${normalizedDescription}`;
       
       return searchTerms.every(term => combinedText.includes(term));
+    });
+  }
+
+  if (investor) {
+    const normalizedInvestorSearch = removeAccents(investor.trim());
+    filteredProjects = filteredProjects.filter(p => {
+      const normalizedInvestor = removeAccents(p.investor || "");
+      return normalizedInvestor.includes(normalizedInvestorSearch);
     });
   }
 

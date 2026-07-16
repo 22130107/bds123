@@ -60,25 +60,21 @@ export function NewsPage({ onNavigate, dbNews = [] }: NewsPageProps) {
       <TopNavBar activePage="news" onNavigate={onNavigate} />
 
       {/* Hero Header */}
-      <section className="relative w-full h-[350px] overflow-hidden pt-20">
+      <section className="relative w-full h-[600px] overflow-hidden pt-20">
         <div className="absolute inset-0">
           <img
-            src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=1600"
+            src="/uploads/3.jpg"
             alt="News Banner"
             className="w-full h-full object-cover"
           />
-          <div className="absolute inset-0 bg-black/40" />
         </div>
         <div className="absolute inset-0 flex flex-col items-center justify-center text-center px-4">
           <h1
             className="font-display-lg text-white mb-4 uppercase tracking-wider"
-            style={{ fontSize: "clamp(32px, 5vw, 48px)", fontWeight: 700 }}
+            style={{ fontSize: "clamp(32px, 5vw, 48px)", fontWeight: 700, textShadow: "rgba(0,0,0,0.95) 2px 2px 0px, rgba(0,0,0,0.8) 0px 6px 30px" }}
           >
             Tin Tức & Sự Kiện
           </h1>
-          <p className="font-body-lg text-white/80 max-w-2xl" style={{ fontSize: "16px", lineHeight: "28px" }}>
-            Cập nhật những thông tin thị trường mới nhất, phân tích chuyên sâu và các xu hướng bất động sản hạng sang dẫn đầu.
-          </p>
         </div>
       </section>
 

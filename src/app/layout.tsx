@@ -4,7 +4,7 @@ import { FloatingToolbar } from "../components/floating-toolbar";
 import { getSiteTheme } from "../actions/settings-actions";
 
 export const metadata: Metadata = {
-  title: "Happy M",
+  title: "BatdongsanHappyM",
   description: "Bất động sản cao cấp",
 };
 

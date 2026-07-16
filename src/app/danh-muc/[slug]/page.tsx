@@ -40,6 +40,7 @@ export default async function DanhMucSlugPage({ params, searchParams }: { params
   const location = resolvedSearchParams.location as string | undefined;
   const price = resolvedSearchParams.price as string | undefined;
   const area = resolvedSearchParams.area as string | undefined;
+  const investor = resolvedSearchParams.investor as string | undefined;
 
   if (keyword) {
     const kw = keyword.toLowerCase();
@@ -47,6 +48,13 @@ export default async function DanhMucSlugPage({ params, searchParams }: { params
       p.title?.toLowerCase().includes(kw) || 
       p.location?.toLowerCase().includes(kw) || 
       p.description?.toLowerCase().includes(kw)
+    );
+  }
+
+  if (investor) {
+    const inv = investor.toLowerCase();
+    filteredProjects = filteredProjects.filter(p => 
+      p.investor?.toLowerCase().includes(inv)
     );
   }
 

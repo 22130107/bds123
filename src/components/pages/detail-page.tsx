@@ -133,6 +133,7 @@ export function DetailPage({ project, agentInfo, relatedProjects }: DetailPagePr
 
   const dynamicSpecs = [
     { icon: "layers", label: "Diện tích", value: project.area ? `${project.area} m²` : "Đang cập nhật" },
+    ...(project.investor ? [{ icon: "business", label: "Chủ đầu tư", value: project.investor }] : []),
     ...(project.width ? [{ icon: "straighten", label: "Chiều ngang", value: `${parseFloat(project.width)} m` }] : []),
     ...(project.length ? [{ icon: "straighten", label: "Chiều dài", value: `${parseFloat(project.length)} m` }] : []),
     ...(project.direction ? [{ icon: "explore", label: "Hướng nhà", value: project.direction }] : []),

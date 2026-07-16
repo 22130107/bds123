@@ -30,7 +30,17 @@ export async function getAllLocations() {
   return rows as { name: string }[];
 }
 
-export async function getProjects(params?: { search?: string, type?: string, category?: string, isFeatured?: string, location?: string, status?: string }) {
+export async function getAllInvestors() {
+  const [rows] = await pool.query(`
+    SELECT DISTINCT investor as name
+    FROM projects 
+    WHERE investor IS NOT NULL AND investor != ''
+    ORDER BY name ASC
+  `);
+  return rows as { name: string }[];
+}
+
+export async function getProjects(params?: { search?: string, type?: string, category?: string, isFeatured?: string, location?: string, status?: string, investor?: string }) {
   let query = 'SELECT * FROM projects WHERE 1=1';
   const values: any[] = [];
   
@@ -58,13 +68,17 @@ export async function getProjects(params?: { search?: string, type?: string, cat
     query += ' AND isFeatured = ?';
     values.push(params.isFeatured === 'true' ? 1 : 0);
   }
+  if (params?.investor) {
+    query += ' AND investor LIKE ?';
+    values.push(`%${params.investor}%`);
+  }
   
   query += ' ORDER BY createdAt DESC';
   const [rows] = await pool.query(query, values);
   return rows as any[];
 }
 
-export async function getProjectsPaginated(params?: { search?: string, location?: string, type?: string, category?: string, isFeatured?: string, status?: string, page?: number, limit?: number }) {
+export async function getProjectsPaginated(params?: { search?: string, location?: string, type?: string, category?: string, isFeatured?: string, status?: string, page?: number, limit?: number, investor?: string }) {
   let where = '1=1';
   const values: any[] = [];
   
@@ -91,6 +105,10 @@ export async function getProjectsPaginated(params?: { search?: string, location?
   if (params?.isFeatured) {
     where += ' AND isFeatured = ?';
     values.push(params.isFeatured === 'true' ? 1 : 0);
+  }
+  if (params?.investor) {
+    where += ' AND investor LIKE ?';
+    values.push(`%${params.investor}%`);
   }
   
   const [countRows] = await pool.query(`SELECT COUNT(*) as total FROM projects WHERE ${where}`, values);
@@ -185,6 +203,7 @@ export async function createProject(formData: FormData) {
   const area = formData.get('area');
   const price = formData.get('price');
   const description = formData.get('description');
+  const investor = formData.get('investor') || null;
   const type = formData.get('type');
   const category = formData.get('category');
   const badge = formData.get('badge') || '';
@@ -243,8 +262,8 @@ export async function createProject(formData: FormData) {
   }
 
   const [result] = await pool.query(
-    'INSERT INTO projects (title, slug, meta_description, schema_markup, location, mainImg, sideImg, area, price, description, isFeatured, type, category, badge, images, bedrooms, bathrooms, status, width, length, direction, frontRoad, legal, floors, hasKitchen, hasDiningRoom, hasTerrace, hasParking) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
-    [title, slug, meta_description, schema_markup, location, mainImg, sideImg, area, price, description, isFeatured, type, category, badge, JSON.stringify(finalImages), bedrooms, bathrooms, status, width, length, direction, frontRoad, legal, floors, hasKitchen, hasDiningRoom, hasTerrace, hasParking]
+    'INSERT INTO projects (title, slug, meta_description, schema_markup, location, mainImg, sideImg, area, price, description, investor, isFeatured, type, category, badge, images, bedrooms, bathrooms, status, width, length, direction, frontRoad, legal, floors, hasKitchen, hasDiningRoom, hasTerrace, hasParking) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
+    [title, slug, meta_description, schema_markup, location, mainImg, sideImg, area, price, description, investor, isFeatured, type, category, badge, JSON.stringify(finalImages), bedrooms, bathrooms, status, width, length, direction, frontRoad, legal, floors, hasKitchen, hasDiningRoom, hasTerrace, hasParking]
   );
   revalidatePath('/admin');
   revalidatePath('/admin/projects');
@@ -259,6 +278,7 @@ export async function updateProject(id: number, formData: FormData) {
   const area = formData.get('area');
   const price = formData.get('price');
   const description = formData.get('description');
+  const investor = formData.get('investor') || null;
   const type = formData.get('type');
   const category = formData.get('category');
   const badge = formData.get('badge') || '';
@@ -317,8 +337,8 @@ export async function updateProject(id: number, formData: FormData) {
   }
 
   const [result] = await pool.query(
-    'UPDATE projects SET title = ?, slug = ?, meta_description = ?, schema_markup = ?, location = ?, mainImg = ?, sideImg = ?, area = ?, price = ?, description = ?, isFeatured = ?, type = ?, category = ?, badge = ?, images = ?, bedrooms = ?, bathrooms = ?, status = ?, width = ?, length = ?, direction = ?, frontRoad = ?, legal = ?, floors = ?, hasKitchen = ?, hasDiningRoom = ?, hasTerrace = ?, hasParking = ? WHERE id = ?',
-    [title, slug, meta_description, schema_markup, location, mainImg, sideImg, area, price, description, isFeatured, type, category, badge, JSON.stringify(finalImages), bedrooms, bathrooms, status, width, length, direction, frontRoad, legal, floors, hasKitchen, hasDiningRoom, hasTerrace, hasParking, id]
+    'UPDATE projects SET title = ?, slug = ?, meta_description = ?, schema_markup = ?, location = ?, mainImg = ?, sideImg = ?, area = ?, price = ?, description = ?, investor = ?, isFeatured = ?, type = ?, category = ?, badge = ?, images = ?, bedrooms = ?, bathrooms = ?, status = ?, width = ?, length = ?, direction = ?, frontRoad = ?, legal = ?, floors = ?, hasKitchen = ?, hasDiningRoom = ?, hasTerrace = ?, hasParking = ? WHERE id = ?',
+    [title, slug, meta_description, schema_markup, location, mainImg, sideImg, area, price, description, investor, isFeatured, type, category, badge, JSON.stringify(finalImages), bedrooms, bathrooms, status, width, length, direction, frontRoad, legal, floors, hasKitchen, hasDiningRoom, hasTerrace, hasParking, id]
   );
   revalidatePath('/admin');
   revalidatePath('/admin/projects');

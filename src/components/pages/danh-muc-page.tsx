@@ -45,23 +45,38 @@ export function DanhMucPage({ projects = [], currentCategory }: { projects?: any
       <TopNavBar activePage="danh-muc" onNavigate={handleNavigate} />
 
       {/* Hero Banner */}
-      <section className="relative w-full h-[400px] overflow-hidden pt-20 bg-neutral-900">
-        <img
-          src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=1600"
-          alt="Hero Banner"
+      <section className="relative w-full h-[600px] overflow-hidden pt-20 bg-neutral-900">
+        <video
+          src="/uploads/VidAriaDesktop.mp4"
+          autoPlay
+          muted
+          loop
+          playsInline
           className="absolute inset-0 w-full h-full object-cover"
-          style={{ filter: "brightness(0.5)" }}
         />
         <div className="absolute inset-0 flex flex-col items-center justify-center text-center px-4">
+          {/* Đường kẻ trang trí */}
+          <div className="flex items-center gap-4 mb-5">
+            <div className="h-[1px] w-16 bg-antique-gold/80" />
+            <span className="text-antique-gold font-label-caps uppercase tracking-[0.25em] text-xs">Happy M Properties</span>
+            <div className="h-[1px] w-16 bg-antique-gold/80" />
+          </div>
+
           <h1
-            className="font-display-lg text-white mb-4 uppercase"
-            style={{ fontSize: "clamp(28px, 4vw, 52px)", fontWeight: 700, textShadow: "0 4px 20px rgba(0,0,0,0.6)" }}
+            className="text-white uppercase mb-5"
+            style={{
+              fontSize: "clamp(32px, 5vw, 60px)",
+              fontWeight: 800,
+              letterSpacing: "0.08em",
+              textShadow: "0 2px 4px rgba(0,0,0,0.9), 0 8px 32px rgba(0,0,0,0.7)",
+              lineHeight: 1.1,
+            }}
           >
             {title}
           </h1>
-          <p className="font-body-lg text-white/90 max-w-2xl" style={{ fontSize: "18px", lineHeight: "30px" }}>
-            Khám phá bộ sưu tập những không gian sống đẳng cấp nhất Việt Nam, nơi giá trị di sản trường tồn cùng thời gian.
-          </p>
+
+          {/* Gạch vàng dưới tiêu đề */}
+          <div className="w-20 h-[3px] bg-antique-gold mb-5 mx-auto" />
         </div>
       </section>
 

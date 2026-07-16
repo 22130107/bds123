@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
-import { getTopLocations, getProjects } from "../actions/project-actions";
+import { getTopLocations, getProjects, getAllInvestors } from "../actions/project-actions";
 import { getCategories } from "../actions/category-actions";
 
 interface HeroSectionProps {
@@ -15,11 +15,12 @@ export function HeroSection({ onNavigate }: HeroSectionProps) {
   const [location, setLocation] = useState("Toàn quốc");
   const [price, setPrice] = useState("Mức giá");
   const [area, setArea] = useState("Diện tích");
-  const [project, setProject] = useState("Dự án");
-  const [category, setCategory] = useState("Loại nhà đất");
+  const [investor, setInvestor] = useState("");
+  const [category, setCategory] = useState("Loại nhà dự án");
 
   const [dbLocations, setDbLocations] = useState<string[]>(["Hà Nội", "TP. Hồ Chí Minh", "Đà Nẵng"]);
-  const [dbCategories, setDbCategories] = useState<string[]>([]);
+  const [dbCategories, setDbCategories] = useState<any[]>([]);
+  const [dbInvestors, setDbInvestors] = useState<string[]>([]);
 
   useEffect(() => {
     // Fetch locations
@@ -31,7 +32,13 @@ export function HeroSection({ onNavigate }: HeroSectionProps) {
 
     getCategories().then(data => {
       if(Array.isArray(data)) {
-        setDbCategories(Array.from(new Set(data.map((c: any) => c.name))));
+        setDbCategories(data);
+      }
+    }).catch(() => []);
+
+    getAllInvestors().then(data => {
+      if(Array.isArray(data)) {
+        setDbInvestors(data.map((d: any) => d.name));
       }
     }).catch(() => []);
   }, []);
@@ -43,8 +50,8 @@ export function HeroSection({ onNavigate }: HeroSectionProps) {
     if (location && location !== "Toàn quốc") params.set("location", location);
     if (price && price !== "Mức giá") params.set("price", price);
     if (area && area !== "Diện tích") params.set("area", area);
-    if (project && project !== "Dự án") params.set("keyword", project);
-    if (category && category !== "Loại nhà đất") params.set("category", category);
+    if (investor) params.set("investor", investor);
+    if (category && category !== "Loại nhà dự án") params.set("category", category);
 
     let basePath = "/danh-muc";
     if (activeTab === "buy") {
@@ -58,36 +65,38 @@ export function HeroSection({ onNavigate }: HeroSectionProps) {
   };
 
   return (
-    <section className="relative h-[92vh] min-h-[600px] md:min-h-[700px] flex items-end justify-center overflow-hidden bg-earth-brown pb-16">
+    <section className="relative h-screen min-h-[800px] md:min-h-[900px] flex items-end justify-center overflow-hidden bg-earth-brown pb-16">
       {/* Background image */}
-      <div className="absolute inset-0">
+        <div className="absolute inset-0">
         <Image
-          src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=1600"
+          src="/uploads/ariahero.avif"
           alt="Hero background"
           fill
           priority
           className="object-cover object-center"
           sizes="100vw"
         />
-        <div className="absolute inset-0 hero-gradient" />
       </div>
 
       {/* Headline */}
-      <div className="absolute top-1/3 -translate-y-1/4 left-0 right-0 px-6 md:px-[100px] z-10 max-w-[1440px] mx-auto w-full">
+      <div className="absolute top-1/3 left-0 right-0 px-6 md:px-[100px] z-10 max-w-[1440px] mx-auto w-full" style={{ transform: "translateY(calc(-25% + 200px))" }}>
         <div className="text-left w-full">
-          <h1
-            className="font-body-lg text-white leading-tight"
-            style={{
-              fontSize: "clamp(36px, 5vw, 64px)",
-              lineHeight: "1.2",
-              fontWeight: 700,
-              textShadow: "rgba(0,0,0,0.4) 0px 4px 20px",
-            }}
-          >
-            <span className="whitespace-nowrap">Tìm Kiếm Nơi An Cư</span> <br />
-            <span className="italic font-normal whitespace-nowrap text-white/90">Và Đầu Tư Lý Tưởng</span>
-          </h1>
-          <p className="text-white mt-6 text-[16px] md:text-[20px] font-medium tracking-wide drop-shadow-md" style={{ textShadow: "rgba(0,0,0,0.6) 0px 2px 10px" }}>
+          {/* Backdrop mờ phía sau chữ */}
+          <div className="inline-block">
+            <h1
+              className="font-body-lg text-white leading-tight"
+              style={{
+                fontSize: "clamp(36px, 5vw, 64px)",
+                lineHeight: "1.2",
+                fontWeight: 700,
+                textShadow: "rgba(0,0,0,0.95) 2px 2px 0px, rgba(0,0,0,0.8) 0px 6px 30px, rgba(0,0,0,0.6) 0px 12px 60px",
+              }}
+            >
+              <span className="whitespace-nowrap">Tìm Kiếm Nơi An Cư</span> <br />
+              <span className="italic font-normal whitespace-nowrap text-white" style={{ textShadow: "rgba(0,0,0,0.95) 2px 2px 0px, rgba(0,0,0,0.8) 0px 6px 30px" }}>Và Đầu Tư Lý Tưởng</span>
+            </h1>
+          </div>
+          <p className="text-white mt-6 text-[16px] md:text-[20px] font-semibold tracking-wide" style={{ textShadow: "rgba(0,0,0,0.95) 1px 1px 0px, rgba(0,0,0,0.8) 0px 4px 16px, rgba(0,0,0,0.6) 0px 8px 32px" }}>
             Nền tảng giao dịch bất động sản uy tín, minh bạch và nhanh chóng.
           </p>
           <div className="h-[2px] w-24 bg-antique-gold mt-4 shadow-sm" />
@@ -99,12 +108,15 @@ export function HeroSection({ onNavigate }: HeroSectionProps) {
         {/* Tabs */}
         <div className="flex">
           {[
-            { key: "buy", label: "MUA BÁN NHÀ ĐẤT" },
-            { key: "rent", label: "CHO THUÊ NHÀ ĐẤT" },
+            { key: "buy", label: "MUA BÁN NHÀ DỰ ÁN" },
+            { key: "rent", label: "CHO THUÊ NHÀ DỰ ÁN" },
           ].map(({ key, label }) => (
             <button
               key={key}
-              onClick={() => setActiveTab(key as "buy" | "rent")}
+              onClick={() => {
+                setActiveTab(key as "buy" | "rent");
+                setCategory("Loại nhà dự án");
+              }}
               className={`px-6 py-3 font-label-caps transition-all duration-300 ${key === 'buy' ? 'rounded-tl-xl' : ''} ${key === 'rent' ? 'rounded-tr-xl' : ''}`}
               style={{
                 fontSize: "11px",
@@ -133,8 +145,12 @@ export function HeroSection({ onNavigate }: HeroSectionProps) {
                   className="w-full md:w-[130px] lg:w-[140px] truncate pr-8 bg-transparent border-none focus:ring-0 font-body-md text-on-surface appearance-none outline-none py-3 md:py-4 cursor-pointer text-[13px] md:text-[14px]"
                   style={{ fontWeight: 500 }}
                 >
-                  <option>Loại nhà đất</option>
-                  {dbCategories.map(c => <option key={c} value={c}>{c}</option>)}
+                  <option>Loại nhà dự án</option>
+                  {dbCategories
+                    .filter((c) => 
+                      activeTab === "buy" ? c.group_name === "MUA BÁN NHÀ ĐẤT" : c.group_name === "CHO THUÊ NHÀ ĐẤT"
+                    )
+                    .map(c => <option key={c.id || c.name} value={c.name}>{c.name}</option>)}
                 </select>
                 <span className="material-symbols-outlined text-outline-variant pointer-events-none -ml-8 text-xs md:text-sm">expand_more</span>
               </div>
@@ -203,16 +219,18 @@ export function HeroSection({ onNavigate }: HeroSectionProps) {
                 </select>
                 <span className="material-symbols-outlined text-outline-variant pointer-events-none shrink-0 -ml-4 text-xs md:text-[16px]">expand_more</span>
               </div>
-              {/* Dự án */}
+              {/* Chủ đầu tư */}
               <div className="flex items-center px-3 py-2 md:py-2.5 md:flex-1 min-w-0">
-                <input
-                  type="text"
-                  value={project === "Dự án" ? "" : project}
-                  onChange={(e) => setProject(e.target.value)}
-                  placeholder="Dự án..."
-                  className="w-full bg-transparent border-none focus:ring-0 text-on-surface-variant outline-none placeholder:text-on-surface-variant text-[12px] md:text-[13px]"
+                <select
+                  value={investor}
+                  onChange={(e) => setInvestor(e.target.value)}
+                  className="w-full bg-transparent border-none focus:ring-0 text-on-surface-variant appearance-none outline-none cursor-pointer text-[12px] md:text-[13px]"
                   style={{ fontWeight: 500 }}
-                />
+                >
+                  <option value="">Chủ đầu tư</option>
+                  {dbInvestors.map((inv) => <option key={inv} value={inv}>{inv}</option>)}
+                </select>
+                <span className="material-symbols-outlined text-outline-variant pointer-events-none shrink-0 -ml-4 text-xs md:text-[16px]">expand_more</span>
               </div>
             </div>
           </div>
