@@ -3,6 +3,7 @@ import { useRouter } from "next/navigation";
 import Image from "next/image";
 import { getTopLocations, getProjects, getAllInvestors } from "../actions/project-actions";
 import { getCategories } from "../actions/category-actions";
+import herobanner from "../assets/herobanner.png";
 
 interface HeroSectionProps {
   onNavigate?: (page: string) => void;
@@ -65,9 +66,136 @@ export function HeroSection({ onNavigate }: HeroSectionProps) {
   };
 
   return (
-    <section className="relative h-screen min-h-[800px] md:min-h-[900px] flex items-end justify-center overflow-hidden bg-earth-brown pb-16">
+    <section className="relative bg-earth-brown">
+      {/* MOBILE */}
+      <div className="md:hidden relative">
+        <Image src={herobanner} alt="Hero" className="w-full h-auto object-cover" priority />
+        {/* Search widget overlay */}
+        <div className="absolute bottom-0 left-0 right-0 z-10 w-full max-w-4xl mx-auto px-4 pb-4">
+          {/* Tabs */}
+          <div className="flex">
+            {[
+              { key: "buy", label: "MUA BÁN NHÀ DỰ ÁN" },
+              { key: "rent", label: "CHO THUÊ NHÀ DỰ ÁN" },
+            ].map(({ key, label }) => (
+              <button
+                key={key}
+                onClick={() => {
+                  setActiveTab(key as "buy" | "rent");
+                  setCategory("Loại nhà dự án");
+                }}
+                className={`px-6 py-3 font-label-caps transition-all duration-300 ${key === 'buy' ? 'rounded-tl-xl' : ''} ${key === 'rent' ? 'rounded-tr-xl' : ''}`}
+                style={{
+                  fontSize: "11px",
+                  letterSpacing: "0.12em",
+                  fontWeight: 700,
+                  backgroundColor: activeTab === key ? "var(--color-earth-brown)" : "rgba(0, 0, 0, 0.35)",
+                  color: "#ffffff",
+                  backdropFilter: "blur(8px)",
+                }}
+              >
+                {label}
+              </button>
+            ))}
+          </div>
+          {/* Search box */}
+          <div className="bg-white/10 backdrop-blur-2xl border-2 border-white/20 p-2 shadow-xl rounded-tr-xl rounded-b-xl rounded-tl-none">
+            <div className="bg-white p-2 rounded-lg">
+              <div className="flex flex-col border-b border-outline-variant/20">
+                <div className="flex items-center border-b border-outline-variant/20 px-4 w-full justify-between shrink-0">
+                  <select
+                    value={category}
+                    onChange={(e) => setCategory(e.target.value)}
+                    className="w-full truncate pr-8 bg-transparent border-none focus:ring-0 font-body-md text-on-surface appearance-none outline-none py-3 cursor-pointer text-[13px]"
+                    style={{ fontWeight: 500 }}
+                  >
+                    <option>Loại nhà dự án</option>
+                    {dbCategories
+                      .filter((c) => 
+                        activeTab === "buy" ? c.group_name === "MUA BÁN NHÀ ĐẤT" : c.group_name === "CHO THUÊ NHÀ ĐẤT"
+                      )
+                      .map(c => <option key={c.id || c.name} value={c.name}>{c.name}</option>)}
+                  </select>
+                  <span className="material-symbols-outlined text-outline-variant pointer-events-none -ml-8 text-xs">expand_more</span>
+                </div>
+                <div className="flex items-center px-4 py-2">
+                  <span className="material-symbols-outlined text-antique-gold mr-2 shrink-0 text-[20px]">location_on</span>
+                  <input
+                    type="text"
+                    value={keyword}
+                    onChange={(e) => setKeyword(e.target.value)}
+                    onKeyDown={(e) => e.key === "Enter" && handleSearch()}
+                    placeholder="Nhập địa điểm hoặc dự án..."
+                    className="w-full bg-transparent border-none focus:ring-0 font-body-md text-on-surface placeholder:text-on-surface-variant/50 outline-none py-3 text-[13px]"
+                  />
+                </div>
+                <div className="p-2">
+                  <button
+                    onClick={handleSearch}
+                    className="w-full px-6 py-3.5 font-label-caps text-white transition-all duration-500 active:scale-95 text-[13px] rounded-lg"
+                    style={{ letterSpacing: "0.15em", fontWeight: 700, backgroundColor: "var(--color-earth-brown)" }}
+                  >
+                    TÌM KIẾM
+                  </button>
+                </div>
+              </div>
+              <div className="grid grid-cols-2 divide-x divide-outline-variant/20 border-t border-outline-variant/10">
+                <div className="flex items-center px-3 py-2 border-b border-outline-variant/10 min-w-0">
+                  <select
+                    value={location}
+                    onChange={(e) => setLocation(e.target.value)}
+                    className="w-full bg-transparent border-none focus:ring-0 text-on-surface-variant appearance-none outline-none cursor-pointer text-[12px]"
+                    style={{ fontWeight: 500 }}
+                  >
+                    <option value="Toàn quốc">Toàn quốc</option>
+                    {dbLocations.map((o) => <option key={o} value={o}>{o}</option>)}
+                  </select>
+                  <span className="material-symbols-outlined text-outline-variant pointer-events-none shrink-0 -ml-4 text-xs">expand_more</span>
+                </div>
+                <div className="flex items-center px-3 py-2 border-b border-outline-variant/10 min-w-0">
+                  <select
+                    value={price}
+                    onChange={(e) => setPrice(e.target.value)}
+                    className="w-full bg-transparent border-none focus:ring-0 text-on-surface-variant appearance-none outline-none cursor-pointer text-[12px]"
+                    style={{ fontWeight: 500 }}
+                  >
+                    {["Mức giá", "Trên 20 Tỷ VNĐ", "50 - 100 Tỷ VNĐ", "Trên 100 Tỷ VNĐ"].map((o) => <option key={o} value={o}>{o}</option>)}
+                  </select>
+                  <span className="material-symbols-outlined text-outline-variant pointer-events-none shrink-0 -ml-4 text-xs">expand_more</span>
+                </div>
+                <div className="flex items-center px-3 py-2 border-r border-outline-variant/10 min-w-0">
+                  <select
+                    value={area}
+                    onChange={(e) => setArea(e.target.value)}
+                    className="w-full bg-transparent border-none focus:ring-0 text-on-surface-variant appearance-none outline-none cursor-pointer text-[12px]"
+                    style={{ fontWeight: 500 }}
+                  >
+                    {["Diện tích", "Dưới 200 m²", "200 - 500 m²", "Trên 500 m²"].map((o) => <option key={o} value={o}>{o}</option>)}
+                  </select>
+                  <span className="material-symbols-outlined text-outline-variant pointer-events-none shrink-0 -ml-4 text-xs">expand_more</span>
+                </div>
+                <div className="flex items-center px-3 py-2 min-w-0">
+                  <select
+                    value={investor}
+                    onChange={(e) => setInvestor(e.target.value)}
+                    className="w-full bg-transparent border-none focus:ring-0 text-on-surface-variant appearance-none outline-none cursor-pointer text-[12px]"
+                    style={{ fontWeight: 500 }}
+                  >
+                    <option value="">Chủ đầu tư</option>
+                    {dbInvestors.map((inv) => <option key={inv} value={inv}>{inv}</option>)}
+                  </select>
+                  <span className="material-symbols-outlined text-outline-variant pointer-events-none shrink-0 -ml-4 text-xs">expand_more</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* DESKTOP */}
+      <div className="hidden md:block relative h-screen min-h-[900px] overflow-hidden">
       {/* Background image */}
-        <div className="absolute inset-0">
+      <div className="absolute inset-0">
         <Image
           src="/uploads/ariahero.avif"
           alt="Hero background"
@@ -79,7 +207,7 @@ export function HeroSection({ onNavigate }: HeroSectionProps) {
       </div>
 
       {/* Headline */}
-      <div className="absolute top-[12%] md:top-1/3 left-0 right-0 px-6 md:px-[100px] z-10 max-w-[1440px] mx-auto w-full" style={{ transform: "translateY(calc(-25% + 200px))" }}>
+      <div className="absolute top-1/3 left-0 right-0 px-[100px] z-10 max-w-[1440px] mx-auto w-full" style={{ transform: "translateY(calc(-25% + 200px))" }}>
         <div className="text-left w-full">
           {/* Backdrop mờ phía sau chữ */}
           <div className="inline-block">
@@ -96,7 +224,7 @@ export function HeroSection({ onNavigate }: HeroSectionProps) {
               <span className="italic font-normal whitespace-nowrap text-white" style={{ textShadow: "rgba(0,0,0,0.95) 2px 2px 0px, rgba(0,0,0,0.8) 0px 6px 30px" }}>Và Đầu Tư Lý Tưởng</span>
             </h1>
           </div>
-          <p className="text-white mt-6 text-[16px] md:text-[20px] font-semibold tracking-wide" style={{ textShadow: "rgba(0,0,0,0.95) 1px 1px 0px, rgba(0,0,0,0.8) 0px 4px 16px, rgba(0,0,0,0.6) 0px 8px 32px" }}>
+          <p className="text-white mt-6 text-[20px] font-semibold tracking-wide" style={{ textShadow: "rgba(0,0,0,0.95) 1px 1px 0px, rgba(0,0,0,0.8) 0px 4px 16px, rgba(0,0,0,0.6) 0px 8px 32px" }}>
             Nền tảng giao dịch bất động sản uy tín, minh bạch và nhanh chóng.
           </p>
           <div className="h-[2px] w-24 bg-antique-gold mt-4 shadow-sm" />
@@ -104,7 +232,7 @@ export function HeroSection({ onNavigate }: HeroSectionProps) {
       </div>
 
       {/* Search widget */}
-      <div className="relative z-10 w-full max-w-4xl mx-auto px-4">
+      <div className="absolute bottom-0 left-0 right-0 z-10 max-w-4xl mx-auto px-4 pb-16">
         {/* Tabs */}
         <div className="flex">
           {[
@@ -136,13 +264,13 @@ export function HeroSection({ onNavigate }: HeroSectionProps) {
         <div className="bg-white/10 backdrop-blur-2xl border-2 border-white/20 p-2 shadow-xl rounded-tr-xl rounded-b-xl rounded-tl-none">
           <div className="bg-white p-2 rounded-lg">
             {/* Main row */}
-            <div className="flex flex-col md:flex-row items-stretch border-b border-outline-variant/20">
+            <div className="flex flex-row items-stretch border-b border-outline-variant/20">
               {/* Loại nhà đất */}
-              <div className="flex items-center border-b md:border-b-0 md:border-r border-outline-variant/20 px-4 md:px-5 w-full md:w-auto justify-between md:justify-start shrink-0">
+              <div className="flex items-center border-r border-outline-variant/20 px-5 w-auto justify-start shrink-0">
                 <select
                   value={category}
                   onChange={(e) => setCategory(e.target.value)}
-                  className="w-full md:w-[130px] lg:w-[140px] truncate pr-8 bg-transparent border-none focus:ring-0 font-body-md text-on-surface appearance-none outline-none py-3 md:py-4 cursor-pointer text-[13px] md:text-[14px]"
+                  className="w-[130px] lg:w-[140px] truncate pr-8 bg-transparent border-none focus:ring-0 font-body-md text-on-surface appearance-none outline-none py-4 cursor-pointer text-[14px]"
                   style={{ fontWeight: 500 }}
                 >
                   <option>Loại nhà dự án</option>
@@ -152,27 +280,27 @@ export function HeroSection({ onNavigate }: HeroSectionProps) {
                     )
                     .map(c => <option key={c.id || c.name} value={c.name}>{c.name}</option>)}
                 </select>
-                <span className="material-symbols-outlined text-outline-variant pointer-events-none -ml-8 text-xs md:text-sm">expand_more</span>
+                <span className="material-symbols-outlined text-outline-variant pointer-events-none -ml-8 text-sm">expand_more</span>
               </div>
 
               {/* Địa điểm */}
-              <div className="flex-1 flex items-center px-4 md:px-5 py-2 md:py-0 border-b md:border-b-0 border-outline-variant/20">
-                <span className="material-symbols-outlined text-antique-gold mr-2 md:mr-3 shrink-0 text-[20px] md:text-[24px]">location_on</span>
+              <div className="flex-1 flex items-center px-5">
+                <span className="material-symbols-outlined text-antique-gold mr-3 shrink-0 text-[24px]">location_on</span>
                 <input
                   type="text"
                   value={keyword}
                   onChange={(e) => setKeyword(e.target.value)}
                   onKeyDown={(e) => e.key === "Enter" && handleSearch()}
                   placeholder="Nhập địa điểm hoặc dự án..."
-                  className="w-full bg-transparent border-none focus:ring-0 font-body-md text-on-surface placeholder:text-on-surface-variant/50 outline-none py-3 md:py-4 text-[13px] md:text-[14px]"
+                  className="w-full bg-transparent border-none focus:ring-0 font-body-md text-on-surface placeholder:text-on-surface-variant/50 outline-none py-4 text-[14px]"
                 />
               </div>
 
               {/* Nút tìm kiếm */}
-              <div className="p-2 md:p-0 md:ml-2 shrink-0">
+              <div className="ml-2 shrink-0">
                 <button
                   onClick={handleSearch}
-                  className="w-full md:w-auto px-6 md:px-10 py-3.5 md:py-4 font-label-caps text-white hover:bg-antique-gold transition-all duration-500 active:scale-95 text-[13px] rounded-lg"
+                  className="px-10 py-4 font-label-caps text-white hover:bg-antique-gold transition-all duration-500 active:scale-95 text-[13px] rounded-lg"
                   style={{ letterSpacing: "0.15em", fontWeight: 700, backgroundColor: "var(--color-earth-brown)" }}
                 >
                   TÌM KIẾM
@@ -181,60 +309,61 @@ export function HeroSection({ onNavigate }: HeroSectionProps) {
             </div>
 
             {/* Filter row */}
-            <div className="grid grid-cols-2 md:flex md:divide-x divide-outline-variant/20 border-t border-outline-variant/10">
+            <div className="flex divide-x divide-outline-variant/20 border-t border-outline-variant/10">
               {/* Toàn quốc */}
-              <div className="flex items-center px-3 py-2 md:py-2.5 border-r border-b border-outline-variant/10 md:border-r-0 md:border-b-0 md:flex-1 min-w-0">
+              <div className="flex items-center px-3 py-2.5 flex-1 min-w-0">
                 <select
                   value={location}
                   onChange={(e) => setLocation(e.target.value)}
-                  className="w-full bg-transparent border-none focus:ring-0 text-on-surface-variant appearance-none outline-none cursor-pointer text-[12px] md:text-[13px]"
+                  className="w-full bg-transparent border-none focus:ring-0 text-on-surface-variant appearance-none outline-none cursor-pointer text-[13px]"
                   style={{ fontWeight: 500 }}
                 >
                   <option value="Toàn quốc">Toàn quốc</option>
                   {dbLocations.map((o) => <option key={o} value={o}>{o}</option>)}
                 </select>
-                <span className="material-symbols-outlined text-outline-variant pointer-events-none shrink-0 -ml-4 text-xs md:text-[16px]">expand_more</span>
+                <span className="material-symbols-outlined text-outline-variant pointer-events-none shrink-0 -ml-4 text-[16px]">expand_more</span>
               </div>
               {/* Mức giá */}
-              <div className="flex items-center px-3 py-2 md:py-2.5 border-b border-outline-variant/10 md:border-b-0 md:flex-1 min-w-0">
+              <div className="flex items-center px-3 py-2.5 flex-1 min-w-0">
                 <select
                   value={price}
                   onChange={(e) => setPrice(e.target.value)}
-                  className="w-full bg-transparent border-none focus:ring-0 text-on-surface-variant appearance-none outline-none cursor-pointer text-[12px] md:text-[13px]"
+                  className="w-full bg-transparent border-none focus:ring-0 text-on-surface-variant appearance-none outline-none cursor-pointer text-[13px]"
                   style={{ fontWeight: 500 }}
                 >
                   {["Mức giá", "Trên 20 Tỷ VNĐ", "50 - 100 Tỷ VNĐ", "Trên 100 Tỷ VNĐ"].map((o) => <option key={o} value={o}>{o}</option>)}
                 </select>
-                <span className="material-symbols-outlined text-outline-variant pointer-events-none shrink-0 -ml-4 text-xs md:text-[16px]">expand_more</span>
+                <span className="material-symbols-outlined text-outline-variant pointer-events-none shrink-0 -ml-4 text-[16px]">expand_more</span>
               </div>
               {/* Diện tích */}
-              <div className="flex items-center px-3 py-2 md:py-2.5 border-r border-outline-variant/10 md:border-r-0 md:flex-1 min-w-0">
+              <div className="flex items-center px-3 py-2.5 flex-1 min-w-0">
                 <select
                   value={area}
                   onChange={(e) => setArea(e.target.value)}
-                  className="w-full bg-transparent border-none focus:ring-0 text-on-surface-variant appearance-none outline-none cursor-pointer text-[12px] md:text-[13px]"
+                  className="w-full bg-transparent border-none focus:ring-0 text-on-surface-variant appearance-none outline-none cursor-pointer text-[13px]"
                   style={{ fontWeight: 500 }}
                 >
                   {["Diện tích", "Dưới 200 m²", "200 - 500 m²", "Trên 500 m²"].map((o) => <option key={o} value={o}>{o}</option>)}
                 </select>
-                <span className="material-symbols-outlined text-outline-variant pointer-events-none shrink-0 -ml-4 text-xs md:text-[16px]">expand_more</span>
+                <span className="material-symbols-outlined text-outline-variant pointer-events-none shrink-0 -ml-4 text-[16px]">expand_more</span>
               </div>
               {/* Chủ đầu tư */}
-              <div className="flex items-center px-3 py-2 md:py-2.5 md:flex-1 min-w-0">
+              <div className="flex items-center px-3 py-2.5 flex-1 min-w-0">
                 <select
                   value={investor}
                   onChange={(e) => setInvestor(e.target.value)}
-                  className="w-full bg-transparent border-none focus:ring-0 text-on-surface-variant appearance-none outline-none cursor-pointer text-[12px] md:text-[13px]"
+                  className="w-full bg-transparent border-none focus:ring-0 text-on-surface-variant appearance-none outline-none cursor-pointer text-[13px]"
                   style={{ fontWeight: 500 }}
                 >
                   <option value="">Chủ đầu tư</option>
                   {dbInvestors.map((inv) => <option key={inv} value={inv}>{inv}</option>)}
                 </select>
-                <span className="material-symbols-outlined text-outline-variant pointer-events-none shrink-0 -ml-4 text-xs md:text-[16px]">expand_more</span>
+                <span className="material-symbols-outlined text-outline-variant pointer-events-none shrink-0 -ml-4 text-[16px]">expand_more</span>
               </div>
             </div>
           </div>
         </div>
+      </div>
       </div>
     </section>
   );
