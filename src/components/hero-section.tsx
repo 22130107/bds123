@@ -206,8 +206,6 @@ export function HeroSection({ onNavigate }: HeroSectionProps) {
         />
       </div>
 
-      <div className="absolute inset-0 z-[1]" style={{ background: "linear-gradient(90deg, rgba(12,18,28,.55) 0%, rgba(12,18,28,.28) 35%, rgba(12,18,28,.08) 60%, transparent 100%)" }} />
-
       {/* Headline */}
       <div className="absolute top-1/3 left-0 right-0 px-[100px] z-10 max-w-[1440px] mx-auto w-full" style={{ transform: "translateY(calc(-25% + 140px))" }}>
         <div className="text-left w-full">
@@ -219,13 +217,14 @@ export function HeroSection({ onNavigate }: HeroSectionProps) {
                 lineHeight: "1.2",
                 fontWeight: 700,
                 fontFamily: "'Playfair Display', Georgia, serif",
+                textShadow: "0 4px 30px rgba(0,0,0,0.5), 0 2px 10px rgba(0,0,0,0.3)",
               }}
             >
               <span className="whitespace-nowrap text-white" style={{ fontSize: "clamp(46px, 6vw, 80px)" }}>Tìm Kiếm Nơi An Cư</span> <br />
               <span className="italic font-normal whitespace-nowrap text-white">Và Đầu Tư Lý Tưởng</span>
             </h1>
           </div>
-          <p className="mt-6 text-[20px] font-semibold tracking-wide" style={{ color: "#FFFFFF" }}>
+          <p className="mt-6 text-[20px] font-semibold tracking-wide" style={{ color: "#FFFFFF", textShadow: "0 2px 20px rgba(0,0,0,0.5), 0 1px 6px rgba(0,0,0,0.3)" }}>
             Nền tảng giao dịch bất động sản uy tín, minh bạch và nhanh chóng.
           </p>
           <div className="h-[2px] w-24 bg-antique-gold mt-4 shadow-sm" />
