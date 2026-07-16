@@ -63,9 +63,10 @@ export function NewsPage({ onNavigate, dbNews = [] }: NewsPageProps) {
       <section className="relative w-full h-[600px] overflow-hidden pt-20">
         <div className="absolute inset-0">
           <img
-            src="/uploads/3.jpg"
+            src="/uploads/mobile.avif"
             alt="News Banner"
             className="w-full h-full object-cover"
+            style={{ transform: "translateY(80px)" }}
           />
         </div>
         <div className="absolute inset-0 flex flex-col items-center justify-center text-center px-4">
