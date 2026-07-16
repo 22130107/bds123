@@ -29,7 +29,7 @@ export default async function DanhMucSlugPage({ params, searchParams }: { params
   } else if (categoryFilter === "DỰ ÁN") {
     filteredProjects = filteredProjects.filter(p => p.category?.includes("DỰ ÁN"));
   } else if (categoryFilter === "MUA BÁN NHÀ ĐẤT") {
-    filteredProjects = filteredProjects.filter(p => !p.category?.includes("CHO THUÊ") && !p.category?.includes("DỰ ÁN"));
+    filteredProjects = filteredProjects.filter(p => !p.category?.includes("CHO THUÊ"));
   } else {
     filteredProjects = filteredProjects.filter(p => p.category === categoryFilter);
   }
