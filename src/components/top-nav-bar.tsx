@@ -13,56 +13,6 @@ interface NavItem {
   subItems?: { label: string; page: string; query?: string }[];
 }
 
-const navItems: NavItem[] = [
-  { label: "TRANG CHỦ", page: "home" },
-  { 
-    label: "MUA BÁN NHÀ ĐẤT", 
-    page: "danh-muc/mua-ban-nha-dat",
-    subItems: [
-      { label: "BÁN CĂN HỘ CHUNG CƯ", page: `danh-muc/${generateSlug("BÁN CĂN HỘ CHUNG CƯ")}` },
-      { label: "BÁN NHÀ RIÊNG", page: `danh-muc/${generateSlug("BÁN NHÀ RIÊNG")}` },
-      { label: "BÁN BIỆT THỰ, LIỀN KỀ", page: `danh-muc/${generateSlug("BÁN BIỆT THỰ, LIỀN KỀ")}` },
-      { label: "BÁN NHÀ MẶT PHỐ", page: `danh-muc/${generateSlug("BÁN NHÀ MẶT PHỐ")}` },
-      { label: "BÁN ĐẤT NỀN DỰ ÁN", page: `danh-muc/${generateSlug("BÁN ĐẤT NỀN DỰ ÁN")}` },
-      { label: "BÁN ĐẤT", page: `danh-muc/${generateSlug("BÁN ĐẤT")}` },
-      { label: "BÁN TRANG TRẠI, KHU NGHỈ DƯỠNG", page: `danh-muc/${generateSlug("BÁN TRANG TRẠI, KHU NGHỈ DƯỠNG")}` },
-      { label: "BÁN KHO, NHÀ XƯỞNG", page: `danh-muc/${generateSlug("BÁN KHO, NHÀ XƯỞNG")}` },
-      { label: "BÁN LOẠI BẤT ĐỘNG SẢN KHÁC", page: `danh-muc/${generateSlug("BÁN LOẠI BẤT ĐỘNG SẢN KHÁC")}` },
-    ]
-  },
-  { 
-    label: "CHO THUÊ NHÀ ĐẤT", 
-    page: "danh-muc/cho-thue-nha-dat",
-    subItems: [
-      { label: "CHO THUÊ CĂN HỘ CHUNG CƯ", page: `danh-muc/${generateSlug("CHO THUÊ CĂN HỘ CHUNG CƯ")}` },
-      { label: "CHO THUÊ NHÀ RIÊNG", page: `danh-muc/${generateSlug("CHO THUÊ NHÀ RIÊNG")}` },
-      { label: "CHO THUÊ BIỆT THỰ, NHÀ LIỀN KỀ", page: `danh-muc/${generateSlug("CHO THUÊ BIỆT THỰ, NHÀ LIỀN KỀ")}` },
-      { label: "CHO THUÊ CỬA HÀNG, KIOT", page: `danh-muc/${generateSlug("CHO THUÊ CỬA HÀNG, KIOT")}` },
-      { label: "CHO THUÊ VĂN PHÒNG", page: `danh-muc/${generateSlug("CHO THUÊ VĂN PHÒNG")}` },
-      { label: "CHO THUÊ NHÀ TRỌ, PHÒNG TRỌ", page: `danh-muc/${generateSlug("CHO THUÊ NHÀ TRỌ, PHÒNG TRỌ")}` },
-      { label: "CHO THUÊ KHO, NHÀ XƯỞNG, ĐẤT", page: `danh-muc/${generateSlug("CHO THUÊ KHO, NHÀ XƯỞNG, ĐẤT")}` },
-      { label: "CHO THUÊ SHOPHOUSE, NHÀ PHỐ THƯƠNG MẠI", page: `danh-muc/${generateSlug("CHO THUÊ SHOPHOUSE, NHÀ PHỐ THƯƠNG MẠI")}` },
-      { label: "CHO THUÊ LOẠI BẤT ĐỘNG SẢN KHÁC", page: `danh-muc/${generateSlug("CHO THUÊ LOẠI BẤT ĐỘNG SẢN KHÁC")}` },
-    ]
-  },
-  { 
-    label: "DỰ ÁN", 
-    page: "danh-muc/du-an",
-    subItems: [
-      { label: "DỰ ÁN CĂN HỘ CHUNG CƯ", page: `danh-muc/${generateSlug("DỰ ÁN CĂN HỘ CHUNG CƯ")}` },
-      { label: "DỰ ÁN BIỆT THỰ, LIỀN KỀ", page: `danh-muc/${generateSlug("DỰ ÁN BIỆT THỰ, LIỀN KỀ")}` },
-      { label: "DỰ ÁN ĐẤT NỀN", page: `danh-muc/${generateSlug("DỰ ÁN ĐẤT NỀN")}` },
-      { label: "DỰ ÁN KHU ĐÔ THỊ MỚI", page: `danh-muc/${generateSlug("DỰ ÁN KHU ĐÔ THỊ MỚI")}` },
-      { label: "DỰ ÁN KHU NGHỈ DƯỠNG", page: `danh-muc/${generateSlug("DỰ ÁN KHU NGHỈ DƯỠNG")}` },
-      { label: "DỰ ÁN NHÀ Ở XÃ HỘI", page: `danh-muc/${generateSlug("DỰ ÁN NHÀ Ở XÃ HỘI")}` },
-      { label: "DỰ ÁN SHOPHOUSE", page: `danh-muc/${generateSlug("DỰ ÁN SHOPHOUSE")}` },
-      { label: "DỰ ÁN CONDOTEL", page: `danh-muc/${generateSlug("DỰ ÁN CONDOTEL")}` },
-    ]
-  },
-  { label: "TIN TỨC", page: "news" },
-  { label: "LIÊN HỆ", page: "contact" },
-];
-
 interface TopNavBarProps {
   activePage?: string;
   onNavigate?: (page: string) => void;
@@ -83,36 +33,24 @@ export function TopNavBar({ activePage, onNavigate, categories: initialCategorie
 
   useEffect(() => {
     if (categories.length === 0) {
-      getCategories().then(data => setCategories(data));
+      getCategories(true).then(data => setCategories(data));
     }
   }, []);
 
   const dynamicNavItems: NavItem[] = [
     { label: "TRANG CHỦ", page: "home" },
-    { 
-      label: "MUA BÁN NHÀ ĐẤT", 
-      page: "danh-muc/mua-ban-nha-dat",
-      subItems: categories.filter(c => c.group_name === "MUA BÁN NHÀ ĐẤT").map(c => ({
+    ...Array.from(new Set(categories.map(c => c.group_name))).map(groupName => ({
+      label: groupName,
+      page: `danh-muc/${generateSlug(groupName)}`,
+      subItems: categories.filter(c => c.group_name === groupName).map(c => ({
         label: c.name, page: `danh-muc/${generateSlug(c.name)}`
       }))
-    },
-    { 
-      label: "CHO THUÊ NHÀ ĐẤT", 
-      page: "danh-muc/cho-thue-nha-dat",
-      subItems: categories.filter(c => c.group_name === "CHO THUÊ NHÀ ĐẤT").map(c => ({
-        label: c.name, page: `danh-muc/${generateSlug(c.name)}`
-      }))
-    },
-    { 
-      label: "DỰ ÁN", 
-      page: "danh-muc/du-an",
-      subItems: categories.filter(c => c.group_name === "DỰ ÁN").map(c => ({
-        label: c.name, page: `danh-muc/${generateSlug(c.name)}`
-      }))
-    },
+    })),
     { label: "TIN TỨC", page: "news" },
     { label: "LIÊN HỆ", page: "contact" },
   ];
+
+  const groupSlugs = Array.from(new Set(categories.map(c => c.group_name))).map(g => generateSlug(g));
 
   return (
     <motion.header
@@ -166,15 +104,16 @@ export function TopNavBar({ activePage, onNavigate, categories: initialCategorie
           style={{ gap: "var(--nav-gap)" }}
         >
           {dynamicNavItems.map(({ label, page, subItems }) => {
+            const pageSlug = page.replace("danh-muc/", "");
             const isActive =
               (activePage === "home" && page === "home" && label === "TRANG CHỦ") ||
               (activePage === "projects" && label === "DỰ ÁN") ||
               (activePage === "news" && label === "TIN TỨC") ||
               (activePage === "contact" && label === "LIÊN HỆ") ||
               ((activePage === "danh-muc" || activePage === "detail") && (
-                (label === "CHO THUÊ NHÀ ĐẤT" && pathname?.includes("cho-thue")) ||
-                (label === "DỰ ÁN" && pathname?.includes("du-an")) ||
-                (label === "MUA BÁN NHÀ ĐẤT" && !pathname?.includes("cho-thue") && !pathname?.includes("du-an"))
+                subItems ? pathname?.includes(pageSlug) ||
+                  (!groupSlugs.some(s => pathname?.includes(s)) && pageSlug === groupSlugs[0])
+                : false
               ));
             return (
               <div key={label} className="relative group h-full flex items-center">
@@ -229,15 +168,16 @@ export function TopNavBar({ activePage, onNavigate, categories: initialCategorie
         {isOpen && (
           <div className="absolute top-[80px] left-0 w-full bg-white/95 backdrop-blur-md border-b-2 border-earth-brown shadow-lg flex flex-col py-6 px-8 gap-5 lg:hidden z-40 max-h-[80vh] overflow-y-auto">
             {dynamicNavItems.map(({ label, page, subItems }) => {
+              const pageSlugMob = page.replace("danh-muc/", "");
               const isActive =
                 (activePage === "home" && page === "home" && label === "TRANG CHỦ") ||
                 (activePage === "projects" && label === "DỰ ÁN") ||
                 (activePage === "news" && label === "TIN TỨC") ||
                 (activePage === "contact" && label === "LIÊN HỆ") ||
                 ((activePage === "danh-muc" || activePage === "detail") && (
-                  (label === "CHO THUÊ NHÀ ĐẤT" && pathname?.includes("cho-thue")) ||
-                  (label === "DỰ ÁN" && pathname?.includes("du-an")) ||
-                  (label === "MUA BÁN NHÀ ĐẤT" && !pathname?.includes("cho-thue") && !pathname?.includes("du-an"))
+                  subItems ? pathname?.includes(pageSlugMob) ||
+                    (!groupSlugs.some(s => pathname?.includes(s)) && pageSlugMob === groupSlugs[0])
+                  : false
                 ));
               return (
                 <div key={label} className="flex flex-col">

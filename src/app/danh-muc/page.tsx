@@ -1,5 +1,6 @@
 import { DanhMucPage } from "../../components/pages/danh-muc-page";
 import { getProjects } from "../../actions/project-actions";
+import { getCategoryGroups } from "../../actions/category-actions";
 
 const removeAccents = (str: string) => {
   if (!str) return "";
@@ -14,6 +15,7 @@ const removeAccents = (str: string) => {
 export default async function Page({ searchParams }: { searchParams: Promise<{ [key: string]: string | string[] | undefined }> }) {
   const resolvedParams = await searchParams;
   const categoryFilter = resolvedParams.category as string | undefined;
+  const groupNames = await getCategoryGroups(true);
 
   const projects = await getProjects({ status: 'published' });
   
@@ -21,10 +23,14 @@ export default async function Page({ searchParams }: { searchParams: Promise<{ [
 
   // Lọc theo Category
   if (categoryFilter) {
-    if (categoryFilter === "CHO THUÊ NHÀ ĐẤT") {
-      filteredProjects = filteredProjects.filter(p => p.category?.includes("CHO THUÊ"));
-    } else if (categoryFilter === "DỰ ÁN") {
-      filteredProjects = filteredProjects.filter(p => p.category?.includes("DỰ ÁN"));
+    if (groupNames.includes(categoryFilter)) {
+      if (categoryFilter.includes("CHO THUÊ")) {
+        filteredProjects = filteredProjects.filter(p => p.category?.includes("CHO THUÊ"));
+      } else if (categoryFilter.includes("DỰ ÁN")) {
+        filteredProjects = filteredProjects.filter(p => p.category?.includes("DỰ ÁN"));
+      } else {
+        filteredProjects = filteredProjects.filter(p => !p.category?.includes("CHO THUÊ") && !p.category?.includes("DỰ ÁN"));
+      }
     } else {
       filteredProjects = filteredProjects.filter(p => p.category === categoryFilter);
     }
@@ -65,12 +71,14 @@ export default async function Page({ searchParams }: { searchParams: Promise<{ [
   }
 
   if (type && !type.startsWith("Tất cả")) {
-    if (type === "CHO THUÊ NHÀ ĐẤT") {
-      filteredProjects = filteredProjects.filter(p => p.category?.includes("CHO THUÊ"));
-    } else if (type === "DỰ ÁN") {
-      filteredProjects = filteredProjects.filter(p => p.category?.includes("DỰ ÁN"));
-    } else if (type === "MUA BÁN NHÀ ĐẤT") {
-      filteredProjects = filteredProjects.filter(p => !p.category?.includes("CHO THUÊ") && !p.category?.includes("DỰ ÁN"));
+    if (groupNames.includes(type)) {
+      if (type.includes("CHO THUÊ")) {
+        filteredProjects = filteredProjects.filter(p => p.category?.includes("CHO THUÊ"));
+      } else if (type.includes("DỰ ÁN")) {
+        filteredProjects = filteredProjects.filter(p => p.category?.includes("DỰ ÁN"));
+      } else {
+        filteredProjects = filteredProjects.filter(p => !p.category?.includes("CHO THUÊ") && !p.category?.includes("DỰ ÁN"));
+      }
     } else {
       filteredProjects = filteredProjects.filter(p => p.title?.includes(type) || p.category?.includes(type));
     }

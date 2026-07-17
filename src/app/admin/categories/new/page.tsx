@@ -1,6 +1,9 @@
+import { getCategoryGroups } from "../../../../actions/category-actions";
 import CategoryForm from "../category-form";
 
-export default function NewCategoryPage() {
+export default async function NewCategoryPage() {
+  const groups = await getCategoryGroups();
+
   return (
     <div>
       <div className="mb-6">
@@ -8,7 +11,7 @@ export default function NewCategoryPage() {
         <p className="text-gray-500 text-sm mt-1">Quản lý các danh mục phân loại bất động sản</p>
       </div>
 
-      <CategoryForm />
+      <CategoryForm groups={groups} />
     </div>
   );
 }

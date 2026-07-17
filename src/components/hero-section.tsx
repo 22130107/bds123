@@ -2,7 +2,8 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import { getTopLocations, getProjects, getAllInvestors } from "../actions/project-actions";
-import { getCategories } from "../actions/category-actions";
+import { getCategories, getCategoryGroups } from "../actions/category-actions";
+import { generateSlug } from "../lib/slugify";
 import herobanner from "../assets/herobanner.png";
 
 interface HeroSectionProps {
@@ -22,16 +23,17 @@ export function HeroSection({ onNavigate }: HeroSectionProps) {
   const [dbLocations, setDbLocations] = useState<string[]>(["Hà Nội", "TP. Hồ Chí Minh", "Đà Nẵng"]);
   const [dbCategories, setDbCategories] = useState<any[]>([]);
   const [dbInvestors, setDbInvestors] = useState<string[]>([]);
+  const [buyGroup, setBuyGroup] = useState("MUA BÁN NHÀ ĐẤT");
+  const [rentGroup, setRentGroup] = useState("CHO THUÊ NHÀ ĐẤT");
 
   useEffect(() => {
-    // Fetch locations
     getTopLocations(20).then((data) => {
       const locNames = data.map((d: any) => d.name);
       const combined = Array.from(new Set(["Hà Nội", "TP. Hồ Chí Minh", "Đà Nẵng", "Đồng Nai", "Bình Dương", "Khánh Hòa", "Quảng Ninh", "Hải Phòng", ...locNames]));
       setDbLocations(combined);
     });
 
-    getCategories().then(data => {
+    getCategories(true).then(data => {
       if(Array.isArray(data)) {
         setDbCategories(data);
       }
@@ -42,6 +44,15 @@ export function HeroSection({ onNavigate }: HeroSectionProps) {
         setDbInvestors(data.map((d: any) => d.name));
       }
     }).catch(() => []);
+
+    getCategoryGroups(true).then(groups => {
+      if (Array.isArray(groups) && groups.length > 0) {
+        const buy = groups.find(g => g.includes("MUA") || g.includes("BÁN"));
+        const rent = groups.find(g => g.includes("CHO THUÊ"));
+        if (buy) setBuyGroup(buy);
+        if (rent) setRentGroup(rent);
+      }
+    }).catch(() => {});
   }, []);
 
   const handleSearch = () => {
@@ -56,9 +67,9 @@ export function HeroSection({ onNavigate }: HeroSectionProps) {
 
     let basePath = "/danh-muc";
     if (activeTab === "buy") {
-      basePath = "/danh-muc/mua-ban-nha-dat";
+      basePath = `/danh-muc/${generateSlug(buyGroup)}`;
     } else if (activeTab === "rent") {
-      basePath = "/danh-muc/cho-thue-nha-dat";
+      basePath = `/danh-muc/${generateSlug(rentGroup)}`;
     }
 
     const qs = params.toString();
@@ -75,8 +86,8 @@ export function HeroSection({ onNavigate }: HeroSectionProps) {
           {/* Tabs */}
           <div className="flex">
             {[
-              { key: "buy", label: "MUA BÁN NHÀ DỰ ÁN" },
-              { key: "rent", label: "CHO THUÊ NHÀ DỰ ÁN" },
+              { key: "buy", label: buyGroup },
+              { key: "rent", label: rentGroup },
             ].map(({ key, label }) => (
               <button
                 key={key}
@@ -112,7 +123,7 @@ export function HeroSection({ onNavigate }: HeroSectionProps) {
                     <option>Loại nhà dự án</option>
                     {dbCategories
                       .filter((c) => 
-                        activeTab === "buy" ? c.group_name === "MUA BÁN NHÀ ĐẤT" : c.group_name === "CHO THUÊ NHÀ ĐẤT"
+                        activeTab === "buy" ? c.group_name === buyGroup : c.group_name === rentGroup
                       )
                       .map(c => <option key={c.id || c.name} value={c.name}>{c.name}</option>)}
                   </select>
@@ -236,8 +247,8 @@ export function HeroSection({ onNavigate }: HeroSectionProps) {
         {/* Tabs */}
         <div className="flex">
           {[
-            { key: "buy", label: "MUA BÁN NHÀ DỰ ÁN" },
-            { key: "rent", label: "CHO THUÊ NHÀ DỰ ÁN" },
+            { key: "buy", label: buyGroup },
+            { key: "rent", label: rentGroup },
           ].map(({ key, label }) => (
             <button
               key={key}
@@ -276,7 +287,7 @@ export function HeroSection({ onNavigate }: HeroSectionProps) {
                   <option>Loại nhà dự án</option>
                   {dbCategories
                     .filter((c) => 
-                      activeTab === "buy" ? c.group_name === "MUA BÁN NHÀ ĐẤT" : c.group_name === "CHO THUÊ NHÀ ĐẤT"
+                      activeTab === "buy" ? c.group_name === buyGroup : c.group_name === rentGroup
                     )
                     .map(c => <option key={c.id || c.name} value={c.name}>{c.name}</option>)}
                 </select>

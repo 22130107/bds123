@@ -4,12 +4,12 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { createCategory } from "../../../actions/category-actions";
 
-export default function CategoryForm() {
+export default function CategoryForm({ groups }: { groups: string[] }) {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
-    group_name: "MUA BÁN NHÀ ĐẤT",
+    group_name: groups[0] || "",
   });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
@@ -52,9 +52,9 @@ export default function CategoryForm() {
             onChange={handleChange}
             className="w-full px-4 py-2 border border-gray-300 rounded outline-none focus:border-earth-brown bg-white transition-colors"
           >
-            <option value="MUA BÁN NHÀ ĐẤT">MUA BÁN NHÀ ĐẤT</option>
-            <option value="CHO THUÊ NHÀ ĐẤT">CHO THUÊ NHÀ ĐẤT</option>
-            <option value="DỰ ÁN">DỰ ÁN</option>
+            {groups.map(g => (
+              <option key={g} value={g}>{g}</option>
+            ))}
           </select>
         </div>
 

@@ -1,6 +1,6 @@
 import { DanhMucPage } from "../../../components/pages/danh-muc-page";
 import { getProjects } from "../../../actions/project-actions";
-import { getCategories } from "../../../actions/category-actions";
+import { getCategories, getCategoryGroups } from "../../../actions/category-actions";
 import { generateSlug } from "../../../lib/slugify";
 import { notFound } from "next/navigation";
 
@@ -8,10 +8,10 @@ export default async function DanhMucSlugPage({ params, searchParams }: { params
   const resolvedParams = await params;
   const slug = resolvedParams.slug;
   
-  const categories = await getCategories();
+  const categories = await getCategories(true);
   const matchedCategory = categories.find(c => generateSlug(c.name) === slug);
   
-  const groupNames = ["MUA BÁN NHÀ ĐẤT", "CHO THUÊ NHÀ ĐẤT", "DỰ ÁN"];
+  const groupNames = await getCategoryGroups(true);
   const matchedGroup = groupNames.find(g => generateSlug(g) === slug);
   
   if (!matchedCategory && !matchedGroup) {
@@ -24,12 +24,14 @@ export default async function DanhMucSlugPage({ params, searchParams }: { params
   let filteredProjects = projects;
 
   // Lọc theo Category
-  if (categoryFilter === "CHO THUÊ NHÀ ĐẤT") {
-    filteredProjects = filteredProjects.filter(p => p.category?.includes("CHO THUÊ"));
-  } else if (categoryFilter === "DỰ ÁN") {
-    filteredProjects = filteredProjects.filter(p => p.category?.includes("DỰ ÁN"));
-  } else if (categoryFilter === "MUA BÁN NHÀ ĐẤT") {
-    filteredProjects = filteredProjects.filter(p => !p.category?.includes("CHO THUÊ"));
+  if (groupNames.includes(categoryFilter)) {
+    if (categoryFilter.includes("CHO THUÊ")) {
+      filteredProjects = filteredProjects.filter(p => p.category?.includes("CHO THUÊ"));
+    } else if (categoryFilter.includes("DỰ ÁN")) {
+      filteredProjects = filteredProjects.filter(p => p.category?.includes("DỰ ÁN"));
+    } else {
+      filteredProjects = filteredProjects.filter(p => !p.category?.includes("CHO THUÊ") && !p.category?.includes("DỰ ÁN"));
+    }
   } else {
     filteredProjects = filteredProjects.filter(p => p.category === categoryFilter);
   }

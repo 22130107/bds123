@@ -15,20 +15,25 @@ export interface SearchFilters {
 import { useState, useEffect } from "react";
 import { useRouter, useSearchParams, usePathname } from "next/navigation";
 import { getTopLocations } from "../actions/project-actions";
+import { getCategoryGroups } from "../actions/category-actions";
+import { generateSlug } from "../lib/slugify";
 
 export function SearchBar({ onSearch }: SearchBarProps) {
   const router = useRouter();
   const searchParams = useSearchParams();
   const pathname = usePathname();
+  const [showLocSuggestions, setShowLocSuggestions] = useState(false);
+  const [groupNames, setGroupNames] = useState<string[]>([]);
+  const [dbLocations, setDbLocations] = useState<string[]>(["Hà Nội", "TP. Hồ Chí Minh", "Đà Nẵng"]);
+
+  const groupPaths = Object.fromEntries(
+    groupNames.map(g => [g, `/danh-muc/${generateSlug(g)}`])
+  );
 
   const getTypeFromPathname = () => {
-    if (pathname === "/danh-muc/mua-ban-nha-dat") return "MUA BÁN NHÀ ĐẤT";
-    if (pathname === "/danh-muc/cho-thue-nha-dat") return "CHO THUÊ NHÀ ĐẤT";
-    if (pathname === "/danh-muc/du-an") return "DỰ ÁN";
-    return searchParams.get("type") || "Tất cả loại hình";
+    const matched = groupNames.find(g => groupPaths[g] === pathname);
+    return matched || searchParams.get("type") || "Tất cả loại hình";
   };
-
-  const [showLocSuggestions, setShowLocSuggestions] = useState(false);
 
   const [filters, setFilters] = useState<SearchFilters>({
     keyword: searchParams.get("keyword") || "",
@@ -38,12 +43,13 @@ export function SearchBar({ onSearch }: SearchBarProps) {
     area: searchParams.get("area") || "Tất cả diện tích",
   });
 
-  const categories = ["MUA BÁN NHÀ ĐẤT", "CHO THUÊ NHÀ ĐẤT", "DỰ ÁN"];
-  const [dbLocations, setDbLocations] = useState<string[]>(["Hà Nội", "TP. Hồ Chí Minh", "Đà Nẵng"]);
-
   useEffect(() => {
     setFilters(prev => ({ ...prev, type: getTypeFromPathname() }));
-  }, [pathname, searchParams]);
+  }, [pathname, searchParams, groupNames]);
+
+  useEffect(() => {
+    getCategoryGroups(true).then(setGroupNames).catch(() => {});
+  }, []);
 
   useEffect(() => {
     getTopLocations(20).then((data) => {
@@ -56,15 +62,12 @@ export function SearchBar({ onSearch }: SearchBarProps) {
   const applyFilters = (newFilters: SearchFilters) => {
     const params = new URLSearchParams(searchParams.toString());
     let basePath = pathname || "/danh-muc";
-    
-    if (newFilters.type === "MUA BÁN NHÀ ĐẤT") {
-      basePath = "/danh-muc/mua-ban-nha-dat";
-    } else if (newFilters.type === "CHO THUÊ NHÀ ĐẤT") {
-      basePath = "/danh-muc/cho-thue-nha-dat";
-    } else if (newFilters.type === "DỰ ÁN") {
-      basePath = "/danh-muc/du-an";
+
+    const found = groupNames.find(g => g === newFilters.type);
+    if (found) {
+      basePath = groupPaths[found];
     } else if (newFilters.type === "Tất cả loại hình") {
-      if (["/danh-muc/mua-ban-nha-dat", "/danh-muc/cho-thue-nha-dat", "/danh-muc/du-an"].includes(pathname)) {
+      if (Object.values(groupPaths).includes(pathname)) {
         basePath = "/danh-muc";
       }
     }
@@ -206,7 +209,7 @@ export function SearchBar({ onSearch }: SearchBarProps) {
           {
             label: "Loại hình",
             field: "type" as const,
-            options: ["Tất cả loại hình", ...categories],
+            options: ["Tất cả loại hình", ...groupNames],
           },
           {
             label: "Mức giá",
