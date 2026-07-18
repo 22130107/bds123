@@ -56,9 +56,12 @@ export async function getProjects(params?: { search?: string, type?: string, cat
     query += ' AND location LIKE ?';
     values.push(`%${params.location}%`);
   }
-  if (params?.type) {
+  if (params?.type === 'tailored') {
     query += ' AND type = ?';
-    values.push(params.type);
+    values.push('tailored');
+  } else if (params?.type === 'not-tailored') {
+    query += ' AND (type != ? OR type IS NULL)';
+    values.push('tailored');
   }
   if (params?.category) {
     query += ' AND category = ?';
@@ -94,9 +97,12 @@ export async function getProjectsPaginated(params?: { search?: string, location?
     where += ' AND location LIKE ?';
     values.push(`%${params.location}%`);
   }
-  if (params?.type) {
+  if (params?.type === 'tailored') {
     where += ' AND type = ?';
-    values.push(params.type);
+    values.push('tailored');
+  } else if (params?.type === 'not-tailored') {
+    where += ' AND (type != ? OR type IS NULL)';
+    values.push('tailored');
   }
   if (params?.category) {
     where += ' AND category = ?';

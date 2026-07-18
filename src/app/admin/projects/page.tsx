@@ -84,8 +84,8 @@ export default async function ProjectsAdminPage(props: {
             <label className="block text-sm font-medium text-gray-700 mb-1">Phân loại</label>
             <select name="type" defaultValue={type || ""} className="w-full px-3 py-2 border border-gray-300 rounded outline-none focus:ring-2 focus:ring-earth-brown bg-white">
               <option value="">Tất cả</option>
-              <option value="listing">Niêm yết</option>
               <option value="tailored">Cá nhân hóa</option>
+              <option value="not-tailored">Không cá nhân hóa</option>
             </select>
           </div>
           <button 
