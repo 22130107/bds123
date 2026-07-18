@@ -410,3 +410,29 @@ export async function getRelatedProjectsForDetail(project: any) {
   return { row1, row2, row3 };
 }
 
+export async function toggleFeatured(id: number) {
+  const [rows] = await pool.query("SELECT isFeatured FROM projects WHERE id = ?", [id]);
+  const project = (rows as any[])[0];
+  if (!project) return { success: false, error: "Không tìm thấy" };
+  const newVal = project.isFeatured ? 0 : 1;
+  await pool.query("UPDATE projects SET isFeatured = ? WHERE id = ?", [newVal, id]);
+  revalidatePath("/admin/projects");
+  revalidatePath("/");
+  revalidatePath("/admin");
+  return { success: true, isFeatured: !!newVal };
+}
+
+export async function cycleStatus(id: number) {
+  const [rows] = await pool.query("SELECT status FROM projects WHERE id = ?", [id]);
+  const project = (rows as any[])[0];
+  if (!project) return { success: false, error: "Không tìm thấy" };
+  const order = ["published", "draft", "unpublished"];
+  const currentIndex = order.indexOf(project.status);
+  const nextStatus = order[(currentIndex + 1) % order.length];
+  await pool.query("UPDATE projects SET status = ? WHERE id = ?", [nextStatus, id]);
+  revalidatePath("/admin/projects");
+  revalidatePath("/");
+  revalidatePath("/admin");
+  return { success: true, status: nextStatus };
+}
+

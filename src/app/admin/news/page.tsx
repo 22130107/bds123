@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { getNewsPaginated } from "../../../actions/news-actions";
 import DeleteButton from "./delete-button";
+import { CycleNewsStatus } from "./cycle-news-status";
 
 export default async function NewsAdminPage(props: {
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>
@@ -109,13 +110,7 @@ export default async function NewsAdminPage(props: {
                   </td>
                   <td className="p-4 text-center text-gray-500">{n.date}</td>
                   <td className="p-4 text-center">
-                    {n.status === 'published' ? (
-                      <span className="px-2.5 py-1 bg-green-50 text-green-700 text-xs font-semibold rounded-full border border-green-200">Hiển thị</span>
-                    ) : n.status === 'draft' ? (
-                      <span className="px-2.5 py-1 bg-gray-50 text-gray-600 text-xs font-semibold rounded-full border border-gray-200">Nháp</span>
-                    ) : (
-                      <span className="px-2.5 py-1 bg-amber-50 text-amber-700 text-xs font-semibold rounded-full border border-amber-200">Ẩn</span>
-                    )}
+                    <CycleNewsStatus id={n.id} status={n.status} />
                   </td>
                   <td className="p-4 text-center">
                     <Link 

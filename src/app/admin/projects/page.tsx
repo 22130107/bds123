@@ -1,6 +1,8 @@
 import Link from "next/link";
 import { getProjectsPaginated, getAllLocations } from "../../../actions/project-actions";
 import DeleteButton from "./delete-button";
+import { ToggleFeatured } from "./toggle-featured";
+import { CycleStatus } from "./cycle-status";
 
 export default async function ProjectsAdminPage(props: {
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>
@@ -8,10 +10,11 @@ export default async function ProjectsAdminPage(props: {
   const searchParams = await props.searchParams;
   const search = typeof searchParams.search === 'string' ? searchParams.search : undefined;
   const location = typeof searchParams.location === 'string' ? searchParams.location : undefined;
+  const isFeatured = typeof searchParams.isFeatured === 'string' ? searchParams.isFeatured : undefined;
   const page = searchParams.page ? parseInt(searchParams.page as string, 10) : 1;
 
   const [projectsResult, locations] = await Promise.all([
-    getProjectsPaginated({ search, location, page, limit: 10 }),
+    getProjectsPaginated({ search, location, isFeatured, page, limit: 10 }),
     getAllLocations()
   ]);
   const projects = projectsResult.data;
@@ -54,13 +57,25 @@ export default async function ProjectsAdminPage(props: {
               ))}
             </select>
           </div>
+          <div className="w-36">
+            <label className="block text-sm font-medium text-gray-700 mb-1">Nổi bật</label>
+            <select 
+              name="isFeatured" 
+              defaultValue={isFeatured || ""} 
+              className="w-full px-3 py-2 border border-gray-300 rounded outline-none focus:ring-2 focus:ring-earth-brown bg-white"
+            >
+              <option value="">Tất cả</option>
+              <option value="true">Nổi bật</option>
+              <option value="false">Không nổi bật</option>
+            </select>
+          </div>
           <button 
             type="submit" 
             className="px-6 py-2 bg-gray-800 text-white rounded hover:bg-gray-900 transition-colors h-[42px] flex items-center justify-center font-medium"
           >
             Lọc
           </button>
-          {(search || location) && (
+          {(search || location || isFeatured) && (
             <Link 
               href="/admin/projects"
               className="px-4 py-2 border border-gray-300 text-gray-700 rounded hover:bg-gray-50 transition-colors h-[42px] flex items-center justify-center font-medium"
@@ -117,20 +132,10 @@ export default async function ProjectsAdminPage(props: {
                   <td className="p-4 text-gray-500 truncate max-w-[200px]">{p.location}</td>
                   <td className="p-4 font-medium text-earth-brown">{p.price}</td>
                   <td className="p-4 text-center">
-                    {p.isFeatured ? (
-                      <span className="material-symbols-outlined text-green-500 text-[20px]">check_circle</span>
-                    ) : (
-                      <span className="material-symbols-outlined text-gray-300 text-[20px]">cancel</span>
-                    )}
+                    <ToggleFeatured id={p.id} isFeatured={p.isFeatured} />
                   </td>
                   <td className="p-4 text-center">
-                    {p.status === 'published' ? (
-                      <span className="px-2.5 py-1 bg-green-50 text-green-700 text-xs font-semibold rounded-full border border-green-200">Hiển thị</span>
-                    ) : p.status === 'draft' ? (
-                      <span className="px-2.5 py-1 bg-gray-50 text-gray-600 text-xs font-semibold rounded-full border border-gray-200">Nháp</span>
-                    ) : (
-                      <span className="px-2.5 py-1 bg-amber-50 text-amber-700 text-xs font-semibold rounded-full border border-amber-200">Ẩn</span>
-                    )}
+                    <CycleStatus id={p.id} status={p.status} />
                   </td>
                   <td className="p-4 text-center">
                     <Link 
@@ -184,6 +189,7 @@ export default async function ProjectsAdminPage(props: {
                       const sp = new URLSearchParams();
                       if (search) sp.set('search', search);
                       if (location) sp.set('location', location);
+                      if (isFeatured) sp.set('isFeatured', isFeatured);
                       sp.set('page', (current - 1).toString());
                       return sp.toString();
                     })()}`}
@@ -202,6 +208,7 @@ export default async function ProjectsAdminPage(props: {
                   const urlParams = new URLSearchParams();
                   if (search) urlParams.set('search', search);
                   if (location) urlParams.set('location', location);
+                  if (isFeatured) urlParams.set('isFeatured', isFeatured);
                   urlParams.set('page', p.toString());
                   return (
                     <Link
@@ -220,6 +227,7 @@ export default async function ProjectsAdminPage(props: {
                       const sp = new URLSearchParams();
                       if (search) sp.set('search', search);
                       if (location) sp.set('location', location);
+                      if (isFeatured) sp.set('isFeatured', isFeatured);
                       sp.set('page', (current + 1).toString());
                       return sp.toString();
                     })()}`}

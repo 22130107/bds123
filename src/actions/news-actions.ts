@@ -207,3 +207,17 @@ export async function deleteNews(id: number) {
   revalidatePath('/');
   return { success: true };
 }
+
+export async function cycleNewsStatus(id: number) {
+  const [rows] = await pool.query("SELECT status FROM news WHERE id = ?", [id]);
+  const article = (rows as any[])[0];
+  if (!article) return { success: false, error: "Không tìm thấy" };
+  const order = ["published", "draft", "unpublished"];
+  const currentIndex = order.indexOf(article.status);
+  const nextStatus = order[(currentIndex + 1) % order.length];
+  await pool.query("UPDATE news SET status = ? WHERE id = ?", [nextStatus, id]);
+  revalidatePath("/admin/news");
+  revalidatePath("/news");
+  revalidatePath("/");
+  return { success: true, status: nextStatus };
+}
