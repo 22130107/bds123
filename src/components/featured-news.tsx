@@ -145,7 +145,7 @@ export function FeaturedNews({ news = [] }: { news?: any[] }) {
                     <div className="flex flex-wrap items-center gap-2 mb-2">
                       <span
                         className="font-label-caps uppercase tracking-[0.2em] font-bold px-2.5 py-1"
-                        style={{ fontSize: "9px", backgroundColor: "#F5D78A", color: "#ffffff" }}
+                        style={{ fontSize: "9px", backgroundColor: "#F5D78A", color: "#bd4800" }}
                       >
                         {article.category}
                       </span>

@@ -121,8 +121,8 @@ export function NewsPage({ onNavigate, dbNews = [] }: NewsPageProps) {
                   className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                 />
                 <div 
-                  className="absolute top-4 left-4 text-white font-label-caps px-3 py-1 tracking-widest"
-                  style={{ fontSize: "10px", fontWeight: 700, backgroundColor: "#F5D78A" }}
+                  className="absolute top-4 left-4 font-label-caps px-3 py-1 tracking-widest"
+                  style={{ fontSize: "10px", fontWeight: 700, backgroundColor: "#F5D78A", color: "#bd4800" }}
                 >
                   {article.category}
                 </div>

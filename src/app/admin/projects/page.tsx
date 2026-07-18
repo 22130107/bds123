@@ -11,10 +11,11 @@ export default async function ProjectsAdminPage(props: {
   const search = typeof searchParams.search === 'string' ? searchParams.search : undefined;
   const location = typeof searchParams.location === 'string' ? searchParams.location : undefined;
   const isFeatured = typeof searchParams.isFeatured === 'string' ? searchParams.isFeatured : undefined;
+  const status = typeof searchParams.status === 'string' ? searchParams.status : undefined;
   const page = searchParams.page ? parseInt(searchParams.page as string, 10) : 1;
 
   const [projectsResult, locations] = await Promise.all([
-    getProjectsPaginated({ search, location, isFeatured, page, limit: 10 }),
+    getProjectsPaginated({ search, location, isFeatured, status, page, limit: 10 }),
     getAllLocations()
   ]);
   const projects = projectsResult.data;
@@ -69,13 +70,22 @@ export default async function ProjectsAdminPage(props: {
               <option value="false">Không nổi bật</option>
             </select>
           </div>
+          <div className="w-36">
+            <label className="block text-sm font-medium text-gray-700 mb-1">Trạng thái</label>
+            <select name="status" defaultValue={status || ""} className="w-full px-3 py-2 border border-gray-300 rounded outline-none focus:ring-2 focus:ring-earth-brown bg-white">
+              <option value="">Tất cả</option>
+              <option value="published">Hiển thị</option>
+              <option value="draft">Nháp</option>
+              <option value="unpublished">Ẩn</option>
+            </select>
+          </div>
           <button 
             type="submit" 
             className="px-6 py-2 bg-gray-800 text-white rounded hover:bg-gray-900 transition-colors h-[42px] flex items-center justify-center font-medium"
           >
             Lọc
           </button>
-          {(search || location || isFeatured) && (
+          {(search || location || isFeatured || status) && (
             <Link 
               href="/admin/projects"
               className="px-4 py-2 border border-gray-300 text-gray-700 rounded hover:bg-gray-50 transition-colors h-[42px] flex items-center justify-center font-medium"
@@ -190,6 +200,7 @@ export default async function ProjectsAdminPage(props: {
                       if (search) sp.set('search', search);
                       if (location) sp.set('location', location);
                       if (isFeatured) sp.set('isFeatured', isFeatured);
+                      if (status) sp.set('status', status);
                       sp.set('page', (current - 1).toString());
                       return sp.toString();
                     })()}`}
@@ -209,6 +220,7 @@ export default async function ProjectsAdminPage(props: {
                   if (search) urlParams.set('search', search);
                   if (location) urlParams.set('location', location);
                   if (isFeatured) urlParams.set('isFeatured', isFeatured);
+                  if (status) urlParams.set('status', status);
                   urlParams.set('page', p.toString());
                   return (
                     <Link
@@ -228,6 +240,7 @@ export default async function ProjectsAdminPage(props: {
                       if (search) sp.set('search', search);
                       if (location) sp.set('location', location);
                       if (isFeatured) sp.set('isFeatured', isFeatured);
+                      if (status) sp.set('status', status);
                       sp.set('page', (current + 1).toString());
                       return sp.toString();
                     })()}`}

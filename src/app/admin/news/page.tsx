@@ -9,9 +9,10 @@ export default async function NewsAdminPage(props: {
   const searchParams = await props.searchParams;
   const search = typeof searchParams.search === 'string' ? searchParams.search : undefined;
   const date = typeof searchParams.date === 'string' ? searchParams.date : undefined;
+  const status = typeof searchParams.status === 'string' ? searchParams.status : undefined;
   const page = searchParams.page ? parseInt(searchParams.page as string, 10) : 1;
 
-  const newsResult = await getNewsPaginated({ search, date, page, limit: 10 });
+  const newsResult = await getNewsPaginated({ search, date, status, page, limit: 10 });
   const newsList = newsResult.data;
 
   return (
@@ -48,13 +49,22 @@ export default async function NewsAdminPage(props: {
               className="w-full px-3 py-2 border border-gray-300 rounded outline-none focus:ring-2 focus:ring-earth-brown h-[42px]"
             />
           </div>
+          <div className="w-36">
+            <label className="block text-sm font-medium text-gray-700 mb-1">Trạng thái</label>
+            <select name="status" defaultValue={status || ""} className="w-full px-3 py-2 border border-gray-300 rounded outline-none focus:ring-2 focus:ring-earth-brown bg-white h-[42px]">
+              <option value="">Tất cả</option>
+              <option value="published">Hiển thị</option>
+              <option value="draft">Nháp</option>
+              <option value="unpublished">Ẩn</option>
+            </select>
+          </div>
           <button 
             type="submit" 
             className="px-6 py-2 bg-gray-800 text-white rounded hover:bg-gray-900 transition-colors h-[42px] flex items-center justify-center font-medium"
           >
             Lọc
           </button>
-          {(search || date) && (
+          {(search || date || status) && (
             <Link 
               href="/admin/news"
               className="px-4 py-2 border border-gray-300 text-gray-700 rounded hover:bg-gray-50 transition-colors h-[42px] flex items-center justify-center font-medium"
@@ -148,6 +158,7 @@ export default async function NewsAdminPage(props: {
                 const urlParams = new URLSearchParams();
                 if (search) urlParams.set('search', search);
                 if (date) urlParams.set('date', date);
+                if (status) urlParams.set('status', status);
                 urlParams.set('page', p.toString());
                 return (
                   <Link
