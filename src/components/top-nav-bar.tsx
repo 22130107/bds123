@@ -5,6 +5,7 @@ import { motion, useScroll, useMotionValueEvent } from "motion/react";
 import logoIcon from "../assets/logo_icon.png";
 import { usePathname } from "next/navigation";
 import { getCategories } from "../actions/category-actions";
+import { getNewsCategories } from "../actions/news-category-actions";
 import { generateSlug } from "../lib/slugify";
 
 interface NavItem {
@@ -22,6 +23,7 @@ interface TopNavBarProps {
 export function TopNavBar({ activePage, onNavigate, categories: initialCategories = [] }: TopNavBarProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [categories, setCategories] = useState<any[]>(initialCategories);
+  const [newsCategories, setNewsCategories] = useState<any[]>([]);
   const [hidden, setHidden] = useState(false);
   const { scrollY } = useScroll();
   const pathname = usePathname();
@@ -35,6 +37,7 @@ export function TopNavBar({ activePage, onNavigate, categories: initialCategorie
     if (categories.length === 0) {
       getCategories(true).then(data => setCategories(data));
     }
+    getNewsCategories().then(setNewsCategories).catch(() => {});
   }, []);
 
   const dynamicNavItems: NavItem[] = [
@@ -46,7 +49,7 @@ export function TopNavBar({ activePage, onNavigate, categories: initialCategorie
         label: c.name, page: `danh-muc/${generateSlug(c.name)}`
       }))
     })),
-    { label: "TIN TỨC", page: "news" },
+    { label: "TIN TỨC", page: "news", subItems: newsCategories.map(c => ({ label: c.name, page: `news/category/${generateSlug(c.name)}` })) },
     { label: "LIÊN HỆ", page: "contact" },
   ];
 

@@ -33,6 +33,10 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
             <span className="material-symbols-outlined text-[20px]">newspaper</span>
             Quản lý Tin tức
           </Link>
+          <Link href="/admin/news-categories" className="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-white/10 transition-colors">
+            <span className="material-symbols-outlined text-[20px]">topic</span>
+            Danh mục Tin tức
+          </Link>
           <Link href="/admin/settings" className="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-white/10 transition-colors">
             <span className="material-symbols-outlined text-[20px]">contact_phone</span>
             Cài đặt Liên hệ

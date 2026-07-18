@@ -2,6 +2,7 @@
 import { useState, useEffect } from "react";
 import dynamic from "next/dynamic";
 import { createNews, updateNews } from "../../../actions/news-actions";
+import { getNewsCategories } from "../../../actions/news-category-actions";
 import { useRouter } from "next/navigation";
 
 const QuillEditor = dynamic(() => import("../../../components/QuillEditor"), { ssr: false });
@@ -38,6 +39,7 @@ export default function NewsForm({ initialData }: { initialData?: any }) {
   const [coverPreview, setCoverPreview] = useState<string>(initialData?.img || "");
   const [fileError, setFileError] = useState("");
   const [slugManuallyEdited, setSlugManuallyEdited] = useState(!!initialData?.slug);
+  const [newsCategories, setNewsCategories] = useState<any[]>([]);
   const [formData, setFormData] = useState({
     title: initialData?.title || "",
     slug: initialData?.slug || "",
@@ -57,6 +59,10 @@ export default function NewsForm({ initialData }: { initialData?: any }) {
       setFormData(prev => ({ ...prev, slug: clientSlugify(prev.title) }));
     }
   }, [formData.title, slugManuallyEdited]);
+
+  useEffect(() => {
+    getNewsCategories().then(setNewsCategories).catch(() => {});
+  }, []);
 
   const handleChange = (e: any) => {
     const { name, value } = e.target;
@@ -193,7 +199,12 @@ export default function NewsForm({ initialData }: { initialData?: any }) {
 
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-1">Chuyên mục</label>
-          <input required name="category" value={formData.category} onChange={handleChange} className="w-full px-4 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-earth-brown outline-none" />
+          <select required name="category" value={formData.category} onChange={handleChange} className="w-full px-4 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-earth-brown outline-none bg-white">
+            {newsCategories.length === 0 && <option>TIN TỨC THỊ TRƯỜNG</option>}
+            {newsCategories.map(c => (
+              <option key={c.id} value={c.name}>{c.name}</option>
+            ))}
+          </select>
         </div>
 
         <div>
