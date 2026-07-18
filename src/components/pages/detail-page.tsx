@@ -56,7 +56,7 @@ const RelatedProjectsRow = ({ title, projects }: { title: string, projects: any[
         {projects.map((p) => (
           <Link key={p.id} href={`/detail/${p.slug || p.id}`} className="group block bg-white border border-outline-variant/30 shadow-sm hover:shadow-lg transition-all overflow-hidden flex flex-col h-full">
             <div className="aspect-[4/3] overflow-hidden relative">
-              <img src={p.mainImg || "https://images.unsplash.com/photo-1613490908578-8120c16b5a32?w=800"} alt={p.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
+              <img src={p.mainImg || "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=800"} alt={p.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
               {p.price && (
                 <div className="absolute bottom-0 left-0 bg-antique-gold text-white font-bold px-3 py-1 text-sm">
                   {p.price}
@@ -79,7 +79,7 @@ const RelatedProjectsRow = ({ title, projects }: { title: string, projects: any[
 
 const villaImages = [
   {
-    src: "https://images.unsplash.com/photo-1613490908578-8120c16b5a32?w=800",
+    src: "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=800",
     alt: "Biệt thự Riverfront Serenity - Mặt tiền",
   },
   {
@@ -128,7 +128,7 @@ export function DetailPage({ project, agentInfo, relatedProjects }: DetailPagePr
   } else if (project.mainImg) {
     dynamicImages = [{ src: project.mainImg, alt: "Ảnh chính" }];
   } else {
-    dynamicImages = [{ src: "https://images.unsplash.com/photo-1613490908578-8120c16b5a32?w=800", alt: "Ảnh chính" }];
+    dynamicImages = [{ src: "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=800", alt: "Ảnh chính" }];
   }
 
   const dynamicSpecs = [

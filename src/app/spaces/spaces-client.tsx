@@ -36,7 +36,7 @@ const collectionsDataFallback: Collection[] = [
         subtitle: "Đường nét hiện đại hòa quyện với ánh sáng hoàng hôn ấm áp.",
         images: [
           "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=800&q=80",
-          "https://images.unsplash.com/photo-1613490908578-8120c16b5a32?auto=format&fit=crop&w=800&q=80",
+          "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=800&q=80",
           "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=800&q=80",
         ],
       },

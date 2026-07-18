@@ -83,7 +83,7 @@ export function FeaturedProjectsWidget() {
           <div key={project.id} className="flex gap-4 group cursor-pointer" onClick={() => router.push(`/detail/${project.slug || project.id}`)}>
             <div className="w-16 h-16 shrink-0 overflow-hidden">
               <img
-                src={project.mainImg || "https://images.unsplash.com/photo-1613490908578-8120c16b5a32?w=400"}
+                src={project.mainImg || "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=400"}
                 alt={project.title}
                 className="w-full h-full object-cover group-hover:scale-110 transition-transform"
               />
