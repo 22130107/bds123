@@ -50,8 +50,6 @@ export function TopNavBar({ activePage, onNavigate, categories: initialCategorie
     { label: "LIÊN HỆ", page: "contact" },
   ];
 
-  const groupSlugs = Array.from(new Set(categories.map(c => c.group_name))).map(g => generateSlug(g));
-
   return (
     <motion.header
       className="fixed top-0 w-full z-50 bg-earth-brown border-b border-white/20 shadow-sm"
@@ -104,16 +102,15 @@ export function TopNavBar({ activePage, onNavigate, categories: initialCategorie
           style={{ gap: "var(--nav-gap)" }}
         >
           {dynamicNavItems.map(({ label, page, subItems }) => {
-            const pageSlug = page.replace("danh-muc/", "");
             const isActive =
-              (activePage === "home" && page === "home" && label === "TRANG CHỦ") ||
-              (activePage === "projects" && label === "DỰ ÁN") ||
-              (activePage === "news" && label === "TIN TỨC") ||
-              (activePage === "contact" && label === "LIÊN HỆ") ||
+              (page === "home" && activePage === "home") ||
+              (page === "news" && (activePage === "news" || pathname?.startsWith("/news"))) ||
+              (page === "contact" && activePage === "contact") ||
               ((activePage === "danh-muc" || activePage === "detail") && (
-                subItems ? pathname?.includes(pageSlug) ||
-                  (!groupSlugs.some(s => pathname?.includes(s)) && pageSlug === groupSlugs[0])
-                : false
+                subItems
+                  ? pathname?.startsWith("/" + page) ||
+                    subItems.some(s => pathname?.startsWith("/" + s.page))
+                  : pathname?.startsWith("/" + page)
               ));
             return (
               <div key={label} className="relative group h-full flex items-center">
@@ -168,16 +165,15 @@ export function TopNavBar({ activePage, onNavigate, categories: initialCategorie
         {isOpen && (
           <div className="absolute top-[80px] left-0 w-full bg-white/95 backdrop-blur-md border-b-2 border-earth-brown shadow-lg flex flex-col py-6 px-8 gap-5 lg:hidden z-40 max-h-[80vh] overflow-y-auto">
             {dynamicNavItems.map(({ label, page, subItems }) => {
-              const pageSlugMob = page.replace("danh-muc/", "");
               const isActive =
-                (activePage === "home" && page === "home" && label === "TRANG CHỦ") ||
-                (activePage === "projects" && label === "DỰ ÁN") ||
-                (activePage === "news" && label === "TIN TỨC") ||
-                (activePage === "contact" && label === "LIÊN HỆ") ||
+                (page === "home" && activePage === "home") ||
+                (page === "news" && (activePage === "news" || pathname?.startsWith("/news"))) ||
+                (page === "contact" && activePage === "contact") ||
                 ((activePage === "danh-muc" || activePage === "detail") && (
-                  subItems ? pathname?.includes(pageSlugMob) ||
-                    (!groupSlugs.some(s => pathname?.includes(s)) && pageSlugMob === groupSlugs[0])
-                  : false
+                  subItems
+                    ? pathname?.startsWith("/" + page) ||
+                      subItems.some(s => pathname?.startsWith("/" + s.page))
+                    : pathname?.startsWith("/" + page)
                 ));
               return (
                 <div key={label} className="flex flex-col">
