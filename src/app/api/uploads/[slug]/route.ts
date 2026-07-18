@@ -27,6 +27,7 @@ export async function GET(request: Request, { params }: { params: Promise<{ slug
   else if (ext === 'gif') contentType = 'image/gif';
   else if (ext === 'svg') contentType = 'image/svg+xml';
   else if (ext === 'webp') contentType = 'image/webp';
+  else if (ext === 'avif') contentType = 'image/avif';
 
   return new NextResponse(file, {
     headers: {

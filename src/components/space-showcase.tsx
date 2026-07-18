@@ -57,7 +57,7 @@ const collectionsData: Collection[] = [
         images: [
           "https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=800&q=80",
           "https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&w=800&q=80",
-          "https://images.unsplash.com/photo-1583847268964-b28ce8f30f6c?auto=format&fit=crop&w=800&q=80",
+          "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&w=800&q=80",
         ],
         gridClass: "md:col-span-1 md:row-span-1",
       },
@@ -69,7 +69,7 @@ const collectionsData: Collection[] = [
         images: [
           "https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=800&q=80",
           "https://images.unsplash.com/photo-1620626011761-996317b8d101?auto=format&fit=crop&w=800&q=80",
-          "https://images.unsplash.com/photo-1507652313519-d4e9174296fb?auto=format&fit=crop&w=800&q=80",
+          "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80",
         ],
         gridClass: "md:col-span-1 md:row-span-1",
       },
